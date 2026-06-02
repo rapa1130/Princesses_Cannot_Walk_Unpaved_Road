@@ -1,16 +1,15 @@
 #pragma once
-#include <iostream>
 #include <string>
 
 #ifdef _DEBUG
 
-#define DEBUG_LOG(message) Debug::Log(message)
-#define DEBUG_WARNING(message) Debug::Warning(message)
-#define DEBUG_ERROR(message) Debug::Error(message)
+#define DEBUG_LOG(message) ::Bisang::Debug::Log(message)
+#define DEBUG_WARNING(message) ::Bisang::Debug::Warning(message)
+#define DEBUG_ERROR(message) ::Bisang::Debug::Error(message)
 
-#define DEBUG_LOG_LOCATION(message) Debug::LogWithLocation(message, __FILE__, __LINE__)
-#define DEBUG_WARNING_LOCATION(message) Debug::WarningWithLocation(message, __FILE__, __LINE__)
-#define DEBUG_ERROR_LOCATION(message) Debug::ErrorWithLocation(message, __FILE__, __LINE__)
+#define DEBUG_LOG_LOCATION(message) ::Bisang::Debug::LogWithLocation(message, __FILE__, __LINE__)
+#define DEBUG_WARNING_LOCATION(message) ::Bisang::Debug::WarningWithLocation(message, __FILE__, __LINE__)
+#define DEBUG_ERROR_LOCATION(message) ::Bisang::Debug::ErrorWithLocation(message, __FILE__, __LINE__)
 
 #else
 
@@ -27,104 +26,62 @@
 namespace Bisang
 {
      /**
-     * @brief ÄÜ¼Ö µğ¹ö±× Ãâ·ÂÀ» ´ã´çÇÏ´Â Å¬·¡½º
+     * @brief ì½˜ì†” ë””ë²„ê·¸ ì¶œë ¥ì„ ë‹´ë‹¹í•˜ëŠ” í´ë˜ìŠ¤
      *
      * @details
-     * ·Î±×, °æ°í, ¿¡·¯ ¸Ş½ÃÁö¸¦ ÄÜ¼Ö¿¡ Ãâ·ÂÇÑ´Ù.
-     * °³¹ß Áß µğ¹ö±ë ¸ñÀûÀ¸·Î »ç¿ëÇÏ¸ç, ºôµå ¼³Á¤¿¡ µû¶ó ºñÈ°¼ºÈ­ÇÒ ¼ö ÀÖ´Ù.
-     *
-     * @note
-     * Debug Å¬·¡½º´Â Á¤Àû ÇÔ¼ö¸¸ Á¦°øÇÏ¹Ç·Î °´Ã¼¸¦ »ı¼ºÇÏÁö ¾Ê´Â´Ù.
+     * ë¡œê·¸, ê²½ê³ , ì—ëŸ¬ ë©”ì‹œì§€ë¥¼ ì½˜ì†”ì— ì¶œë ¥í•œë‹¤.
+     * ê°œë°œ ì¤‘ ë””ë²„ê¹… ëª©ì ìœ¼ë¡œ ì‚¬ìš©í•˜ë©°, ë¹Œë“œ ì„¤ì •ì— ë”°ë¼ ë¹„í™œì„±í™”í•  ìˆ˜ ìˆë‹¤.
      */
     class Debug
     {
     public:
         /**
-         * @brief ÀÏ¹İ ·Î±× ¸Ş½ÃÁö¸¦ Ãâ·ÂÇÑ´Ù.
+         * @brief ì¼ë°˜ ë¡œê·¸ ë©”ì‹œì§€ë¥¼ ì¶œë ¥í•œë‹¤.
          *
-         * @param[in] message Ãâ·ÂÇÒ ·Î±× ¸Ş½ÃÁö
+         * @param[in] message ì¶œë ¥í•  ë¡œê·¸ ë©”ì‹œì§€
          */
-        static void Log(const std::string& message)
-        {
-#ifdef _DEBUG
-            std::cout << "[Log] " << message << std::endl;
-#endif
-        }
+        static void Log(const std::string& message);
 
         /**
-         * @brief °æ°í ¸Ş½ÃÁö¸¦ Ãâ·ÂÇÑ´Ù.
+         * @brief ê²½ê³  ë©”ì‹œì§€ë¥¼ ì¶œë ¥í•œë‹¤.
          *
-         * @param[in] message Ãâ·ÂÇÒ °æ°í ¸Ş½ÃÁö
+         * @param[in] message ì¶œë ¥í•  ê²½ê³  ë©”ì‹œì§€
          */
-        static void Warning(const std::string& message)
-        {
-#ifdef _DEBUG
-            std::cout << "[Warning] " << message << std::endl;
-#endif
-        }
+        static void Warning(const std::string& message);
 
         /**
-         * @brief ÆÄÀÏ¸í°ú ¶óÀÎ ¹øÈ£¸¦ Æ÷ÇÔÇÑ °æ°í ¸Ş½ÃÁö¸¦ Ãâ·ÂÇÑ´Ù.
+         * @brief íŒŒì¼ëª…ê³¼ ë¼ì¸ ë²ˆí˜¸ë¥¼ í¬í•¨í•œ ê²½ê³  ë©”ì‹œì§€ë¥¼ ì¶œë ¥í•œë‹¤.
          *
-         * @param[in] message Ãâ·ÂÇÒ °æ°í ¸Ş½ÃÁö
-         * @param[in] file °æ°í°¡ ¹ß»ıÇÑ ÆÄÀÏ¸í
-         * @param[in] line °æ°í°¡ ¹ß»ıÇÑ ¶óÀÎ ¹øÈ£
+         * @param[in] message ì¶œë ¥í•  ê²½ê³  ë©”ì‹œì§€
+         * @param[in] file ê²½ê³ ê°€ ë°œìƒí•œ íŒŒì¼ëª…
+         * @param[in] line ê²½ê³ ê°€ ë°œìƒí•œ ë¼ì¸ ë²ˆí˜¸
          */
-        static void WarningWithLocation(const std::string& message, const char* file, int line)
-        {
-#ifdef _DEBUG
-            std::cout << "[Warning] "
-                << message
-                << " (" << file << ":" << line << ")"
-                << std::endl;
-#endif
-        }
+        static void WarningWithLocation(const std::string& message, const char* file, int line);
 
         /**
-         * @brief ¿¡·¯ ¸Ş½ÃÁö¸¦ Ãâ·ÂÇÑ´Ù.
+         * @brief ì—ëŸ¬ ë©”ì‹œì§€ë¥¼ ì¶œë ¥í•œë‹¤.
          *
-         * @param[in] message Ãâ·ÂÇÒ ¿¡·¯ ¸Ş½ÃÁö
+         * @param[in] message ì¶œë ¥í•  ì—ëŸ¬ ë©”ì‹œì§€
          */
-        static void Error(const std::string& message)
-        {
-#ifdef _DEBUG
-            std::cerr << "[Error] " << message << std::endl;
-#endif
-        }
+        static void Error(const std::string& message);
 
         /**
-         * @brief ÆÄÀÏ¸í°ú ¶óÀÎ ¹øÈ£¸¦ Æ÷ÇÔÇÑ ·Î±×¸¦ Ãâ·ÂÇÑ´Ù.
+         * @brief íŒŒì¼ëª…ê³¼ ë¼ì¸ ë²ˆí˜¸ë¥¼ í¬í•¨í•œ ë¡œê·¸ë¥¼ ì¶œë ¥í•œë‹¤.
          *
-         * @param[in] message Ãâ·ÂÇÒ ¸Ş½ÃÁö
-         * @param[in] file ·Î±×°¡ ¹ß»ıÇÑ ÆÄÀÏ¸í
-         * @param[in] line ·Î±×°¡ ¹ß»ıÇÑ ¶óÀÎ ¹øÈ£
+         * @param[in] message ì¶œë ¥í•  ë©”ì‹œì§€
+         * @param[in] file ë¡œê·¸ê°€ ë°œìƒí•œ íŒŒì¼ëª…
+         * @param[in] line ë¡œê·¸ê°€ ë°œìƒí•œ ë¼ì¸ ë²ˆí˜¸
          */
-        static void LogWithLocation(const std::string& message, const char* file, int line)
-        {
-#ifdef _DEBUG
-            std::cout << "[Log] "
-                << message
-                << " (" << file << ":" << line << ")"
-                << std::endl;
-#endif
-        }
+        static void LogWithLocation(const std::string& message, const char* file, int line);
 
         /**
-         * @brief ÆÄÀÏ¸í°ú ¶óÀÎ ¹øÈ£¸¦ Æ÷ÇÔÇÑ ¿¡·¯ ·Î±×¸¦ Ãâ·ÂÇÑ´Ù.
+         * @brief íŒŒì¼ëª…ê³¼ ë¼ì¸ ë²ˆí˜¸ë¥¼ í¬í•¨í•œ ì—ëŸ¬ ë¡œê·¸ë¥¼ ì¶œë ¥í•œë‹¤.
          *
-         * @param[in] message Ãâ·ÂÇÒ ¿¡·¯ ¸Ş½ÃÁö
-         * @param[in] file ¿¡·¯°¡ ¹ß»ıÇÑ ÆÄÀÏ¸í
-         * @param[in] line ¿¡·¯°¡ ¹ß»ıÇÑ ¶óÀÎ ¹øÈ£
+         * @param[in] message ì¶œë ¥í•  ì—ëŸ¬ ë©”ì‹œì§€
+         * @param[in] file ì—ëŸ¬ê°€ ë°œìƒí•œ íŒŒì¼ëª…
+         * @param[in] line ì—ëŸ¬ê°€ ë°œìƒí•œ ë¼ì¸ ë²ˆí˜¸
          */
-        static void ErrorWithLocation(const std::string& message, const char* file, int line)
-        {
-#ifdef _DEBUG
-            std::cerr << "[Error] "
-                << message
-                << " (" << file << ":" << line << ")"
-                << std::endl;
-#endif
-        }
+        static void ErrorWithLocation(const std::string& message, const char* file, int line);
 
     private:
         Debug() = delete;
