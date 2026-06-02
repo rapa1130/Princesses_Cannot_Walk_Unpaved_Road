@@ -1,5 +1,6 @@
 #include <iostream>
 #include "GameApp.h"
+#include "Debug.h"
 
 int main()
 {
