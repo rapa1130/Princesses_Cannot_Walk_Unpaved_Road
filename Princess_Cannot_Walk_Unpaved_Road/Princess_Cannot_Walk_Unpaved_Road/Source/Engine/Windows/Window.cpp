@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "Engine/Input/InputManager.h"
 
 namespace Bisang
 {
@@ -37,6 +38,11 @@ namespace Bisang
                 SetWindowLongPtrW(hwnd, GWLP_USERDATA, 0);
                 break;
             }
+        }
+
+        if (window->m_inputManager != nullptr)
+        {
+            window->m_inputManager->ProcessMessage(msg, wparam, lparam);
         }
 
         return DefWindowProcW(hwnd, msg, wparam, lparam);
@@ -133,5 +139,11 @@ namespace Bisang
     {
         m_clientWidth = width;
         m_clientHeight = height;
+    }
+
+    void Window::SetInputManager(InputManager* inputManager)
+    {
+        if (inputManager == nullptr) return;
+        m_inputManager = inputManager;
     }
 }

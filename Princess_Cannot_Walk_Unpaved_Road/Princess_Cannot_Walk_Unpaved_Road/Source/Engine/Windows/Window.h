@@ -12,6 +12,8 @@
 
 namespace Bisang
 {
+    class InputManager;
+
     /**
      * @brief Win32 윈도우를 생성하고 관리하는 클래스
      */
@@ -41,6 +43,8 @@ namespace Bisang
         HWND GetHandle() const { return m_hWnd; }
         int GetWidth() const { return m_clientWidth; }
         int GetHeight() const { return m_clientHeight; }
+
+        void SetInputManager(InputManager* inputManager);
 
     protected:
         /**
@@ -77,5 +81,7 @@ namespace Bisang
         Window& operator=(const Window&) = delete;
         Window(Window&&) = delete;
         Window& operator=(Window&&) = delete;
+
+        InputManager* m_inputManager = nullptr;
     };
 }
