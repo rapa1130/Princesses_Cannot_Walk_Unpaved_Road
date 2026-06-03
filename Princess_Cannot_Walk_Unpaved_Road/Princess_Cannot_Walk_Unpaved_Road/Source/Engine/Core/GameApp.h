@@ -23,5 +23,6 @@ namespace Bisang
 
     private:
         std::unique_ptr<Window> m_window;
+        std::unique_ptr<InputManager> m_inputManager;
     };
 }

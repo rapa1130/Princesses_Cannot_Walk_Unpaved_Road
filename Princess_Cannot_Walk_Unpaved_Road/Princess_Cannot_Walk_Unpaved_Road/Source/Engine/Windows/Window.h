@@ -44,8 +44,6 @@ namespace Bisang
         int GetWidth() const { return m_clientWidth; }
         int GetHeight() const { return m_clientHeight; }
 
-        void SetInputManager(InputManager* inputManager);
-
     protected:
         /**
          * @brief Win32 윈도우 메시지를 처리한다.
@@ -81,7 +79,5 @@ namespace Bisang
         Window& operator=(const Window&) = delete;
         Window(Window&&) = delete;
         Window& operator=(Window&&) = delete;
-
-        InputManager* m_inputManager = nullptr;
     };
 }

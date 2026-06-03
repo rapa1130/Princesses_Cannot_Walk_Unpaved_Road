@@ -1,12 +1,22 @@
 #include "InputManager.h"
 #include <algorithm>
 #include <windowsx.h>
+#include "Engine/Core/Debug.h"
 
 namespace Bisang
 {
-	void InputManager::ProcessMessage(UINT msg, WPARAM wparam, LPARAM lparam)
+	void InputManager::ObserveInput(const MSG& msg)
 	{
-		switch (msg)
+		BeginFrame();
+		ProcessMessage(msg);
+	}
+
+	void InputManager::ProcessMessage(const MSG& msg)
+	{
+		LPARAM lparam = msg.lParam;
+		WPARAM wparam = msg.wParam;
+
+		switch (msg.message)
 		{
 		case WM_KEYDOWN:
 			m_keyDown[wparam] = true;

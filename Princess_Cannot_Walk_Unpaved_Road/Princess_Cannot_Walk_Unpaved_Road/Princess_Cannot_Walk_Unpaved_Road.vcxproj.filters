@@ -57,6 +57,9 @@
     <ClInclude Include="Source\Engine\Core\GameApp.h">
       <Filter>Source\Engine\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Engine\Input\InputManager.h">
+      <Filter>Source\Engine\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine\Core\Debug.cpp">
@@ -68,6 +71,9 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Source\Engine\Windows\Window.cpp">
       <Filter>Source\Engine\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Input\InputManager.cpp">
+      <Filter>Source\Engine\Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
