@@ -5,12 +5,6 @@
 
 namespace Bisang
 {
-	void InputManager::ObserveInput(const MSG& msg)
-	{
-		BeginFrame();
-		ProcessMessage(msg);
-	}
-
 	void InputManager::ProcessMessage(const MSG& msg)
 	{
 		LPARAM lparam = msg.lParam;
@@ -31,27 +25,27 @@ namespace Bisang
 			break;
 
 		case WM_LBUTTONDOWN:
-			m_mouseDown[0] = true;
+			m_mouseDown[static_cast<int>(MouseButton::Left)] = true;
 			break;
 
 		case WM_LBUTTONUP:
-			m_mouseDown[0] = false;
+			m_mouseDown[static_cast<int>(MouseButton::Left)] = false;
 			break;
 
 		case WM_RBUTTONDOWN:
-			m_mouseDown[1] = true;
+			m_mouseDown[static_cast<int>(MouseButton::Right)] = true;
 			break;
 
 		case WM_RBUTTONUP:
-			m_mouseDown[1] = false;
+			m_mouseDown[static_cast<int>(MouseButton::Right)] = false;
 			break;
 
 		case WM_MBUTTONDOWN:
-			m_mouseDown[2] = true;
+			m_mouseDown[static_cast<int>(MouseButton::Middle)] = true;
 			break;
 
 		case WM_MBUTTONUP:
-			m_mouseDown[2] = false;
+			m_mouseDown[static_cast<int>(MouseButton::Middle)] = false;
 			break;
 		}
 	}
@@ -62,34 +56,38 @@ namespace Bisang
 		std::copy(std::begin(m_mouseDown), std::end(m_mouseDown), std::begin(m_prevMouseDown));
 	}
 
-	bool InputManager::IsKeyDown(int key) const
+	bool InputManager::IsKeyDown(KeyCode key) const
 	{
-		return m_keyDown[key];
+		return m_keyDown[static_cast<int>(key)];
 	}
 
-	bool InputManager::IsKeyPressed(int key) const
+	bool InputManager::IsKeyPressed(KeyCode key) const
 	{
-		return m_keyDown[key] && !m_prevKeyDown[key];
+		const int index = static_cast<int>(key);
+		return m_keyDown[index] && !m_prevKeyDown[index];
 	}
 
-	bool InputManager::IsKeyReleased(int key) const
+	bool InputManager::IsKeyReleased(KeyCode key) const
 	{
-		return !m_keyDown[key] && m_prevKeyDown[key];
+		const int index = static_cast<int>(key);
+		return !m_keyDown[index] && m_prevKeyDown[index];
 	}
 
-	bool InputManager::IsMouseDown(int button) const
+	bool InputManager::IsMouseDown(MouseButton button) const
 	{
-		return m_mouseDown[button];
+		return m_mouseDown[static_cast<int>(button)];
 	}
 
-	bool InputManager::IsMousePressed(int button) const
+	bool InputManager::IsMousePressed(MouseButton button) const
 	{
-		return m_mouseDown[button] && !m_prevMouseDown[button];
+		const int index = static_cast<int>(button);
+		return m_mouseDown[index] && !m_prevMouseDown[index];
 	}
 
-	bool InputManager::IsMouseReleased(int button) const
+	bool InputManager::IsMouseReleased(MouseButton button) const
 	{
-		return !m_mouseDown[button] && m_prevMouseDown[button];
+		const int index = static_cast<int>(button);
+		return !m_mouseDown[index] && m_prevMouseDown[index];
 	}
 
 	const MousePos& InputManager::GetMousePos() const
