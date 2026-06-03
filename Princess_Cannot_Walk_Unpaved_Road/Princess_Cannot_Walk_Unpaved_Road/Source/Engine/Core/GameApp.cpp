@@ -2,6 +2,7 @@
 #include "Engine/Core/Debug.h"
 #include "Engine/Windows/Window.h"
 #include "Engine/Input/InputManager.h"
+#include "Engine/Renderer/Renderer.h"
 
 #include <iostream>
 
@@ -9,7 +10,8 @@ namespace Bisang
 {
     GameApp::GameApp()
         : m_window(std::make_unique<Window>()),
-          m_inputManager(std::make_unique<InputManager>())
+          m_inputManager(std::make_unique<InputManager>()),
+          m_renderer(std::make_unique<Renderer>())
     {
     }
 
@@ -19,6 +21,15 @@ namespace Bisang
     {
         // 윈도우 생성
         if (false == (m_window->Create(L"GameApp", L"Princess_Cannot_Walk_Unpaved_Road", 1000, 1000)))
+        {
+            return false;
+        }
+
+        if (false == m_renderer->Initialize(
+            m_window->GetHandle(),
+            m_window->GetWidth(), 
+            m_window->GetHeight())
+            )
         {
             return false;
         }
@@ -50,10 +61,18 @@ namespace Bisang
                 DispatchMessageW(&msg);
             }
 
+            Render();
+
         }
     }
 
     void GameApp::Finalize()
     {
+
+    }
+
+    void GameApp::Render()
+    {
+        m_renderer->RenderFrame();
     }
 }
