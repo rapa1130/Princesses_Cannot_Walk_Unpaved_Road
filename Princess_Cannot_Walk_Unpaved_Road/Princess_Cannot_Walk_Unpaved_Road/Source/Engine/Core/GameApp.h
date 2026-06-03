@@ -7,6 +7,7 @@ namespace Bisang
     class SceneManager;
     class ResourceManager;
     class InputManager;
+    class Renderer;
 
     class GameApp
     {
@@ -24,5 +25,8 @@ namespace Bisang
     private:
         std::unique_ptr<Window> m_window;
         std::unique_ptr<InputManager> m_inputManager;
+        std::unique_ptr<Renderer> m_renderer;
+
+    private:
     };
 }
