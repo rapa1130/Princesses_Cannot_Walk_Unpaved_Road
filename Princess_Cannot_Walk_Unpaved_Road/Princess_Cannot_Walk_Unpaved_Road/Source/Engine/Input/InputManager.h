@@ -1,5 +1,6 @@
 #pragma once
 #include <Windows.h>
+#include "Engine/input/InputCode.h"
 
 namespace Bisang
 {
@@ -20,14 +21,6 @@ namespace Bisang
     class InputManager
     {
     public:
-
-        /**
-         * @brief 입력 메시지를 관찰하여 입력 상태를 갱신한다.
-         *
-         * @param[in] msg 처리할 Win32 메시지
-         */
-        void ObserveInput(const MSG& msg);
-
         /**
          * @brief 새로운 프레임 시작 시 이전 입력 상태를 저장한다.
          *
@@ -53,7 +46,7 @@ namespace Bisang
          *
          * @return 키가 눌려있으면 true, 아니면 false
          */
-        bool IsKeyDown(int key) const;
+        bool IsKeyDown(KeyCode key) const;
 
         /**
          * @brief 지정한 키가 이번 프레임에 눌렸는지 확인한다.
@@ -62,7 +55,7 @@ namespace Bisang
          *
          * @return 이번 프레임에 눌렸으면 true, 아니면 false
          */
-        bool IsKeyPressed(int key) const;
+        bool IsKeyPressed(KeyCode key) const;
 
         /**
          * @brief 지정한 키가 이번 프레임에 떼어졌는지 확인한다.
@@ -71,7 +64,7 @@ namespace Bisang
          *
          * @return 이번 프레임에 떼어졌으면 true, 아니면 false
          */
-        bool IsKeyReleased(int key) const;
+        bool IsKeyReleased(KeyCode key) const;
 
         /**
          * @brief 지정한 마우스 버튼이 현재 눌려있는지 확인한다.
@@ -80,7 +73,7 @@ namespace Bisang
          *
          * @return 버튼이 눌려있으면 true, 아니면 false
          */
-        bool IsMouseDown(int button) const;
+        bool IsMouseDown(MouseButton button) const;
 
         /**
          * @brief 지정한 마우스 버튼이 이번 프레임에 눌렸는지 확인한다.
@@ -89,7 +82,7 @@ namespace Bisang
          *
          * @return 이번 프레임에 눌렸으면 true, 아니면 false
          */
-        bool IsMousePressed(int button) const;
+        bool IsMousePressed(MouseButton button) const;
 
         /**
          * @brief 지정한 마우스 버튼이 이번 프레임에 떼어졌는지 확인한다.
@@ -98,7 +91,8 @@ namespace Bisang
          *
          * @return 이번 프레임에 떼어졌으면 true, 아니면 false
          */
-        bool IsMouseReleased(int button) const;
+        
+        bool IsMouseReleased(MouseButton button) const;
 
         /**
          * @brief 현재 마우스 커서 위치를 반환한다.
@@ -106,6 +100,8 @@ namespace Bisang
          * @return 현재 마우스 위치 정보
          */
         const MousePos& GetMousePos() const;
+
+        
 
     private:
         /// 현재 키 입력 상태

@@ -22,8 +22,6 @@ namespace Bisang
         {
             return false;
         }
-        // 인풋 매니저 윈도우 입력 감지 시작
-        /*m_window->SetInputManager(m_inputManager.get());*/
 
         return true;
     }
@@ -32,6 +30,9 @@ namespace Bisang
     {
         while (true)
         {
+            // 인풋 프레임 시작 처리
+            m_inputManager->BeginFrame();
+
             // 메세지 펌핑
             MSG msg = {};
             while (PeekMessageW(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -42,13 +43,13 @@ namespace Bisang
                 // 인풋 기록
                 if (m_inputManager != nullptr)
                 {
-                    m_inputManager->ObserveInput(msg);
-                  
+                    m_inputManager->ProcessMessage(msg);
                 }
 
                 TranslateMessage(&msg);
                 DispatchMessageW(&msg);
             }
+
         }
     }
 
