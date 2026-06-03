@@ -12,6 +12,8 @@
 
 namespace Bisang
 {
+    class InputManager;
+
     /**
      * @brief Win32 윈도우를 생성하고 관리하는 클래스
      */

@@ -1,4 +1,6 @@
 #include "Window.h"
+#include "Engine/Input/InputManager.h"
+#include "Engine/Core/Debug.h"
 
 namespace Bisang
 {
@@ -15,6 +17,7 @@ namespace Bisang
             SetWindowLongPtrW(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(window));
             window->m_hWnd = hwnd;
         }
+
 
         if (window != nullptr)
         {
@@ -37,6 +40,7 @@ namespace Bisang
                 SetWindowLongPtrW(hwnd, GWLP_USERDATA, 0);
                 break;
             }
+
         }
 
         return DefWindowProcW(hwnd, msg, wparam, lparam);
