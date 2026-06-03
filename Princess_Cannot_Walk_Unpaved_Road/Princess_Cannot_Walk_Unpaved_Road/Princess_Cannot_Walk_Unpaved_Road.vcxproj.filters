@@ -63,6 +63,9 @@
     <ClInclude Include="Source\Engine\Input\InputCode.h">
       <Filter>Source\Engine\Input</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Engine\Resource\ResourceManager.h">
+      <Filter>Source\Engine\Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine\Core\Debug.cpp">
@@ -77,6 +80,12 @@
     </ClCompile>
     <ClCompile Include="Source\Engine\Input\InputManager.cpp">
       <Filter>Source\Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Resource\ResourceManager.cpp">
+      <Filter>Source\Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="IResource.cpp">
+      <Filter>Source\Engine\Resource</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
