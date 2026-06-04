@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 
 namespace Bisang
@@ -6,6 +7,7 @@ namespace Bisang
     {
     public:
         virtual ~IResource() = default;
-        virtual bool LoadFromFile(const std::wstring& path) = 0;
+
+        //virtual bool LoadFromFile(const std::wstring& path) = 0;
     };
 }

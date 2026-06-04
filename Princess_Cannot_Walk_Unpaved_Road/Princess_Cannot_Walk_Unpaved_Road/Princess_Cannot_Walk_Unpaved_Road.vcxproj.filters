@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Source\Engine\Resource\IResource.cpp" />
+    <ClCompile Include="Source\Engine\Resource\IResource.h" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Source\Engine\Core\Debug.cpp" />
     <ClCompile Include="Source\Engine\Core\GameApp.cpp" />
@@ -26,6 +26,7 @@
     <ClCompile Include="Source\Engine\Components\Collider\CircleCollider.cpp" />
     <ClCompile Include="Source\Engine\Physics\Collision.cpp" />
     <ClCompile Include="Source\Engine\Math\Math.h" />
+    <ClCompile Include="Source\Engine\Resource\TextureResource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -38,7 +39,6 @@
     <ClInclude Include="Source\Engine\Renderer\IRenderable.h" />
     <ClInclude Include="Source\Engine\Renderer\D2DBitmapInfo.h" />
     <ClInclude Include="Source\Engine\Renderer\DxHeaders.h" />
-    <ClInclude Include="Source\Engine\Renderer\WICInitializer.h" />
     <ClInclude Include="Source\Engine\Scene\SceneManager.h" />
     <ClInclude Include="Source\Engine\Scene\Scene.h" />
     <ClInclude Include="Source\Engine\Object\GameObject.h" />
@@ -51,5 +51,7 @@
     <ClInclude Include="Source\Engine\Components\Collider\CircleCollider.h" />
     <ClInclude Include="Source\Engine\Components\Collider\BoxCollider.h" />
     <ClInclude Include="Source\Engine\Physics\Collision.h" />
+    <ClInclude Include="Source\Engine\Resource\WICInitializer.h" />
+    <ClInclude Include="Source\Engine\Resource\TextureResource.h" />
   </ItemGroup>
 </Project>

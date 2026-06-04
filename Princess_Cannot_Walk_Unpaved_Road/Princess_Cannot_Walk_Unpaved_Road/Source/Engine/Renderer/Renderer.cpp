@@ -4,6 +4,7 @@
 #include"Engine/Core/GameApp.h"
 #include"Engine/Scene/SceneManager.h"
 #include"Engine/Scene/Scene.h"
+#include"Engine/Core/Debug.h"
 
 
 namespace Bisang
@@ -168,8 +169,11 @@ namespace Bisang
 
         for (const RenderCommand& command : m_renderCommands)
         {
-            switch (command.type.hash_code())
+            switch (command.type)
             {
+            case RenderCommandType::Sprite:
+                RenderSprite(command);
+                break;
 
             default:
                 break;
@@ -187,7 +191,48 @@ namespace Bisang
 
     void Renderer::RenderSprite(const RenderCommand& command)
     {
+        TextureResource* texture =
+            command.GetResourceAs<TextureResource>();
 
+        if (texture == nullptr)
+        {
+            DEBUG_ERROR_LOCATION("Texture Resource is Nullptr");
+            return;
+        }
+
+        ID2D1Bitmap1* bitmap = texture->GetBitmap();
+
+        if (bitmap == nullptr)
+        {
+            DEBUG_ERROR_LOCATION("ID2D1Bitamp is Nullptr");
+            return;
+        }
+
+        D2D1_SIZE_F size = bitmap->GetSize();
+
+        D2D1_RECT_F destRect = D2D1::RectF(
+            command.position.x,
+            command.position.y,
+            command.position.x + size.width,
+            command.position.y + size.height
+        );
+
+        m_d2dContext->DrawBitmap(bitmap, destRect);
+    }
+
+    std::shared_ptr<TextureResource> Renderer::LoadTexture(
+        const std::wstring& path
+    )
+    {
+        if (m_resourceManager == nullptr || m_d2dContext == nullptr)
+        {
+            return nullptr;
+        }
+
+        return m_resourceManager->LoadTexture(
+            path,
+            m_d2dContext.Get()
+        );
     }
 
 
