@@ -82,22 +82,31 @@ namespace Bisang
         static_assert(std::is_base_of_v<IResource, T>,
             "T must inherit from IResource");
 
+        // 리소스 클래스 타입으로 1차 조회
         auto type = std::type_index(typeid(T));
         auto& resourceMap = m_resources[type];
 
+        // 리소스 파일 경로로 2차 조회
         auto iter = resourceMap.find(path);
+
+        // 리소스 파일 포인터를 생성한 적이 있다면 / 이미 있다면
         if (iter != resourceMap.end())
         {
+            // 있던 리소스 파일을 SharedPointer로 복제해서 리턴
             return std::static_pointer_cast<T>(iter->second);
         }
 
+        // 리로스 파일 포인터를 생성한 적이 없다면
+        // SharedPinter 생성
         auto resource = std::make_shared<T>();
 
+        // 리소스 로드 확인
         if (!resource->LoadFromFile(path))
         {
             return nullptr;
         }
 
+        // 리소스 저장
         resourceMap[path] = resource;
         return resource;
     }
@@ -105,9 +114,11 @@ namespace Bisang
     template<typename T>
     std::shared_ptr<T> ResourceManager::Get(const std::wstring& path)
     {
+        // 리소스 클래스가 아닌 다른 클래스로 조회를 시도 했을 때
         static_assert(std::is_base_of_v<IResource, T>,
             "T must inherit from IResource");
 
+        // 리소스 클래스 타입으로 1차 조회
         auto type = std::type_index(typeid(T));
         auto typeIter = m_resources.find(type);
 
@@ -116,6 +127,7 @@ namespace Bisang
             return nullptr;
         }
 
+        // 리소스 파일 경로로 2차 조회
         auto& resourceMap = typeIter->second;
         auto iter = resourceMap.find(path);
 
