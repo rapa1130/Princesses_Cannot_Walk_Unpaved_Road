@@ -3,6 +3,7 @@
 #include "Engine/Windows/Window.h"
 #include "Engine/Input/InputManager.h"
 #include "Engine/Renderer/Renderer.h"
+#include "Engine/Resource/ResourceManager.h"
 
 #include <iostream>
 

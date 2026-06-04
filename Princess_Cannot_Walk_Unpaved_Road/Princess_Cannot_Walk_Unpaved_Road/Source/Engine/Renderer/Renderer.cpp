@@ -149,6 +149,8 @@ namespace Bisang
         // 화면에 출력
         m_swapChain->Present(1, 0);
     }
+
+
 }
 
 
