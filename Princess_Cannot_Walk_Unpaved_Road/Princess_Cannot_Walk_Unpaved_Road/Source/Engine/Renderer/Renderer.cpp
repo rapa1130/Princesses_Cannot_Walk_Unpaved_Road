@@ -6,7 +6,6 @@
 #include"Engine/Scene/Scene.h"
 #include"Engine/Core/Debug.h"
 
-
 namespace Bisang
 {
 
@@ -209,12 +208,13 @@ namespace Bisang
         }
 
         D2D1_SIZE_F size = bitmap->GetSize();
+        
 
         D2D1_RECT_F destRect = D2D1::RectF(
             command.position.x,
             command.position.y,
-            command.position.x + size.width,
-            command.position.y + size.height
+            command.position.x + command.size.x,
+            command.position.y + command.size.y
         );
 
         m_d2dContext->DrawBitmap(bitmap, destRect);

@@ -56,11 +56,8 @@ namespace Bisang
 		virtual void DrawCall(Renderer* renderer) override
 		{
 			RenderCommand command;
-			command.orderInLayer = this->m_orderInLayer;
 
-			//추가 필요
-			//command.positon = this->position;
-			//command.resource = this->m_resource;
+			command.orderInLayer = this->m_orderInLayer;
 
 			renderer->Submit(command);
 		}

@@ -24,15 +24,17 @@ namespace Bisang
 	{
 		// 리소스 세팅
 		m_sprite = std::shared_ptr<TextureResource>(sprite);
+		m_width = sprite->GetBitmap()->GetSize().width;
+		m_height = sprite->GetBitmap()->GetSize().height;
 	}
 
 	void SpriteRenderer::DrawCall(Renderer* renderer)
 	{
-		__super::DrawCall(renderer);
-
 		RenderCommand rc;
+
+		rc.orderInLayer = GetOrderInLayer();
 		rc.position = m_transform->GetPosition();
-		rc.size = m_transform->GetScale();
+		rc.size = Vector2(GetWidth(), GetHeight());
 		rc.resource = m_sprite.get();
 		rc.type = RenderCommandType::Sprite;
 		rc.alpha = 1.0f;
