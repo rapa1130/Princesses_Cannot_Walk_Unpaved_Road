@@ -28,9 +28,11 @@ namespace Bisang
 		 * @param[in] resourceManager 府家胶 包府磊
 		 * @param[in] inputManager 涝仿 包府磊
 		 */
+
 		SceneManager(ResourceManager* resourceManager, InputManager* inputManager,Renderer* renderer) :
 			m_resourceManager(resourceManager), m_inputManager(inputManager),m_renderer(renderer)
 		{
+
 		}
 
 		/**

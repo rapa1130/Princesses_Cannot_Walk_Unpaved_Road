@@ -21,6 +21,7 @@ namespace Bisang
         DxBitmapInfo(Microsoft::WRL::ComPtr<ID2D1Bitmap1> bitmap)
             : m_bitmap(bitmap)
         {
+
         }
 
     private:

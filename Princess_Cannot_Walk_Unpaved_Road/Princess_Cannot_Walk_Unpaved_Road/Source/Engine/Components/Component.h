@@ -55,7 +55,16 @@ namespace Bisang
 
 		virtual void DrawCall(Renderer* renderer) override
 		{
-			renderer->Sumbit();
+			RenderCommand command;
+			command.orderInLayer = this->m_orderInLayer;
+			
+			
+			//추가 필요
+			//command.positon = this->position;
+			//command.resource = this->m_resource;
+			//command.type = typeid(Texture);
+
+			renderer->Submit(command);
 		}
 
 		int GetOrderInLayer() const { return m_orderInLayer; }

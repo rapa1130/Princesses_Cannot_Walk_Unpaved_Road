@@ -149,10 +149,48 @@ namespace Bisang
 
         m_d2dContext->Clear(m_BgColor);
         scene->Render(this);
+        RenderAllCommands();
         m_d2dContext->EndDraw();
 
         m_swapChain->Present(1, 0);
     }
+
+    void Renderer::RenderAllCommands()
+    {
+        std::sort(
+            m_renderCommands.begin(),
+            m_renderCommands.end(),
+            [](const RenderCommand& a, const RenderCommand& b)
+            {
+                return a.orderInLayer < b.orderInLayer;
+            }
+        );
+
+        for (const RenderCommand& command : m_renderCommands)
+        {
+            switch (command.type.hash_code())
+            {
+
+            default:
+                break;
+            }
+        }
+
+        m_renderCommands.clear();
+    }
+
+    void Renderer::Submit(const RenderCommand& command)
+    {
+        m_renderCommands.push_back(command);
+    }
+
+
+    void Renderer::RenderSprite(const RenderCommand& command)
+    {
+
+    }
+
+
 
 
 
