@@ -20,7 +20,7 @@ namespace Bisang
 		return m_height * m_transform->GetScale().y;
 	}
 
-	void SpriteRenderer::SetSprite(Sprite* sprite)
+	void SpriteRenderer::SetSprite(TextureResource* sprite)
 	{
 		// 리소스 세팅
 		m_sprite = sprite;
@@ -28,6 +28,13 @@ namespace Bisang
 
 	void SpriteRenderer::DrawCall(Renderer* renderer)
 	{
-		// 렌더러에 드로우콜
+		__super::DrawCall(renderer);
+
+		RenderCommand rc;
+		rc.position = m_transform->GetPosition();
+		rc.resource = m_sprite;
+		rc.type = RenderCommandType::Sprite;
+
+		renderer->Submit(rc);
 	}
 }
