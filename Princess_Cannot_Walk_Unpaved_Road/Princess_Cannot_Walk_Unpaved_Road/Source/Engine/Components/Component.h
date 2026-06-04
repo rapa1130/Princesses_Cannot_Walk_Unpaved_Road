@@ -34,16 +34,16 @@ namespace Bisang
 	protected:
 		std::type_index m_typeIndex = typeid(Component);
 
-		Scene* m_scene = nullptr;           // ì†Œì† ì”¬
-		GameObject* m_ownerObj = nullptr;   // ì£¼ì¸ ì˜¤ë¸Œì íŠ¸
+		Scene* m_scene = nullptr;           // ¼Ò¼Ó ¾À
+		GameObject* m_ownerObj = nullptr;   // ÁÖÀÎ ¿ÀºêÁ§Æ®
 
-		bool m_isEnabled = true;    // ì—…ë°ì´íŠ¸ ì‹¤í–‰ ì—¬ë¶€
-		bool m_isStarted = false;   // Start() ì‹¤í–‰ ì—¬ë¶€
+		bool m_isEnabled = true;    // ¾÷µ¥ÀÌÆ® ½ÇÇà ¿©ºÎ
+		bool m_isStarted = false;   // Start() ½ÇÇà ¿©ºÎ
 	};
 
 
 	//*************************************************
-	// ë Œë”ë§ ì»´í¬ë„ŒíŠ¸
+	// ·»´õ¸µ ÄÄÆ÷³ÍÆ®
 	//************************************************* 
 
 	class RenderableComponent : public Component, public IRenderable
@@ -57,12 +57,10 @@ namespace Bisang
 		{
 			RenderCommand command;
 			command.orderInLayer = this->m_orderInLayer;
-			
-			
+
 			//Ãß°¡ ÇÊ¿ä
 			//command.positon = this->position;
 			//command.resource = this->m_resource;
-			//command.type = typeid(Texture);
 
 			renderer->Submit(command);
 		}
@@ -73,7 +71,7 @@ namespace Bisang
 		void SetIsVisible(bool on) { m_isVisible = on; }
 
 	private:
-		int m_orderInLayer = 0;    // ë Œë”ë§ ìˆœì„œ (ì‘ì„ ìˆ˜ë¡ ë¹¨ë¦¬ ë Œë”ë§)
-		bool m_isVisible = true;   // ë Œë”ë§ ì—¬ë¶€
+		int m_orderInLayer = 0;   // ·»´õ¸µ ¼ø¼­ (ÀÛÀ» ¼ö·Ï »¡¸® ·»´õ¸µ)
+		bool m_isVisible = true;   // ·»´õ¸µ ¿©ºÎ
 	};
 }
