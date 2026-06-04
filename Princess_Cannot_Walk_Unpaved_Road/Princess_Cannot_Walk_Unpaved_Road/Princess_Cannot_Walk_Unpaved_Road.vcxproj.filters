@@ -63,6 +63,8 @@
     <ClInclude Include="Source\Engine\Input\InputCode.h">
       <Filter>Source\Engine\Input</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Engine\Resource\ResourceManager.h">
+      <Filter>Source\Engine\Resource</Filter>
     <ClInclude Include="Source\Engine\Renderer\Renderer.h">
       <Filter>Source\Engine\Renderer</Filter>
     </ClInclude>
@@ -81,6 +83,11 @@
     <ClCompile Include="Source\Engine\Input\InputManager.cpp">
       <Filter>Source\Engine\Input</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Engine\Resource\ResourceManager.cpp">
+      <Filter>Source\Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="IResource.cpp">
+      <Filter>Source\Engine\Resource</Filter>
     <ClCompile Include="Source\Engine\Renderer\Renderer.cpp">
       <Filter>Source\Engine\Renderer</Filter>
     </ClCompile>

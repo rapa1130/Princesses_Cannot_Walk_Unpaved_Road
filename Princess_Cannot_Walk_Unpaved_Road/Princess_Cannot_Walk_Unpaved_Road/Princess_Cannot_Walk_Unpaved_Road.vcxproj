@@ -21,16 +21,19 @@
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
     <ClInclude Include="Source\Engine\Input\InputManager.h" />
+    <ClInclude Include="Source\Engine\Resource\ResourceManager.h" />
     <ClInclude Include="Source\Engine\Renderer\Renderer.h" />
     <ClInclude Include="Source\Engine\Windows\Window.h" />
     <ClInclude Include="Source\Engine\Core\Debug.h" />
     <ClInclude Include="Source\Engine\Core\GameApp.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="IResource.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Source\Engine\Core\Debug.cpp" />
     <ClCompile Include="Source\Engine\Core\GameApp.cpp" />
     <ClCompile Include="Source\Engine\Input\InputManager.cpp" />
+    <ClCompile Include="Source\Engine\Resource\ResourceManager.cpp" />
     <ClCompile Include="Source\Engine\Renderer\Renderer.cpp" />
     <ClCompile Include="Source\Engine\Windows\Window.cpp" />
   </ItemGroup>
