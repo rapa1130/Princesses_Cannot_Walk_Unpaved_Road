@@ -29,5 +29,12 @@ namespace Bisang
 		{
 			m_scene->RemoveRenderableComponent(rComp);
 		}
+
+		// 소유중인 콜라이더 컴포넌트 씬에 등록 해제
+		Collider* collider = GetComponent<Collider>();
+		if (collider)
+		{
+			m_scene->RemoveCollider(collider);
+		}
 	}
 }
