@@ -22,20 +22,30 @@ namespace Bisang
 	class ResourceManager;
 
 
+	enum class RenderCommandType
+	{
+		None,
+		Sprite,
+		Text,
+		Line,
+		Rectangle
+	};
+
 	struct RenderCommand
 	{
-		RenderCommand()
-			:type(typeid(void)),
-			 resource(nullptr),
-			orderInLayer(0),
-			position()
-		{
 
-		}
-		std::type_index type;
-		IResource* resource;
-		int orderInLayer;
+		//std::type_index type;
+
+		RenderCommandType type = RenderCommandType::None;
+		IResource* resource = nullptr;
+		int orderInLayer = orderInLayer;
 		Vector2 position;
+
+		template<typename T>
+		T* GetResourceAs() const
+		{
+			return dynamic_cast<T*>(resource);
+		}
 	};
 
 	class Renderer
@@ -49,6 +59,15 @@ namespace Bisang
 		void RenderAllCommands();
 		void Submit(const RenderCommand& command);
 		void RenderSprite(const RenderCommand& command);
+
+		std::shared_ptr<TextureResource> LoadTexture(
+			const std::wstring& path
+		);
+
+		ID2D1DeviceContext4* GetD2DContext() const
+		{
+			return m_d2dContext.Get();
+		}
 
 	protected:
 

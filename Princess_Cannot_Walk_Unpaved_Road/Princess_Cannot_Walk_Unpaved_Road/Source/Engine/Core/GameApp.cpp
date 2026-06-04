@@ -32,6 +32,12 @@ namespace Bisang
             return false;
         }
 
+        //리소스 매니저 초기화
+        if (false == m_resourceManager->Initialize())
+        {
+            return false;
+        }
+
         // 렌더러 초기화
         if (false == m_renderer->Initialize(
             m_window->GetHandle(),
