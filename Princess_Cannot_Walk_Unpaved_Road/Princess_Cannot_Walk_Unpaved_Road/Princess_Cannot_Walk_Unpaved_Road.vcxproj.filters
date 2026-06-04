@@ -15,6 +15,7 @@
     <ClCompile Include="Source\Engine\Components\Component.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
     <ClCompile Include="Source\Engine\Core\GameTimer.cpp" />
+    <ClCompile Include="Source\Engine\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -34,5 +35,7 @@
     <ClInclude Include="Source\Engine\Components\Component.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Engine\Core\GameTimer.h" />
+    <ClInclude Include="Source\Engine\Components\Transform.h" />
+    <ClInclude Include="Source\Engine\Math\Vector2.h" />
   </ItemGroup>
 </Project>
