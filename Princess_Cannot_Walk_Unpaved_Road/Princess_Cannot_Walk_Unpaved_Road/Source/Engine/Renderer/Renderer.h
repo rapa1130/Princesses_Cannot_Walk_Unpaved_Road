@@ -4,6 +4,9 @@
 #include<vector>
 #include"IRenderable.h"
 #include"Engine/Resource/ResourceManager.h"
+#include <typeindex>
+#include <type_traits>
+
 //
 // @brief D2D 렌더링 Wrapper 클래스
 //
@@ -20,7 +23,7 @@ namespace Bisang
 	template<typename T>
 	struct RenderCommand
 	{
-		int std::type_index;
+		std::type_index type;
 		IResource resource;
 		int orderInLayer;
 	};
