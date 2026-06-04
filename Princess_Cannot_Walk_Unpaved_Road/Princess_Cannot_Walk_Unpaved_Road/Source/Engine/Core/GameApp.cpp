@@ -1,5 +1,6 @@
 #include "GameApp.h"
 #include "Engine/Core/Debug.h"
+#include "Engine/Core/GameTimer.h"
 #include "Engine/Windows/Window.h"
 #include "Engine/Input/InputManager.h"
 #include "Engine/Resource/ResourceManager.h"
@@ -12,7 +13,8 @@
 namespace Bisang
 {
     GameApp::GameApp()
-        : m_window(std::make_unique<Window>()),
+        : m_gameTimer(std::make_unique<GameTimer>()),
+          m_window(std::make_unique<Window>()),
           m_inputManager(std::make_unique<InputManager>()),
           m_resourceManager(std::make_unique<ResourceManager>()),
           m_renderer(std::make_unique<Renderer>()),
@@ -43,6 +45,9 @@ namespace Bisang
         // 씬 매니저 설정
         m_sceneManager->AddScene<SampleScene>("SampleScene");
         m_sceneManager->SetStartScene("SampleScene");
+
+        // 타이머 초기화 ( 초기화 마지막 단계에 두는 것이 좋음 )
+        m_gameTimer->Reset();
 
         return true;
     }
@@ -85,9 +90,19 @@ namespace Bisang
 
     void GameApp::Update()
     {
-        // 타이머 추가 예정
-        m_sceneManager->Update(0.1f);
-        m_sceneManager->FixedUpdate();
+        // 델타 타임 계산 및 저장
+        m_gameTimer->Tick();
+        m_deltaTime = m_gameTimer->DeltaTime();
+
+        // 가변 프레임 로직
+        m_sceneManager->Update(m_deltaTime);
+
+        // 고정 프레임 로직
+        while (m_deltaTimeAccumulator >= m_fixedDeltaTime)
+        {
+            m_sceneManager->FixedUpdate();
+            m_deltaTimeAccumulator -= m_fixedDeltaTime;
+        }
     }
 
     void GameApp::Render()

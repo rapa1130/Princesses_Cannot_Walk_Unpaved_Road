@@ -51,7 +51,6 @@ namespace Bisang
         /**
          * @brief 씬 진입 시 초기화 작업을 수행한다.
          *
-         * 씬에 필요한 게임 오브젝트를 생성하고
          * 초기 상태를 설정한다.
          */
         virtual void Initialize() = 0;
