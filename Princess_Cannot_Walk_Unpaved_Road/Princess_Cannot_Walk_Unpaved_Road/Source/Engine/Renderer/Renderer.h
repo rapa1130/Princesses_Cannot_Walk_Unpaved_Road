@@ -1,7 +1,9 @@
 #pragma once
 
 #include"DxHeaders.h"
-
+#include<vector>
+#include"IRenderable.h"
+#include"Engine/Resource/ResourceManager.h"
 //
 // @brief D2D 렌더링 Wrapper 클래스
 //
@@ -9,13 +11,32 @@
 // 외부에 렌더링 기능을 제공
 
 
+
 namespace Bisang
 {
+	class Scene;
+	class ResourceManager;
+
+	template<typename T>
+	struct RenderCommand
+	{
+		int std::type_index;
+		IResource resource;
+		int orderInLayer;
+	};
+
 	class Renderer
 	{
 	public:
 		bool Initialize(HWND hwnd, int width, int height);
-		void RenderFrame();
+		void RenderScene(Scene* scene);
+		void Sumbit();
+
+	protected:
+
+	protected:
+		D2D1::ColorF m_BgColor = D2D1::ColorF::White;
+		std::vector<IRenderable*> m_Rendarables;
 
 	protected:
 		// D3D11

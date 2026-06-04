@@ -13,6 +13,7 @@ namespace Bisang
 	class ResourceManager;
 	class InputManager;
 	class GameObject;
+    class Renderer;
 
 	class Scene
 	{
@@ -101,7 +102,7 @@ namespace Bisang
         /**
          * @brief 모든 렌더링 컴포넌트를 렌더링한다.
          */
-        void Render();
+        void Render(Renderer* renderer);
 
         /**
          * @brief 씬 이름을 반환한다.
@@ -172,10 +173,13 @@ namespace Bisang
          */
         void RemoveRenderableComponent(RenderableComponent* component);
 
+        std::vector<RenderableComponent*> GetRenderableComponentes() const;
+
 	protected:
 		std::string m_sceneName = "";                   // 씬이름
 		ResourceManager* m_resourceManager = nullptr;   // 리소스 매니저
 		InputManager* m_inputManager = nullptr;         // 인풋 매니저
+        
 
 		//*************************************************
 		// 게임 오브젝트 관리

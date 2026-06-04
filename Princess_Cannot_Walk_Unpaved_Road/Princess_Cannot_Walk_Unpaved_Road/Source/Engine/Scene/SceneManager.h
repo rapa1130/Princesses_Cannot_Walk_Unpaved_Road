@@ -11,6 +11,7 @@ namespace Bisang
 {
 	class ResourceManager;
 	class InputManager;
+	class Renderer;
 
 	/**
 	 * @brief 씬을 생성 및 관리하는 클래스
@@ -27,8 +28,8 @@ namespace Bisang
 		 * @param[in] resourceManager 리소스 관리자
 		 * @param[in] inputManager 입력 관리자
 		 */
-		SceneManager(ResourceManager* resourceManager, InputManager* inputManager) :
-			m_resourceManager(resourceManager), m_inputManager(inputManager)
+		SceneManager(ResourceManager* resourceManager, InputManager* inputManager,Renderer* renderer) :
+			m_resourceManager(resourceManager), m_inputManager(inputManager),m_renderer(renderer)
 		{
 		}
 
@@ -117,6 +118,9 @@ namespace Bisang
 		 */
 		void Render();
 
+
+		Scene* GetCureentScene() const;
+
 	private:
 		std::unordered_map<std::string, std::unique_ptr<Scene>> m_scenes;
 
@@ -125,5 +129,6 @@ namespace Bisang
 
 		ResourceManager* m_resourceManager = nullptr;
 		InputManager* m_inputManager = nullptr;
+		Renderer* m_renderer = nullptr;
 	};
 }

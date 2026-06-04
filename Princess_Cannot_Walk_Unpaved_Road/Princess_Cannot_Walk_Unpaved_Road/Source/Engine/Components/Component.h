@@ -1,5 +1,7 @@
 #pragma once
 #include <typeindex>
+#include"Engine/Renderer/IRenderable.h"
+#include"Engine/Renderer/Renderer.h"
 
 namespace Bisang
 {
@@ -21,7 +23,6 @@ namespace Bisang
 		virtual void Update(float dT) {}
 		virtual void FixedUpdate() {}
 
-		virtual void Render() {}
 
 		bool GetIsEnabled() { return m_isEnabled; }
 		void SetIsEnabled(bool b) { m_isEnabled = b; }
@@ -46,11 +47,16 @@ namespace Bisang
 	// ·»´õ¸µ ÄÄÆ÷³ÍÆ®
 	//************************************************* 
 
-	class RenderableComponent : public Component
+	class RenderableComponent : public Component, public IRenderable
 	{
 	public:
 		RenderableComponent(GameObject* Owner, Scene* scene) : Component(Owner, scene) {}
 		virtual ~RenderableComponent() = default;
+
+		virtual void DrawCall(Renderer* renderer) override
+		{
+			renderer->Sumbit();
+		}
 
 		int GetOrderInLayer() const { return m_orderInLayer; }
 		void SetOrderInLayer(int order) { m_orderInLayer = order; }

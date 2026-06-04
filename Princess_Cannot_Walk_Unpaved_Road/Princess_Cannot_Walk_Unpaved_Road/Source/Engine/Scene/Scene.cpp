@@ -75,7 +75,7 @@ namespace Bisang
 	// 렌더링
 	//************************************************* 
 
-	void Scene::Render()
+	void Scene::Render(Renderer* renderer)
 	{
 		// 렌더링 컴포넌트 순회 ( 정렬되어있음 )
 		for (RenderableComponent* rComp : m_renderableComponents)
@@ -83,7 +83,7 @@ namespace Bisang
 			// 렌더링 비활성화 시
 			if (false == rComp->GetIsVisible()) continue;
 
-			rComp->Render();
+			rComp->DrawCall(renderer);
 		}
 	}
 
