@@ -1,95 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source">
-      <UniqueIdentifier>{a75c95fa-1c59-4301-8b1d-8c1a49237fda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Engine">
-      <UniqueIdentifier>{9a79917f-6b32-4115-8f37-7fbb46799d6d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Game">
-      <UniqueIdentifier>{f8e90d2d-57a4-4160-b5f2-1a241ed34045}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Engine\Components">
-      <UniqueIdentifier>{2741701f-3ab0-4122-be59-1de6c17c293d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Engine\Core">
-      <UniqueIdentifier>{e80fd8fd-f684-4915-a5ed-b0cde200ee63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Engine\Input">
-      <UniqueIdentifier>{21c1ebad-3ec1-4498-96f7-73bbf56bbd31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Engine\Math">
-      <UniqueIdentifier>{8f106afd-176f-463e-8e2d-9ea1e05c9ecf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Engine\Object">
-      <UniqueIdentifier>{292a654f-d40a-4636-a24e-a2df081832fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Engine\Renderer">
-      <UniqueIdentifier>{43a567aa-02f6-4d42-9c26-94e4dd0c2739}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Engine\Resource">
-      <UniqueIdentifier>{dbbac2a1-cbe2-453e-a971-9b7e0a42a999}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Engine\Scene">
-      <UniqueIdentifier>{1f43ea17-2968-4344-a6db-80a473f12b30}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Engine\Windows">
-      <UniqueIdentifier>{262ceb1b-55d3-4177-bba8-72f8cf732f81}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Game\Components">
-      <UniqueIdentifier>{344f12b2-532e-4803-b1d7-bc27af80771b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Game\Prefabs">
-      <UniqueIdentifier>{995d1ea7-2b6d-4dbe-899c-6aaf2b0948cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Game\Scenes">
-      <UniqueIdentifier>{71ef8354-2bb4-4066-82a2-4fb57ad67f14}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\Engine\Windows\Window.h">
-      <Filter>Source\Engine\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Core\Debug.h">
-      <Filter>Source\Engine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Core\GameApp.h">
-      <Filter>Source\Engine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Input\InputManager.h">
-      <Filter>Source\Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Input\InputCode.h">
-      <Filter>Source\Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine\Resource\ResourceManager.h">
-      <Filter>Source\Engine\Resource</Filter>
-    <ClInclude Include="Source\Engine\Renderer\Renderer.h">
-      <Filter>Source\Engine\Renderer</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Source\Engine\Core\Debug.cpp">
-      <Filter>Source\Engine\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Core\GameApp.cpp">
-      <Filter>Source\Engine\Core</Filter>
-    </ClCompile>
+    <ClCompile Include="IResource.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Source\Engine\Windows\Window.cpp">
-      <Filter>Source\Engine\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Input\InputManager.cpp">
-      <Filter>Source\Engine\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine\Resource\ResourceManager.cpp">
-      <Filter>Source\Engine\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="IResource.cpp">
-      <Filter>Source\Engine\Resource</Filter>
-    <ClCompile Include="Source\Engine\Renderer\Renderer.cpp">
-      <Filter>Source\Engine\Renderer</Filter>
-    </ClCompile>
+    <ClCompile Include="Source\Engine\Core\Debug.cpp" />
+    <ClCompile Include="Source\Engine\Core\GameApp.cpp" />
+    <ClCompile Include="Source\Engine\Input\InputManager.cpp" />
+    <ClCompile Include="Source\Engine\Resource\ResourceManager.cpp" />
+    <ClCompile Include="Source\Engine\Renderer\Renderer.cpp" />
+    <ClCompile Include="Source\Engine\Windows\Window.cpp" />
+    <ClCompile Include="Source\Engine\Scene\SceneManager.cpp" />
+    <ClCompile Include="Source\Engine\Object\GameObject.cpp" />
+    <ClCompile Include="Source\Engine\Scene\Scene.cpp" />
+    <ClCompile Include="Source\Engine\Components\Component.cpp" />
+    <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Engine\Input\InputCode.h" />
+    <ClInclude Include="Source\Engine\Input\InputManager.h" />
+    <ClInclude Include="Source\Engine\Resource\ResourceManager.h" />
+    <ClInclude Include="Source\Engine\Renderer\Renderer.h" />
+    <ClInclude Include="Source\Engine\Windows\Window.h" />
+    <ClInclude Include="Source\Engine\Core\Debug.h" />
+    <ClInclude Include="Source\Engine\Core\GameApp.h" />
+    <ClInclude Include="Source\Engine\Scene\SceneManager.h" />
+    <ClInclude Include="Source\Engine\Scene\Scene.h" />
+    <ClInclude Include="Source\Engine\Object\GameObject.h" />
+    <ClInclude Include="Source\Engine\Components\Component.h" />
+    <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
   </ItemGroup>
 </Project>
