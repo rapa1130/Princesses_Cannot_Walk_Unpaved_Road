@@ -11,7 +11,7 @@ namespace Bisang
 
     bool Renderer::Initialize( HWND hwnd, int width, int height)
     {
-        //1. D3D11 µğ¹ÙÀÌ½º »ı¼º
+        //1. D3D11 ë””ë°”ì´ìŠ¤ ìƒì„±
         D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_0 };
         ComPtr<ID3D11Device> d3dDevice;
         ComPtr<ID3D11DeviceContext> d3dContext;
@@ -32,20 +32,20 @@ namespace Bisang
 
 
 
-        //DXGI µğ¹ÙÀÌ½º (¾î´ğÅÍ/°øÀ¯¸®¼Ò½º °ü¸®¿ë)
+        //DXGI ë””ë°”ì´ìŠ¤ (ì–´ëŒ‘í„°/ê³µìœ ë¦¬ì†ŒìŠ¤ ê´€ë¦¬ìš©)
         ComPtr<IDXGIDevice> dxgiDevice;
         hr = d3dDevice.As(&dxgiDevice);
         if (FAILED(hr)) return false;
 
 
 
-        //½ÇÁ¦ GPU ¾î´ğÅÍ (NVIDIA, AMD µî)
+        //ì‹¤ì œ GPU ì–´ëŒ‘í„° (NVIDIA, AMD ë“±)
         ComPtr<IDXGIAdapter> dxgiAdapter;
         hr = dxgiDevice->GetAdapter(&dxgiAdapter);
         if (FAILED(hr)) return false;
 
 
-        //DXGI ÆÑÅä¸® (½º¿ÒÃ¼ÀÎ »ı¼ºÀ» ÇÏ±â À§ÇØ ÇÊ¿ä)
+        //DXGI íŒ©í† ë¦¬ (ìŠ¤ì™‘ì²´ì¸ ìƒì„±ì„ í•˜ê¸° ìœ„í•´ í•„ìš”)
         ComPtr<IDXGIFactory2> dxgiFactory;
         hr = dxgiAdapter->GetParent(IID_PPV_ARGS(&dxgiFactory));
         if (FAILED(hr)) return false;
@@ -53,9 +53,9 @@ namespace Bisang
 
         DXGI_SWAP_CHAIN_DESC1 scDesc = {};
         scDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-        scDesc.SampleDesc.Count = 1; //Flip-¸ğµ¨Àº ´ÙÁß »ùÇÃ ¹é¹öÆÛ¸¦ Á÷Á¢ Áö¿øÇÏÁöX -> ¹İµå½Ã 1
+        scDesc.SampleDesc.Count = 1; //Flip-ëª¨ë¸ì€ ë‹¤ì¤‘ ìƒ˜í”Œ ë°±ë²„í¼ë¥¼ ì§ì ‘ ì§€ì›í•˜ì§€X -> ë°˜ë“œì‹œ 1
         scDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-        scDesc.BufferCount = 2; // ´õºí ¹öÆÛ(Back + Front)
+        scDesc.BufferCount = 2; // ë”ë¸” ë²„í¼(Back + Front)
         scDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
         scDesc.Scaling = DXGI_SCALING_STRETCH;
 
@@ -67,7 +67,7 @@ namespace Bisang
         if (FAILED(hr)) return false;
 
 
-        // 3. ID2D1Factory4 »ı¼º
+        // 3. ID2D1Factory4 ìƒì„±
         D2D1_FACTORY_OPTIONS opts = {};
         ComPtr<ID2D1Factory4> d2dFactory;
 
@@ -79,7 +79,7 @@ namespace Bisang
         if (FAILED(hr)) return false;
 
 
-        // 4. ID2D1Device4 »ı¼º
+        // 4. ID2D1Device4 ìƒì„±
         ComPtr<ID2D1Device> baseDevice;
         hr = d2dFactory->CreateDevice(dxgiDevice.Get(), &baseDevice);
         if (FAILED(hr)) return false;
@@ -89,13 +89,13 @@ namespace Bisang
         if (FAILED(hr)) return false;
 
 
-        // 5. ID2D1DeviceContext4 »ı¼º
+        // 5. ID2D1DeviceContext4 ìƒì„±
         ComPtr<ID2D1DeviceContext4> d2dContext;
         hr = d2dDevice->CreateDeviceContext(D2D1_DEVICE_CONTEXT_OPTIONS_NONE, &d2dContext);
         if (FAILED(hr)) return false;
 
 
-        // 6. SwapChain ¹é¹öÆÛ -> D2D Bitmap1 À» »ı¼ºÇÏ¿© ·»´õ Å¸°ÙÀ¸·Î ¼³Á¤
+        // 6. SwapChain ë°±ë²„í¼ -> D2D Bitmap1 ì„ ìƒì„±í•˜ì—¬ ë Œë” íƒ€ê²Ÿìœ¼ë¡œ ì„¤ì •
 
         ComPtr<IDXGISurface> dxgiSurface;
         hr = swapChain->GetBuffer(0, IID_PPV_ARGS(&dxgiSurface));
@@ -111,18 +111,18 @@ namespace Bisang
         hr = d2dContext->CreateBitmapFromDxgiSurface(dxgiSurface.Get(), &bitmapProps, targetBitmap.GetAddressOf());
         if (FAILED(hr)) return false;
 
-        // ·»´õ Å¸°Ù ¼³Á¤
+        // ë Œë” íƒ€ê²Ÿ ì„¤ì •
         d2dContext->SetTarget(targetBitmap.Get());
 
 
 
-        // 7. ±âº» ºê·¯½Ã »ı¼º
+        // 7. ê¸°ë³¸ ë¸ŒëŸ¬ì‹œ ìƒì„±
         ComPtr<ID2D1SolidColorBrush> brush;
         hr = d2dContext->CreateSolidColorBrush(
             D2D1::ColorF(D2D1::ColorF::Tomato), &brush);
         if (FAILED(hr)) return false;
 
-        // 8. ¸â¹ö·Î ÀúÀå
+        // 8. ë©¤ë²„ë¡œ ì €ì¥
         m_d3dDevice = d3dDevice;
         m_d3dContext = d3dContext;
         m_swapChain = swapChain;
