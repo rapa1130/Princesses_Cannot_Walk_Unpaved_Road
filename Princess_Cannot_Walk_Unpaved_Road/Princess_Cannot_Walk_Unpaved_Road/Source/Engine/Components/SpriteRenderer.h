@@ -11,7 +11,7 @@ namespace Bisang
 	public:
 		SpriteRenderer(GameObject* ownerObj, Scene* scene);
 
-		void DrawCall() override;
+		void DrawCall(Renderer* renderer) override;
 
 		void SetSprite(Sprite* sprite);
 

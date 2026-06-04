@@ -178,7 +178,7 @@ namespace Bisang
          */
         void RemoveRenderableComponent(RenderableComponent* component);
 
-         * @brief 콜라이더 컴포넌트를 등록한다.
+         /** @brief 콜라이더 컴포넌트를 등록한다.
          *
          * 이미 등록된 컴포넌트는 중복 등록되지 않는다.
          *

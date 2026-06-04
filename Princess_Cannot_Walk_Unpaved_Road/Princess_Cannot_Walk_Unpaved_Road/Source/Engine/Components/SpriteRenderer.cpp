@@ -26,7 +26,7 @@ namespace Bisang
 		m_sprite = sprite;
 	}
 
-	void SpriteRenderer::DrawCall()
+	void SpriteRenderer::DrawCall(Renderer* renderer)
 	{
 		// 렌더러에 드로우콜
 	}

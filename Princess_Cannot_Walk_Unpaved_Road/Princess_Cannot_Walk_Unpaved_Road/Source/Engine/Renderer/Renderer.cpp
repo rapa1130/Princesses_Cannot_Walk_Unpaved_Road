@@ -154,6 +154,10 @@ namespace Bisang
         m_swapChain->Present(1, 0);
     }
 
+    void Renderer::Sumbit()
+    {
+    }
+
 
 
 
