@@ -20,9 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Components\Component.h" />
+    <ClInclude Include="Source\Engine\Components\Transform.h" />
+    <ClInclude Include="Source\Engine\Core\GameTimer.h" />
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
     <ClInclude Include="Source\Engine\Input\InputManager.h" />
-    <ClInclude Include="Source\Engine\Resource\D2DBitmapInfo.h" />
+    <ClInclude Include="Source\Engine\Math\Vector2.h" />
+    <ClInclude Include="Source\Engine\Renderer\D2DBitmapInfo.h" />
     <ClInclude Include="Source\Engine\Renderer\DxHeaders.h" />
     <ClInclude Include="Source\Engine\Renderer\IRenderable.h" />
     <ClInclude Include="Source\Engine\Resource\WICInitializer.h" />
@@ -47,7 +50,9 @@
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IResource.cpp" />
+    <ClCompile Include="Source\Engine\Components\Transform.cpp" />
+    <ClCompile Include="Source\Engine\Core\GameTimer.cpp" />
+    <ClCompile Include="Source\Engine\Resource\IResource.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Source\Engine\Components\Component.cpp" />
     <ClCompile Include="Source\Engine\Core\Debug.cpp" />

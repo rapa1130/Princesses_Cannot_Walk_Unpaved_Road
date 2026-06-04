@@ -1,11 +1,12 @@
 #include "GameObject.h"
+#include "Engine/Components/Transform.h"
 
 namespace Bisang
 {
 	GameObject::GameObject(Scene* scene) : m_scene(scene)
 	{
 		// 게임 오브젝트는 트랜스폼 필수 보유
-		// AddComponent<Transform>();
+		AddComponent<Transform>();
 	}
 
 	GameObject::~GameObject()
