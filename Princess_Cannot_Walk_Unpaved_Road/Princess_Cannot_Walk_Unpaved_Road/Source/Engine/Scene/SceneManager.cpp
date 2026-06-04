@@ -47,6 +47,10 @@ namespace Bisang
 	void SceneManager::Render()
 	{
 		if (!m_currentScene) return;
-		m_currentScene->Render();
+		m_currentScene->Render(m_renderer);
+	}
+	Scene* SceneManager::GetCureentScene() const
+	{
+		return m_currentScene;
 	}
 }

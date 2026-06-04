@@ -1,11 +1,16 @@
 #include "Renderer.h"
+#include<algorithm>
+#include"Engine/Components/Component.h"
+#include"Engine/Core/GameApp.h"
+#include"Engine/Scene/SceneManager.h"
+#include"Engine/Scene/Scene.h"
 
 
 namespace Bisang
 {
-	bool Renderer::Initialize(HWND hwnd, int width, int height)
-	{
 
+    bool Renderer::Initialize( HWND hwnd, int width, int height)
+    {
         //1. D3D11 디바이스 생성
         D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_0 };
         ComPtr<ID3D11Device> d3dDevice;
@@ -129,28 +134,32 @@ namespace Bisang
 
         return true;
 
-	}
+    }
 
-    void Renderer::RenderFrame()
+
+
+
+
+    void Renderer::RenderScene(Scene* scene)
     {
         if (!m_d2dContext || !m_swapChain)
             return;
 
         m_d2dContext->BeginDraw();
 
-        // 배경 클리어
-        m_d2dContext->Clear(D2D1::ColorF(D2D1::ColorF::SpringGreen));
-
-        // 사각형 그리기 예시
-        m_d2dContext->FillRectangle(D2D1::RectF(300, 200, 500, 400), m_brush.Get());
-
+        m_d2dContext->Clear(m_BgColor);
+        scene->Render(this);
         m_d2dContext->EndDraw();
 
-        // 화면에 출력
         m_swapChain->Present(1, 0);
     }
 
 
+
+
+    
+    
 }
+
 
 

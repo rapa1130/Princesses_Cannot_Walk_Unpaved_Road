@@ -15,8 +15,8 @@ namespace Bisang
         : m_window(std::make_unique<Window>()),
           m_inputManager(std::make_unique<InputManager>()),
           m_resourceManager(std::make_unique<ResourceManager>()),
-          m_renderer(std::make_unique<Renderer>()),
-          m_sceneManager(std::make_unique<SceneManager>(m_resourceManager.get(), m_inputManager.get()))
+          m_renderer (std::make_unique<Renderer>()),
+          m_sceneManager(std::make_unique<SceneManager>(m_resourceManager.get(), m_inputManager.get(),m_renderer.get()))
     {
     }
 
@@ -92,6 +92,7 @@ namespace Bisang
 
     void GameApp::Render()
     {
-        m_renderer->RenderFrame();
+        Scene* currentScene = m_sceneManager->GetCureentScene();
+        m_renderer->RenderScene(currentScene);
     }
 }
