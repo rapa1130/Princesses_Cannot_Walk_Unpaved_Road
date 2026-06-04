@@ -38,8 +38,10 @@ namespace Bisang
 
 		RenderCommandType type = RenderCommandType::None;
 		IResource* resource = nullptr;
-		int orderInLayer = orderInLayer;
+		int orderInLayer = 0;
 		Vector2 position;
+		Vector2 size;
+		float alpha = 1.0f;
 
 		template<typename T>
 		T* GetResourceAs() const
@@ -60,9 +62,9 @@ namespace Bisang
 		void Submit(const RenderCommand& command);
 		void RenderSprite(const RenderCommand& command);
 
-		std::shared_ptr<TextureResource> LoadTexture(
-			const std::wstring& path
-		);
+		//std::shared_ptr<TextureResource> LoadTexture(
+		//	const std::wstring& path
+		//);
 
 		ID2D1DeviceContext4* GetD2DContext() const
 		{

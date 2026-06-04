@@ -1,11 +1,19 @@
 #include "ResourceManager.h"
 
-
+#include"Engine/Core/Debug.h"
 
 namespace Bisang
 {
-    bool ResourceManager::Initialize()
+    bool ResourceManager::Initialize(ID2D1DeviceContext4* d2dContext)
     {
+        if (d2dContext == nullptr)
+        {
+            DEBUG_ERROR("d2dContext is Nullptr");
+            return false;
+        }
+
+        m_d2dContext = d2dContext;
+
         HRESULT hr = CoCreateInstance(
             CLSID_WICImagingFactory,
             nullptr,
@@ -18,12 +26,13 @@ namespace Bisang
             return false;
         }
 
+
+
         return true;
     }
 
     std::shared_ptr<TextureResource> ResourceManager::LoadTexture(
-        const std::wstring& path,
-        ID2D1DeviceContext4* d2dContext
+        const std::wstring& path
     )
     {
         if (auto cached = FindCached<TextureResource>(path))
@@ -36,7 +45,7 @@ namespace Bisang
         if (!resource->LoadFromFile(
             path,
             m_wicFactory.Get(),
-            d2dContext
+            m_d2dContext
         ))
         {
             return nullptr;

@@ -220,20 +220,20 @@ namespace Bisang
         m_d2dContext->DrawBitmap(bitmap, destRect);
     }
 
-    std::shared_ptr<TextureResource> Renderer::LoadTexture(
-        const std::wstring& path
-    )
-    {
-        if (m_resourceManager == nullptr || m_d2dContext == nullptr)
-        {
-            return nullptr;
-        }
+    //std::shared_ptr<TextureResource> Renderer::LoadTexture(
+    //    const std::wstring& path
+    //)
+    //{
+    //    if (m_resourceManager == nullptr || m_d2dContext == nullptr)
+    //    {
+    //        return nullptr;
+    //    }
 
-        return m_resourceManager->LoadTexture(
-            path,
-            m_d2dContext.Get()
-        );
-    }
+    //    return m_resourceManager->LoadTexture(
+    //        path,
+    //        m_d2dContext.Get()
+    //    );
+    //}
 
 
 
