@@ -23,6 +23,10 @@
     <ClInclude Include="Source\Engine\Windows\Window.h" />
     <ClInclude Include="Source\Engine\Core\Debug.h" />
     <ClInclude Include="Source\Engine\Core\GameApp.h" />
+    <ClInclude Include="Source\Engine\Renderer\IRenderable.h" />
+    <ClInclude Include="Source\Engine\Renderer\D2DBitmapInfo.h" />
+    <ClInclude Include="Source\Engine\Renderer\DxHeaders.h" />
+    <ClInclude Include="Source\Engine\Renderer\WICInitializer.h" />
     <ClInclude Include="Source\Engine\Scene\SceneManager.h" />
     <ClInclude Include="Source\Engine\Scene\Scene.h" />
     <ClInclude Include="Source\Engine\Object\GameObject.h" />

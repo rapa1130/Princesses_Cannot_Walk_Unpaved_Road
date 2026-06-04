@@ -22,6 +22,10 @@
     <ClInclude Include="Source\Engine\Components\Component.h" />
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
     <ClInclude Include="Source\Engine\Input\InputManager.h" />
+    <ClInclude Include="Source\Engine\Renderer\D2DBitmapInfo.h" />
+    <ClInclude Include="Source\Engine\Renderer\DxHeaders.h" />
+    <ClInclude Include="Source\Engine\Renderer\IRenderable.h" />
+    <ClInclude Include="Source\Engine\Renderer\WICInitializer.h" />
     <ClInclude Include="Source\Engine\Object\GameObject.h" />
     <ClInclude Include="Source\Engine\Resource\ResourceManager.h" />
     <ClInclude Include="Source\Engine\Renderer\Renderer.h" />
