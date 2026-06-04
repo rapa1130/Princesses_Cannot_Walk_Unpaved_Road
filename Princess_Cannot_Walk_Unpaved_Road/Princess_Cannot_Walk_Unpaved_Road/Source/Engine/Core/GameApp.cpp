@@ -11,6 +11,7 @@ namespace Bisang
     GameApp::GameApp()
         : m_window(std::make_unique<Window>()),
           m_inputManager(std::make_unique<InputManager>()),
+          m_resourceManager(std::make_unique<ResourceManager>()),
           m_renderer(std::make_unique<Renderer>())
     {
     }
