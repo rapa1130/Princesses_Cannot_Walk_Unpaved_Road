@@ -2,8 +2,10 @@
 #include "Engine/Core/Debug.h"
 #include "Engine/Windows/Window.h"
 #include "Engine/Input/InputManager.h"
-#include "Engine/Renderer/Renderer.h"
 #include "Engine/Resource/ResourceManager.h"
+#include "Engine/Renderer/Renderer.h"
+#include "Engine/Scene/SceneManager.h"
+#include "Game/Scenes/SampleScene.h"
 
 #include <iostream>
 
@@ -13,7 +15,8 @@ namespace Bisang
         : m_window(std::make_unique<Window>()),
           m_inputManager(std::make_unique<InputManager>()),
           m_resourceManager(std::make_unique<ResourceManager>()),
-          m_renderer(std::make_unique<Renderer>())
+          m_renderer(std::make_unique<Renderer>()),
+          m_sceneManager(std::make_unique<SceneManager>(m_resourceManager.get(), m_inputManager.get()))
     {
     }
 
@@ -21,12 +24,13 @@ namespace Bisang
 
     bool GameApp::Initialize()
     {
-        // À©µµ¿ì »ý¼º
+        // ìœˆë„ìš° ìƒì„±
         if (false == (m_window->Create(L"GameApp", L"Princess_Cannot_Walk_Unpaved_Road", 1000, 1000)))
         {
             return false;
         }
 
+        // ë Œë”ëŸ¬ ì´ˆê¸°í™”
         if (false == m_renderer->Initialize(
             m_window->GetHandle(),
             m_window->GetWidth(), 
@@ -36,24 +40,30 @@ namespace Bisang
             return false;
         }
 
+        // ì”¬ ë§¤ë‹ˆì € ì„¤ì •
+        m_sceneManager->AddScene<SampleScene>("SampleScene");
+        m_sceneManager->SetStartScene("SampleScene");
+
         return true;
     }
 
     void GameApp::Run()
     {
+        m_sceneManager->InitCurrentScene();
+
         while (true)
         {
-            // ÀÎÇ² ÇÁ·¹ÀÓ ½ÃÀÛ Ã³¸®
+            // ì¸í’‹ í”„ë ˆìž„ ì‹œìž‘ ì²˜ë¦¬
             m_inputManager->BeginFrame();
 
-            // ¸Þ¼¼Áö ÆßÇÎ
+            // ë©”ì„¸ì§€ íŽŒí•‘
             MSG msg = {};
             while (PeekMessageW(&msg, nullptr, 0, 0, PM_REMOVE))
             {
                 if (msg.message == WM_QUIT)
                     return;
 
-                // ÀÎÇ² ±â·Ï
+                // ì¸í’‹ ê¸°ë¡
                 if (m_inputManager != nullptr)
                 {
                     m_inputManager->ProcessMessage(msg);
@@ -63,14 +73,21 @@ namespace Bisang
                 DispatchMessageW(&msg);
             }
 
+            Update();
             Render();
-
         }
     }
 
     void GameApp::Finalize()
     {
 
+    }
+
+    void GameApp::Update()
+    {
+        // íƒ€ì´ë¨¸ ì¶”ê°€ ì˜ˆì •
+        m_sceneManager->Update(0.1f);
+        m_sceneManager->FixedUpdate();
     }
 
     void GameApp::Render()

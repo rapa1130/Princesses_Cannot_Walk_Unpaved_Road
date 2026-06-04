@@ -9,6 +9,11 @@
     <ClCompile Include="Source\Engine\Resource\ResourceManager.cpp" />
     <ClCompile Include="Source\Engine\Renderer\Renderer.cpp" />
     <ClCompile Include="Source\Engine\Windows\Window.cpp" />
+    <ClCompile Include="Source\Engine\Scene\SceneManager.cpp" />
+    <ClCompile Include="Source\Engine\Object\GameObject.cpp" />
+    <ClCompile Include="Source\Engine\Scene\Scene.cpp" />
+    <ClCompile Include="Source\Engine\Components\Component.cpp" />
+    <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -22,5 +27,10 @@
     <ClInclude Include="Source\Engine\Renderer\D2DBitmapInfo.h" />
     <ClInclude Include="Source\Engine\Renderer\DxHeaders.h" />
     <ClInclude Include="Source\Engine\Renderer\WICInitializer.h" />
+    <ClInclude Include="Source\Engine\Scene\SceneManager.h" />
+    <ClInclude Include="Source\Engine\Scene\Scene.h" />
+    <ClInclude Include="Source\Engine\Object\GameObject.h" />
+    <ClInclude Include="Source\Engine\Components\Component.h" />
+    <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
   </ItemGroup>
 </Project>
