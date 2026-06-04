@@ -1,15 +1,19 @@
 #pragma once
 
 #include <unordered_map>
+#include <unordered_set>
 #include <queue>
 #include <memory>
 #include <string>
 #include <cstdint>
 #include <vector>
+#include <cstddef>
+#include <functional>
 
 namespace Bisang
 {
 	class RenderableComponent;
+    class Collider;
 	class ResourceManager;
 	class InputManager;
 	class GameObject;
@@ -118,6 +122,7 @@ namespace Bisang
          * @return 생성된 게임 오브젝트
          */
         GameObject* CreateGameObject();
+        GameObject* CreateGameObject(std::string name);
 
         /**
          * @brief ID로 게임 오브젝트를 조회한다.
@@ -172,6 +177,27 @@ namespace Bisang
          */
         void RemoveRenderableComponent(RenderableComponent* component);
 
+        /**
+         * @brief 콜라이더 컴포넌트를 등록한다.
+         *
+         * 이미 등록된 컴포넌트는 중복 등록되지 않는다.
+         *
+         * @param[in] collider 등록할 콜라이더 컴포넌트
+         */
+        void AddCollider(Collider* collider);
+
+        /**
+         * @brief 콜라이더 컴포넌트 등록을 해제한다.
+         *
+         * @param[in] collider 제거할 콜라이더 컴포넌트
+         */
+        void RemoveCollider(Collider* collider);
+        
+        /**
+         * @brief 등록된 콜라이더들을 순회하면서 충돌 처리를 한다.
+         */
+        void CheckCollisions();
+
 	protected:
 		std::string m_sceneName = "";                   // 씬이름
 		ResourceManager* m_resourceManager = nullptr;   // 리소스 매니저
@@ -188,6 +214,50 @@ namespace Bisang
 		// 렌더링 컴포넌트
 		//************************************************* 
 		std::vector<RenderableComponent*> m_renderableComponents;   // 렌더링 컴포넌트 ( 레이어 순서 오름차순 정렬 되어있음 )
+
+        //*************************************************
+        // 콜라이더
+        //************************************************* 
+        struct CollisionPair
+        {
+            Collider* lhs;
+            Collider* rhs;
+
+            CollisionPair(Collider* a, Collider* b)
+            {
+                if (std::less<Collider*>{}(a, b))
+                {
+                    lhs = a;
+                    rhs = b;
+                }
+                else
+                {
+                    lhs = b;
+                    rhs = a;
+                }
+            }
+
+            bool operator==(const CollisionPair& other) const
+            {
+                return lhs == other.lhs &&
+                    rhs == other.rhs;
+            }
+        };
+
+        struct CollisionPairHash
+        {
+            size_t operator()(const CollisionPair& pair) const
+            {
+                size_t h1 = std::hash<Collider*>()(pair.lhs);
+                size_t h2 = std::hash<Collider*>()(pair.rhs);
+
+                return h1 ^ (h2 << 1);
+            }
+        };
+
+        std::vector<Collider*> m_colliders;
+        std::unordered_set<CollisionPair, CollisionPairHash> m_prevCollisions;
+        std::unordered_set<CollisionPair, CollisionPairHash> m_currentCollisions;
 	};
 
 }

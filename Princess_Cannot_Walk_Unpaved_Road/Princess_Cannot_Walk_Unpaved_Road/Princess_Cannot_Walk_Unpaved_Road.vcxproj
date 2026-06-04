@@ -19,12 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Engine\Components\Collider\BoxCollider.h" />
+    <ClInclude Include="Source\Engine\Components\Collider\CircleCollider.h" />
     <ClInclude Include="Source\Engine\Components\Component.h" />
+    <ClInclude Include="Source\Engine\Components\SpriteRenderer.h" />
     <ClInclude Include="Source\Engine\Components\Transform.h" />
     <ClInclude Include="Source\Engine\Core\GameTimer.h" />
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
     <ClInclude Include="Source\Engine\Input\InputManager.h" />
     <ClInclude Include="Source\Engine\Math\Vector2.h" />
+    <ClInclude Include="Source\Engine\Physics\Collision.h" />
     <ClInclude Include="Source\Engine\Renderer\D2DBitmapInfo.h" />
     <ClInclude Include="Source\Engine\Renderer\DxHeaders.h" />
     <ClInclude Include="Source\Engine\Renderer\IRenderable.h" />
@@ -50,8 +54,16 @@
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Engine\Components\Collider\BoxCollider.cpp" />
+    <ClCompile Include="Source\Engine\Components\Collider\CircleCollider.cpp" />
+    <ClCompile Include="Source\Engine\Components\Collider\Collider.cpp" />
+    <ClCompile Include="Source\Engine\Components\Collider\Collider.h" />
+    <ClCompile Include="Source\Engine\Components\Script.h" />
+    <ClCompile Include="Source\Engine\Components\SpriteRenderer.cpp" />
     <ClCompile Include="Source\Engine\Components\Transform.cpp" />
     <ClCompile Include="Source\Engine\Core\GameTimer.cpp" />
+    <ClCompile Include="Source\Engine\Math\Math.h" />
+    <ClCompile Include="Source\Engine\Physics\Collision.cpp" />
     <ClCompile Include="Source\Engine\Resource\IResource.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Source\Engine\Components\Component.cpp" />
@@ -70,6 +82,8 @@
     </ClCompile>
     <ClCompile Include="Source\Engine\Windows\Window.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
+    <ClCompile Include="Source\Game\Scripts\SampleScript.cpp" />
+    <ClCompile Include="Source\Game\Scripts\SampleScript.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

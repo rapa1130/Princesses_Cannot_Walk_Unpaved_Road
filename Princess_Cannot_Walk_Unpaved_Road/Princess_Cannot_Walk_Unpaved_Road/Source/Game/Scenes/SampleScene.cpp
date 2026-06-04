@@ -1,4 +1,6 @@
 #include "SampleScene.h"
+#include "Engine/Object/GameObject.h"
+#include "Game/Scripts/SampleScript.h"
 
 namespace Bisang
 {
@@ -10,6 +12,8 @@ namespace Bisang
 	void SampleScene::Setup()
 	{
 		// 씬에 필요한 게임오브젝트와 컴포넌트 생성
+		m_player = CreateGameObject("Player");
+		m_player->AddComponent<SampleScript>();
 	}
 
 	void SampleScene::OnEnter()

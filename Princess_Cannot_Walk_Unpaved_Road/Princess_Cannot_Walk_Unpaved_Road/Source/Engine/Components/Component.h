@@ -21,8 +21,6 @@ namespace Bisang
 		virtual void Update(float dT) {}
 		virtual void FixedUpdate() {}
 
-		virtual void Render() {}
-
 		bool GetIsEnabled() { return m_isEnabled; }
 		void SetIsEnabled(bool b) { m_isEnabled = b; }
 		bool GetIsStarted() { return m_isStarted; }
@@ -52,11 +50,12 @@ namespace Bisang
 		RenderableComponent(GameObject* Owner, Scene* scene) : Component(Owner, scene) {}
 		virtual ~RenderableComponent() = default;
 
+		virtual void DrawCall() {}
+
 		int GetOrderInLayer() const { return m_orderInLayer; }
 		void SetOrderInLayer(int order) { m_orderInLayer = order; }
 		bool GetIsVisible() const { return m_isVisible; }
 		void SetIsVisible(bool on) { m_isVisible = on; }
-
 
 	private:
 		int m_orderInLayer = 0;    // ·»´õ¸µ ¼ø¼­ (ÀÛÀ» ¼ö·Ï »¡¸® ·»´õ¸µ)

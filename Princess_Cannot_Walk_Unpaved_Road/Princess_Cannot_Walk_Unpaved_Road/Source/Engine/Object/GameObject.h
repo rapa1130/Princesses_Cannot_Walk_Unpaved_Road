@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine/Components/Component.h"
+#include "Engine/Components/Collider/Collider.h"
 #include "Engine/Scene/Scene.h"
 
 #include <unordered_map>
@@ -13,8 +14,6 @@
 
 namespace Bisang
 {
-	class RenderableComponent;
-
 	class GameObject
 	{
 	public:
@@ -52,6 +51,11 @@ namespace Bisang
 			{
 				m_renderableComponents.push_back(pNewComp);
 				m_scene->AddRenderableComponent(pNewComp);
+			}
+
+			if constexpr (std::is_base_of_v<Collider, T>)
+			{
+				m_scene->AddCollider(pNewComp);
 			}
 
 			return pNewComp;

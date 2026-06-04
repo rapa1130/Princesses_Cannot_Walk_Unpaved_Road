@@ -2,6 +2,7 @@
 
 #include "Engine/Components/Component.h"
 #include "Engine/Object/GameObject.h"
+#include "Engine/Physics/Collision.h"
 
 #include <algorithm>
 
@@ -67,6 +68,9 @@ namespace Bisang
 				comp->FixedUpdate();
 			}
 		}
+
+		// 콜라이더 충돌검사
+		CheckCollisions();
 	}
 
 
@@ -83,7 +87,7 @@ namespace Bisang
 			// 렌더링 비활성화 시
 			if (false == rComp->GetIsVisible()) continue;
 
-			rComp->Render();
+			rComp->DrawCall();
 		}
 	}
 
@@ -102,7 +106,14 @@ namespace Bisang
 		m_gameObjects[newObj->GetId()] = std::move(newObj);
 
 		return pNewObj;
+	}
 
+	GameObject* Scene::CreateGameObject(std::string name)
+	{
+		GameObject* pNewObj = CreateGameObject();
+		pNewObj->SetName(name);
+
+		return pNewObj;
 	}
 
 	GameObject* Scene::GetGameObject(uint64_t id)
@@ -197,4 +208,120 @@ namespace Bisang
 			m_renderableComponents.erase(iter);
 		}
 	}
+
+	//*************************************************
+	// 콜라이더 컴포넌트
+	//************************************************* 
+
+	void Scene::CheckCollisions()
+	{
+		m_currentCollisions.clear();
+
+		for (size_t i = 0; i < m_colliders.size(); ++i)
+		{
+			Collider* lhs = m_colliders[i];
+
+			if (lhs == nullptr)
+				continue;
+
+			if (false == lhs->GetIsEnabled())
+				continue;
+
+			for (size_t j = i + 1; j < m_colliders.size(); ++j)
+			{
+				Collider* rhs = m_colliders[j];
+
+				if (rhs == nullptr)
+					continue;
+
+				if (false == rhs->GetIsEnabled())
+					continue;
+				                                                                
+				CollisionPair pair(lhs, rhs);
+
+				if (Collision::Check(lhs, rhs))
+				{
+					m_currentCollisions.insert(pair);
+
+					if (m_prevCollisions.find(pair) == m_prevCollisions.end())
+					{
+						lhs->OnCollisionEnter(rhs);
+						rhs->OnCollisionEnter(lhs);
+					}
+					else
+					{
+						lhs->OnCollisionStay(rhs);
+						rhs->OnCollisionStay(lhs);
+					}
+				}
+			}
+		}
+
+		for (const CollisionPair& pair : m_prevCollisions)
+		{
+			if (m_currentCollisions.find(pair) == m_currentCollisions.end())
+			{
+				if (pair.lhs != nullptr && pair.rhs != nullptr)
+				{
+					pair.lhs->OnCollisionExit(pair.rhs);
+					pair.rhs->OnCollisionExit(pair.lhs);
+				}
+			}
+		}
+
+		m_prevCollisions = m_currentCollisions;
+	}
+
+	void Scene::AddCollider(Collider* collider)
+	{
+		if (collider == nullptr)
+			return;
+
+		auto iter = std::find(
+			m_colliders.begin(),
+			m_colliders.end(),
+			collider);
+
+		if (iter != m_colliders.end())
+			return;
+
+		m_colliders.push_back(collider);
+	}
+
+	void Scene::RemoveCollider(Collider* collider)
+	{
+		if (collider == nullptr)
+			return;
+
+		auto iter = std::find(
+			m_colliders.begin(),
+			m_colliders.end(),
+			collider);
+
+		if (iter == m_colliders.end())
+			return;
+
+		*iter = m_colliders.back();
+		m_colliders.pop_back();
+
+		for (auto it = m_prevCollisions.begin();
+			it != m_prevCollisions.end();)
+		{
+			if (it->lhs == collider || it->rhs == collider)
+				it = m_prevCollisions.erase(it);
+			else
+				++it;
+		}
+
+		for (auto it = m_currentCollisions.begin();
+			it != m_currentCollisions.end();)
+		{
+			if (it->lhs == collider || it->rhs == collider)
+				it = m_currentCollisions.erase(it);
+			else
+				++it;
+		}
+	}
+
+
 }
