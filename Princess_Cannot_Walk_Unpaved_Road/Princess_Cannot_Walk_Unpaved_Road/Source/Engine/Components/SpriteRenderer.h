@@ -13,7 +13,7 @@ namespace Bisang
 
 		void DrawCall(Renderer* renderer) override;
 
-		void SetSprite(TextureResource* sprite);
+		void SetSprite(std::shared_ptr<TextureResource> sprite);
 
 		float GetAlpha() const { return m_alpha; }
 		float GetWidth() const;
@@ -24,7 +24,7 @@ namespace Bisang
 		void SetHeight(int height) { m_height = height; }
 	private:
 		Transform* m_transform = nullptr;
-		TextureResource* m_sprite = nullptr;
+		std::shared_ptr<TextureResource> m_sprite = nullptr;
 
 		float m_alpha = 1.0f;   // 알파
 		float m_width = 0;        // 너비

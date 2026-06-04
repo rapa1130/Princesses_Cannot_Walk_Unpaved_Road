@@ -27,6 +27,8 @@ namespace Bisang
     {
     public:
 
+
+
         /**
          * @brief 지정한 경로의 리소스를 로드한다.
          *
@@ -42,11 +44,10 @@ namespace Bisang
         //template<typename T>
         //std::shared_ptr<T> Load(const std::wstring& path);
 
-        bool Initialize();
+        bool Initialize(ID2D1DeviceContext4* d2dContext);
 
         std::shared_ptr<TextureResource> LoadTexture(
-            const std::wstring& path,
-            ID2D1DeviceContext4* d2dContext
+            const std::wstring& path
         );
 
         /**
@@ -84,6 +85,7 @@ namespace Bisang
 
     private:
         ComPtr<IWICImagingFactory> m_wicFactory;
+        ID2D1DeviceContext4* m_d2dContext = nullptr; 
 
         /**
          * @brief 타입별 리소스 캐시.

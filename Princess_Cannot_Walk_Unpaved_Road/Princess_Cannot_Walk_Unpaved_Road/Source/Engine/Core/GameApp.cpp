@@ -33,10 +33,7 @@ namespace Bisang
         }
 
         //리소스 매니저 초기화
-        if (false == m_resourceManager->Initialize())
-        {
-            return false;
-        }
+
 
         // 렌더러 초기화
         if (false == m_renderer->Initialize(
@@ -44,6 +41,11 @@ namespace Bisang
             m_window->GetWidth(), 
             m_window->GetHeight())
             )
+        {
+            return false;
+        }
+
+        if (false == m_resourceManager->Initialize(m_renderer->GetD2DContext()))
         {
             return false;
         }
