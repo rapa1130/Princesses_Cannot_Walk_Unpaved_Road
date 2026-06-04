@@ -27,6 +27,7 @@ namespace Bisang
         std::unique_ptr<InputManager> m_inputManager;
         std::unique_ptr<ResourceManager> m_resourceManager;
         std::unique_ptr<Renderer> m_renderer;
+        std::unique_ptr<SceneManager> m_sceneManager;
 
     private:
     };
