@@ -3,6 +3,7 @@
 #include "Game/Scripts/SampleScript.h"
 #include"Engine/Core/Debug.h"
 #include"Engine/Components/SpriteRenderer.h"
+#include"Engine/Components/Transform.h"
 
 namespace Bisang
 {
@@ -21,6 +22,10 @@ namespace Bisang
 		m_player = CreateGameObject("Player");
 		m_player->AddComponent<SampleScript>();
 		SpriteRenderer* spriteRenderer = m_player->AddComponent<SpriteRenderer>();
+		Transform* tranform = m_player->GetComponent<Transform>();
+		tranform->SetScale(Vector2(0.4, 1.5));
+		tranform->SetPosition(Vector2(500, 200));
+		
 		auto texture = m_resourceManager->LoadTexture(L"Source/Assets/Textures/test.png");
 		spriteRenderer->SetSprite(texture);
 	}
