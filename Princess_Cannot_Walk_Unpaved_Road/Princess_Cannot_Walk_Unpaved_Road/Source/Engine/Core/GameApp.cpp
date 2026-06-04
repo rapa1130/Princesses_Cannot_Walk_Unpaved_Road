@@ -17,7 +17,7 @@ namespace Bisang
           m_window(std::make_unique<Window>()),
           m_inputManager(std::make_unique<InputManager>()),
           m_resourceManager(std::make_unique<ResourceManager>()),
-          m_renderer (std::make_unique<Renderer>()),
+          m_renderer (std::make_unique<Renderer>(m_resourceManager.get())),
           m_sceneManager(std::make_unique<SceneManager>(m_resourceManager.get(), m_inputManager.get(),m_renderer.get()))
     {
     }

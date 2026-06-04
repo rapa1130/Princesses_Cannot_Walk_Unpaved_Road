@@ -6,6 +6,7 @@
 #include"Engine/Resource/ResourceManager.h"
 #include <typeindex>
 #include <type_traits>
+#include"Engine/Math/Vector2.h"
 
 //
 // @brief D2D 렌더링 Wrapper 클래스
@@ -20,26 +21,42 @@ namespace Bisang
 	class Scene;
 	class ResourceManager;
 
-	template<typename T>
+
 	struct RenderCommand
 	{
+		RenderCommand()
+			:type(typeid(void)),
+			 resource(nullptr),
+			orderInLayer(0),
+			position()
+		{
+
+		}
 		std::type_index type;
-		IResource resource;
+		IResource* resource;
 		int orderInLayer;
+		Vector2 position;
 	};
 
 	class Renderer
 	{
 	public:
+		Renderer(ResourceManager* resourceManager)
+			:m_resourceManager(resourceManager) { }
+
 		bool Initialize(HWND hwnd, int width, int height);
 		void RenderScene(Scene* scene);
-		void Sumbit();
+		void RenderAllCommands();
+		void Submit(const RenderCommand& command);
+		void RenderSprite(const RenderCommand& command);
 
 	protected:
 
 	protected:
 		D2D1::ColorF m_BgColor = D2D1::ColorF::White;
-		std::vector<IRenderable*> m_Rendarables;
+		std::vector<RenderCommand> m_renderCommands;
+	protected:
+		ResourceManager* m_resourceManager;
 
 	protected:
 		// D3D11
