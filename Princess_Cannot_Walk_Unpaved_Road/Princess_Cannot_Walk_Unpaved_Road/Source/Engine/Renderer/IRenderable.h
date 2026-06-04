@@ -7,7 +7,7 @@ namespace Bisang
 	class IRenderable
 	{
 	public:
-		virtual void Render(Renderer& renderer) = 0;
-		//virtual ~IRenderable() = default;
+		virtual void DrawCall(Renderer* renderer) = 0;
+		virtual ~IRenderable() = default;
 	};
 }

@@ -1,5 +1,7 @@
 #pragma once
 #include <typeindex>
+#include"Engine/Renderer/IRenderable.h"
+#include"Engine/Renderer/Renderer.h"
 
 namespace Bisang
 {
@@ -32,25 +34,29 @@ namespace Bisang
 	protected:
 		std::type_index m_typeIndex = typeid(Component);
 
-		Scene* m_scene = nullptr;           // ¼Ò¼Ó ¾À
-		GameObject* m_ownerObj = nullptr;   // ÁÖÀÎ ¿ÀºêÁ§Æ®
+		Scene* m_scene = nullptr;           // ì†Œì† ì”¬
+		GameObject* m_ownerObj = nullptr;   // ì£¼ì¸ ì˜¤ë¸Œì íŠ¸
 
-		bool m_isEnabled = true;    // ¾÷µ¥ÀÌÆ® ½ÇÇà ¿©ºÎ
-		bool m_isStarted = false;   // Start() ½ÇÇà ¿©ºÎ
+		bool m_isEnabled = true;    // ì—…ë°ì´íŠ¸ ì‹¤í–‰ ì—¬ë¶€
+		bool m_isStarted = false;   // Start() ì‹¤í–‰ ì—¬ë¶€
 	};
 
 
 	//*************************************************
-	// ·»´õ¸µ ÄÄÆ÷³ÍÆ®
+	// ë Œë”ë§ ì»´í¬ë„ŒíŠ¸
 	//************************************************* 
 
-	class RenderableComponent : public Component
+	class RenderableComponent : public Component, public IRenderable
 	{
 	public:
 		RenderableComponent(GameObject* Owner, Scene* scene) : Component(Owner, scene) {}
 		virtual ~RenderableComponent() = default;
 
-		virtual void DrawCall() {}
+
+		virtual void DrawCall(Renderer* renderer) override
+		{
+			renderer->Sumbit();
+		}
 
 		int GetOrderInLayer() const { return m_orderInLayer; }
 		void SetOrderInLayer(int order) { m_orderInLayer = order; }
@@ -58,7 +64,7 @@ namespace Bisang
 		void SetIsVisible(bool on) { m_isVisible = on; }
 
 	private:
-		int m_orderInLayer = 0;    // ·»´õ¸µ ¼ø¼­ (ÀÛÀ» ¼ö·Ï »¡¸® ·»´õ¸µ)
-		bool m_isVisible = true;   // ·»´õ¸µ ¿©ºÎ
+		int m_orderInLayer = 0;    // ë Œë”ë§ ìˆœì„œ (ì‘ì„ ìˆ˜ë¡ ë¹¨ë¦¬ ë Œë”ë§)
+		bool m_isVisible = true;   // ë Œë”ë§ ì—¬ë¶€
 	};
 }
