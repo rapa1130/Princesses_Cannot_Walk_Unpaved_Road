@@ -176,6 +176,7 @@ namespace Bisang
                 break;
             case RenderCommandType::Line:
                 RenderLine(command);
+                break;
             default:
                 break;
             }
