@@ -51,7 +51,6 @@
     <ClInclude Include="Source\Engine\Components\Collider\CircleCollider.h" />
     <ClInclude Include="Source\Engine\Components\Collider\BoxCollider.h" />
     <ClInclude Include="Source\Engine\Physics\Collision.h" />
-    <ClInclude Include="Source\Engine\Resource\WICInitializer.h" />
     <ClInclude Include="Source\Engine\Resource\TextureResource.h" />
   </ItemGroup>
 </Project>

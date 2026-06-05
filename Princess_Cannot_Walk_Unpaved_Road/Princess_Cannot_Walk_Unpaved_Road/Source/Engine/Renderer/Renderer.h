@@ -74,7 +74,7 @@ namespace Bisang
 	protected:
 
 	protected:
-		D2D1::ColorF m_BgColor = D2D1::ColorF::White;
+		D2D1::ColorF m_BgColor = D2D1::ColorF::Black;
 		std::vector<RenderCommand> m_renderCommands;
 	protected:
 		ResourceManager* m_resourceManager;

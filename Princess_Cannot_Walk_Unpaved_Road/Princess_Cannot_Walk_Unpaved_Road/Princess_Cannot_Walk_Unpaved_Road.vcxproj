@@ -33,7 +33,6 @@
     <ClInclude Include="Source\Engine\Renderer\DxHeaders.h" />
     <ClInclude Include="Source\Engine\Renderer\IRenderable.h" />
     <ClInclude Include="Source\Engine\Resource\TextureResource.h" />
-    <ClInclude Include="Source\Engine\Resource\WICInitializer.h" />
     <ClInclude Include="Source\Engine\Object\GameObject.h" />
     <ClInclude Include="Source\Engine\Resource\ResourceManager.h" />
     <ClInclude Include="Source\Engine\Renderer\Renderer.h" />

@@ -23,7 +23,7 @@ namespace Bisang
 		m_player->AddComponent<SampleScript>();
 		SpriteRenderer* spriteRenderer = m_player->AddComponent<SpriteRenderer>();
 		Transform* tranform = m_player->GetComponent<Transform>();
-		tranform->SetScale(Vector2(0.4, 1.5));
+		tranform->SetScale(Vector2(1, 1));
 		tranform->SetPosition(Vector2(500, 200));
 		
 		auto texture = m_resourceManager->LoadTexture(L"Source/Assets/Textures/test.png");
