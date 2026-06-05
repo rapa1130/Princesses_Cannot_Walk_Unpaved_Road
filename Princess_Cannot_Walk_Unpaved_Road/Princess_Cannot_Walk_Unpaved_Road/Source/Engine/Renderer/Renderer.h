@@ -7,6 +7,7 @@
 #include <typeindex>
 #include <type_traits>
 #include"Engine/Math/Vector2.h"
+#include"Engine/Renderer/Color.h"
 
 //
 // @brief D2D 렌더링 Wrapper 클래스
@@ -21,7 +22,6 @@ namespace Bisang
 	class Scene;
 	class ResourceManager;
 
-
 	enum class RenderCommandType
 	{
 		None,
@@ -31,23 +31,61 @@ namespace Bisang
 		Rectangle
 	};
 
-	struct RenderCommand
+	struct SpriteCommandData
 	{
-
-		//std::type_index type;
-
-		RenderCommandType type = RenderCommandType::None;
-		IResource* resource = nullptr;
-		int orderInLayer = 0;
+		IResource* resource;
 		Vector2 position;
 		Vector2 size;
-		float alpha = 1.0f;
+		float rot;
+		float alpha;
+	};
+
+	struct LineCommandData
+	{
+		Vector2 start;
+		Vector2 end;
+		float thickness;
+		Bisang::Color color;
+	};
+
+
+	struct RenderCommand
+	{
+		RenderCommandType type;
+		int orderInLayer;
+		
+		
+		union
+		{
+			SpriteCommandData sprite;
+			LineCommandData line;
+		};
+
+		static RenderCommand CreateSpriteRC(
+			IResource* resource,
+			const Vector2& position,
+			const Vector2& size,
+			float rot,
+			int orderInLayer,
+			float alpha = 1.0f
+		);
+
+		static RenderCommand CreateLineRC(
+			const Vector2& start,
+			const Vector2& end,
+			Bisang::Color color,
+			int orderInLayer,
+			float thickness = 1.0f
+		);
 
 		template<typename T>
-		T* GetResourceAs() const
+		T* GetResourceAs(IResource* resource) const
 		{
 			return dynamic_cast<T*>(resource);
 		}
+
+	private:
+		RenderCommand() {}
 	};
 
 	class Renderer
@@ -61,6 +99,7 @@ namespace Bisang
 		void RenderAllCommands();
 		void Submit(const RenderCommand& command);
 		void RenderSprite(const RenderCommand& command);
+		void RenderLine(const RenderCommand& command);
 
 		//std::shared_ptr<TextureResource> LoadTexture(
 		//	const std::wstring& path

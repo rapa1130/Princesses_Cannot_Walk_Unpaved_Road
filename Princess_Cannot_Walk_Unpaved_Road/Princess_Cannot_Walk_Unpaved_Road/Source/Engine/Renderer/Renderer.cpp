@@ -5,6 +5,7 @@
 #include"Engine/Scene/SceneManager.h"
 #include"Engine/Scene/Scene.h"
 #include"Engine/Core/Debug.h"
+#include<iostream>
 
 namespace Bisang
 {
@@ -57,7 +58,7 @@ namespace Bisang
         scDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
         scDesc.BufferCount = 2; // 더블 버퍼(Back + Front)
         scDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
-        scDesc.Scaling = DXGI_SCALING_STRETCH;
+        scDesc.Scaling = DXGI_SCALING_NONE;
 
 
 
@@ -173,7 +174,8 @@ namespace Bisang
             case RenderCommandType::Sprite:
                 RenderSprite(command);
                 break;
-
+            case RenderCommandType::Line:
+                RenderLine(command);
             default:
                 break;
             }
@@ -191,7 +193,7 @@ namespace Bisang
     void Renderer::RenderSprite(const RenderCommand& command)
     {
         TextureResource* texture =
-            command.GetResourceAs<TextureResource>();
+            command.GetResourceAs<TextureResource>(command.sprite.resource);
 
         if (texture == nullptr)
         {
@@ -209,39 +211,79 @@ namespace Bisang
 
         D2D1_SIZE_F size = bitmap->GetSize();
         
+        FLOAT left = command.sprite.position.x;
+        FLOAT right = command.sprite.position.x + command.sprite.size.x;
+        FLOAT top = command.sprite.position.y;
+        FLOAT bottom = command.sprite.position.y + command.sprite.size.y;
 
         D2D1_RECT_F destRect = D2D1::RectF(
-            command.position.x,
-            command.position.y,
-            command.position.x + command.size.x,
-            command.position.y + command.size.y
+            left,
+            top,
+            right,
+            bottom
         );
 
         m_d2dContext->DrawBitmap(bitmap, destRect);
     }
 
-    //std::shared_ptr<TextureResource> Renderer::LoadTexture(
-    //    const std::wstring& path
-    //)
-    //{
-    //    if (m_resourceManager == nullptr || m_d2dContext == nullptr)
-    //    {
-    //        return nullptr;
-    //    }
+    void Renderer::RenderLine(const RenderCommand& command)
+    {
+        D2D1_POINT_2F p1 = (D2D1_POINT_2F)command.line.start;
+        D2D1_POINT_2F p2 = (D2D1_POINT_2F)command.line.end;
 
-    //    return m_resourceManager->LoadTexture(
-    //        path,
-    //        m_d2dContext.Get()
-    //    );
-    //}
+        m_brush->SetColor(command.line.color);
+        FLOAT strokeWidth = (FLOAT)command.line.thickness;
 
-
-
-
+        m_d2dContext->DrawLine(p1, p2, m_brush.Get(), strokeWidth);
+    }
 
 
     
-    
+    RenderCommand RenderCommand::CreateSpriteRC(
+                                            IResource* resource, 
+                                            const Vector2& position, 
+                                            const Vector2& size, 
+                                            float rot, 
+                                            int orderInLayer, 
+                                            float alpha
+    )
+    {
+        RenderCommand ret = RenderCommand();
+        
+        ret.type = RenderCommandType::Sprite;
+        ret.orderInLayer = orderInLayer;
+
+        ret.sprite.alpha = alpha;
+        ret.sprite.position = position;
+        ret.sprite.resource = resource;
+        ret.sprite.size = size;
+        ret.sprite.rot = rot;
+
+        return ret;
+    }
+
+    RenderCommand RenderCommand::CreateLineRC(
+                                            const Vector2& start, 
+                                            const Vector2& end, 
+                                            Bisang::Color color,
+                                            int orderInLayer, 
+                                            float thickness
+                                            
+    )
+    {
+        RenderCommand ret = RenderCommand();
+
+        ret.type = RenderCommandType::Line;
+        ret.orderInLayer = orderInLayer;
+
+        ret.line.start = start;
+        ret.line.end = end;
+        ret.line.thickness = thickness;
+        ret.line.color = color;
+
+        return ret;
+    }
+
 }
 
 

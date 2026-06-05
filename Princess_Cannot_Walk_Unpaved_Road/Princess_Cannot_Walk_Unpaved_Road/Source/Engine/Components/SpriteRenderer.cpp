@@ -30,14 +30,14 @@ namespace Bisang
 
 	void SpriteRenderer::DrawCall(Renderer* renderer)
 	{
-		RenderCommand rc;
-
-		rc.orderInLayer = GetOrderInLayer();
-		rc.position = m_transform->GetPosition();
-		rc.size = Vector2(GetWidth(), GetHeight());
-		rc.resource = m_sprite.get();
-		rc.type = RenderCommandType::Sprite;
-		rc.alpha = 1.0f;
+		RenderCommand rc = RenderCommand::CreateSpriteRC(
+			m_sprite.get(),
+			m_transform->GetPosition(),
+			Vector2(GetWidth(), GetHeight()),
+			m_transform->GetRotation(),
+			GetOrderInLayer(),
+			m_alpha
+		);
 
 		renderer->Submit(rc);
 	}

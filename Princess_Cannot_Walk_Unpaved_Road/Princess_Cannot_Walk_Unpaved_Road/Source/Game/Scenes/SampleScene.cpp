@@ -4,6 +4,7 @@
 #include"Engine/Core/Debug.h"
 #include"Engine/Components/SpriteRenderer.h"
 #include"Engine/Components/Transform.h"
+#include"Engine/Components/LineRenderer.h"
 
 namespace Bisang
 {
@@ -19,6 +20,7 @@ namespace Bisang
 		// 씬에 필요한 게임오브젝트와 컴포넌트 생성
 		DEBUG_LOG("SetUp SamepleScene \n");
 
+
 		m_player = CreateGameObject("Player");
 		m_player->AddComponent<SampleScript>();
 		SpriteRenderer* spriteRenderer = m_player->AddComponent<SpriteRenderer>();
@@ -28,6 +30,13 @@ namespace Bisang
 		
 		auto texture = m_resourceManager->LoadTexture(L"Source/Assets/Textures/test.png");
 		spriteRenderer->SetSprite(texture);
+
+		m_player = CreateGameObject("LineTest");
+		LineRenderer* lineRenderer =  m_player->AddComponent<LineRenderer>();
+		lineRenderer->SetColor(Color(1.0f,0,0,1.0f));
+		lineRenderer->SetStartPosition(Vector2(300, 300));
+		lineRenderer->SetEndPosition(Vector2(800, 800));
+		lineRenderer->SetLineWidth(10.0f);
 	}
 
 	void SampleScene::OnEnter()

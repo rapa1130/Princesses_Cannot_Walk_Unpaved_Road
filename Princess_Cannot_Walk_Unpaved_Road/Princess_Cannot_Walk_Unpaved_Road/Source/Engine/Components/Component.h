@@ -53,14 +53,7 @@ namespace Bisang
 		virtual ~RenderableComponent() = default;
 
 
-		virtual void DrawCall(Renderer* renderer) override
-		{
-			RenderCommand command;
-
-			command.orderInLayer = this->m_orderInLayer;
-
-			renderer->Submit(command);
-		}
+		virtual void DrawCall(Renderer* renderer) = 0;
 
 		int GetOrderInLayer() const { return m_orderInLayer; }
 		void SetOrderInLayer(int order) { m_orderInLayer = order; }
