@@ -179,16 +179,6 @@ namespace Bisang
 
 		m_renderableComponents.push_back(component);
 
-		// 렌더링 컴포넌트를 추가할 때마다 OrderInLayer 기준으로 오름차순 정렬
-		std::sort(
-			m_renderableComponents.begin(),
-			m_renderableComponents.end(),
-			[](const RenderableComponent* lhs,
-				const RenderableComponent* rhs)
-			{
-
-				return lhs->GetOrderInLayer() < rhs->GetOrderInLayer();
-			});
 	}
 
 	void Scene::RemoveRenderableComponent(RenderableComponent* component)
