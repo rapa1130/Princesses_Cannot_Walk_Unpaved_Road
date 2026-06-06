@@ -1,5 +1,7 @@
 #pragma once
 #include "Engine/Components/Component.h"
+#include<memory>
+#include<string>
 
 namespace Bisang
 {
@@ -14,6 +16,7 @@ namespace Bisang
 		void DrawCall(Renderer* renderer) override;
 
 		void SetSprite(std::shared_ptr<TextureResource> sprite);
+		void SetSprite(const std::wstring& path);
 
 		float GetAlpha() const { return m_alpha; }
 		float GetWidth() const;
@@ -23,7 +26,6 @@ namespace Bisang
 		void SetWidth(int width) { m_width = width; }
 		void SetHeight(int height) { m_height = height; }
 	private:
-		Transform* m_transform = nullptr;
 		std::shared_ptr<TextureResource> m_sprite = nullptr;
 
 		float m_alpha = 1.0f;   // ¾ËÆÄ

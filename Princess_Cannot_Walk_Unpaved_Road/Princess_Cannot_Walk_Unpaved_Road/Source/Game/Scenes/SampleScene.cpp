@@ -5,6 +5,7 @@
 #include"Engine/Components/SpriteRenderer.h"
 #include"Engine/Components/Transform.h"
 #include"Engine/Components/LineRenderer.h"
+#include"Engine/Components/TextRenderer.h"
 
 namespace Bisang
 {
@@ -28,15 +29,27 @@ namespace Bisang
 		tranform->SetScale(Vector2(1, 1));
 		tranform->SetPosition(Vector2(500, 200));
 		
-		auto texture = m_resourceManager->LoadTexture(L"Assets/Textures/test.png");
-		spriteRenderer->SetSprite(texture);
+		//auto texture = m_resourceManager->LoadTexture(L"Assets/Textures/test.png");
+		//spriteRenderer->SetSprite(texture);
+		spriteRenderer->SetSprite(L"Assets/Textures/test.png");
 
-		m_player = CreateGameObject("LineTest");
-		LineRenderer* lineRenderer =  m_player->AddComponent<LineRenderer>();
+		GameObject* lineObj = CreateGameObject("LineTest");
+		LineRenderer* lineRenderer = lineObj->AddComponent<LineRenderer>();
 		lineRenderer->SetColor(Color(1.0f,0,0,1.0f));
 		lineRenderer->SetStartPosition(Vector2(300, 300));
 		lineRenderer->SetEndPosition(Vector2(800, 800));
 		lineRenderer->SetLineWidth(10.0f);
+
+
+		GameObject* textObj = CreateGameObject("TextTest");
+		TextRenderer* textRenderer = textObj->AddComponent<TextRenderer>();
+		textRenderer->SetColor(Color::White);
+		textRenderer->SetTextFormat(L"¸¼Àº °íµñ", 24.0f);
+		textRenderer->SetText(L"¾Æ ÁøÂ¥ °è¶õ»§´Þ´Ù");
+		Transform* textTrf = textRenderer->GetTransform();
+		textTrf->SetPosition(Vector2(100, 100));
+		textTrf->SetScale(Vector2(1000.f, 100.f));
+
 	}
 
 	void SampleScene::OnEnter()

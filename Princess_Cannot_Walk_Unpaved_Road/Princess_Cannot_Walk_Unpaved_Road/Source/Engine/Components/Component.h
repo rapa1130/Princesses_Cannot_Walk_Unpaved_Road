@@ -1,12 +1,14 @@
 #pragma once
 #include <typeindex>
 #include"Engine/Renderer/IRenderable.h"
-#include"Engine/Renderer/Renderer.h"
 
 namespace Bisang
 {
-	class Scene;
 	class GameObject;
+	class Transform;
+	class Scene;
+	class Renderer;
+	class ResourceManager;
 
 	class Component
 	{
@@ -22,6 +24,8 @@ namespace Bisang
 		virtual void Start() {}
 		virtual void Update(float dT) {}
 		virtual void FixedUpdate() {}
+
+		ResourceManager* GetResourceManager(); 
 
 		bool GetIsEnabled() { return m_isEnabled; }
 		void SetIsEnabled(bool b) { m_isEnabled = b; }
@@ -46,10 +50,13 @@ namespace Bisang
 	// ·»´õ¸µ ÄÄÆ÷³ÍÆ®
 	//************************************************* 
 
+	class Transform;
+
 	class RenderableComponent : public Component, public IRenderable
 	{
 	public:
-		RenderableComponent(GameObject* Owner, Scene* scene) : Component(Owner, scene) {}
+		RenderableComponent(GameObject* Owner, Scene* scene); 
+
 		virtual ~RenderableComponent() = default;
 
 
@@ -60,6 +67,11 @@ namespace Bisang
 
 		bool GetIsVisible() const { return m_isVisible; }
 		void SetIsVisible(bool on) { m_isVisible = on; }
+
+		Transform* GetTransform() const { return m_transform; }
+
+	protected:
+		Transform* m_transform;
 
 	private:
 		int m_orderInLayer = 0;   // ·»´õ¸µ ¼ø¼­ (ÀÛÀ» ¼ö·Ï »¡¸® ·»´õ¸µ)

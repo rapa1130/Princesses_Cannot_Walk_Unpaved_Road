@@ -1,8 +1,12 @@
 #include "Transform.h"
 #include "Engine/Object/GameObject.h"
-
+#include"Engine/Components/Component.h"
 namespace Bisang
 {
+    Transform::Transform(GameObject* ownerObj, Scene* scene) :
+        Component(ownerObj, scene)
+    {
+    }
     Vector2 Transform::GetWorldPosition()
     {
         // 부모가 없으면 현재 위치가 월드 위치

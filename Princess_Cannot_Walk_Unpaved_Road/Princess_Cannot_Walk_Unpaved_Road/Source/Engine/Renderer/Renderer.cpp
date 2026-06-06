@@ -6,6 +6,8 @@
 #include"Engine/Scene/Scene.h"
 #include"Engine/Core/Debug.h"
 #include<iostream>
+#include"Engine/Renderer/RenderCommand.h"
+#include"Engine/Resource/TextResource.h"
 
 namespace Bisang
 {
@@ -180,6 +182,8 @@ namespace Bisang
             case RenderCommandType::Line:
                 RenderLine(command);
                 break;
+            case RenderCommandType::Text:
+                RenderText(command);
             default:
                 break;
             }
@@ -232,8 +236,8 @@ namespace Bisang
 
     void Renderer::RenderLine(const RenderCommand& command)
     {
-        D2D1_POINT_2F p1 = (D2D1_POINT_2F)command.line.start;
-        D2D1_POINT_2F p2 = (D2D1_POINT_2F)command.line.end;
+        D2D1_POINT_2F p1 = ToD2DPoint(command.line.start);
+        D2D1_POINT_2F p2 = ToD2DPoint(command.line.end);
 
         m_brush->SetColor(command.line.color);
         FLOAT strokeWidth = (FLOAT)command.line.thickness;
@@ -241,16 +245,55 @@ namespace Bisang
         m_d2dContext->DrawLine(p1, p2, m_brush.Get(), strokeWidth);
     }
 
+    void Renderer::RenderText(const RenderCommand& command)
+    {
+        const TextCommandData& text = command.text;
+
+        if (text.text == nullptr || text.length == 0)
+        {
+            return;
+        }
+        if (text.textFormat == nullptr || text.textFormat->GetTextFormat() == nullptr)
+        {
+            DEBUG_ERROR_LOCATION("TextFormat is nullptr");
+            return;
+        }
+
+        D2D1_COLOR_F d2dColor = D2D1::ColorF(
+            text.color.r,
+            text.color.g,
+            text.color.b,
+            text.color.a 
+        );
+
+        m_brush->SetColor(d2dColor);
+
+        D2D1_RECT_F layoutRect = D2D1::RectF(
+            text.position.x,
+            text.position.y,
+            text.position.x + text.textBoxSize.x,
+            text.position.y + text.textBoxSize.y
+        );
+
+        m_d2dContext->DrawTextW(
+            text.text,
+            text.length,
+            text.textFormat->GetTextFormat(),
+            layoutRect,
+            m_brush.Get()
+        );
+    }
+
 
     
     RenderCommand RenderCommand::CreateSpriteRC(
-                                            IResource* resource, 
-                                            const Vector2& position, 
-                                            const Vector2& size, 
-                                            float rot, 
-                                            int orderInLayer, 
-                                            float alpha,
-                                            float depth
+            IResource* resource, 
+            const Vector2& position, 
+            const Vector2& size, 
+            float rot, 
+            int orderInLayer, 
+            float alpha,
+            float depth
     )
     {
         RenderCommand ret = RenderCommand();
@@ -270,12 +313,12 @@ namespace Bisang
     }
 
     RenderCommand RenderCommand::CreateLineRC(
-                                            const Vector2& start, 
-                                            const Vector2& end, 
-                                            Bisang::Color color,
-                                            int orderInLayer, 
-                                            float thickness,
-                                            float depth
+            const Vector2& start, 
+            const Vector2& end, 
+            Bisang::Color color,
+            int orderInLayer, 
+            float thickness,
+            float depth
                                             
     )
     {
@@ -291,6 +334,39 @@ namespace Bisang
         ret.line.color = color;
 
         return ret;
+    }
+
+    RenderCommand RenderCommand::CreateTextRC(
+            const wchar_t* text, 
+            UINT32 length, 
+            TextFormatResource* textFormat, 
+            const Vector2& position, 
+            const Vector2& size, 
+            const Bisang::Color& color, 
+            int orderInLayer, 
+            float depth
+    )
+    {
+        RenderCommand ret;
+
+        ret.type = RenderCommandType::Text;
+        ret.orderInLayer = orderInLayer;
+        ret.depth = depth;
+
+        ret.text.text = text;
+        ret.text.length = length;
+        ret.text.textFormat = textFormat;
+        ret.text.position = position;
+        ret.text.textBoxSize = size;
+        ret.text.color = color;
+
+        return ret;
+    }
+
+
+    D2D1_POINT_2F ToD2DPoint(const Bisang::Vector2& v)
+    {
+        return D2D1_POINT_2F{ v.x, v.y };
     }
 
 }

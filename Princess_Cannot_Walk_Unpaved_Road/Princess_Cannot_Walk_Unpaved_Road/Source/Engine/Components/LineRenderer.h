@@ -1,6 +1,7 @@
 #pragma once
 #include "Engine/Components/Component.h"
 #include "Engine/Renderer/Color.h"
+#include"Engine/Math/Vector2.h"
 
 namespace Bisang
 {
@@ -25,7 +26,7 @@ namespace Bisang
 		Vector2 m_startPos;
 		Vector2 m_endPos;
 		Bisang::Color m_color;
-		float m_thickness;
+		float m_thickness = 1.0f;
 
 	};
 }
