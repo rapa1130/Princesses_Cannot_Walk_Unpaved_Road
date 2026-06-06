@@ -28,7 +28,7 @@ namespace Bisang
 		tranform->SetScale(Vector2(1, 1));
 		tranform->SetPosition(Vector2(500, 200));
 		
-		auto texture = m_resourceManager->LoadTexture(L"Source/Assets/Textures/test.png");
+		auto texture = m_resourceManager->LoadTexture(L"Assets/Textures/test.png");
 		spriteRenderer->SetSprite(texture);
 
 		m_player = CreateGameObject("LineTest");

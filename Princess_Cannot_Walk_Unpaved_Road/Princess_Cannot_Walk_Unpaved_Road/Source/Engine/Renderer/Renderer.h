@@ -53,7 +53,7 @@ namespace Bisang
 	{
 		RenderCommandType type;
 		int orderInLayer;
-		
+		float depth;
 		
 		union
 		{
@@ -67,6 +67,7 @@ namespace Bisang
 			const Vector2& size,
 			float rot,
 			int orderInLayer,
+			float depth = 1.0f,
 			float alpha = 1.0f
 		);
 
@@ -75,7 +76,8 @@ namespace Bisang
 			const Vector2& end,
 			Bisang::Color color,
 			int orderInLayer,
-			float thickness = 1.0f
+			float thickness = 1.0f,
+			float depth = 0.0f
 		);
 
 		template<typename T>

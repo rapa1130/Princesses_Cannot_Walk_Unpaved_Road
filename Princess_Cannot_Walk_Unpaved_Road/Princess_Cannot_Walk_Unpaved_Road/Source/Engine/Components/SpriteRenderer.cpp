@@ -36,6 +36,7 @@ namespace Bisang
 			Vector2(GetWidth(), GetHeight()),
 			m_transform->GetRotation(),
 			GetOrderInLayer(),
+			m_transform->GetPosition().y,
 			m_alpha
 		);
 

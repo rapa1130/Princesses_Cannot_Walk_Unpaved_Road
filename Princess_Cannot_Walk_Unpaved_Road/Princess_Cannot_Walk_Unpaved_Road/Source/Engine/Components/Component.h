@@ -57,6 +57,7 @@ namespace Bisang
 
 		int GetOrderInLayer() const { return m_orderInLayer; }
 		void SetOrderInLayer(int order) { m_orderInLayer = order; }
+
 		bool GetIsVisible() const { return m_isVisible; }
 		void SetIsVisible(bool on) { m_isVisible = on; }
 

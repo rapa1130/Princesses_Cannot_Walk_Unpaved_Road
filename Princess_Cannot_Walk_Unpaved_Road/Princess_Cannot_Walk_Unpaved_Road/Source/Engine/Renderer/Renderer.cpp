@@ -163,7 +163,10 @@ namespace Bisang
             m_renderCommands.end(),
             [](const RenderCommand& a, const RenderCommand& b)
             {
-                return a.orderInLayer < b.orderInLayer;
+                if (a.orderInLayer != b.orderInLayer)
+                    return a.orderInLayer < b.orderInLayer;
+
+                return a.depth < b.depth;
             }
         );
 
@@ -246,19 +249,22 @@ namespace Bisang
                                             const Vector2& size, 
                                             float rot, 
                                             int orderInLayer, 
-                                            float alpha
+                                            float alpha,
+                                            float depth
     )
     {
         RenderCommand ret = RenderCommand();
         
         ret.type = RenderCommandType::Sprite;
         ret.orderInLayer = orderInLayer;
+        ret.depth = depth;
 
         ret.sprite.alpha = alpha;
         ret.sprite.position = position;
         ret.sprite.resource = resource;
         ret.sprite.size = size;
         ret.sprite.rot = rot;
+        
 
         return ret;
     }
@@ -268,7 +274,8 @@ namespace Bisang
                                             const Vector2& end, 
                                             Bisang::Color color,
                                             int orderInLayer, 
-                                            float thickness
+                                            float thickness,
+                                            float depth
                                             
     )
     {
@@ -276,6 +283,7 @@ namespace Bisang
 
         ret.type = RenderCommandType::Line;
         ret.orderInLayer = orderInLayer;
+        ret.depth = depth;
 
         ret.line.start = start;
         ret.line.end = end;
