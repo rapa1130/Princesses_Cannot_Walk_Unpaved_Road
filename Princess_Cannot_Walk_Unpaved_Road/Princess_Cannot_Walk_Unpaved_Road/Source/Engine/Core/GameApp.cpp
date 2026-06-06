@@ -106,6 +106,7 @@ namespace Bisang
         m_sceneManager->Update(m_deltaTime);
 
         // 고정 프레임 로직
+        m_deltaTimeAccumulator += m_deltaTime;
         while (m_deltaTimeAccumulator >= m_fixedDeltaTime)
         {
             m_sceneManager->FixedUpdate();
