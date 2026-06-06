@@ -27,6 +27,10 @@
     <ClCompile Include="Source\Engine\Physics\Collision.cpp" />
     <ClCompile Include="Source\Engine\Math\Math.h" />
     <ClCompile Include="Source\Engine\Resource\TextureResource.cpp" />
+    <ClCompile Include="Source\Engine\Components\LineRenderer.cpp" />
+    <ClCompile Include="Source\Engine\Components\TextRenderer.cpp" />
+    <ClCompile Include="Source\Engine\Resource\TextResource.cpp" />
+    <ClCompile Include="Source\Engine\Renderer\Color.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -52,5 +56,10 @@
     <ClInclude Include="Source\Engine\Components\Collider\BoxCollider.h" />
     <ClInclude Include="Source\Engine\Physics\Collision.h" />
     <ClInclude Include="Source\Engine\Resource\TextureResource.h" />
+    <ClInclude Include="Source\Engine\Components\LineRenderer.h" />
+    <ClInclude Include="Source\Engine\Renderer\Color.h" />
+    <ClInclude Include="Source\Engine\Components\TextRenderer.h" />
+    <ClInclude Include="Source\Engine\Resource\TextResource.h" />
+    <ClInclude Include="Source\Engine\Renderer\RenderCommand.h" />
   </ItemGroup>
 </Project>

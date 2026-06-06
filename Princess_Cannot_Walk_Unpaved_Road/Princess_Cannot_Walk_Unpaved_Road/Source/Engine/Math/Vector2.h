@@ -20,13 +20,7 @@ namespace Bisang
         {
         }
 
-        operator D2D1_POINT_2F() const
-        {
-            D2D1_POINT_2F ret;
-            ret.x = x;
-            ret.y = y;
-            return ret;
-        }
+
 
         // บคลอ + บคลอ
         Vector2 operator+(const Vector2& rhs) const

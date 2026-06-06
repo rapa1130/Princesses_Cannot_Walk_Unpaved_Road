@@ -24,6 +24,7 @@
     <ClInclude Include="Source\Engine\Components\LineRenderer.h" />
     <ClInclude Include="Source\Engine\Components\Component.h" />
     <ClInclude Include="Source\Engine\Components\SpriteRenderer.h" />
+    <ClInclude Include="Source\Engine\Components\TextRenderer.h" />
     <ClInclude Include="Source\Engine\Components\Transform.h" />
     <ClInclude Include="Source\Engine\Core\GameTimer.h" />
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -34,6 +35,8 @@
     <ClInclude Include="Source\Engine\Renderer\D2DBitmapInfo.h" />
     <ClInclude Include="Source\Engine\Renderer\DxHeaders.h" />
     <ClInclude Include="Source\Engine\Renderer\IRenderable.h" />
+    <ClInclude Include="Source\Engine\Renderer\RenderCommand.h" />
+    <ClInclude Include="Source\Engine\Resource\TextResource.h" />
     <ClInclude Include="Source\Engine\Resource\TextureResource.h" />
     <ClInclude Include="Source\Engine\Object\GameObject.h" />
     <ClInclude Include="Source\Engine\Resource\ResourceManager.h" />
@@ -63,10 +66,12 @@
     <ClCompile Include="Source\Engine\Components\LineRenderer.cpp" />
     <ClCompile Include="Source\Engine\Components\Script.h" />
     <ClCompile Include="Source\Engine\Components\SpriteRenderer.cpp" />
+    <ClCompile Include="Source\Engine\Components\TextRenderer.cpp" />
     <ClCompile Include="Source\Engine\Components\Transform.cpp" />
     <ClCompile Include="Source\Engine\Core\GameTimer.cpp" />
     <ClCompile Include="Source\Engine\Math\Math.h" />
     <ClCompile Include="Source\Engine\Physics\Collision.cpp" />
+    <ClCompile Include="Source\Engine\Renderer\Color.cpp" />
     <ClCompile Include="Source\Engine\Resource\IResource.h" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Source\Engine\Components\Component.cpp" />
@@ -76,6 +81,7 @@
     <ClCompile Include="Source\Engine\Object\GameObject.cpp" />
     <ClCompile Include="Source\Engine\Resource\ResourceManager.cpp" />
     <ClCompile Include="Source\Engine\Renderer\Renderer.cpp" />
+    <ClCompile Include="Source\Engine\Resource\TextResource.cpp" />
     <ClCompile Include="Source\Engine\Resource\TextureResource.cpp" />
     <ClCompile Include="Source\Engine\Scene\Scene.cpp" />
     <ClCompile Include="Source\Engine\Scene\SceneManager.cpp">

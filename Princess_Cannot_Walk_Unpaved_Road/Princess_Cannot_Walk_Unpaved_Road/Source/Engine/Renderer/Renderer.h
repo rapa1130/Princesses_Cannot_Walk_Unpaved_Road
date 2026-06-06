@@ -8,6 +8,7 @@
 #include <type_traits>
 #include"Engine/Math/Vector2.h"
 #include"Engine/Renderer/Color.h"
+#include "Engine/Renderer/RenderCommand.h"
 
 //
 // @brief D2D 렌더링 Wrapper 클래스
@@ -15,81 +16,13 @@
 // D2D 기능들을 Wrapping 하여
 // 외부에 렌더링 기능을 제공
 
-
+#include<string>
 
 namespace Bisang
 {
 	class Scene;
 	class ResourceManager;
-
-	enum class RenderCommandType
-	{
-		None,
-		Sprite,
-		Text,
-		Line,
-		Rectangle
-	};
-
-	struct SpriteCommandData
-	{
-		IResource* resource;
-		Vector2 position;
-		Vector2 size;
-		float rot;
-		float alpha;
-	};
-
-	struct LineCommandData
-	{
-		Vector2 start;
-		Vector2 end;
-		float thickness;
-		Bisang::Color color;
-	};
-
-
-	struct RenderCommand
-	{
-		RenderCommandType type;
-		int orderInLayer;
-		float depth;
-		
-		union
-		{
-			SpriteCommandData sprite;
-			LineCommandData line;
-		};
-
-		static RenderCommand CreateSpriteRC(
-			IResource* resource,
-			const Vector2& position,
-			const Vector2& size,
-			float rot,
-			int orderInLayer,
-			float depth = 1.0f,
-			float alpha = 1.0f
-		);
-
-		static RenderCommand CreateLineRC(
-			const Vector2& start,
-			const Vector2& end,
-			Bisang::Color color,
-			int orderInLayer,
-			float thickness = 1.0f,
-			float depth = 0.0f
-		);
-
-		template<typename T>
-		T* GetResourceAs(IResource* resource) const
-		{
-			return dynamic_cast<T*>(resource);
-		}
-
-	private:
-		RenderCommand() {}
-	};
-
+	
 	class Renderer
 	{
 	public:
@@ -97,15 +30,16 @@ namespace Bisang
 			:m_resourceManager(resourceManager) { }
 
 		bool Initialize(HWND hwnd, int width, int height);
+
 		void RenderScene(Scene* scene);
 		void RenderAllCommands();
+
 		void Submit(const RenderCommand& command);
+
 		void RenderSprite(const RenderCommand& command);
 		void RenderLine(const RenderCommand& command);
+		void RenderText(const RenderCommand& command);
 
-		//std::shared_ptr<TextureResource> LoadTexture(
-		//	const std::wstring& path
-		//);
 
 		ID2D1DeviceContext4* GetD2DContext() const
 		{
@@ -142,4 +76,8 @@ namespace Bisang
 		// Offscreen RenderTarget
 		ComPtr<ID2D1Bitmap1>          m_targetBitmap;
 	};
+
+
+	D2D1_POINT_2F ToD2DPoint(const Bisang::Vector2& v);
+
 }

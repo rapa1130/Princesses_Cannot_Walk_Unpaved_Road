@@ -1,6 +1,9 @@
 #include "ResourceManager.h"
-
 #include"Engine/Core/Debug.h"
+
+#include"Engine/Resource/TextResource.h"
+#include <dwrite.h>
+#pragma comment(lib, "dwrite.lib")
 
 namespace Bisang
 {
@@ -25,8 +28,18 @@ namespace Bisang
         {
             return false;
         }
+        hr = DWriteCreateFactory(
+            DWRITE_FACTORY_TYPE_SHARED,
+            __uuidof(IDWriteFactory),
+            reinterpret_cast<IUnknown**>(m_dwriteFactory.GetAddressOf())
+        );
 
 
+        if (FAILED(hr))
+        {
+            DEBUG_ERROR("DWriteCreateFactory Failed");
+            return false;
+        }
 
         return true;
     }
@@ -52,6 +65,35 @@ namespace Bisang
         }
 
         Cache(path, resource);
+        return resource;
+    }
+
+    std::shared_ptr<TextFormatResource> ResourceManager::LoadTextFormat(
+        const std::wstring& fontName,
+        float fontSize
+    )
+    {
+        std::wstring key =
+            L"TextFormat:" + fontName + L":" + std::to_wstring(fontSize);
+
+        if (auto cached = FindCached<TextFormatResource>(key))
+        {
+            return cached;
+        }
+
+        auto resource = std::make_shared<TextFormatResource>();
+
+        if (!resource->CreateTextFormat(
+            m_dwriteFactory.Get(),
+            fontName,
+            fontSize
+        ))
+        {
+            DEBUG_ERROR("TextFormatResource Create Failed");
+            return nullptr;
+        }
+
+        Cache(key, resource);
         return resource;
     }
 }

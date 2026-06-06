@@ -16,7 +16,7 @@ namespace Bisang
 {
     class IResource;
     class TextureResource;
-
+    class TextFormatResource;
     /**
      * @brief 게임 리소스를 로드하고 관리하는 매니저 클래스.
      *
@@ -48,6 +48,11 @@ namespace Bisang
 
         std::shared_ptr<TextureResource> LoadTexture(
             const std::wstring& path
+        );
+
+        std::shared_ptr<TextFormatResource> LoadTextFormat(
+            const std::wstring& fontName,
+            float fontSiz
         );
 
         /**
@@ -86,6 +91,7 @@ namespace Bisang
     private:
         ComPtr<IWICImagingFactory> m_wicFactory;
         ID2D1DeviceContext4* m_d2dContext = nullptr; 
+        ComPtr<IDWriteFactory> m_dwriteFactory = nullptr;
 
         /**
          * @brief 타입별 리소스 캐시.
