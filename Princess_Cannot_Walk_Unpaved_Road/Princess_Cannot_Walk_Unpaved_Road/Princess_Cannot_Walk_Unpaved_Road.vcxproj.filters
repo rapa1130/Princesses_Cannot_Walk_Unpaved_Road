@@ -31,6 +31,11 @@
     <ClCompile Include="Source\Engine\Components\TextRenderer.cpp" />
     <ClCompile Include="Source\Engine\Resource\TextResource.cpp" />
     <ClCompile Include="Source\Engine\Renderer\Color.cpp" />
+    <ClCompile Include="Source\Engine\Components\BlockMap\BlockMap.cpp" />
+    <ClCompile Include="Source\Engine\Math\Int3.h" />
+    <ClCompile Include="Source\Engine\Math\Degree.h" />
+    <ClCompile Include="Source\Engine\Components\BlockMap\BlockMapRenderer.cpp" />
+    <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -61,5 +66,8 @@
     <ClInclude Include="Source\Engine\Components\TextRenderer.h" />
     <ClInclude Include="Source\Engine\Resource\TextResource.h" />
     <ClInclude Include="Source\Engine\Renderer\RenderCommand.h" />
+    <ClInclude Include="Source\Engine\Components\BlockMap\BlockMap.h" />
+    <ClInclude Include="Source\Engine\Components\BlockMap\BlockMapRenderer.h" />
+    <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
   </ItemGroup>
 </Project>
