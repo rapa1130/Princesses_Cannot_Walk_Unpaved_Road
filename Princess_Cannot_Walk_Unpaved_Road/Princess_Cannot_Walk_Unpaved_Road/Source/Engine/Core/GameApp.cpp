@@ -7,6 +7,7 @@
 #include "Engine/Renderer/Renderer.h"
 #include "Engine/Scene/SceneManager.h"
 #include "Game/Scenes/SampleScene.h"
+#include "Game/Scenes/BlockMapTestScene.h"
 
 #include <iostream>
 
@@ -52,7 +53,8 @@ namespace Bisang
 
         // 씬 매니저 설정
         m_sceneManager->AddScene<SampleScene>("SampleScene");
-        m_sceneManager->SetStartScene("SampleScene");
+        m_sceneManager->AddScene<BlockMapTestScene>("BlockMapTestScene");
+        m_sceneManager->SetStartScene("BlockMapTestScene");
 
         // 타이머 초기화 ( 초기화 마지막 단계에 두는 것이 좋음 )
         m_gameTimer->Reset();
