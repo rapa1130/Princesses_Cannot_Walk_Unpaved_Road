@@ -9,7 +9,7 @@
 #include "Engine/Components/BlockMap/BlockMapRenderer.h"
 #include "Engine/Core/Layer.h"
 #include "Game/Scripts/BlockMapTest.h"
-
+#include"Engine/Components/TextRenderer.h"
 
 namespace Bisang
 {
@@ -28,13 +28,12 @@ namespace Bisang
 		GameObject* blockMap = CreateGameObject("BlockMap");
 		BlockMap* bMap = blockMap->AddComponent<BlockMap>();
 		
-		bMap->SetAngle(80.0f, 30.0f);
 		bMap->InitMap(30, 30, 30);
-		bMap->SetBlockSize(120,120, 120);
+
 
 		for (int i = 0; i < 10; i++)
 		{
-			for (int ii = 0; ii < 5; ii++)
+			for (int ii = 0; ii < 30; ii++)
 			{
 				for (int iii = 1; iii < 2; iii++)
 				{
@@ -52,8 +51,8 @@ namespace Bisang
 		
 
 		Transform* bMapT = blockMap->GetComponent<Transform>();
-		bMapT->SetScale({ 0.8, 0.8});
-		bMapT->SetPosition({ 400, 0, 0 });
+		bMapT->SetScale({ 0.5, 0.5});
+		bMapT->SetPosition({ 100, 700, 0 });
 
 		//////////////////////////////////////////////////////////////////////////////////////
 		GameObject* playerObj = CreateGameObject("Player");
@@ -63,7 +62,14 @@ namespace Bisang
 		sr->SetLayer(Layer::Iso);
 		sr->SetSprite(L"Assets/Textures/test.png");
 
-		
+		GameObject* textObj = CreateGameObject("Text");
+		TextRenderer* tr = textObj->AddComponent<TextRenderer>();
+		tr->SetText(L"°³Áö·È´Ù");
+		tr->SetTextFormat(L"", 18);
+		tr->SetColor(Bisang::Color(1, 1, 1, 1));
+		Transform* textTr = tr->GetTransform();
+		textTr->SetPosition(Vector3(200, 400, 10));
+		textTr->SetScale(Vector2(400, 400));
 	}
 
 	void BlockMapTestScene::OnEnter()

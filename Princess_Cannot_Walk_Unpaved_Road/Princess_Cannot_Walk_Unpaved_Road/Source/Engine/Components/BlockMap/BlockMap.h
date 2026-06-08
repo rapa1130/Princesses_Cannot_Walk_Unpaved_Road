@@ -52,8 +52,9 @@ namespace Bisang
         // z층을 기준으로 world 좌표를 block 좌표로 변환
         Int3 WorldToBlock(Vector3 worldPos, int heightLayer = 0) const;
 
-        void SetAngle(float yaw, float pitch);
+        void SetAngle(float yaw, float pitch, float theta);
         Vector2 GetAngle() { return { m_yaw, m_pitch }; }
+        float GetTheta() { return m_theta;}
 
         const Vector2& GetAxisX() const { return m_axisX; }
         const Vector2& GetAxisY() const { return m_axisY; }
@@ -83,6 +84,7 @@ namespace Bisang
 
         float m_yaw = 35.f;     // 좌우 회전
         float m_pitch = 55.f;   // 위아래 기울기
+        float m_theta = 10.0f;
 
         Vector2 m_axisX;
         Vector2 m_axisY;
