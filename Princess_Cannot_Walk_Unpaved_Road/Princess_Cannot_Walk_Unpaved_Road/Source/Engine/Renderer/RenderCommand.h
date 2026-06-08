@@ -18,7 +18,7 @@ namespace Bisang
 	struct SpriteCommandData
 	{
 		IResource* resource;
-		Vector2 position;
+		Vector3 position;
 		Vector2 size;
 		float rot;
 		float alpha;
@@ -26,8 +26,8 @@ namespace Bisang
 
 	struct LineCommandData
 	{
-		Vector2 start;
-		Vector2 end;
+		Vector3 start;
+		Vector3 end;
 		float thickness;
 		Bisang::Color color;
 	};
@@ -39,7 +39,7 @@ namespace Bisang
 
 		TextFormatResource* textFormat;
 
-		Vector2 position;
+		Vector3 position;
 		Vector2 textBoxSize;
 
 		Bisang::Color color;
@@ -49,7 +49,7 @@ namespace Bisang
 	struct RenderCommand
 	{
 		RenderCommandType type;
-		int orderInLayer;
+		int layer;
 		float depth;
 
 		union
@@ -61,19 +61,19 @@ namespace Bisang
 
 		static RenderCommand CreateSpriteRC(
 			IResource* resource,
-			const Vector2& position,
+			const Vector3& position,
 			const Vector2& size,
 			float rot,
-			int orderInLayer,
+			int layer,
 			float depth = 1.0f,
 			float alpha = 1.0f
 		);
 
 		static RenderCommand CreateLineRC(
-			const Vector2& start,
-			const Vector2& end,
+			const Vector3& start,
+			const Vector3& end,
 			Bisang::Color color,
-			int orderInLayer,
+			int layer,
 			float thickness = 1.0f,
 			float depth = 0.0f
 		);
@@ -82,10 +82,10 @@ namespace Bisang
 			const wchar_t* text,
 			UINT32 length,
 			TextFormatResource* textFormat,
-			const Vector2& position,
+			const Vector3& position,
 			const Vector2& size,
 			const Bisang::Color& color,
-			int orderInLayer,
+			int layer,
 			float depth = 0.0f
 		);
 

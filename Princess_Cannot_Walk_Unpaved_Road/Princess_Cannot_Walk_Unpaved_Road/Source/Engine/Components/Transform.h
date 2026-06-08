@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/Components/Component.h"
-#include "Engine/Math/Vector2.h"
+#include "Engine/Math/Vector.h"
 
 namespace Bisang
 {
@@ -9,11 +9,11 @@ namespace Bisang
 	public:
 		Transform(GameObject* ownerObj, Scene* scene);
 
-		void SetPosition(Vector2 pos) { m_pos = pos; }
+		void SetPosition(Vector3 pos) { m_pos = pos; }
 		void SetScale(Vector2 scale) { m_scale = scale; }
 		void SetRotation(float rotation) { m_rotation = rotation; }
 
-		Vector2 GetPosition() const { return m_pos; }
+		Vector3 GetPosition() const { return m_pos; }
 		Vector2 GetScale() const { return m_scale; }
 		float GetRotation() const { return m_rotation; }
 
@@ -25,14 +25,14 @@ namespace Bisang
 		 *
 		 * @return 계산된 월드 위치
 		 */
-		Vector2 GetWorldPosition();
+		Vector3 GetWorldPosition();
 
 		/**
 		 * @brief 현재 위치에 이동 벡터를 더한다.
 		 *
 		 * @param[in] moveVector 이동시킬 거리 벡터
 		 */
-		void Translate(Vector2 moveVector)
+		void Translate(Vector3 moveVector)
 		{
 			m_pos += moveVector;
 		}
@@ -58,7 +58,7 @@ namespace Bisang
 		}
 
 	private:
-		Vector2 m_pos = { 0.0f, 0.0f };     // 위치
+		Vector3 m_pos = { 0.0f, 0.0f, 0.0f };     // 위치
 		Vector2 m_scale = { 1.0f, 1.0f };   // 배율
 		float m_rotation = 0.0f;            // 0 = 오른쪽, 90 = 위, 180 = 왼쪽, 270 = 아래
 	};

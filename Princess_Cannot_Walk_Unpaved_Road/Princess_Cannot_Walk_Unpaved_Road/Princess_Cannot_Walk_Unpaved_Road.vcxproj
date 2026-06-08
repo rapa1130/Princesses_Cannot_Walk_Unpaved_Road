@@ -29,9 +29,10 @@
     <ClInclude Include="Source\Engine\Components\TextRenderer.h" />
     <ClInclude Include="Source\Engine\Components\Transform.h" />
     <ClInclude Include="Source\Engine\Core\GameTimer.h" />
+    <ClInclude Include="Source\Engine\Core\Layer.h" />
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
     <ClInclude Include="Source\Engine\Input\InputManager.h" />
-    <ClInclude Include="Source\Engine\Math\Vector2.h" />
+    <ClInclude Include="Source\Engine\Math\Vector.h" />
     <ClInclude Include="Source\Engine\Physics\Collision.h" />
     <ClInclude Include="Source\Engine\Renderer\Color.h" />
     <ClInclude Include="Source\Engine\Renderer\D2DBitmapInfo.h" />

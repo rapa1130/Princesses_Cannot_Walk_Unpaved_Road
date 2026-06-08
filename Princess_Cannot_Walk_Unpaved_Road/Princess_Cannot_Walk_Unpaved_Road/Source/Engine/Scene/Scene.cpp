@@ -178,7 +178,6 @@ namespace Bisang
 			return;
 
 		m_renderableComponents.push_back(component);
-
 	}
 
 	void Scene::RemoveRenderableComponent(RenderableComponent* component)

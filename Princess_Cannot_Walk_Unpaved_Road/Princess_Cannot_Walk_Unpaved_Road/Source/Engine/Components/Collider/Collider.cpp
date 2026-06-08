@@ -11,9 +11,9 @@ namespace Bisang
 	{
 	}
 
-	Vector2 Collider::GetWorldPosition()
+	Vector3 Collider::GetWorldPosition()
 	{
-		Vector2 pos = m_transform->GetWorldPosition();
+		Vector3 pos = m_transform->GetWorldPosition();
 		return pos + m_offset;
 	}
 }

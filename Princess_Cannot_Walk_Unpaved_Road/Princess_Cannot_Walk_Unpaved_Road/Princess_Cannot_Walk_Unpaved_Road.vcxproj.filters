@@ -55,7 +55,7 @@
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Engine\Core\GameTimer.h" />
     <ClInclude Include="Source\Engine\Components\Transform.h" />
-    <ClInclude Include="Source\Engine\Math\Vector2.h" />
+    <ClInclude Include="Source\Engine\Math\Vector.h" />
     <ClInclude Include="Source\Engine\Components\SpriteRenderer.h" />
     <ClInclude Include="Source\Engine\Components\Collider\CircleCollider.h" />
     <ClInclude Include="Source\Engine\Components\Collider\BoxCollider.h" />
@@ -69,5 +69,6 @@
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockMap.h" />
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockMapRenderer.h" />
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
+    <ClInclude Include="Source\Engine\Core\Layer.h" />
   </ItemGroup>
 </Project>

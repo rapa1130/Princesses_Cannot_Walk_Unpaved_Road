@@ -64,7 +64,7 @@ namespace Bisang
                         continue;
 
                     // 블록 좌표 -> 화면(World) 좌표 변환
-                    Vector2 worldPos =
+                    Vector3 worldPos =
                         m_transform->GetWorldPosition() +
                         m_blockMap->BlockToWorld(pos);
                    
@@ -75,36 +75,11 @@ namespace Bisang
                     renderBlock.blockId = block->blockId;
                     renderBlock.worldPos = worldPos;
 
-                    // 아이소메트릭에서는 화면 아래쪽 블록을 나중에 그려야 함
-                    renderBlock.sortY = worldPos.y;
-
-                    // 같은 y값일 경우 높이로 추가 정렬
-                    renderBlock.sortZ = z;
-
                     m_renderBlocks.push_back(renderBlock);
                 }
             }
         }
 
-        // 렌더링 순서 정렬
-        std::sort(
-            m_renderBlocks.begin(),
-            m_renderBlocks.end(),
-            [](const RenderBlock& a, const RenderBlock& b)
-            {
-                // 같은 y라면 낮은 층 먼저
-                if (a.sortZ != b.sortZ)
-                    return a.sortZ < b.sortZ;
-
-                // 화면 위쪽 블록 먼저
-                if (a.sortY != b.sortY)
-                    return a.sortY < b.sortY;
-
-                // 완전히 동일하면 BlockId 값 기준
-                return static_cast<int>(a.blockId) <
-                    static_cast<int>(b.blockId);
-            }
-        );
 
         // 정렬된 순서대로 DrawCall 생성
         for (const RenderBlock& renderBlock : m_renderBlocks)
@@ -129,7 +104,7 @@ namespace Bisang
                     static_cast<float>(size.height) * m_transform->GetScale().y
                 ),
                 0.0f,
-                GetOrderInLayer(),
+                GetLayer(),
                 renderBlock.worldPos.y,
                 m_alpha
             );

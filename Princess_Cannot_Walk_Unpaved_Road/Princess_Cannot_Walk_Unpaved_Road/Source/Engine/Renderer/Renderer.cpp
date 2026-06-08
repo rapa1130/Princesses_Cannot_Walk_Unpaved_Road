@@ -2,6 +2,7 @@
 #include<algorithm>
 #include"Engine/Components/Component.h"
 #include"Engine/Core/GameApp.h"
+#include"Engine/Core/Layer.h"
 #include"Engine/Scene/SceneManager.h"
 #include"Engine/Scene/Scene.h"
 #include"Engine/Core/Debug.h"
@@ -139,10 +140,6 @@ namespace Bisang
 
     }
 
-
-
-
-
     void Renderer::RenderScene(Scene* scene)
     {
         if (!m_d2dContext || !m_swapChain)
@@ -165,10 +162,27 @@ namespace Bisang
             m_renderCommands.end(),
             [](const RenderCommand& a, const RenderCommand& b)
             {
-                if (a.orderInLayer != b.orderInLayer)
-                    return a.orderInLayer < b.orderInLayer;
+                if (a.layer != b.layer)
+                    return a.layer < b.layer;
 
-                return a.depth < b.depth;
+                switch (a.layer)
+                {
+                // 아이소 맵 + 플레이어 + 적 등등
+                case Layer::Iso:
+                  
+                    if (a.sprite.position.z != b.sprite.position.z)
+                        return a.sprite.position.z > b.sprite.position.z;
+
+                    if (a.sprite.position.y != b.sprite.position.y)
+                        return a.sprite.position.y < b.sprite.position.y;
+
+                    return false;
+
+                // 배경 + UI 등등
+                default:
+                    return a.sprite.position.z < b.sprite.position.z;
+
+                }
             }
         );
 
@@ -269,6 +283,7 @@ namespace Bisang
         m_brush->SetColor(d2dColor);
 
         D2D1_RECT_F layoutRect = D2D1::RectF(
+     
             text.position.x,
             text.position.y,
             text.position.x + text.textBoxSize.x,
@@ -288,7 +303,7 @@ namespace Bisang
     
     RenderCommand RenderCommand::CreateSpriteRC(
             IResource* resource, 
-            const Vector2& position, 
+            const Vector3& position, 
             const Vector2& size, 
             float rot, 
             int orderInLayer, 
@@ -299,7 +314,7 @@ namespace Bisang
         RenderCommand ret = RenderCommand();
         
         ret.type = RenderCommandType::Sprite;
-        ret.orderInLayer = orderInLayer;
+        ret.layer = orderInLayer;
         ret.depth = depth;
 
         ret.sprite.alpha = alpha;
@@ -313,8 +328,8 @@ namespace Bisang
     }
 
     RenderCommand RenderCommand::CreateLineRC(
-            const Vector2& start, 
-            const Vector2& end, 
+            const Vector3& start, 
+            const Vector3& end, 
             Bisang::Color color,
             int orderInLayer, 
             float thickness,
@@ -325,7 +340,7 @@ namespace Bisang
         RenderCommand ret = RenderCommand();
 
         ret.type = RenderCommandType::Line;
-        ret.orderInLayer = orderInLayer;
+        ret.layer = orderInLayer;
         ret.depth = depth;
 
         ret.line.start = start;
@@ -340,7 +355,7 @@ namespace Bisang
             const wchar_t* text, 
             UINT32 length, 
             TextFormatResource* textFormat, 
-            const Vector2& position, 
+            const Vector3& position, 
             const Vector2& size, 
             const Bisang::Color& color, 
             int orderInLayer, 
@@ -350,7 +365,7 @@ namespace Bisang
         RenderCommand ret;
 
         ret.type = RenderCommandType::Text;
-        ret.orderInLayer = orderInLayer;
+        ret.layer = orderInLayer;
         ret.depth = depth;
 
         ret.text.text = text;
@@ -364,7 +379,7 @@ namespace Bisang
     }
 
 
-    D2D1_POINT_2F ToD2DPoint(const Bisang::Vector2& v)
+    D2D1_POINT_2F ToD2DPoint(const Bisang::Vector3& v)
     {
         return D2D1_POINT_2F{ v.x, v.y };
     }

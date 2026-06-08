@@ -35,7 +35,7 @@ namespace Bisang
             m_transform->GetPosition(),
             m_transform->GetScale(),
             m_color,
-            GetOrderInLayer()
+            GetLayer()
         );
 
 

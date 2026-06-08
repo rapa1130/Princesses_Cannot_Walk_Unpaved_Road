@@ -27,7 +27,7 @@ namespace Bisang
 		SpriteRenderer* spriteRenderer = m_player->AddComponent<SpriteRenderer>();
 		Transform* tranform = m_player->GetComponent<Transform>();
 		tranform->SetScale(Vector2(1, 1));
-		tranform->SetPosition(Vector2(500, 200));
+		tranform->SetPosition(Vector3(500, 200, 0));
 		
 		//auto texture = m_resourceManager->LoadTexture(L"Assets/Textures/test.png");
 		//spriteRenderer->SetSprite(texture);
@@ -36,8 +36,8 @@ namespace Bisang
 		GameObject* lineObj = CreateGameObject("LineTest");
 		LineRenderer* lineRenderer = lineObj->AddComponent<LineRenderer>();
 		lineRenderer->SetColor(Color(1.0f,0,0,1.0f));
-		lineRenderer->SetStartPosition(Vector2(300, 300));
-		lineRenderer->SetEndPosition(Vector2(800, 800));
+		lineRenderer->SetStartPosition(Vector3(300, 300, 0));
+		lineRenderer->SetEndPosition(Vector3(800, 800, 0));
 		lineRenderer->SetLineWidth(10.0f);
 
 
@@ -47,7 +47,7 @@ namespace Bisang
 		textRenderer->SetTextFormat(L"¸¼Àº °íµñ", 24.0f);
 		textRenderer->SetText(L"¾Æ ÁøÂ¥ °è¶õ»§´Þ´Ù");
 		Transform* textTrf = textRenderer->GetTransform();
-		textTrf->SetPosition(Vector2(100, 100));
+		textTrf->SetPosition(Vector3(100, 100, 0));
 		textTrf->SetScale(Vector2(1000.f, 100.f));
 
 	}

@@ -6,7 +6,7 @@
 #include"Engine/Resource/ResourceManager.h"
 #include <typeindex>
 #include <type_traits>
-#include"Engine/Math/Vector2.h"
+#include"Engine/Math/Vector.h"
 #include"Engine/Renderer/Color.h"
 #include "Engine/Renderer/RenderCommand.h"
 
@@ -78,6 +78,6 @@ namespace Bisang
 	};
 
 
-	D2D1_POINT_2F ToD2DPoint(const Bisang::Vector2& v);
+	D2D1_POINT_2F ToD2DPoint(const Bisang::Vector3& v);
 
 }

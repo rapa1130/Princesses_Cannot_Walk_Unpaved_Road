@@ -59,7 +59,7 @@ namespace Bisang
 			m_transform->GetPosition(),
 			Vector2(GetWidth(), GetHeight()),
 			m_transform->GetRotation(),
-			GetOrderInLayer(),
+			GetLayer(),
 			m_transform->GetPosition().y,
 			m_alpha
 		);

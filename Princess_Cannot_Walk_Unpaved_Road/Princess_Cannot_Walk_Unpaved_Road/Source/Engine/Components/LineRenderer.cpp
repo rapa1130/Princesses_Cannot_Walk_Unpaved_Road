@@ -17,7 +17,7 @@ namespace Bisang
 			m_startPos,
 			m_endPos,
 			m_color,
-			GetOrderInLayer(),
+			GetLayer(),
 			m_thickness
 		);
 

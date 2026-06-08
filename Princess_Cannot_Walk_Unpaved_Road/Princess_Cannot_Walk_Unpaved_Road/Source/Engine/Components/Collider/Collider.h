@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/Components/Component.h"
-#include "Engine/Math/Vector2.h"
+#include "Engine/Math/Vector.h"
 #include <functional>
 
 namespace Bisang
@@ -29,17 +29,17 @@ namespace Bisang
         void SetIsTrigger(bool isTrigger) { m_isTrigger = isTrigger; }
         bool GetIsTrigger() const { return m_isTrigger; }
 
-        void SetOffset(Vector2 offset) { m_offset = offset; }
-        Vector2 GetOffset() const { return m_offset; }
+        void SetOffset(Vector3 offset) { m_offset = offset; }
+        Vector3 GetOffset() const { return m_offset; }
 
-        Vector2 GetWorldPosition();
+        Vector3 GetWorldPosition();
 
     protected:
         ColliderType m_type;
         Transform* m_transform = nullptr;
 
     private:
-        Vector2 m_offset = { 0.0f, 0.0f };
+        Vector3 m_offset = { 0.0f, 0.0f, 0.0f };
         bool m_isTrigger = false;
     };
 }
