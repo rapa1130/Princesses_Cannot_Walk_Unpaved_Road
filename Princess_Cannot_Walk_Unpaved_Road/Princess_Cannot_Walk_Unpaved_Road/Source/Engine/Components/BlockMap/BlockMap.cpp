@@ -1,5 +1,6 @@
 #include "BlockMap.h"
 #include "Engine/Math/Degree.h"
+#include "Engine/Math/Vector.h"
 #include <cassert>
 #include <cmath>
 
@@ -21,10 +22,7 @@ namespace Bisang
         m_height = height;
         m_depth = depth;
 
-        m_map.assign(
-            m_width * m_height * m_depth,
-            Block{}
-        );
+        m_map.assign(m_width * m_height * m_depth, Block{});
     }
 
     void BlockMap::SetBlockSize(float width, float height, float depth)
@@ -40,7 +38,6 @@ namespace Bisang
 
     int BlockMap::Index(Int3 pos) const
     {
-        // 블럭인덱스를 1차원 인덱스로 변환
         return pos.z * (m_width * m_depth)
             + pos.y * m_width
             + pos.x;
@@ -77,8 +74,7 @@ namespace Bisang
         if (!InBounds(pos))
             return;
 
-        Block& block = m_map[Index(pos)];
-        block.blockId = id;
+        m_map[Index(pos)].blockId = id;
     }
 
     void BlockMap::RemoveBlock(Int3 pos)
@@ -86,8 +82,7 @@ namespace Bisang
         if (!InBounds(pos))
             return;
 
-        Block& block = m_map[Index(pos)];
-        block.blockId = BlockId::Empty;
+        m_map[Index(pos)].blockId = BlockId::Empty;
     }
 
     bool BlockMap::IsEmpty(Int3 pos) const
@@ -100,18 +95,29 @@ namespace Bisang
         return block->blockId == BlockId::Empty;
     }
 
-    Vector2 BlockMap::BlockToWorld(Int3 pos) const
+    Vector3 BlockMap::BlockToWorld(Int3 pos) const
     {
-        return
+        Vector2 world2D =
             m_axisX * (static_cast<float>(pos.x) * m_blockWidth) +
             m_axisY * (static_cast<float>(pos.y) * m_blockDepth) +
             m_axisZ * (static_cast<float>(pos.z) * m_blockHeight);
+
+        return Vector3(
+            world2D.x,
+            world2D.y,
+            static_cast<float>(pos.z) * m_blockHeight
+        );
     }
 
-    Int3 BlockMap::WorldToBlock(Vector2 worldPos, int heightLayer) const
+    Int3 BlockMap::WorldToBlock(Vector3 worldPos, int heightLayer) const
     {
+        Vector2 world2D(
+            worldPos.x,
+            worldPos.y
+        );
+
         Vector2 adjustedWorld =
-            worldPos -
+            world2D -
             m_axisZ * (static_cast<float>(heightLayer) * m_blockHeight);
 
         float ax = m_axisX.x * m_blockWidth;
@@ -163,7 +169,7 @@ namespace Bisang
         m_axisZ =
         {
             0.f,
-           -cosf(pitchRad)
+           cosf(pitchRad)
         };
     }
 }

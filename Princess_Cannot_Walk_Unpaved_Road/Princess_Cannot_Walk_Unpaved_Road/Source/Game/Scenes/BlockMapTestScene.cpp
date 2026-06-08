@@ -7,6 +7,7 @@
 #include <iostream>
 #include "Engine/Components/BlockMap/BlockMap.h"
 #include "Engine/Components/BlockMap/BlockMapRenderer.h"
+#include "Engine/Core/Layer.h"
 
 namespace Bisang
 {
@@ -24,9 +25,10 @@ namespace Bisang
 
 		GameObject* blockMap = CreateGameObject("BlockMap");
 		BlockMap* bMap = blockMap->AddComponent<BlockMap>();
-		bMap->SetAngle(43, 35);
+		
+		bMap->SetAngle(45, 35);
 		bMap->InitMap(50, 50, 50);
-		bMap->SetBlockSize(50, 50, 50);
+		bMap->SetBlockSize(54, 54, 54);
 
 		for (int i = 0; i < 10; i++)
 		{
@@ -38,30 +40,22 @@ namespace Bisang
 				}
 			}
 		}
-
-		bMap->SetBlock({ 9, 9, 0 }, BlockId::Empty);
-
-		bMap->SetBlock({ 9, 9, 1 }, BlockId::Empty);
-		bMap->SetBlock({ 8, 9, 1 }, BlockId::Empty);
-		bMap->SetBlock({ 9, 8, 1 }, BlockId::Empty);
-		bMap->SetBlock({ 8, 8, 1 }, BlockId::Empty);
-
-		bMap->SetBlock({ 9, 9, 2 }, BlockId::Empty);
-		bMap->SetBlock({ 8, 9, 2 }, BlockId::Empty);
-		bMap->SetBlock({ 7, 9, 2 }, BlockId::Empty);
-		bMap->SetBlock({ 9, 7, 2 }, BlockId::Empty);
-		bMap->SetBlock({ 9, 8, 2 }, BlockId::Empty);
-		bMap->SetBlock({ 8, 8, 2 }, BlockId::Empty);
-		bMap->SetBlock({ 7, 8, 2 }, BlockId::Empty);
-		bMap->SetBlock({ 7, 7, 2 }, BlockId::Empty);
-		bMap->SetBlock({ 8, 7, 2 }, BlockId::Empty);
+		
+		bMap->SetBlock({ 0 ,0, 0 }, BlockId::Empty);
 
 		BlockMapRenderer* bMapR = blockMap->AddComponent<BlockMapRenderer>();
+		bMapR->SetLayer(Layer::Iso);
 		bMapR->SetBlockMap(bMap);
+		
 
 		Transform* bMapT = blockMap->GetComponent<Transform>();
 		bMapT->SetScale({ 0.1, 0.1 });
-		bMapT->SetPosition({ 400, 200 });
+		bMapT->SetPosition({ 400, 200, 0 });
+
+
+
+
+
 	}
 
 	void BlockMapTestScene::OnEnter()

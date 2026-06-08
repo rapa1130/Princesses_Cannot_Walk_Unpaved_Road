@@ -62,8 +62,8 @@ namespace Bisang
 
 		virtual void DrawCall(Renderer* renderer) = 0;
 
-		int GetOrderInLayer() const { return m_orderInLayer; }
-		void SetOrderInLayer(int order) { m_orderInLayer = order; }
+		int GetLayer() const { return m_Layer; }
+		void SetLayer(int order) { m_Layer = order; }
 
 		bool GetIsVisible() const { return m_isVisible; }
 		void SetIsVisible(bool on) { m_isVisible = on; }
@@ -74,7 +74,7 @@ namespace Bisang
 		Transform* m_transform;
 
 	private:
-		int m_orderInLayer = 0;   // 렌더링 순서 (작을 수록 빨리 렌더링)
+		int m_Layer = 0;   // 레이어 (작을 수록 빨리 렌더링)
 		bool m_isVisible = true;   // 렌더링 여부
 	};
 }

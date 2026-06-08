@@ -7,7 +7,7 @@ namespace Bisang
         Component(ownerObj, scene)
     {
     }
-    Vector2 Transform::GetWorldPosition()
+    Vector3 Transform::GetWorldPosition()
     {
         // 부모가 없으면 현재 위치가 월드 위치
         if (nullptr == m_ownerObj->GetParent())

@@ -198,6 +198,7 @@ namespace Bisang
          */
         void CheckCollisions();
 
+
 	protected:
 		std::string m_sceneName = "";                   // 씬이름
 		ResourceManager* m_resourceManager = nullptr;   // 리소스 매니저

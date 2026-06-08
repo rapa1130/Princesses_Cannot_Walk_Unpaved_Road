@@ -3,7 +3,7 @@
 #include "Engine/Components/Collider/Collider.h"
 #include "Engine/Components/Collider/BoxCollider.h"
 #include "Engine/Components/Collider/CircleCollider.h"
-#include "Engine/Math/Vector2.h"
+#include "Engine/Math/Vector.h"
 #include "Engine/Math/Math.h"
 
 #include <cmath>
@@ -61,8 +61,8 @@ namespace Bisang
 		CircleCollider* lhs,
 		CircleCollider* rhs)
 	{
-		Vector2 lhsPos = lhs->GetWorldPosition();
-		Vector2 rhsPos = rhs->GetWorldPosition();
+		Vector3 lhsPos = lhs->GetWorldPosition();
+		Vector3 rhsPos = rhs->GetWorldPosition();
 
 		float dx = lhsPos.x - rhsPos.x;
 		float dy = lhsPos.y - rhsPos.y;
@@ -76,8 +76,8 @@ namespace Bisang
 		BoxCollider* lhs,
 		BoxCollider* rhs)
 	{
-		Vector2 lhsPos = lhs->GetWorldPosition();
-		Vector2 rhsPos = rhs->GetWorldPosition();
+		Vector3 lhsPos = lhs->GetWorldPosition();
+		Vector3 rhsPos = rhs->GetWorldPosition();
 
 		Vector2 lhsSize = lhs->GetSize();
 		Vector2 rhsSize = rhs->GetSize();
@@ -95,8 +95,8 @@ namespace Bisang
 		CircleCollider* circle,
 		BoxCollider* box)
 	{
-		Vector2 circlePos = circle->GetWorldPosition();
-		Vector2 boxPos = box->GetWorldPosition();
+		Vector3 circlePos = circle->GetWorldPosition();
+		Vector3 boxPos = box->GetWorldPosition();
 		Vector2 boxSize = box->GetSize();
 
 		float halfX = boxSize.x * 0.5f;

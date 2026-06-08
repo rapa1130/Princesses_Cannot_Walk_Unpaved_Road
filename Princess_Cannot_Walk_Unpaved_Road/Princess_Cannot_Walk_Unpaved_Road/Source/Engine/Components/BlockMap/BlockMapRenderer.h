@@ -29,9 +29,7 @@ namespace Bisang
         {
             Int3 pos;
             BlockId blockId = BlockId::Empty;
-            Vector2 worldPos;
-            float sortY = 0.f;
-            int sortZ = 0;
+            Vector3 worldPos;
         };
 
     private:

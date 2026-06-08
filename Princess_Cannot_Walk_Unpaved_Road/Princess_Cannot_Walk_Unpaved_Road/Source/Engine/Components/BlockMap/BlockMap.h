@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Engine/Components/Component.h"
-#include "Engine/Math/Vector2.h"
+#include "Engine/Math/Vector.h"
 #include "Engine/Math/Int3.h"
 
 #include <vector>
@@ -47,10 +47,10 @@ namespace Bisang
 
         bool IsEmpty(Int3 pos) const;
 
-        Vector2 BlockToWorld(Int3 pos) const;
+        Vector3 BlockToWorld(Int3 pos) const;
 
         // z층을 기준으로 world 좌표를 block 좌표로 변환
-        Int3 WorldToBlock(Vector2 worldPos, int heightLayer = 0) const;
+        Int3 WorldToBlock(Vector3 worldPos, int heightLayer = 0) const;
 
         void SetAngle(float yaw, float pitch);
 
