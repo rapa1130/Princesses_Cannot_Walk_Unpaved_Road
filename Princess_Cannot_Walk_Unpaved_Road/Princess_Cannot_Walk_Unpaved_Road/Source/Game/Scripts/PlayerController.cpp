@@ -4,6 +4,7 @@
 #include "Engine/Input/InputManager.h"
 #include "Engine/Core/Debug.h"
 
+
 namespace Bisang
 {
 	void PlayerController::Start()
@@ -14,7 +15,6 @@ namespace Bisang
 
 	void PlayerController::Update(float dT)
 	{
-		
 		if (m_input->IsKeyDown(KeyCode::A))
 		{
 			m_dir = { -1, 0, 0 };
@@ -36,6 +36,8 @@ namespace Bisang
 		{
 			m_dir = { 0,0,0 };
 		}
+
+		
 
 		m_transform->Translate(m_dir * moveSpeed);
 	}

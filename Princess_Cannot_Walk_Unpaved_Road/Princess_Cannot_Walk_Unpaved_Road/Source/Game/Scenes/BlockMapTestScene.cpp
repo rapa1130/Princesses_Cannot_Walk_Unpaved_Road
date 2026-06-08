@@ -8,6 +8,7 @@
 #include "Engine/Components/BlockMap/BlockMap.h"
 #include "Engine/Components/BlockMap/BlockMapRenderer.h"
 #include "Engine/Core/Layer.h"
+#include "Game/Scripts/BlockMapTest.h"
 
 
 namespace Bisang
@@ -27,13 +28,13 @@ namespace Bisang
 		GameObject* blockMap = CreateGameObject("BlockMap");
 		BlockMap* bMap = blockMap->AddComponent<BlockMap>();
 		
-		bMap->SetAngle(45, 35);
-		bMap->InitMap(50, 50, 50);
-		bMap->SetBlockSize(54, 54, 54);
+		bMap->SetAngle(80.0f, 30.0f);
+		bMap->InitMap(30, 30, 30);
+		bMap->SetBlockSize(120,120, 120);
 
 		for (int i = 0; i < 10; i++)
 		{
-			for (int ii = 0; ii < 10; ii++)
+			for (int ii = 0; ii < 5; ii++)
 			{
 				for (int iii = 1; iii < 2; iii++)
 				{
@@ -41,14 +42,9 @@ namespace Bisang
 				}
 			}
 		}
-		
 
-		bMap->SetBlock({ 5 ,1, 0 }, BlockId::Grass);
-		bMap->SetBlock({ 5 ,2, 0 }, BlockId::Grass);
-		bMap->SetBlock({ 5 ,3, 0 }, BlockId::Grass);
-		bMap->SetBlock({ 5 ,4, 0 }, BlockId::Grass);
-		bMap->SetBlock({ 5 ,5, 0 }, BlockId::Grass);
-		bMap->SetBlock({ 5 ,6, 0 }, BlockId::Grass);
+		blockMap->AddComponent<BlockMapTest>();
+	
 
 		BlockMapRenderer* bMapR = blockMap->AddComponent<BlockMapRenderer>();
 		bMapR->SetLayer(Layer::Iso);
@@ -56,8 +52,8 @@ namespace Bisang
 		
 
 		Transform* bMapT = blockMap->GetComponent<Transform>();
-		bMapT->SetScale({ 0.1, 0.1 });
-		bMapT->SetPosition({ 400, 200, 0 });
+		bMapT->SetScale({ 0.8, 0.8});
+		bMapT->SetPosition({ 400, 0, 0 });
 
 		//////////////////////////////////////////////////////////////////////////////////////
 		GameObject* playerObj = CreateGameObject("Player");
@@ -67,7 +63,7 @@ namespace Bisang
 		sr->SetLayer(Layer::Iso);
 		sr->SetSprite(L"Assets/Textures/test.png");
 
-		playerObj->AddComponent<PlayerController>();
+		
 	}
 
 	void BlockMapTestScene::OnEnter()
