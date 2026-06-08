@@ -9,7 +9,7 @@
 #include "Engine/Components/BlockMap/BlockMapRenderer.h"
 #include "Engine/Core/Layer.h"
 #include "Game/Scripts/BlockMapTest.h"
-
+#include"Engine/Components/TextRenderer.h"
 
 namespace Bisang
 {
@@ -62,7 +62,14 @@ namespace Bisang
 		sr->SetLayer(Layer::Iso);
 		sr->SetSprite(L"Assets/Textures/test.png");
 
-		
+		GameObject* textObj = CreateGameObject("Text");
+		TextRenderer* tr = textObj->AddComponent<TextRenderer>();
+		tr->SetText(L"°³Áö·È´Ù");
+		tr->SetTextFormat(L"", 18);
+		tr->SetColor(Bisang::Color(1, 1, 1, 1));
+		Transform* textTr = tr->GetTransform();
+		textTr->SetPosition(Vector3(200, 400, 10));
+		textTr->SetScale(Vector2(400, 400));
 	}
 
 	void BlockMapTestScene::OnEnter()
