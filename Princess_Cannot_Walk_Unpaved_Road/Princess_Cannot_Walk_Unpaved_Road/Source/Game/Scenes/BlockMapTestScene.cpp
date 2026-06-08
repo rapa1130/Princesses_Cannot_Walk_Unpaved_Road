@@ -1,6 +1,6 @@
 #include "BlockMapTestScene.h"
 #include "Engine/Object/GameObject.h"
-#include "Game/Scripts/SampleScript.h"
+#include "Game/Scripts/PlayerController.h"
 #include"Engine/Core/Debug.h"
 #include"Engine/Components/SpriteRenderer.h"
 #include"Engine/Components/Transform.h"
@@ -8,6 +8,7 @@
 #include "Engine/Components/BlockMap/BlockMap.h"
 #include "Engine/Components/BlockMap/BlockMapRenderer.h"
 #include "Engine/Core/Layer.h"
+
 
 namespace Bisang
 {
@@ -34,14 +35,20 @@ namespace Bisang
 		{
 			for (int ii = 0; ii < 10; ii++)
 			{
-				for (int iii = 0; iii < 3; iii++)
+				for (int iii = 1; iii < 2; iii++)
 				{
 					bMap->SetBlock({ i, ii, iii }, BlockId::Grass);
 				}
 			}
 		}
 		
-		bMap->SetBlock({ 0 ,0, 0 }, BlockId::Empty);
+
+		bMap->SetBlock({ 5 ,1, 0 }, BlockId::Grass);
+		bMap->SetBlock({ 5 ,2, 0 }, BlockId::Grass);
+		bMap->SetBlock({ 5 ,3, 0 }, BlockId::Grass);
+		bMap->SetBlock({ 5 ,4, 0 }, BlockId::Grass);
+		bMap->SetBlock({ 5 ,5, 0 }, BlockId::Grass);
+		bMap->SetBlock({ 5 ,6, 0 }, BlockId::Grass);
 
 		BlockMapRenderer* bMapR = blockMap->AddComponent<BlockMapRenderer>();
 		bMapR->SetLayer(Layer::Iso);
@@ -52,10 +59,15 @@ namespace Bisang
 		bMapT->SetScale({ 0.1, 0.1 });
 		bMapT->SetPosition({ 400, 200, 0 });
 
+		//////////////////////////////////////////////////////////////////////////////////////
+		GameObject* playerObj = CreateGameObject("Player");
+		Transform* tf = playerObj->GetComponent<Transform>();
+		tf->SetScale({ 0.2, 0.2 });
+		SpriteRenderer* sr = playerObj->AddComponent<SpriteRenderer>();
+		sr->SetLayer(Layer::Iso);
+		sr->SetSprite(L"Assets/Textures/test.png");
 
-
-
-
+		playerObj->AddComponent<PlayerController>();
 	}
 
 	void BlockMapTestScene::OnEnter()
@@ -75,6 +87,5 @@ namespace Bisang
 	{
 		// 씬이 사용하던 자원을 정리하고 종료 처리
 		DEBUG_LOG("OnEnter Finalize \n");
-
 	}
 }

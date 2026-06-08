@@ -36,6 +36,7 @@
     <ClCompile Include="Source\Engine\Math\Degree.h" />
     <ClCompile Include="Source\Engine\Components\BlockMap\BlockMapRenderer.cpp" />
     <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
+    <ClCompile Include="Source\Game\Scripts\PlayerController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -70,5 +71,6 @@
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockMapRenderer.h" />
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Engine\Core\Layer.h" />
+    <ClInclude Include="Source\Game\Scripts\PlayerController.h" />
   </ItemGroup>
 </Project>
