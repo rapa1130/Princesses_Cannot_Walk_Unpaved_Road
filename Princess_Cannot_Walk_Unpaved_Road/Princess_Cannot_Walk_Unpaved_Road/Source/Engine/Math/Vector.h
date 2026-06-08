@@ -112,6 +112,17 @@ namespace Bisang
         {
             return a.x * b.x + a.y * b.y;
         }
+
+        static Vector2 Rotate2D(const Vector2& v, float rad)
+        {
+            float c = cosf(rad);
+            float s = sinf(rad);
+
+            return Vector2(
+                v.x * c - v.y * s,
+                v.x * s + v.y * c
+            );
+        }
     };
 
 
