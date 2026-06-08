@@ -13,7 +13,6 @@
     <ClCompile Include="Source\Engine\Object\GameObject.cpp" />
     <ClCompile Include="Source\Engine\Scene\Scene.cpp" />
     <ClCompile Include="Source\Engine\Components\Component.cpp" />
-    <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
     <ClCompile Include="Source\Engine\Core\GameTimer.cpp" />
     <ClCompile Include="Source\Engine\Components\Transform.cpp" />
     <ClCompile Include="Source\Engine\Components\Script.h" />
@@ -37,6 +36,8 @@
     <ClCompile Include="Source\Engine\Components\BlockMap\BlockMapRenderer.cpp" />
     <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
     <ClCompile Include="Source\Game\Scripts\PlayerController.cpp" />
+    <ClCompile Include="Source\Game\Scripts\BlockMapTest.cpp" />
+    <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -53,7 +54,6 @@
     <ClInclude Include="Source\Engine\Scene\Scene.h" />
     <ClInclude Include="Source\Engine\Object\GameObject.h" />
     <ClInclude Include="Source\Engine\Components\Component.h" />
-    <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Engine\Core\GameTimer.h" />
     <ClInclude Include="Source\Engine\Components\Transform.h" />
     <ClInclude Include="Source\Engine\Math\Vector.h" />
@@ -72,5 +72,7 @@
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Engine\Core\Layer.h" />
     <ClInclude Include="Source\Game\Scripts\PlayerController.h" />
+    <ClInclude Include="Source\Game\Scripts\BlockMapTest.h" />
+    <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
   </ItemGroup>
 </Project>

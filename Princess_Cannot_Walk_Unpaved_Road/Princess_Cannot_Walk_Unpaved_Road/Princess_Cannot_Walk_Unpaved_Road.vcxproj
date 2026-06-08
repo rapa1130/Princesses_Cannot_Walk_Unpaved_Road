@@ -61,6 +61,7 @@
     <ClInclude Include="Source\Engine\Core\GameApp.h" />
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
+    <ClInclude Include="Source\Game\Scripts\BlockMapTest.h" />
     <ClInclude Include="Source\Game\Scripts\PlayerController.h" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +103,7 @@
     <ClCompile Include="Source\Engine\Windows\Window.cpp" />
     <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
+    <ClCompile Include="Source\Game\Scripts\BlockMapTest.cpp" />
     <ClCompile Include="Source\Game\Scripts\PlayerController.cpp" />
     <ClCompile Include="Source\Game\Scripts\SampleScript.cpp" />
     <ClCompile Include="Source\Game\Scripts\SampleScript.h" />
@@ -195,6 +197,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)\Source</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

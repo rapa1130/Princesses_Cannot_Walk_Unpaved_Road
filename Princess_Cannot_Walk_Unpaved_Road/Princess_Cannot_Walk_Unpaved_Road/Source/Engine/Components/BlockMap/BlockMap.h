@@ -53,6 +53,7 @@ namespace Bisang
         Int3 WorldToBlock(Vector3 worldPos, int heightLayer = 0) const;
 
         void SetAngle(float yaw, float pitch);
+        Vector2 GetAngle() { return { m_yaw, m_pitch }; }
 
         const Vector2& GetAxisX() const { return m_axisX; }
         const Vector2& GetAxisY() const { return m_axisY; }
