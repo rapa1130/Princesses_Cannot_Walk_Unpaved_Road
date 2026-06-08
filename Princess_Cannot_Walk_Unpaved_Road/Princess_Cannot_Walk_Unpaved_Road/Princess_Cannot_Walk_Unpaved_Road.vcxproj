@@ -61,6 +61,7 @@
     <ClInclude Include="Source\Engine\Core\GameApp.h" />
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
+    <ClInclude Include="Source\Game\Scripts\PlayerController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine\Components\BlockMap\BlockMap.cpp" />
@@ -101,6 +102,7 @@
     <ClCompile Include="Source\Engine\Windows\Window.cpp" />
     <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
+    <ClCompile Include="Source\Game\Scripts\PlayerController.cpp" />
     <ClCompile Include="Source\Game\Scripts\SampleScript.cpp" />
     <ClCompile Include="Source\Game\Scripts\SampleScript.h" />
   </ItemGroup>
