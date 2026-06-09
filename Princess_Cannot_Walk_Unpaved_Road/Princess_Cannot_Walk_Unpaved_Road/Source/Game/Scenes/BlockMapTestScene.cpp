@@ -54,6 +54,7 @@ namespace Bisang
 		m_resourceManager->LoadTexture(L"Assets/Textures/Rock.png")->SetPivot({ 0, -20, 0 });
 		m_resourceManager->LoadTexture(L"Assets/Textures/Dirt.png")->SetPivot({ 0, -20, 0 });
 		m_resourceManager->LoadTexture(L"Assets/Textures/Clay.png")->SetPivot({ 0, -20, 0 });
+		m_resourceManager->LoadTexture(L"Assets/Textures/Tree.png")->SetPivot({ 0, -30, 0 });
 		BlockMapRenderer* bMapR = blockMap->AddComponent<BlockMapRenderer>();
 		bMapR->SetLayer(Layer::Iso);
 		bMapR->SetBlockMap(bMap);

@@ -115,6 +115,19 @@ namespace Bisang
                 }
 
                 SetBlock({ x, y, groundZ }, id);
+                if (id == BlockId::Rock)
+                {
+                    SetBlock({ x, y, groundZ + 1 }, id);
+                }
+
+                if (tree > 0.55f && (id == BlockId::Grass || id == BlockId::Dirt))
+                {
+                    SetBlock({ x, y, groundZ+1 }, BlockId::Tree);
+                }
+                else if (clay > 0.5f && (id == BlockId::Grass || id == BlockId::Dirt))
+                {
+                    SetBlock({ x, y, groundZ + 1 }, BlockId::Clay);
+                }
             }
         }
     }
