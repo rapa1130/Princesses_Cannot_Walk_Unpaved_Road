@@ -169,15 +169,17 @@ namespace Bisang
                 {
                 // 아이소 맵 + 플레이어 + 적 등등
                 case Layer::Iso:
-                  
+                {
                     if (a.sortKey.z != b.sortKey.z)
                         return a.sortKey.z < b.sortKey.z;
 
-                    if (a.sortKey.y != b.sortKey.y)
-                        return a.sortKey.y < b.sortKey.y;
+                    float deapthA = a.sortKey.x * 0.35 - a.sortKey.y;
+                    float deapthB = b.sortKey.x * 0.35 - b.sortKey.y;
+                    if (deapthA != deapthB)
+                        return deapthA > deapthB;
 
                     return false;
-
+                }
                 // 배경 + UI 등등
                 default:
                     return a.sortKey.z < b.sortKey.z;
