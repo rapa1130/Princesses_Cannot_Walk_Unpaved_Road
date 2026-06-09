@@ -19,8 +19,9 @@ namespace Bisang
         Rock = 4,
         Clay = 5,
         Tree = 6,
+        OrcTree = 7,
 
-        RailPath = 7,
+        RailPath = 8,
     };
 
     struct Block
