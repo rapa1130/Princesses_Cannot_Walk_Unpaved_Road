@@ -55,12 +55,12 @@ namespace Bisang
 	void SpriteRenderer::DrawCall(Renderer* renderer)
 	{
 		RenderCommand rc = RenderCommand::CreateSpriteRC(
-			m_sprite.get(),
+			GetLayer(),
 			m_transform->GetPosition(),
+			m_sprite.get(),
+			m_transform->GetPosition() + m_sprite->GetPivot(),
 			Vector2(GetWidth(), GetHeight()),
 			m_transform->GetRotation(),
-			GetLayer(),
-			m_transform->GetPosition().y,
 			m_alpha
 		);
 

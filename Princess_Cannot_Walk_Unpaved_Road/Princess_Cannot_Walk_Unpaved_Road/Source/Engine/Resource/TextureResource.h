@@ -2,7 +2,7 @@
 
 #include "Engine/Resource/IResource.h"
 #include "Engine/Renderer/DxHeaders.h"
-
+#include "Engine/Math/Vector.h"
 #include <string>
 
 namespace Bisang
@@ -21,7 +21,11 @@ namespace Bisang
             return m_bitmap.Get();
         }
 
+        const Vector3& GetPivot() const { return m_pivot; }
+        void SetPivot(const Vector3& pivot) { m_pivot = pivot; }
+
     private:
         ComPtr<ID2D1Bitmap1> m_bitmap;
+        Vector3 m_pivot;
     };
 }
