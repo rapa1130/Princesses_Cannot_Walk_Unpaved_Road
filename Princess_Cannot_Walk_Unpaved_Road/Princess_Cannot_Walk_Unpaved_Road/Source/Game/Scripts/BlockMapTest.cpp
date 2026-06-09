@@ -55,6 +55,14 @@ namespace Bisang
 		{
 			m_blockMap->SetBlockSize(width , height , depth - dT * addPower);
 		}
+		else if (m_input->IsKeyDown(KeyCode::O))
+		{
+			m_blockMap->SetBlockSize(width, height + dT * addPower, depth );
+		}
+		else if (m_input->IsKeyDown(KeyCode::P))
+		{
+			m_blockMap->SetBlockSize(width, height - dT * addPower, depth );
+		}
 
 		if (m_input->IsKeyDown(KeyCode::J))
 		{
@@ -70,8 +78,8 @@ namespace Bisang
 		// Pitch
 		// Theta
 		// BlockWidth
-		//BlockHeight
-		//BlockDepth
+		// BlockHeight
+		// BlockDepth
 		
 		std::cout << "Yaw    : " << m_blockMap->GetAngle().x << std::endl;
 		std::cout << "Pitch  : " << m_blockMap->GetAngle().y << std::endl;

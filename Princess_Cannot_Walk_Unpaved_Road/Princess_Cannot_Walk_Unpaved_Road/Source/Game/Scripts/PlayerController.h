@@ -17,12 +17,15 @@ namespace Bisang
 		void Update(float dT) override;
 		void FixedUpdate() override;
 
+		bool CanMoveTo(const Vector3& worldPos) const;
+
 	private:
 		Transform* m_transform = nullptr;
 		InputManager* m_input = nullptr;
 		BlockMap* m_blockMap = nullptr;
+		int playerZ = 1;
 
 		Vector2 m_dir;
-		float moveSpeed = 15;
+		float moveSpeed = 1000;
 	};
 }

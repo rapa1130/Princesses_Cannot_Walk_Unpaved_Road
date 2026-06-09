@@ -18,7 +18,7 @@ namespace Bisang
 	private:
 		BlockMap* m_blockMap = nullptr;
 		InputManager* m_input = nullptr;
-		float addPower = 10.f;
+		float addPower = 30.f;
 	};
 
 

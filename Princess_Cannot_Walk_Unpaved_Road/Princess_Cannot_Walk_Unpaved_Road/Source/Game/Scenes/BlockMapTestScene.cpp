@@ -35,7 +35,7 @@ namespace Bisang
 
 		for (int i = 0; i < 10; i++)
 		{
-			for (int ii = 0; ii < 30; ii++)
+			for (int ii = 0; ii < 10; ii++)
 			{
 				for (int iii = 0; iii <= 0; iii++)
 				{
@@ -47,9 +47,6 @@ namespace Bisang
 		bMap->SetBlock({ 3, 1, 1 }, BlockId::Grass);
 		bMap->SetBlock({ 1, 3, 1 }, BlockId::Grass);
 
-
-
-
 		m_resourceManager->LoadTexture(L"Assets/Textures/GrassBlock.png")->SetPivot({ 0, -20, 0 });
 		BlockMapRenderer* bMapR = blockMap->AddComponent<BlockMapRenderer>();
 		bMapR->SetLayer(Layer::Iso);
@@ -58,13 +55,15 @@ namespace Bisang
 
 		Transform* bMapT = blockMap->GetComponent<Transform>();
 		bMapT->SetScale({ 0.5, 0.5});
-		bMapT->SetPosition({ 100, 700, 0 });
+		bMapT->SetPosition({ 500, 500, 0 });
+
+		blockMap->AddComponent<BlockMapTest>();
 
 		//////////////////////////////////////////////////////////////////////////////////////
 		GameObject* playerObj = CreateGameObject("Player");
 		Transform* tf = playerObj->GetComponent<Transform>();
 		tf->SetScale({ 0.2, 0.2 });
-		tf->SetPosition({ 0, 0, 1 });
+		tf->SetPosition({ 700, 400, 1 });
 
 
 		SpriteRenderer* sr = playerObj->AddComponent<SpriteRenderer>();

@@ -18,44 +18,77 @@ namespace Bisang
 
 	void PlayerController::Update(float dT)
 	{
+		Vector3 playerPos = m_transform->GetPosition();
+		Int3 blockPos;
+		if (false != m_blockMap->WorldToBlock(playerPos, blockPos, playerZ))
+		{
+			std::cout << "서있는 블럭위치 블럭위치 ( " << blockPos.x << ", " << blockPos.y << ", " << blockPos.z << " )" << std::endl;
+		}
+		Block* block = m_blockMap->GetBlock(blockPos);
+		std::cout << (int)block->blockId << std::endl;
+
 		m_dir = { 0, 0 };
 
-		if (m_input->IsKeyDown(KeyCode::A))
+		if (m_input->IsKeyDown(KeyCode::Left))
 		{
 			m_dir += (m_blockMap->GetAxisY() * -1);
 		}
-		if (m_input->IsKeyDown(KeyCode::D))
+		if (m_input->IsKeyDown(KeyCode::Right))
 		{
 			m_dir += m_blockMap->GetAxisY();
 		}
-		if (m_input->IsKeyDown(KeyCode::W))
+		if (m_input->IsKeyDown(KeyCode::Up))
 		{
 			m_dir += m_blockMap->GetAxisX();
 		}
-		if (m_input->IsKeyDown(KeyCode::S))
+		if (m_input->IsKeyDown(KeyCode::Down))
 		{
 			m_dir += (m_blockMap->GetAxisX() * -1);
 		}
 
 		m_dir.Normalize();
 
-		m_transform->Translate(Vector3(m_dir.x, m_dir.y, 0) * moveSpeed);
+		Vector3 step = Vector3(m_dir.x, m_dir.y, 0) * moveSpeed * dT;
 
-
-		///////////////////////////////////////////////////////////////////////////////////////////////////
-		Vector3 blockPos = m_blockMap->BlockToWorld({ 1, 1 ,1 });
-		Vector3 playerPos = m_transform->GetPosition();
-		std::cout << "블럭위치 ( " << blockPos.x+100 << ", " << blockPos.y+700 << ", " << blockPos.z << " )" << std::endl;
-		std::cout << "사람위치 ( " << playerPos.x << ", " << playerPos.y << ", " << playerPos.z << " )" << std::endl;
-		std::cout << std::endl;
-		std::cout << std::endl;
-		std::cout << std::endl;
-		std::cout << std::endl;
-		std::cout << std::endl;
+		if (CanMoveTo(m_transform->GetPosition() + step))
+		{
+			m_transform->Translate(step);
+		}
 	}
 
-	void PlayerController::FixedUpdate()
+	void PlayerController::FixedUpdate() {}
+
+	bool PlayerController::CanMoveTo(const Vector3& worldPos) const
 	{
-		// GameApp에서 설정된 고정 프레임 간격으로 호출
+		Int3 blockPos;
+		if (false == m_blockMap->WorldToBlock(worldPos, blockPos, playerZ))
+		{
+			return false;
+		}
+		
+		// 바닥 확인
+		Block* block = m_blockMap->GetBlock(blockPos + Int3{ 0, 0, -1});
+		
+		if (block == nullptr || block->blockId == BlockId::Empty)
+		{
+			return false;
+		}
+
+		// 벽 확인
+		block = m_blockMap->GetBlock(blockPos);
+		std::cout << "가려는 블럭위치 블럭위치 ( " << blockPos.x << ", " << blockPos.y << ", " << blockPos.z << " )" << std::endl;
+		std::cout << (int)block->blockId << std::endl;
+		std::cout << std::endl;
+		std::cout << std::endl;
+		std::cout << std::endl;
+		std::cout << std::endl;
+		std::cout << std::endl;
+		if (block == nullptr || block->blockId == BlockId::Grass)
+		{
+			
+			return false;
+		}
+ 		
+		return true;
 	}
 }

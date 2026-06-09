@@ -50,7 +50,7 @@ namespace Bisang
         Vector3 BlockToWorld(Int3 pos) const;
 
         // z층을 기준으로 world 좌표를 block 좌표로 변환
-        Int3 WorldToBlock(Vector3 worldPos, int heightLayer = 0) const;
+        bool WorldToBlock(Vector3 worldPos, Int3& outPos, int heightLayer = 0) const;
 
         void SetAngle(float yaw, float pitch, float theta);
         Vector2 GetAngle() { return { m_yaw, m_pitch }; }
