@@ -1,6 +1,7 @@
 #include "Collider.h"
 #include "Engine/Object/GameObject.h"
 #include "Engine/Components/Transform.h"
+#include "Engine/Math/Vector.h"
 
 namespace Bisang
 {
