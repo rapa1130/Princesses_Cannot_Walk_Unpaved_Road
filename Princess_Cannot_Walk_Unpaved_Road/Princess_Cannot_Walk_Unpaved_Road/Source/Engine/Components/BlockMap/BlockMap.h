@@ -11,7 +11,16 @@ namespace Bisang
     enum class BlockId
     {
         Empty = 0,
-        Grass
+        
+        Grass = 1,
+        Dirt = 2,
+        Water = 3,
+
+        Rock = 4,
+        Clay = 5,
+        Tree = 6,
+
+        RailPath = 7,
     };
 
     struct Block
@@ -27,6 +36,7 @@ namespace Bisang
     public:
         void InitMap(int width, int height, int depth);
         void SetBlockSize(float width, float height, float depth);
+        void GenerateProceduralMap(unsigned int seed);
 
         int Index(Int3 pos) const;
         bool InBounds(Int3 pos) const;

@@ -5,6 +5,7 @@
 #include "Engine/Components/Transform.h"
 #include <cassert>
 #include <cmath>
+#include "Engine/Components/BlockMap/PerlinNoise2D.h"
 
 namespace Bisang
 {
@@ -39,6 +40,83 @@ namespace Bisang
         m_blockWidth = width;
         m_blockHeight = height;
         m_blockDepth = depth;
+    }
+
+    void BlockMap::GenerateProceduralMap(unsigned int seed)
+    {
+        if (m_width <= 0 || m_depth <= 0 || m_height <= 0)
+            return;
+
+        // 일단 전체 맵 비우기
+        for (int z = 0; z < m_height; ++z)
+        {
+            for (int y = 0; y < m_depth; ++y)
+            {
+                for (int x = 0; x < m_width; ++x)
+                {
+                    //SetBlock({ x, y, z }, BlockId::Empty);
+                }
+            }
+        }
+
+        const int groundZ = 0;
+
+        const int octaveCount = 4;
+
+        const float waterScale = 0.045f;
+        const float treeScale = 0.090f;
+        const float rockScale = 0.075f;
+        const float clayScale = 0.065f;
+        const float dirtScale = 0.065f;
+
+        const float maxScale = std::max({ waterScale, treeScale, rockScale, clayScale,dirtScale });
+
+        // FractalNoise에서 frequency가 1,2,4,8로 올라가므로 grid 크기를 넉넉히 잡음
+        int noiseGridWidth = static_cast<int>(std::ceil(m_width * maxScale * 8.0f)) + 4;
+        int noiseGridDepth = static_cast<int>(std::ceil(m_depth * maxScale * 8.0f)) + 4;
+
+        noiseGridWidth = std::max(noiseGridWidth, 8);
+        noiseGridDepth = std::max(noiseGridDepth, 8);
+
+        PerlinNoise2D waterNoise(noiseGridWidth, noiseGridDepth, seed + 100);
+        PerlinNoise2D treeNoise(noiseGridWidth, noiseGridDepth, seed + 200);
+        PerlinNoise2D rockNoise(noiseGridWidth, noiseGridDepth, seed + 300);
+        PerlinNoise2D clayNoise(noiseGridWidth, noiseGridDepth, seed + 400);
+
+        for (int y = 0; y < m_depth; ++y)
+        {
+            for (int x = 0; x < m_width; ++x)
+            {
+                float water = waterNoise.FractalNoise(x * waterScale, y * waterScale, octaveCount);
+                float tree = treeNoise.FractalNoise(x * treeScale, y * treeScale, octaveCount);
+                float rock = rockNoise.FractalNoise(x * rockScale, y * rockScale, octaveCount);
+                float clay = clayNoise.FractalNoise(x * clayScale, y * clayScale, octaveCount);
+                float dirt = clayNoise.FractalNoise(x * dirtScale, y * dirtScale, octaveCount);
+
+                BlockId id = BlockId::Grass;
+
+                // 우선순위 중요
+                // Water가 먼저면 물 지역은 다른 자원으로 덮이지 않음
+                if (water > 0.55f)
+                {
+                    id = BlockId::Water;
+                }
+                else if (rock > 0.6f)
+                {
+                    id = BlockId::Rock;
+                }
+                else if (dirt > 0.5f)
+                {
+                    id = BlockId::Dirt;
+                }
+                else
+                {
+                    id = BlockId::Grass;
+                }
+
+                SetBlock({ x, y, groundZ }, id);
+            }
+        }
     }
 
     int BlockMap::Index(Int3 pos) const

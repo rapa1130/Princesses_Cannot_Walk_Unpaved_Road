@@ -62,6 +62,7 @@
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Game\Scripts\BlockMapTest.h" />
+    <ClInclude Include="Source\Engine\Components\BlockMap\PerlinNoise2D.h" />
     <ClInclude Include="Source\Game\Scripts\PlayerController.h" />
   </ItemGroup>
   <ItemGroup>

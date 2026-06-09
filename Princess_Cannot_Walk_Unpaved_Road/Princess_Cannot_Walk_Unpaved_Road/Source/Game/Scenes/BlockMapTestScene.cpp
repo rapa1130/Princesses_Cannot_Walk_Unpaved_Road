@@ -43,19 +43,26 @@ namespace Bisang
 				}
 			}
 		}
+		srand(time(NULL));
+		bMap->GenerateProceduralMap(rand());
 		bMap->SetBlock({ 1, 1, 1 }, BlockId::Grass);
 		bMap->SetBlock({ 3, 1, 1 }, BlockId::Grass);
 		bMap->SetBlock({ 1, 3, 1 }, BlockId::Grass);
 
 		m_resourceManager->LoadTexture(L"Assets/Textures/GrassBlock.png")->SetPivot({ 0, -20, 0 });
+		m_resourceManager->LoadTexture(L"Assets/Textures/Water.png")->SetPivot({ 0, -20, 0 });
+		m_resourceManager->LoadTexture(L"Assets/Textures/Rock.png")->SetPivot({ 0, -20, 0 });
+		m_resourceManager->LoadTexture(L"Assets/Textures/Dirt.png")->SetPivot({ 0, -20, 0 });
+		m_resourceManager->LoadTexture(L"Assets/Textures/Clay.png")->SetPivot({ 0, -20, 0 });
 		BlockMapRenderer* bMapR = blockMap->AddComponent<BlockMapRenderer>();
 		bMapR->SetLayer(Layer::Iso);
 		bMapR->SetBlockMap(bMap);
 		
+		DEBUG_LOG("SetUp SamepleScene \n");
 
 		Transform* bMapT = blockMap->GetComponent<Transform>();
 		bMapT->SetScale({ 0.5, 0.5});
-		bMapT->SetPosition({ 500, 500, 0 });
+		bMapT->SetPosition({ 100, 900, 0 });
 
 		blockMap->AddComponent<BlockMapTest>();
 
@@ -63,7 +70,7 @@ namespace Bisang
 		GameObject* playerObj = CreateGameObject("Player");
 		Transform* tf = playerObj->GetComponent<Transform>();
 		tf->SetScale({ 0.2, 0.2 });
-		tf->SetPosition({ 700, 400, 1 });
+		tf->SetPosition({ 200, 800, 1 });
 
 
 		SpriteRenderer* sr = playerObj->AddComponent<SpriteRenderer>();
