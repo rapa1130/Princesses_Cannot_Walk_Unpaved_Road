@@ -1,6 +1,8 @@
 #include "BlockMap.h"
 #include "Engine/Math/Degree.h"
 #include "Engine/Math/Vector.h"
+#include "Engine/Object/GameObject.h"
+#include "Engine/Components/Transform.h"
 #include <cassert>
 #include <cmath>
 
@@ -108,19 +110,21 @@ namespace Bisang
         return Vector3(
             world2D.x,
             world2D.y,
-            static_cast<float>(pos.z) * m_blockHeight
-        );
+            static_cast<float>(pos.z)
+        ) +  m_ownerObj->GetComponent<Transform>()->GetWorldPosition();
     }
 
     Int3 BlockMap::WorldToBlock(Vector3 worldPos, int heightLayer) const
     {
+        Vector3 origin = m_ownerObj->GetComponent<Transform>()->GetWorldPosition();
+
         Vector2 world2D(
-            worldPos.x,
-            worldPos.y
+            worldPos.x - origin.x,
+            worldPos.y - origin.y
         );
 
         Vector2 adjustedWorld =
-            world2D -
+            world2D +
             m_axisZ * (static_cast<float>(heightLayer) * m_blockHeight);
 
         float ax = m_axisX.x * m_blockWidth;

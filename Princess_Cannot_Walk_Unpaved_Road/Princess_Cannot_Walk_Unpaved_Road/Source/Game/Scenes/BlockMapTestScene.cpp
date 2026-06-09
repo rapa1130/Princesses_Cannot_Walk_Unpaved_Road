@@ -1,15 +1,17 @@
 #include "BlockMapTestScene.h"
 #include "Engine/Object/GameObject.h"
 #include "Game/Scripts/PlayerController.h"
-#include"Engine/Core/Debug.h"
-#include"Engine/Components/SpriteRenderer.h"
-#include"Engine/Components/Transform.h"
+#include "Engine/Core/Debug.h"
+#include "Engine/Components/SpriteRenderer.h"
+#include "Engine/Components/Transform.h"
 #include <iostream>
 #include "Engine/Components/BlockMap/BlockMap.h"
 #include "Engine/Components/BlockMap/BlockMapRenderer.h"
 #include "Engine/Core/Layer.h"
 #include "Game/Scripts/BlockMapTest.h"
-#include"Engine/Components/TextRenderer.h"
+#include "Engine/Components/TextRenderer.h"
+#include "Engine/Resource/ResourceManager.h"
+
 
 namespace Bisang
 {
@@ -35,16 +37,20 @@ namespace Bisang
 		{
 			for (int ii = 0; ii < 30; ii++)
 			{
-				for (int iii = 1; iii < 10; iii++)
+				for (int iii = 0; iii <= 0; iii++)
 				{
 					bMap->SetBlock({ i, ii, iii }, BlockId::Grass);
 				}
 			}
 		}
+		bMap->SetBlock({ 1, 1, 1 }, BlockId::Grass);
+		bMap->SetBlock({ 3, 1, 1 }, BlockId::Grass);
+		bMap->SetBlock({ 1, 3, 1 }, BlockId::Grass);
 
-		blockMap->AddComponent<BlockMapTest>();
-	
 
+
+
+		m_resourceManager->LoadTexture(L"Assets/Textures/GrassBlock.png")->SetPivot({ 0, -20, 0 });
 		BlockMapRenderer* bMapR = blockMap->AddComponent<BlockMapRenderer>();
 		bMapR->SetLayer(Layer::Iso);
 		bMapR->SetBlockMap(bMap);
@@ -58,18 +64,17 @@ namespace Bisang
 		GameObject* playerObj = CreateGameObject("Player");
 		Transform* tf = playerObj->GetComponent<Transform>();
 		tf->SetScale({ 0.2, 0.2 });
+		tf->SetPosition({ 0, 0, 1 });
+
+
 		SpriteRenderer* sr = playerObj->AddComponent<SpriteRenderer>();
 		sr->SetLayer(Layer::Iso);
+		m_resourceManager->LoadTexture(L"Assets/Textures/test.png")->SetPivot({ 0, -40, 0 });
 		sr->SetSprite(L"Assets/Textures/test.png");
 
-		GameObject* textObj = CreateGameObject("Text");
-		TextRenderer* tr = textObj->AddComponent<TextRenderer>();
-		tr->SetText(L"°³Áö·È´Ù");
-		tr->SetTextFormat(L"", 18);
-		tr->SetColor(Bisang::Color(1, 1, 1, 1));
-		Transform* textTr = tr->GetTransform();
-		textTr->SetPosition(Vector3(200, 400, 10));
-		textTr->SetScale(Vector2(400, 400));
+		playerObj->AddComponent<PlayerController>();
+
+		//////////////////////////////////////////////////////////////////////////////////////
 	}
 
 	void BlockMapTestScene::OnEnter()

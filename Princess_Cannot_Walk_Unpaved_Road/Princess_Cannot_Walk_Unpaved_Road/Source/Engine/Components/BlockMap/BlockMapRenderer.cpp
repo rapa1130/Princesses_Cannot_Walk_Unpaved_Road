@@ -63,17 +63,11 @@ namespace Bisang
                     if (block->blockId == BlockId::Empty)
                         continue;
 
-                    // ºí·Ï ÁÂÇ¥ -> È­¸é(World) ÁÂÇ¥ º¯È¯
-                    Vector3 worldPos =
-                        m_transform->GetWorldPosition() +
-                        m_blockMap->BlockToWorld(pos);
-                   
-
                     RenderBlock renderBlock;
 
                     renderBlock.pos = pos;
                     renderBlock.blockId = block->blockId;
-                    renderBlock.worldPos = worldPos;
+                    renderBlock.worldPos = m_blockMap->BlockToWorld(pos);
 
                     m_renderBlocks.push_back(renderBlock);
                 }
@@ -89,23 +83,23 @@ namespace Bisang
             if (iter == m_blockTextures.end())
                 continue;
 
-            TextureResource* tr = iter->second.get();
+            TextureResource* textureResource = iter->second.get();
 
-            if (tr == nullptr)
+            if (textureResource == nullptr)
                 continue;
 
-            auto size = tr->GetBitmap()->GetSize();
+            auto size = textureResource->GetBitmap()->GetSize();
 
             RenderCommand rc = RenderCommand::CreateSpriteRC(
-                tr,
+                GetLayer(),
                 renderBlock.worldPos,
+                textureResource,
+                renderBlock.worldPos + textureResource->GetPivot(),
                 Vector2(
                     static_cast<float>(size.width) * m_transform->GetScale().x,
                     static_cast<float>(size.height) * m_transform->GetScale().y
                 ),
                 0.0f,
-                GetLayer(),
-                renderBlock.worldPos.y,
                 m_alpha
             );
 

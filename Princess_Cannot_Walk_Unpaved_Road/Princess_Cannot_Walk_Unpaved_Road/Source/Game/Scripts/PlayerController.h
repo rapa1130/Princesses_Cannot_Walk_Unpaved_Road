@@ -6,6 +6,7 @@ namespace Bisang
 {
 	class Transform;
 	class InputManager;
+	class BlockMap;
 
 	class PlayerController : public Script
 	{
@@ -19,7 +20,9 @@ namespace Bisang
 	private:
 		Transform* m_transform = nullptr;
 		InputManager* m_input = nullptr;
-		Vector3 m_dir;
-		float moveSpeed = 3;
+		BlockMap* m_blockMap = nullptr;
+
+		Vector2 m_dir;
+		float moveSpeed = 15;
 	};
 }

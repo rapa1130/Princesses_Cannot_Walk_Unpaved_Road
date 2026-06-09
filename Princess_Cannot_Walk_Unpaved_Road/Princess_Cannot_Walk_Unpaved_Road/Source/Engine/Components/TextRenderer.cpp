@@ -29,13 +29,14 @@ namespace Bisang
         }
 
         RenderCommand rc = RenderCommand::CreateTextRC(
+            GetLayer(),
+            m_transform->GetPosition(),
             m_text.c_str(),
             static_cast<UINT32>(m_text.length()),
             m_textFormat.get(),
             m_transform->GetPosition(),
             m_transform->GetScale(),
-            m_color,
-            GetLayer()
+            m_color 
         );
 
 

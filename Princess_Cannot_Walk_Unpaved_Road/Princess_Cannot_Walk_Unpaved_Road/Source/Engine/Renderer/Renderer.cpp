@@ -170,17 +170,17 @@ namespace Bisang
                 // 아이소 맵 + 플레이어 + 적 등등
                 case Layer::Iso:
                   
-                    if (a.sprite.position.z != b.sprite.position.z)
-                        return a.sprite.position.z < b.sprite.position.z;
+                    if (a.sortKey.z != b.sortKey.z)
+                        return a.sortKey.z < b.sortKey.z;
 
-                    if (a.sprite.position.y != b.sprite.position.y)
-                        return a.sprite.position.y < b.sprite.position.y;
+                    if (a.sortKey.y != b.sortKey.y)
+                        return a.sortKey.y < b.sortKey.y;
 
                     return false;
 
                 // 배경 + UI 등등
                 default:
-                    return a.sprite.position.z < b.sprite.position.z;
+                    return a.sortKey.z < b.sortKey.z;
 
                 }
             }
@@ -299,50 +299,44 @@ namespace Bisang
         );
     }
 
-
-    
     RenderCommand RenderCommand::CreateSpriteRC(
-            IResource* resource, 
-            const Vector3& position, 
-            const Vector2& size, 
-            float rot, 
-            int orderInLayer, 
-            float alpha,
-            float depth
+        int layer,
+        Vector3 sortKey,
+        IResource* resource,
+        const Vector3& position,
+        const Vector2& size,
+        float rot,
+        float alpha
     )
     {
         RenderCommand ret = RenderCommand();
         
         ret.type = RenderCommandType::Sprite;
-        ret.layer = orderInLayer;
-        ret.depth = depth;
-
-        ret.sprite.alpha = alpha;
-        ret.sprite.position = position;
+        ret.layer = layer;
+        ret.sortKey = sortKey;
         ret.sprite.resource = resource;
+        ret.sprite.position = position;
         ret.sprite.size = size;
         ret.sprite.rot = rot;
-        
+        ret.sprite.alpha = alpha;
 
         return ret;
     }
 
     RenderCommand RenderCommand::CreateLineRC(
-            const Vector3& start, 
-            const Vector3& end, 
-            Bisang::Color color,
-            int orderInLayer, 
-            float thickness,
-            float depth
-                                            
+        int layer,
+        Vector3 sortKey,
+        const Vector3& start,
+        const Vector3& end,
+        float thickness,
+        Bisang::Color color
     )
     {
         RenderCommand ret = RenderCommand();
 
         ret.type = RenderCommandType::Line;
-        ret.layer = orderInLayer;
-        ret.depth = depth;
-
+        ret.layer = layer;
+        ret.sortKey = sortKey;
         ret.line.start = start;
         ret.line.end = end;
         ret.line.thickness = thickness;
@@ -352,27 +346,27 @@ namespace Bisang
     }
 
     RenderCommand RenderCommand::CreateTextRC(
-            const wchar_t* text, 
-            UINT32 length, 
-            TextFormatResource* textFormat, 
-            const Vector3& position, 
-            const Vector2& size, 
-            const Bisang::Color& color, 
-            int orderInLayer, 
-            float depth
+        int layer,
+        Vector3 sortKey,
+        const wchar_t* text,
+        UINT32 length,
+        TextFormatResource* textFormat,
+        const Vector3& position,
+        const Vector2& textBoxSize,
+        const Bisang::Color& color
     )
     {
         RenderCommand ret;
 
         ret.type = RenderCommandType::Text;
-        ret.layer = orderInLayer;
-        ret.depth = depth;
 
+        ret.layer = layer;
+        ret.sortKey = sortKey;
         ret.text.text = text;
         ret.text.length = length;
         ret.text.textFormat = textFormat;
         ret.text.position = position;
-        ret.text.textBoxSize = size;
+        ret.text.textBoxSize = textBoxSize;
         ret.text.color = color;
 
         return ret;
