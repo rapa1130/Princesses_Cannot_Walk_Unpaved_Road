@@ -12,9 +12,9 @@ namespace Bisang
         : Component(ownerObj, scene)
     {
         SetAngle(81.489f, 6.44086f, 210.3719f);
-        m_blockWidth = 119.218f;
-        m_blockHeight = 23.3911f;
-        m_blockDepth = 208.507f;
+        m_blockWidth = 239.641f;
+        m_blockHeight = 58.1892f;
+        m_blockDepth = 417.479f;
     }
 
     void BlockMap::InitMap(int width, int height, int depth)
@@ -102,55 +102,90 @@ namespace Bisang
 
     Vector3 BlockMap::BlockToWorld(Int3 pos) const
     {
-        Vector2 world2D =
+        Vector2 local2D =
             m_axisX * (static_cast<float>(pos.x) * m_blockWidth) +
             m_axisY * (static_cast<float>(pos.y) * m_blockDepth) +
-            (m_axisZ * -1) * (static_cast<float>(pos.z) * m_blockHeight);
+            (m_axisZ * -1.0f) * (static_cast<float>(pos.z) * m_blockHeight);
+
+        Transform* transform = m_ownerObj->GetComponent<Transform>();
+
+        Vector3 origin = transform->GetWorldPosition();
+        Vector2 scale = transform->GetScale();
 
         return Vector3(
-            world2D.x,
-            world2D.y,
+            origin.x + local2D.x * scale.x,
+            origin.y + local2D.y * scale.y,
             static_cast<float>(pos.z)
-        ) +  m_ownerObj->GetComponent<Transform>()->GetWorldPosition();
+        );
     }
 
-    Int3 BlockMap::WorldToBlock(Vector3 worldPos, int heightLayer) const
+    bool BlockMap::WorldToBlock(Vector3 worldPos, Int3& outPos, int heightLayer) const
     {
-        Vector3 origin = m_ownerObj->GetComponent<Transform>()->GetWorldPosition();
+        // 블록맵의 Transform 정보
+        Transform* transform = m_ownerObj->GetComponent<Transform>();
 
+        // 블록맵 원점 위치
+        Vector2 offset = (m_axisX * (m_blockWidth / 2 * transform->GetScale().x)) + (m_axisY * (m_blockDepth / 2 * transform->GetScale().y));
+        Vector3 origin = transform->GetWorldPosition() - offset;
+
+        // 블록맵 스케일
+        Vector3 scale = transform->GetScale();
+
+        // 월드 좌표 -> 블록맵 로컬 좌표 변환
+        // BlockToWorld()에서 적용한
+        // local * scale + origin
         Vector2 world2D(
-            worldPos.x - origin.x,
-            worldPos.y - origin.y
+            (worldPos.x - origin.x) / scale.x,
+            (worldPos.y - origin.y) / scale.y
         );
 
+        // 선택한 높이층(z)의 영향을 제거
+        // BlockToWorld()에서
+        // (-m_axisZ * height)
+        // 를 적용했으므로 역변환에서는 더해줌
         Vector2 adjustedWorld =
             world2D +
             m_axisZ * (static_cast<float>(heightLayer) * m_blockHeight);
 
+        // 블록 X축 한 칸 이동 시 월드 이동량
         float ax = m_axisX.x * m_blockWidth;
         float ay = m_axisX.y * m_blockWidth;
 
+        // 블록 Y축 한 칸 이동 시 월드 이동량
         float bx = m_axisY.x * m_blockDepth;
         float by = m_axisY.y * m_blockDepth;
 
+        // 2x2 기저 행렬 determinant
+        // 역행렬 계산에 사용
         float det = ax * by - ay * bx;
 
+        // 두 축이 평행하면 역변환 불가능
         assert(std::abs(det) > 0.00001f);
 
+        // 역행렬을 이용하여 블록 X 좌표 계산
         float fx =
             (adjustedWorld.x * by -
                 adjustedWorld.y * bx) / det;
 
+        // 역행렬을 이용하여 블록 Y 좌표 계산
         float fy =
             (ax * adjustedWorld.y -
                 ay * adjustedWorld.x) / det;
 
         Int3 result;
+
+        // 소수점 이하를 버려 해당 블록 셀 인덱스로 변환
         result.x = static_cast<int>(std::floor(fx));
         result.y = static_cast<int>(std::floor(fy));
         result.z = heightLayer;
 
-        return result;
+        // 맵 범위를 벗어난 경우 실패
+        if (!InBounds(result))
+            return false;
+
+        // 결과 반환
+        outPos = result;
+        return true;
     }
 
     void BlockMap::SetAngle(float yaw, float pitch,float theta)
