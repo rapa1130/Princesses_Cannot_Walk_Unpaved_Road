@@ -27,6 +27,8 @@ namespace Bisang
                 rm->LoadTexture(L"Assets/Textures/Clay.png");
             m_blockTextures[static_cast<int>(BlockId::Tree)] =
                 rm->LoadTexture(L"Assets/Textures/Tree.png");
+            m_blockTextures[static_cast<int>(BlockId::OrcTree)] =
+                rm->LoadTexture(L"Assets/Textures/OrcTree.png");
         }
     }
 
