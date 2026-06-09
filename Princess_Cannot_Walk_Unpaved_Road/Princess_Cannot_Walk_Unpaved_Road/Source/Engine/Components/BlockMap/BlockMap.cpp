@@ -9,15 +9,10 @@ namespace Bisang
     BlockMap::BlockMap(GameObject* ownerObj, Scene* scene)
         : Component(ownerObj, scene)
     {
-        //SetAngle(45.0f, 35.264f,10.0f);
-        //m_yaw = 81.489f;
-        //m_pitch = 6.44086f;
-        //m_theta = 30.3719f;
         SetAngle(81.489f, 6.44086f, 210.3719f);
-        m_blockWidth = 125.49f;
-        m_blockHeight= 60.0f;
-        m_blockDepth = 212.91f;
-        
+        m_blockWidth = 119.218f;
+        m_blockHeight = 23.3911f;
+        m_blockDepth = 208.507f;
     }
 
     void BlockMap::InitMap(int width, int height, int depth)
@@ -108,7 +103,7 @@ namespace Bisang
         Vector2 world2D =
             m_axisX * (static_cast<float>(pos.x) * m_blockWidth) +
             m_axisY * (static_cast<float>(pos.y) * m_blockDepth) +
-            m_axisZ * (static_cast<float>(pos.z) * m_blockHeight);
+            (m_axisZ * -1) * (static_cast<float>(pos.z) * m_blockHeight);
 
         return Vector3(
             world2D.x,
@@ -184,7 +179,5 @@ namespace Bisang
         
         m_axisX = Vector2::Rotate2D(m_axisX, DegToRad(m_theta));
         m_axisY = Vector2::Rotate2D(m_axisY, DegToRad(m_theta));
-        m_axisZ = Vector2::Rotate2D(m_axisZ, DegToRad(m_theta));
-        
     }
 }

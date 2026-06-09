@@ -35,7 +35,7 @@ namespace Bisang
 		{
 			for (int ii = 0; ii < 30; ii++)
 			{
-				for (int iii = 1; iii < 2; iii++)
+				for (int iii = 1; iii < 10; iii++)
 				{
 					bMap->SetBlock({ i, ii, iii }, BlockId::Grass);
 				}
