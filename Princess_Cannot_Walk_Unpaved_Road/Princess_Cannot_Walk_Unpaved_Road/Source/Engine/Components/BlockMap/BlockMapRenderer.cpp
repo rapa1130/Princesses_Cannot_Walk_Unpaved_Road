@@ -17,6 +17,16 @@ namespace Bisang
         {
             m_blockTextures[static_cast<int>(BlockId::Grass)] =
                 rm->LoadTexture(L"Assets/Textures/GrassBlock.png");
+            m_blockTextures[static_cast<int>(BlockId::Dirt)] =
+                rm->LoadTexture(L"Assets/Textures/Dirt.png");
+            m_blockTextures[static_cast<int>(BlockId::Water)] =
+                rm->LoadTexture(L"Assets/Textures/Water.png");
+            m_blockTextures[static_cast<int>(BlockId::Rock)] =
+                rm->LoadTexture(L"Assets/Textures/Rock.png");
+            m_blockTextures[static_cast<int>(BlockId::Clay)] =
+                rm->LoadTexture(L"Assets/Textures/Clay.png");
+            m_blockTextures[static_cast<int>(BlockId::Tree)] =
+                rm->LoadTexture(L"Assets/Textures/Tree.png");
         }
     }
 
