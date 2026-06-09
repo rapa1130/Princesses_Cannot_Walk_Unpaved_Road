@@ -171,9 +171,7 @@ namespace Bisang
                 case Layer::Iso:
                   
                     if (a.sprite.position.z != b.sprite.position.z)
-                        return a.sprite.position.z > b.sprite.position.z;
-
-
+                        return a.sprite.position.z < b.sprite.position.z;
 
                     if (a.sprite.position.y != b.sprite.position.y)
                         return a.sprite.position.y < b.sprite.position.y;
