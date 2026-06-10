@@ -10,7 +10,7 @@ namespace Bisang
 	class Script : public Component
 	{
 	public:
-		Script(GameObject* ownerObj, Scene* scene) : Component(ownerObj, scene) {}
+		Script(GameObject* ownerObj) : Component(ownerObj) {}
 
 		virtual void Start() {}
 		virtual void Update(float dT) {}

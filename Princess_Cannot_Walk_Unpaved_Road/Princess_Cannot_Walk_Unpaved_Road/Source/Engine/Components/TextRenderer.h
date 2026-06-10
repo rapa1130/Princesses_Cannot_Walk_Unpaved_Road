@@ -12,7 +12,7 @@ namespace Bisang
 	class TextRenderer : public RenderableComponent
 	{
 	public:
-		TextRenderer(GameObject* ownerObj, Scene* scene);
+		TextRenderer(GameObject* ownerObj);
 
 		void DrawCall(Renderer* renderer) override;
 

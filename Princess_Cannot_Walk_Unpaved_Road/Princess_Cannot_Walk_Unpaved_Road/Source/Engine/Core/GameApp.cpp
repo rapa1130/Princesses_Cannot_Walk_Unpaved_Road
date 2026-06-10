@@ -54,7 +54,7 @@ namespace Bisang
         // 씬 매니저 설정
         m_sceneManager->AddScene<SampleScene>("SampleScene");
         m_sceneManager->AddScene<BlockMapTestScene>("BlockMapTestScene");
-        m_sceneManager->SetStartScene("BlockMapTestScene");
+        m_sceneManager->SetStartScene("SampleScene");
 
         // 타이머 초기화 ( 초기화 마지막 단계에 두는 것이 좋음 )
         m_gameTimer->Reset();

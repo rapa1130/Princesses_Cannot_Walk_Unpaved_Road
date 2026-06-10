@@ -34,6 +34,7 @@
     <ClInclude Include="Source\Engine\Input\InputManager.h" />
     <ClInclude Include="Source\Engine\Math\Vector.h" />
     <ClInclude Include="Source\Engine\Physics\Collision.h" />
+    <ClInclude Include="Source\Engine\Prefab\Prefab.h" />
     <ClInclude Include="Source\Engine\Renderer\Color.h" />
     <ClInclude Include="Source\Engine\Renderer\D2DBitmapInfo.h" />
     <ClInclude Include="Source\Engine\Renderer\DxHeaders.h" />
@@ -59,6 +60,7 @@
     <ClInclude Include="Source\Engine\Windows\Window.h" />
     <ClInclude Include="Source\Engine\Core\Debug.h" />
     <ClInclude Include="Source\Engine\Core\GameApp.h" />
+    <ClInclude Include="Source\Game\Prefabs\Player.h" />
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Game\Scripts\BlockMapTest.h" />

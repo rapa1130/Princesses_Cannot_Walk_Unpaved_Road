@@ -5,8 +5,8 @@
 
 namespace Bisang
 {
-	LineRenderer::LineRenderer(GameObject* ownerObj, Scene* scene)
-		:RenderableComponent(ownerObj,scene)
+	LineRenderer::LineRenderer(GameObject* ownerObj)
+		:RenderableComponent(ownerObj)
 	{
 		m_color = Bisang::Color::Red;
 		m_thickness = 1.0f;

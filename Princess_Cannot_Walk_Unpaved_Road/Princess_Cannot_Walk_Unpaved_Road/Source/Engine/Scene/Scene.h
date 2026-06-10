@@ -211,6 +211,7 @@ namespace Bisang
 		uint64_t m_GameObjectCount = 0;                                            // 오브젝트 개수, ID에 사용
 		std::unordered_map<uint64_t, std::unique_ptr<GameObject>> m_gameObjects;   // 오브젝트 맵
 		std::queue<uint64_t> m_destroyGameObjectQueue;                             // 지연 삭제 오브젝트
+        std::queue<std::unique_ptr<GameObject>> m_createGameObjectQueue;           // 지연 추가 오브젝트
 
 		//*************************************************
 		// 렌더링 컴포넌트

@@ -16,7 +16,7 @@ namespace Bisang
     class Collider : public Component
     {
     public:
-        Collider(GameObject* ownerObj, Scene* scene, ColliderType type);
+        Collider(GameObject* ownerObj, ColliderType type);
 
         virtual ~Collider() = default;
 

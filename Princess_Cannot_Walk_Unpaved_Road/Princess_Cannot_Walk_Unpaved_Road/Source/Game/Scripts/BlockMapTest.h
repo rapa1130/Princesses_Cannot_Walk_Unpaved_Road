@@ -9,7 +9,7 @@ namespace Bisang
 	class BlockMapTest : public Script
 	{
 	public:
-		BlockMapTest(GameObject* ownerObj, Scene* scene) : Script(ownerObj, scene) {}
+		BlockMapTest(GameObject* ownerObj) : Script(ownerObj) {}
 
 		void Start() override;
 		void Update(float dT) override;

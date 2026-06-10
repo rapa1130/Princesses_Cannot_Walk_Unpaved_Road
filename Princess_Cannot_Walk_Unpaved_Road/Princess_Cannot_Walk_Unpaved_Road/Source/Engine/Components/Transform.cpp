@@ -3,8 +3,8 @@
 #include"Engine/Components/Component.h"
 namespace Bisang
 {
-    Transform::Transform(GameObject* ownerObj, Scene* scene) :
-        Component(ownerObj, scene)
+    Transform::Transform(GameObject* ownerObj) :
+        Component(ownerObj)
     {
     }
     Vector3 Transform::GetWorldPosition()

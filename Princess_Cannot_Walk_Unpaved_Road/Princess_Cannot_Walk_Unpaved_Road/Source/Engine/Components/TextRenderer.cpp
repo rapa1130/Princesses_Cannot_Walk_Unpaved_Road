@@ -9,8 +9,8 @@
 
 namespace Bisang
 {
-    TextRenderer::TextRenderer(GameObject* ownerObj, Scene* scene) :
-        RenderableComponent(ownerObj,scene)
+    TextRenderer::TextRenderer(GameObject* ownerObj) :
+        RenderableComponent(ownerObj)
     {
         m_color = Bisang::Color::Green;
     }

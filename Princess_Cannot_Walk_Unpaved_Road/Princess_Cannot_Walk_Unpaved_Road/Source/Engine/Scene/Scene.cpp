@@ -99,7 +99,7 @@ namespace Bisang
 
 	GameObject* Scene::CreateGameObject()
 	{
-		std::unique_ptr<GameObject> newObj = std::make_unique<GameObject>(this);
+		std::unique_ptr<GameObject> newObj = std::make_unique<GameObject>();
 		GameObject* pNewObj = newObj.get();
 
 		newObj->SetId(++m_GameObjectCount);
@@ -159,6 +159,8 @@ namespace Bisang
 			m_destroyGameObjectQueue.pop();
 		}
 	}
+
+
 
 	//*************************************************
 	// 렌더링 컴포넌트

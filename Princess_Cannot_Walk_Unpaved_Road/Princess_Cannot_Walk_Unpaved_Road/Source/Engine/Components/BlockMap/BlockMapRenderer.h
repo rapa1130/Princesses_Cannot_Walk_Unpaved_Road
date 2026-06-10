@@ -14,7 +14,7 @@ namespace Bisang
     class BlockMapRenderer : public RenderableComponent
     {
     public:
-        BlockMapRenderer(GameObject* ownerObj, Scene* scene);
+        BlockMapRenderer(GameObject* ownerObj);
 
         virtual void DrawCall(Renderer* renderer) override;
 

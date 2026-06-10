@@ -13,7 +13,7 @@ namespace Bisang
 	class Component
 	{
 	public:
-		Component(GameObject* ownerObj, Scene* scene) : m_ownerObj(ownerObj), m_scene(scene) {}
+		Component(GameObject* ownerObj) : m_ownerObj(ownerObj) {}
 		virtual ~Component() = default;
 
 		std::type_index GetTypeIndex() { return m_typeIndex; }
@@ -55,7 +55,7 @@ namespace Bisang
 	class RenderableComponent : public Component, public IRenderable
 	{
 	public:
-		RenderableComponent(GameObject* Owner, Scene* scene); 
+		RenderableComponent(GameObject* Owner); 
 
 		virtual ~RenderableComponent() = default;
 

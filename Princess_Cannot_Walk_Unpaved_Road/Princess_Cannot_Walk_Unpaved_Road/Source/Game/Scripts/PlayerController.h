@@ -11,7 +11,7 @@ namespace Bisang
 	class PlayerController : public Script
 	{
 	public:
-		PlayerController(GameObject* ownerObj, Scene* scene) : Script(ownerObj, scene) {}
+		PlayerController(GameObject* ownerObj) : Script(ownerObj) {}
 
 		void Start() override;
 		void Update(float dT) override;

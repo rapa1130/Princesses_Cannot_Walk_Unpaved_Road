@@ -9,8 +9,8 @@
 
 namespace Bisang
 {
-    BlockMapRenderer::BlockMapRenderer(GameObject* ownerObj, Scene* scene)
-        : RenderableComponent(ownerObj, scene)
+    BlockMapRenderer::BlockMapRenderer(GameObject* ownerObj)
+        : RenderableComponent(ownerObj)
     {
         ResourceManager* rm = GetResourceManager();
         if (rm != nullptr)

@@ -5,8 +5,8 @@
 
 namespace Bisang
 {
-	Collider::Collider(GameObject* ownerObj, Scene* scene, ColliderType type) :
-		Component(ownerObj, scene),
+	Collider::Collider(GameObject* ownerObj, ColliderType type) :
+		Component(ownerObj),
 		m_type(type),
 		m_transform(m_ownerObj->GetComponent<Transform>())
 	{

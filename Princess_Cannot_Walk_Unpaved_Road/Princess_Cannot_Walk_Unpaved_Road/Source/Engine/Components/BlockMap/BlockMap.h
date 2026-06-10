@@ -32,7 +32,7 @@ namespace Bisang
     class BlockMap : public Component
     {
     public:
-        BlockMap(GameObject* ownerObj, Scene* scene);
+        BlockMap(GameObject* ownerObj);
 
     public:
         void InitMap(int width, int height, int depth);

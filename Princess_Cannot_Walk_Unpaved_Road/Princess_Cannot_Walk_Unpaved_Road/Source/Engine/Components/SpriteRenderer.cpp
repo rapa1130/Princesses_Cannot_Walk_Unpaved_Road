@@ -9,8 +9,8 @@
 
 namespace Bisang
 {
-	SpriteRenderer::SpriteRenderer(GameObject* ownerObj, Scene* scene) :
-		RenderableComponent(ownerObj, scene)
+	SpriteRenderer::SpriteRenderer(GameObject* ownerObj) :
+		RenderableComponent(ownerObj)
 	{
 	}
 

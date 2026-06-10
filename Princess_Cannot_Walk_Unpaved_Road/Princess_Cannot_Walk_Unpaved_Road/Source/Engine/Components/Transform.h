@@ -7,7 +7,7 @@ namespace Bisang
 	class Transform : public Component
 	{
 	public:
-		Transform(GameObject* ownerObj, Scene* scene);
+		Transform(GameObject* ownerObj);
 
 		void SetPosition(Vector3 pos) { m_pos = pos; }
 		void SetScale(Vector2 scale) { m_scale = scale; }
