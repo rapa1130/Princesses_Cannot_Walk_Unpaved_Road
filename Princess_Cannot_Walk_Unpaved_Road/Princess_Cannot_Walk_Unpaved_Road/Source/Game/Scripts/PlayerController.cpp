@@ -70,11 +70,15 @@ namespace Bisang
 		// 바닥 확인
 		Block* block = m_blockMap->GetBlock(blockPos + Int3{ 0, 0, -1});
 		
-		if (block == nullptr || block->blockId == BlockId::Empty)
-		{
+		if (block == nullptr ) return false;
 
+		switch (block->blockId)
+		{
+		case  BlockId::Empty:
+		case  BlockId::Water:
 			return false;
 		}
+
 
 		// 벽 확인
 		block = m_blockMap->GetBlock(blockPos);
@@ -85,9 +89,19 @@ namespace Bisang
 		std::cout << std::endl;
 		std::cout << std::endl;
 		std::cout << std::endl;
-		if (block == nullptr || block->blockId == BlockId::Grass)
+
+		if (block == nullptr)
 		{
-			
+			return false;
+		}
+
+		switch (block->blockId)
+		{
+		case BlockId::Grass:
+		case BlockId::Clay:
+		case BlockId::Rock:
+		case BlockId::Tree:
+		case BlockId::OrcTree:
 			return false;
 		}
  		

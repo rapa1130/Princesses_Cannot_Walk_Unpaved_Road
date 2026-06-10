@@ -33,11 +33,6 @@ namespace Bisang
 		bMap->InitMap(30, 30, 90);
 
 
-
-		bMap->SetBlock({ 1, 1, 1 }, BlockId::Grass);
-		bMap->SetBlock({ 3, 1, 1 }, BlockId::Grass);
-		bMap->SetBlock({ 1, 3, 1 }, BlockId::Grass);
-
 		m_resourceManager->LoadTexture(L"Assets/Textures/GrassBlock.png")->SetPivot({ 0, -20, 0 });
 		m_resourceManager->LoadTexture(L"Assets/Textures/Water.png")->SetPivot({ 0, -20, 0 });
 		m_resourceManager->LoadTexture(L"Assets/Textures/Rock.png")->SetPivot({ 0, -20, 0 });
