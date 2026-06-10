@@ -56,14 +56,23 @@ namespace Bisang
 		//////////////////////////////////////////////////////////////////////////////////////
 		GameObject* playerObj = CreateGameObject("Player");
 		Transform* tf = playerObj->GetComponent<Transform>();
-		tf->SetScale({ 0.2, 0.2 });
+		tf->SetScale({ 0.8, 0.8 });
 		tf->SetPosition({ 200, 800, 1 });
 
 
 		SpriteRenderer* sr = playerObj->AddComponent<SpriteRenderer>();
 		sr->SetLayer(Layer::Iso);
-		m_resourceManager->LoadTexture(L"Assets/Textures/test.png")->SetPivot({ 0, -40, 0 });
-		sr->SetSprite(L"Assets/Textures/test.png");
+		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Front.png")->SetPivot({ -20, -40, 0 });
+		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Back.png")->SetPivot({ -20, -40, 0 });
+		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Left.png")->SetPivot({ -20, -40, 0 });
+		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Right.png")->SetPivot({ -20, -40, 0 });
+		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackLeft.png")->SetPivot({ -20, -40, 0 });
+		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackRight.png")->SetPivot({ -20, -40, 0 });
+		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontLeft.png")->SetPivot({ -20, -40, 0 });
+		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontRight.png")->SetPivot({ -20, -40, 0 });
+
+
+		sr->SetSprite(L"Assets/Textures/Characters/Player/Player_Front.png");
 
 		playerObj->AddComponent<PlayerController>();
 
