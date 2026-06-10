@@ -80,8 +80,8 @@ namespace Bisang
         void SetStartPosition(const Int3& pos);
         Int3 GetStartPosition() const;
 
-        bool IsWalkableFloor(BlockId id);
-        bool IsBlocking(BlockId id);
+        bool IsWalkableFloor(BlockId id) const;
+        bool IsBlocking(BlockId id) const;
 
     private:
 
