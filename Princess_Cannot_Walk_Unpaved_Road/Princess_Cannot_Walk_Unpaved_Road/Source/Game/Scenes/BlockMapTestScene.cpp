@@ -56,14 +56,14 @@ namespace Bisang
 		//////////////////////////////////////////////////////////////////////////////////////
 		GameObject* playerObj = CreateGameObject("Player");
 		Transform* tf = playerObj->GetComponent<Transform>();
-		tf->SetScale({ 0.2, 0.2 });
+		tf->SetScale({ 0.8, 0.8 });
 		tf->SetPosition({ 200, 800, 1 });
 
 
 		SpriteRenderer* sr = playerObj->AddComponent<SpriteRenderer>();
 		sr->SetLayer(Layer::Iso);
-		m_resourceManager->LoadTexture(L"Assets/Textures/test.png")->SetPivot({ 0, -40, 0 });
-		sr->SetSprite(L"Assets/Textures/test.png");
+		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Princess.png")->SetPivot({ 0, -40, 0 });
+		sr->SetSprite(L"Assets/Textures/Characters/Princess.png");
 
 		playerObj->AddComponent<PlayerController>();
 

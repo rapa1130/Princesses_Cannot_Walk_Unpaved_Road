@@ -31,7 +31,7 @@ namespace Bisang
 		
 		//auto texture = m_resourceManager->LoadTexture(L"Assets/Textures/test.png");
 		//spriteRenderer->SetSprite(texture);
-		spriteRenderer->SetSprite(L"Assets/Textures/test.png");
+		spriteRenderer->SetSprite(L"Assets/Textures/Characters/Princess.png");
 
 		GameObject* lineObj = CreateGameObject("LineTest");
 		LineRenderer* lineRenderer = lineObj->AddComponent<LineRenderer>();
