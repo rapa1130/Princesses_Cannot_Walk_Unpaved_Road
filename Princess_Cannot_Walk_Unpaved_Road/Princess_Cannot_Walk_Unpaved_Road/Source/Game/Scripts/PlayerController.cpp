@@ -5,6 +5,7 @@
 #include "Engine/Core/Debug.h"
 #include "Engine/Components/BlockMap/BlockMap.h"
 #include <iostream>
+#include "Engine/Components/SpriteRenderer.h"
 
 
 namespace Bisang
@@ -21,11 +22,14 @@ namespace Bisang
 		m_maxSpeed = 200.f;
 		m_acceleration = 3000.f;
         m_friction = 1000.0f;
+        m_spriteRenderer = m_ownerObj->GetComponent<SpriteRenderer>();
 	}
 
 	void PlayerController::Update(float dT)
 	{
 		Move(dT);
+        UpdateAnimation();
+        
 	}
 
 	void PlayerController::FixedUpdate() {}
@@ -149,6 +153,71 @@ namespace Bisang
             }
         }
 	}
+
+    void PlayerController::UpdateAnimation()
+    {
+        bool isFront = m_input->IsKeyDown(KeyCode::Down);
+        bool isBack = m_input->IsKeyDown(KeyCode::Up);
+        bool isLeft = m_input->IsKeyDown(KeyCode::Left);
+        bool isRight = m_input->IsKeyDown(KeyCode::Right);
+
+        if (isFront && isLeft)
+        {
+            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_FrontLeft.png");
+        }
+        else if (isFront && isRight)
+        {
+            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_FrontRight.png");
+        }
+        else if (isBack && isLeft)
+        {
+            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_BackLeft.png");
+        }
+        else if (isBack && isRight)
+        {
+            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_BackRight.png");
+
+        }
+        else if (isBack)
+        {
+            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_Back.png");
+
+        }
+        else if (isFront)
+        {
+            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_Front.png");
+
+        }
+        else if (isLeft)
+        {
+            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_Right.png");
+
+        }
+        else if (isRight)
+        {
+            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_Left.png");
+
+        }
+
+
+        /*
+        
+        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Front.png")->SetPivot({ -20, -40, 0 });
+        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Back.png")->SetPivot({ -20, -40, 0 });
+        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Left.png")->SetPivot({ -20, -40, 0 });
+        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Right.png")->SetPivot({ -20, -40, 0 });
+        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackLeft.png")->SetPivot({ -20, -40, 0 });
+        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackRight.png")->SetPivot({ -20, -40, 0 });
+        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontLeft.png")->SetPivot({ -20, -40, 0 });
+        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontRight.png")->SetPivot({ -20, -40, 0 });
+
+
+        sr->SetSprite(L"Assets/Textures/Characters/Player/Player_Front.png");
+
+        */
+
+    }
+
 
 	bool PlayerController::CanMoveTo(const Vector3& worldPos) const
 	{

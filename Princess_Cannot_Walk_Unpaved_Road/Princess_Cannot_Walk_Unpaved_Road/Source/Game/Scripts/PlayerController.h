@@ -7,6 +7,7 @@ namespace Bisang
 	class Transform;
 	class InputManager;
 	class BlockMap;
+	class SpriteRenderer;
 
 	class PlayerController : public Script
 	{
@@ -24,6 +25,7 @@ namespace Bisang
 	private:
 		void Move(float dT);
 		void UpdateVelocity(float dT);
+		void UpdateAnimation(); // юс╫ц
 
 	private:
 		Transform* m_transform = nullptr;
@@ -37,5 +39,7 @@ namespace Bisang
 		float m_maxSpeed = 300.f;
 		float m_acceleration =100.f;
 		float m_friction = 10.0f;
+
+		SpriteRenderer* m_spriteRenderer = nullptr;
 	};
 }
