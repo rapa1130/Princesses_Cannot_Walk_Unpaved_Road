@@ -16,9 +16,14 @@ namespace Bisang
 		void Start() override;
 		void Update(float dT) override;
 		void FixedUpdate() override;
+		
 
 		bool CanMoveTo(const Vector3& worldPos) const;
 		void SetToStartPostion();
+
+	private:
+		void Move(float dT);
+		void UpdateVelocity(float dT);
 
 	private:
 		Transform* m_transform = nullptr;
@@ -26,7 +31,11 @@ namespace Bisang
 		BlockMap* m_blockMap = nullptr;
 		int playerZ = 1;
 
-		Vector2 m_dir;
-		float moveSpeed = 1000;
+		//Vector2 m_dir;
+		Vector3 m_velocity;
+		float moveSpeed = 300;
+		float m_maxSpeed = 300.f;
+		float m_acceleration =100.f;
+		float m_friction = 10.0f;
 	};
 }

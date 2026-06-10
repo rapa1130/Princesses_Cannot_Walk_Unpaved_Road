@@ -249,7 +249,7 @@ namespace Bisang
         Transform* transform = m_ownerObj->GetComponent<Transform>();
 
         Vector3 origin = transform->GetWorldPosition();
-        Vector2 scale = transform->GetScale();
+        Vector2 scale  = transform->GetScale();
 
         return Vector3(
             origin.x + local2D.x * scale.x,
@@ -362,12 +362,12 @@ namespace Bisang
     {
         m_startPosition = pos;
     }
-    Int3 BlockMap::GetStartPosition() const
+    Int3 BlockMap::GetStartPosition() const 
     {
         return m_startPosition;
     }
 
-    bool BlockMap::IsWalkableFloor(BlockId id)
+    bool BlockMap::IsWalkableFloor(BlockId id) const
     {
         switch (id)
         {
@@ -381,7 +381,7 @@ namespace Bisang
         return false;
     }
 
-    bool BlockMap::IsBlocking(BlockId id)
+    bool BlockMap::IsBlocking(BlockId id) const
     {
         switch (id)
         {
