@@ -27,6 +27,15 @@ namespace Bisang
 		// 씬에 필요한 게임오브젝트와 컴포넌트 생성
 		DEBUG_LOG("SetUp SamepleScene \n");
 
+		PlayerPrefab* playerPrefab = new PlayerPrefab();
+		Instantiate(player)
+
+
+
+
+
+
+
 		GameObject* blockMap = CreateGameObject("BlockMap");
 		BlockMap* bMap = blockMap->AddComponent<BlockMap>();
 		

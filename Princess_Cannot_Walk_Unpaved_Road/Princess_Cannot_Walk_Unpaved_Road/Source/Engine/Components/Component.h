@@ -34,6 +34,8 @@ namespace Bisang
 
 		void SetOwner(GameObject* ownerObj) { m_ownerObj = ownerObj; }
 		GameObject* GetOwner() const { return m_ownerObj; }
+		void SetScene(Scene* scene) { m_scene = scene; }
+		Scene* GetScene() { return m_scene; }
 
 	protected:
 		std::type_index m_typeIndex = typeid(Component);

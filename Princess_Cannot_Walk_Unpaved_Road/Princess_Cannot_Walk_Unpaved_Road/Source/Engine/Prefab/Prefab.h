@@ -1,5 +1,5 @@
 #pragma once
-
+#include <memory>
 namespace Bisang
 {
     class GameObject;
@@ -9,6 +9,6 @@ namespace Bisang
     {
     public:
         virtual ~IPrefab() = default;
-        virtual GameObject* Instantiate(Scene* scene) = 0;
+        virtual std::unique_ptr<GameObject> Instantiate() = 0;
     };
 }

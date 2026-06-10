@@ -26,9 +26,6 @@ namespace Bisang
     class ResourceManager
     {
     public:
-
-
-
         /**
          * @brief 지정한 경로의 리소스를 로드한다.
          *

@@ -72,6 +72,7 @@ namespace Bisang
 		}
 
 		Scene* GetScene() const { return m_scene; }
+		void SetScene(Scene* scene) { m_scene = scene; }
 
 		void SetId(uint64_t id) { m_id = id; }
 		uint64_t GetId() { return m_id; }

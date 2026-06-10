@@ -13,9 +13,10 @@ namespace Bisang
     class PlayerPrefab : public IPrefab
     {
     public:
-        GameObject* Instantiate(Scene* scene) override
+        std::unique_ptr<GameObject> Instantiate() override
         {
-            GameObject* obj = scene->CreateGameObject("Player");
+            std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
+            obj->SetName("Player");
 
             auto* tf = obj->GetComponent<Transform>();
             tf->SetScale({ 0.2f, 0.2f });
