@@ -28,7 +28,7 @@ namespace Bisang
     bool GameApp::Initialize()
     {
         // 윈도우 생성
-        if (false == (m_window->Create(L"GameApp", L"Princess_Cannot_Walk_Unpaved_Road", 1000, 1000)))
+        if (false == (m_window->Create(L"GameApp", L"Princess_Cannot_Walk_Unpaved_Road", 1800, 1000)))
         {
             return false;
         }

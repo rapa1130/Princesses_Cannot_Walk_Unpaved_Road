@@ -14,6 +14,7 @@ namespace Bisang
 		m_transform = m_ownerObj->GetComponent<Transform>();
 		m_input = m_scene->GetInputManager();
 		m_blockMap = m_scene->FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
+		SetToStartPostion();
 	}
 
 	void PlayerController::Update(float dT)
@@ -69,10 +70,8 @@ namespace Bisang
 		// 바닥 확인
 		Block* block = m_blockMap->GetBlock(blockPos + Int3{ 0, 0, -1});
 		
-		if (block == nullptr || block->blockId == BlockId::Empty)
-		{
-			return false;
-		}
+		if (block == nullptr ) return false;
+		if (m_blockMap->IsWalkableFloor(block->blockId) == false) return false;
 
 		// 벽 확인
 		block = m_blockMap->GetBlock(blockPos);
@@ -83,12 +82,19 @@ namespace Bisang
 		std::cout << std::endl;
 		std::cout << std::endl;
 		std::cout << std::endl;
-		if (block == nullptr || block->blockId == BlockId::Grass)
-		{
-			
-			return false;
-		}
+
+		if (block == nullptr) return false;
+		if (m_blockMap->IsBlocking(block->blockId)) return false;
  		
 		return true;
 	}
+
+	void PlayerController::SetToStartPostion()
+	{
+		Int3 startBlockPos = m_blockMap->GetStartPosition();
+		Vector3 startWorldPos = m_blockMap->BlockToWorld(startBlockPos);
+		m_transform->SetPosition(startWorldPos);
+	}
+
+
 }
