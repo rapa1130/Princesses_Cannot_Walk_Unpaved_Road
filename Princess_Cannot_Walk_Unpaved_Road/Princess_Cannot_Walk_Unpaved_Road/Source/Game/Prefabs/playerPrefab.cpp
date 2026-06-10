@@ -4,6 +4,7 @@
 #include "Engine/Core/Layer.h"
 #include "Game/Scripts/PlayerController.h"
 #include "Engine/Resource/ResourceManager.h"
+#include <iostream>
 
 namespace Bisang
 {
@@ -14,13 +15,13 @@ namespace Bisang
 
         auto* tf = obj->GetComponent<Transform>();
         tf->SetScale({ 0.2f, 0.2f });
+        tf->SetPosition({ 400, 400, 1 });
 
         auto* sr = obj->AddComponent<SpriteRenderer>();
         sr->SetLayer(Layer::Iso);
         sr->SetSprite(m_resourceManager->LoadTexture(L"Assets/Textures/test.png"));
 
         obj->AddComponent<PlayerController>();
-
         return obj;
     }
 }

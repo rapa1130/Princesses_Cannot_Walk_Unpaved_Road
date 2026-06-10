@@ -5,19 +5,25 @@
 #include "Engine/Core/Debug.h"
 #include "Engine/Components/BlockMap/BlockMap.h"
 #include <iostream>
+#include "Engine/Prefab/PrefabFactory.h"
 
 
 namespace Bisang
 {
 	void PlayerController::Start()
 	{
+		
 		m_transform = m_ownerObj->GetComponent<Transform>();
-		m_input = m_scene->GetInputManager();
-		m_blockMap = m_scene->FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
+	
+		m_input = m_ownerObj->GetScene()->GetInputManager();
+		
+		m_blockMap = m_ownerObj->GetScene()->FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
+
 	}
 
 	void PlayerController::Update(float dT)
 	{
+		
 		Vector3 playerPos = m_transform->GetPosition();
 		Int3 blockPos;
 		if (false != m_blockMap->WorldToBlock(playerPos, blockPos, playerZ))
@@ -45,6 +51,11 @@ namespace Bisang
 		{
 			m_dir += (m_blockMap->GetAxisX() * -1);
 		}
+		if (m_input->IsKeyDown(KeyCode::Space))
+		{
+			m_ownerObj->GetScene()->Instantiate(m_ownerObj->GetScene()->GetPrefabFactory()->Create("Player"));
+		}
+
 
 		m_dir.Normalize();
 

@@ -10,9 +10,9 @@ namespace Bisang
 {
 	void BlockMapTest::Start()
 	{
-		GameObject* bObj = m_scene->FindGameObjectByName("BlockMap");
+		GameObject* bObj = m_ownerObj->GetScene()->FindGameObjectByName("BlockMap");
 		m_blockMap = bObj->GetComponent<BlockMap>();
-		m_input = m_scene->GetInputManager();
+		m_input = m_ownerObj->GetScene()->GetInputManager();
 	}
 
 	void BlockMapTest::Update(float dT)

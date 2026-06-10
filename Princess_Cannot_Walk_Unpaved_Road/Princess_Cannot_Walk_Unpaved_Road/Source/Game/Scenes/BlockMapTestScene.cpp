@@ -25,12 +25,9 @@ namespace Bisang
 	{
 		// 씬에 필요한 게임오브젝트와 컴포넌트 생성
 		DEBUG_LOG("SetUp SamepleScene \n");
-
-		std::cout << m_prefabFactory->Create("Player").get() << std::endl;
-		//AddGameObject(m_prefabFactory->Create("Player"));
-
-		////BlockMapPrefab* blockMapPrefab = new BlockMapPrefab();
-		////AddGameObject(blockMapPrefab);
+	
+		AddGameObject(m_prefabFactory->Create("Player"));
+		AddGameObject(m_prefabFactory->Create("BlockMap"));
 	}
 
 	void BlockMapTestScene::OnEnter()

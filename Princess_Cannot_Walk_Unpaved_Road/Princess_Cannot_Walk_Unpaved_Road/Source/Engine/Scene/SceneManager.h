@@ -33,7 +33,7 @@ namespace Bisang
 		SceneManager(ResourceManager* resourceManager, InputManager* inputManager,Renderer* renderer, PrefabFactory* prefabFactory) :
 			m_resourceManager(resourceManager), m_inputManager(inputManager), m_renderer(renderer), m_prefabFactory(prefabFactory)
 		{
-
+			
 		}
 
 		/**

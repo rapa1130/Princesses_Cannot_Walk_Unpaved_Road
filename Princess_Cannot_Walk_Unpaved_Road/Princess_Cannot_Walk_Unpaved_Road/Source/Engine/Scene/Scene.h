@@ -57,6 +57,13 @@ namespace Bisang
         InputManager* GetInputManager() { return m_inputManager; }
 
         /**
+         * @brief 프리팹 펙토리를 반환한다.
+         *
+         * @return 입력 관리자
+         */
+        PrefabFactory* GetPrefabFactory() { return m_prefabFactory; }
+
+        /**
          * @brief 씬 진입 시 초기화 작업을 수행한다.
          *
          * 초기 상태를 설정한다.

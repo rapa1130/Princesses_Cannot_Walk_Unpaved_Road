@@ -148,6 +148,7 @@ namespace Bisang
 
 	void Scene::RegisterToScene(GameObject* obj)
 	{
+		obj->SetScene(this);
 
 		for (const auto& it : obj->GetComponents())
 		{
