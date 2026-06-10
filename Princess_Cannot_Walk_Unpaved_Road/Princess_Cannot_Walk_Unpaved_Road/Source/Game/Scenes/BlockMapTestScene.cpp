@@ -30,7 +30,7 @@ namespace Bisang
 		GameObject* blockMap = CreateGameObject("BlockMap");
 		BlockMap* bMap = blockMap->AddComponent<BlockMap>();
 		
-		bMap->InitMap(30, 30, 30);
+		bMap->InitMap(30, 30, 90);
 
 
 		for (int i = 0; i < 10; i++)
