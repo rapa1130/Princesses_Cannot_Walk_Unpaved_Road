@@ -86,7 +86,7 @@ namespace Bisang
             return std::sqrt(x * x + y * y);
         }
 
-        Vector2 Normalize() const
+        Vector2 Normalized() const
         {
             float len = Length();
 
@@ -162,6 +162,14 @@ namespace Bisang
             return *this;
         }
 
+        Vector3 operator*=(const Vector3& rhs)
+        {
+            x *= rhs.x;
+            y *= rhs.y;
+            z *= rhs.z;
+            return *this;
+        }
+
         Vector3& operator-=(const Vector3& rhs)
         {
             x -= rhs.x;
@@ -203,7 +211,19 @@ namespace Bisang
             return std::sqrt(x * x + y * y + z * z);
         }
 
-        Vector3 Normalize() const
+        void Normalize() 
+        {
+            float len = Length();
+
+            if (len == 0.0f)
+                return;
+
+            x = x / len;
+            y = y / len;
+            z = z / len;
+        }
+
+        Vector3 Normalized() const
         {
             float len = Length();
 
