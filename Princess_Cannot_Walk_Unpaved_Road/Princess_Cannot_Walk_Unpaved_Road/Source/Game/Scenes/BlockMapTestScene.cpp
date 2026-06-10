@@ -33,18 +33,7 @@ namespace Bisang
 		bMap->InitMap(30, 30, 90);
 
 
-		for (int i = 0; i < 10; i++)
-		{
-			for (int ii = 0; ii < 10; ii++)
-			{
-				for (int iii = 0; iii <= 0; iii++)
-				{
-					bMap->SetBlock({ i, ii, iii }, BlockId::Grass);
-				}
-			}
-		}
-		srand(time(NULL));
-		bMap->GenerateProceduralMap(rand());
+
 		bMap->SetBlock({ 1, 1, 1 }, BlockId::Grass);
 		bMap->SetBlock({ 3, 1, 1 }, BlockId::Grass);
 		bMap->SetBlock({ 1, 3, 1 }, BlockId::Grass);

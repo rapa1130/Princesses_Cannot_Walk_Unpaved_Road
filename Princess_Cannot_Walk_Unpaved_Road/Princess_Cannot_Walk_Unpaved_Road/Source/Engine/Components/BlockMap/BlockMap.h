@@ -12,13 +12,17 @@ namespace Bisang
     {
         Empty = 0,
         
+
         Grass = 1,
         Dirt = 2,
         Water = 3,
 
+
         Rock = 4,
         Clay = 5,
         Tree = 6,
+
+        
         OrcTree = 7,
 
         RailPath = 8,
@@ -27,6 +31,7 @@ namespace Bisang
     struct Block
     {
         BlockId blockId = BlockId::Empty;
+
     };
 
     class BlockMap : public Component
@@ -38,6 +43,7 @@ namespace Bisang
         void InitMap(int width, int height, int depth);
         void SetBlockSize(float width, float height, float depth);
         void GenerateProceduralMap(unsigned int seed);
+        void MakeStartZone();
 
         int Index(Int3 pos) const;
         bool InBounds(Int3 pos) const;
@@ -71,6 +77,9 @@ namespace Bisang
         const Vector2& GetAxisY() const { return m_axisY; }
         const Vector2& GetAxisZ() const { return m_axisZ; }
 
+        void SetStartPosition(const Int3& pos);
+        Int3 GetStartPosition() const;
+
     private:
 
         /*
@@ -100,5 +109,7 @@ namespace Bisang
         Vector2 m_axisX;
         Vector2 m_axisY;
         Vector2 m_axisZ;
+
+        Int3 m_startPosition;
     };
 }

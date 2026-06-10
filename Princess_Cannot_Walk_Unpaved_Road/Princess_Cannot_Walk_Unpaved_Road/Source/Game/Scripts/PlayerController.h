@@ -18,6 +18,7 @@ namespace Bisang
 		void FixedUpdate() override;
 
 		bool CanMoveTo(const Vector3& worldPos) const;
+		void SetToStartPostion();
 
 	private:
 		Transform* m_transform = nullptr;

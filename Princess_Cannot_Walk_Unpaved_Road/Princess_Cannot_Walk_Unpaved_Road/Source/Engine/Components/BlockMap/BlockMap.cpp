@@ -29,6 +29,10 @@ namespace Bisang
         m_depth = depth;
 
         m_map.assign(m_width * m_height * m_depth, Block{});
+        srand(time(NULL));
+        GenerateProceduralMap(rand());
+        SetStartPosition({ m_width / 2 ,10 ,1 });
+        MakeStartZone();
     }
 
     void BlockMap::SetBlockSize(float width, float height, float depth)
@@ -138,6 +142,37 @@ namespace Bisang
                 else if (clay > 0.5f && (id == BlockId::Grass || id == BlockId::Dirt))
                 {
                     SetBlock({ x, y, groundZ + 1 }, BlockId::Clay);
+                }
+            }
+        }
+    }
+
+    void BlockMap::MakeStartZone()
+    {
+        int centerX = m_startPosition.x;
+        int centerY = m_startPosition.y;
+
+        int radius = 7;
+
+        int left = centerX - radius;
+        int right = centerX + radius;
+        int top = centerY + radius;
+        int bottom = centerY - radius;
+
+        for (int nowX = left; nowX < right; nowX++)
+        {
+            for (int nowY = bottom; nowY < top; nowY++)
+            {
+                Vector2 v(nowX - centerX, nowY - centerY);
+                if (v.Length() < radius)
+                {
+                    SetBlock({ nowX,nowY,1 }, BlockId::Empty);
+                    Block* zeroFloorBlock = GetBlock({ nowX,nowY,0 });
+                    if (zeroFloorBlock->blockId == BlockId::Water)
+                    {
+                        SetBlock({ nowX,nowY,0 }, BlockId::Grass);
+
+                    }
                 }
             }
         }
@@ -320,5 +355,13 @@ namespace Bisang
         
         m_axisX = Vector2::Rotate2D(m_axisX, DegToRad(m_theta));
         m_axisY = Vector2::Rotate2D(m_axisY, DegToRad(m_theta));
+    }
+    void BlockMap::SetStartPosition(const Int3& pos)
+    {
+        m_startPosition = pos;
+    }
+    Int3 BlockMap::GetStartPosition() const
+    {
+        return m_startPosition;
     }
 }

@@ -14,6 +14,7 @@ namespace Bisang
 		m_transform = m_ownerObj->GetComponent<Transform>();
 		m_input = m_scene->GetInputManager();
 		m_blockMap = m_scene->FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
+		SetToStartPostion();
 	}
 
 	void PlayerController::Update(float dT)
@@ -71,6 +72,7 @@ namespace Bisang
 		
 		if (block == nullptr || block->blockId == BlockId::Empty)
 		{
+
 			return false;
 		}
 
@@ -91,4 +93,13 @@ namespace Bisang
  		
 		return true;
 	}
+
+	void PlayerController::SetToStartPostion()
+	{
+		Int3 startBlockPos = m_blockMap->GetStartPosition();
+		Vector3 startWorldPos = m_blockMap->BlockToWorld(startBlockPos);
+		m_transform->SetPosition(startWorldPos);
+	}
+
+
 }
