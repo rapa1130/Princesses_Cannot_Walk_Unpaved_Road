@@ -12,24 +12,6 @@ namespace Bisang
     BlockMapRenderer::BlockMapRenderer(GameObject* ownerObj)
         : RenderableComponent(ownerObj)
     {
-        ResourceManager* rm = GetResourceManager();
-        if (rm != nullptr)
-        {
-            m_blockTextures[static_cast<int>(BlockId::Grass)] =
-                rm->LoadTexture(L"Assets/Textures/GrassBlock.png");
-            m_blockTextures[static_cast<int>(BlockId::Dirt)] =
-                rm->LoadTexture(L"Assets/Textures/Dirt.png");
-            m_blockTextures[static_cast<int>(BlockId::Water)] =
-                rm->LoadTexture(L"Assets/Textures/Water.png");
-            m_blockTextures[static_cast<int>(BlockId::Rock)] =
-                rm->LoadTexture(L"Assets/Textures/Rock.png");
-            m_blockTextures[static_cast<int>(BlockId::Clay)] =
-                rm->LoadTexture(L"Assets/Textures/Clay.png");
-            m_blockTextures[static_cast<int>(BlockId::Tree)] =
-                rm->LoadTexture(L"Assets/Textures/Tree.png");
-            m_blockTextures[static_cast<int>(BlockId::OrcTree)] =
-                rm->LoadTexture(L"Assets/Textures/OrcTree.png");
-        }
     }
 
     void BlockMapRenderer::DrawCall(Renderer* renderer)
@@ -117,5 +99,17 @@ namespace Bisang
 
             renderer->Submit(rc);
         }
+    }
+
+    void BlockMapRenderer::SetBlockTexture(BlockId id, std::shared_ptr<TextureResource> texture)
+    {
+        if (!texture) return;
+
+        m_blockTextures[static_cast<int>(id)] = std::move(texture);
+    }
+
+    void BlockMapRenderer::SetBlockTextures(const std::unordered_map<int, std::shared_ptr<TextureResource>>&textures)
+    {
+        m_blockTextures = textures;
     }
 }

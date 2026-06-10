@@ -25,7 +25,7 @@ namespace Bisang
 		float GetWidth() const;
 
 		//Setters
-		void SetTextFormat(std::wstring fontName, float fontSize);
+		void SetTextFormat(std::shared_ptr<TextFormatResource> textFormat);
 		void SetText(const std::wstring& text);
 		void SetColor(const Bisang::Color& color);
 		

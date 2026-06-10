@@ -9,8 +9,9 @@
 
 namespace Bisang
 {
-	Scene::Scene(std::string sceneName, ResourceManager* resourceManager, InputManager* inputManager) :
-		m_sceneName(sceneName), m_resourceManager(resourceManager), m_inputManager(inputManager) {
+	Scene::Scene(std::string sceneName, ResourceManager* resourceManager, InputManager* inputManager, PrefabFactory* prefabFactory) :
+		m_sceneName(sceneName), m_resourceManager(resourceManager), m_inputManager(inputManager), m_prefabFactory(prefabFactory) 
+	{
 	}
 
 	Scene::~Scene() = default;
@@ -101,8 +102,26 @@ namespace Bisang
 	//##########
 	void Scene::Instantiate(IPrefab* prefab)
 	{
+		if (prefab == nullptr) return;
+
 		std::unique_ptr<GameObject> obj = prefab->Instantiate();
+		if (obj == nullptr) return;
 		m_AddGameObjectQueue.push(std::move(obj));
+	}
+
+	void Scene::Instantiate(std::unique_ptr<GameObject> obj)
+	{
+		if (obj == nullptr) return;
+		m_AddGameObjectQueue.push(std::move(obj));
+	}
+
+	void Scene::AddGameObject(IPrefab* prefab)
+	{
+		if (prefab == nullptr) return;
+
+		std::unique_ptr<GameObject> obj = prefab->Instantiate();
+		if (obj == nullptr) return;
+		AddGameObject(std::move(obj));
 	}
 
 	void Scene::AddGameObject(std::unique_ptr<GameObject> obj)
@@ -129,15 +148,10 @@ namespace Bisang
 
 	void Scene::RegisterToScene(GameObject* obj)
 	{
-		// 오브젝트에 씬 주입
-		obj->SetScene(this);
 
 		for (const auto& it : obj->GetComponents())
 		{
 			Component* comp = it.second.get();
-
-			// 컴포넌트에 씬 주입
-			comp->SetScene(this);
 
 			// 렌더러블 컴포넌트면 씬에 추가 등록
 			RenderableComponent* rComp = dynamic_cast<RenderableComponent*>(comp);
@@ -206,11 +220,8 @@ namespace Bisang
 			{
 				RemoveCollider(collider);
 			}
-
-			comp->SetScene(nullptr);
 		}
 
-		obj->SetScene(nullptr);
 	}
 
 	//##########

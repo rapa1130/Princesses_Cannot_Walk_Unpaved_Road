@@ -16,9 +16,11 @@ namespace Bisang
     class Collider;
 	class ResourceManager;
 	class InputManager;
+    class PrefabFactory;
 	class GameObject;
     class Renderer;
     class IPrefab;
+    
 
 	class Scene
 	{
@@ -33,7 +35,7 @@ namespace Bisang
          * @param[in] resourceManager 리소스 관리자
          * @param[in] inputManager 입력 관리자
          */
-        Scene(std::string sceneName, ResourceManager* resourceManager, InputManager* inputManager);
+        Scene(std::string sceneName, ResourceManager* resourceManager, InputManager* inputManager, PrefabFactory* prefabFactory);
 
         /**
          * @brief 씬을 소멸한다.
@@ -116,6 +118,30 @@ namespace Bisang
          */
         std::string GetSceneName() { return m_sceneName; }
 
+         /**
+         * @brief 프리팹으로 게임 오브젝트 생성을 예약한다. [지연 생성]
+         *
+         * @param[in] 게임 오브젝트 유니크 포인터
+         *
+         */
+        void Instantiate(std::unique_ptr<GameObject> obj);
+
+        /**
+         * @brief 프리팹으로 게임 오브젝트 생성을 예약한다. [지연 생성]
+         *
+         * @param[in] prefab 프리팹 포인터
+         *
+         */
+        void Instantiate(IPrefab* prefab);
+
+        /**
+         * @brief 게임 오브젝트를 씬에 등록한다. [즉시 등록]
+         *
+         * @param[in] 게임 오브젝트 유니크 포인터
+         *
+         */
+        void AddGameObject(IPrefab* prefab);
+
         /**
          * @brief 게임 오브젝트를 씬에 등록한다. [즉시 등록]
          *
@@ -152,13 +178,7 @@ namespace Bisang
          */
         GameObject* FindGameObjectByName(std::string name);
 
-        /**
-         * @brief 프리팹으로 게임 오브젝트 생성을 예약한다. [지연 생성]
-         *
-         * @param[in] prefab 프리팹 포인터
-         *
-         */
-        void Instantiate(IPrefab* prefab);
+
 
         /**
          * @brief 게임 오브젝트 삭제를 예약한다. [지연 삭제]
@@ -240,6 +260,7 @@ namespace Bisang
 		std::string m_sceneName = "";                   // 씬이름
 		ResourceManager* m_resourceManager = nullptr;   // 리소스 매니저
 		InputManager* m_inputManager = nullptr;         // 인풋 매니저
+        PrefabFactory* m_prefabFactory = nullptr;       // 프리팹 팩토리
         
 
 		//*************************************************

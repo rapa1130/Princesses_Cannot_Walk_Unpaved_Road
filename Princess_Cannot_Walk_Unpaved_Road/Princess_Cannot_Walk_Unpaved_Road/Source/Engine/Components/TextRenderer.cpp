@@ -23,10 +23,7 @@ namespace Bisang
             DEBUG_ERROR_LOCATION("transform is nullptr");
             return;
         }
-        if (m_textFormat == nullptr)
-        {
-            SetTextFormat(L"Malgun Gothic", 12.0f);
-        }
+        if (m_textFormat == nullptr) return;
 
         RenderCommand rc = RenderCommand::CreateTextRC(
             GetLayer(),
@@ -87,17 +84,9 @@ namespace Bisang
     }
 
     //Setters
-    void TextRenderer::SetTextFormat(std::wstring fontName, float fontSize)
+    void TextRenderer::SetTextFormat(std::shared_ptr<TextFormatResource> textFormat)
     {
-        ResourceManager* resourceManager = GetResourceManager();
-
-        if (resourceManager == nullptr)
-        {
-            DEBUG_ERROR_LOCATION("resourceManager is nullptr");
-            return;
-        }
-
-        m_textFormat = resourceManager->LoadTextFormat(fontName, fontSize);
+        m_textFormat = textFormat;
 
         if (m_textFormat == nullptr)
         {
@@ -105,6 +94,7 @@ namespace Bisang
             return;
         }
     }
+
     void TextRenderer::SetText(const std::wstring& text)
     {
         m_text = text;

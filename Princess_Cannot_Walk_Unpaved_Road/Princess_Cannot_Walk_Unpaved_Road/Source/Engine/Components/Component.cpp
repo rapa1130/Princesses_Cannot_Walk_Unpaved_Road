@@ -10,9 +10,4 @@ namespace Bisang
 	{
 		m_transform = m_ownerObj->AddComponent<Transform>();
 	}
-
-	ResourceManager* Component::GetResourceManager()
-	{ 
-		return m_scene->GetResourceManager(); 
-	}
 }

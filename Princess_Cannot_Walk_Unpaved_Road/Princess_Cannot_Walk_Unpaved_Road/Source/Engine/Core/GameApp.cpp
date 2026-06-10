@@ -6,8 +6,12 @@
 #include "Engine/Resource/ResourceManager.h"
 #include "Engine/Renderer/Renderer.h"
 #include "Engine/Scene/SceneManager.h"
+#include "Engine/Prefab/PrefabFactory.h"
+
 #include "Game/Scenes/SampleScene.h"
 #include "Game/Scenes/BlockMapTestScene.h"
+#include "Game/Prefabs/PlayerPrefab.h"
+#include "Game/Prefabs/BlockMapPrefab.h"
 
 #include <iostream>
 
@@ -19,7 +23,8 @@ namespace Bisang
           m_inputManager(std::make_unique<InputManager>()),
           m_resourceManager(std::make_unique<ResourceManager>()),
           m_renderer (std::make_unique<Renderer>(m_resourceManager.get())),
-          m_sceneManager(std::make_unique<SceneManager>(m_resourceManager.get(), m_inputManager.get(),m_renderer.get()))
+          m_prefabFactory(std::make_unique<PrefabFactory>(m_resourceManager.get())),
+          m_sceneManager(std::make_unique<SceneManager>(m_resourceManager.get(), m_inputManager.get(),m_renderer.get(), m_prefabFactory.get()))
     {
     }
 
@@ -54,7 +59,11 @@ namespace Bisang
         // 씬 매니저 설정
         m_sceneManager->AddScene<SampleScene>("SampleScene");
         m_sceneManager->AddScene<BlockMapTestScene>("BlockMapTestScene");
-        m_sceneManager->SetStartScene("SampleScene");
+        m_sceneManager->SetStartScene("BlockMapTestScene");
+
+        // 프리팹 팩토리 설정
+        m_prefabFactory->RegisterPrefab<PlayerPrefab>("Player");
+        m_prefabFactory->RegisterPrefab<BlockMapPrefab>("BlockMap");
 
         // 타이머 초기화 ( 초기화 마지막 단계에 두는 것이 좋음 )
         m_gameTimer->Reset();

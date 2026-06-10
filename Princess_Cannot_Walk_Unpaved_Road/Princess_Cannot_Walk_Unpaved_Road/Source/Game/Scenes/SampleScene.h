@@ -6,8 +6,8 @@ namespace Bisang
 	class SampleScene : public Scene
 	{
 	public:
-		SampleScene(std::string sceneName, ResourceManager* resourceManager, InputManager* inputManager) :
-			Scene(sceneName, resourceManager, inputManager) {
+		SampleScene(std::string sceneName, ResourceManager* resourceManager, InputManager* inputManager, PrefabFactory* prefabFactory) :
+			Scene(sceneName, resourceManager, inputManager, prefabFactory) {
 		}
 		
 		void Initialize() override;

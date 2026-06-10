@@ -38,6 +38,10 @@
     <ClCompile Include="Source\Game\Scripts\PlayerController.cpp" />
     <ClCompile Include="Source\Game\Scripts\BlockMapTest.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\playerPrefab.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\BlockMapPrefab.cpp" />
+    <ClCompile Include="Source\Engine\Prefab\PrefabFactory.h" />
+    <ClCompile Include="Source\Engine\Components\Script.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -76,6 +80,7 @@
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Engine\Components\BlockMap\PerlinNoise2D.h" />
     <ClInclude Include="Source\Engine\Prefab\Prefab.h" />
-    <ClInclude Include="Source\Game\Prefabs\Player.h" />
+    <ClInclude Include="Source\Game\Prefabs\PlayerPrefab.h" />
+    <ClInclude Include="Source\Game\Prefabs\BlockMapPrefab.h" />
   </ItemGroup>
 </Project>

@@ -6,14 +6,18 @@ namespace Bisang
 {
 	class GameApp;
 	class Component;
+	class Scene;
 
 	class Script : public Component
 	{
 	public:
-		Script(GameObject* ownerObj) : Component(ownerObj) {}
+		Script(GameObject* ownerObj);
 
 		virtual void Start() {}
 		virtual void Update(float dT) {}
 		virtual void FixedUpdate() {}
+
+	protected:
+		Scene* m_scene = nullptr;
 	};
 }
