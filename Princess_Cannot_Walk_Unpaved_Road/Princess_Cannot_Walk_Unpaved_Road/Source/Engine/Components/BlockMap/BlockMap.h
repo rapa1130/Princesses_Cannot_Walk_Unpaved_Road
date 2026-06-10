@@ -5,9 +5,10 @@
 #include "Engine/Math/Int3.h"
 
 #include <vector>
-
+#include<map>
 namespace Bisang
 {
+
     enum class BlockId
     {
         Empty = 0,
@@ -31,7 +32,6 @@ namespace Bisang
     struct Block
     {
         BlockId blockId = BlockId::Empty;
-
     };
 
     class BlockMap : public Component
@@ -80,6 +80,9 @@ namespace Bisang
         void SetStartPosition(const Int3& pos);
         Int3 GetStartPosition() const;
 
+        bool IsWalkableFloor(BlockId id);
+        bool IsBlocking(BlockId id);
+
     private:
 
         /*
@@ -111,5 +114,6 @@ namespace Bisang
         Vector2 m_axisZ;
 
         Int3 m_startPosition;
+
     };
 }

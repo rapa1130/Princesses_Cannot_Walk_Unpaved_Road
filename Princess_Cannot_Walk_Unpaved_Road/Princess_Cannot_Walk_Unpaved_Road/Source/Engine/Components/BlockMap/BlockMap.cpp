@@ -6,6 +6,7 @@
 #include <cassert>
 #include <cmath>
 #include "Engine/Components/BlockMap/PerlinNoise2D.h"
+#include <map>
 
 namespace Bisang
 {
@@ -16,6 +17,7 @@ namespace Bisang
         m_blockWidth = 239.641f;
         m_blockHeight = 58.1892f;
         m_blockDepth = 417.479f;
+
     }
 
     void BlockMap::InitMap(int width, int height, int depth)
@@ -363,5 +365,34 @@ namespace Bisang
     Int3 BlockMap::GetStartPosition() const
     {
         return m_startPosition;
+    }
+
+    bool BlockMap::IsWalkableFloor(BlockId id)
+    {
+        switch (id)
+        {
+        case Bisang::BlockId::Grass:
+        case Bisang::BlockId::Dirt:
+        case Bisang::BlockId::Rock:
+        case Bisang::BlockId::Clay:
+        case Bisang::BlockId::RailPath:
+            return true;
+        }
+        return false;
+    }
+
+    bool BlockMap::IsBlocking(BlockId id)
+    {
+        switch (id)
+        {
+        case Bisang::BlockId::Grass:
+        case Bisang::BlockId::Dirt:
+        case Bisang::BlockId::Rock:
+        case Bisang::BlockId::Clay:
+        case Bisang::BlockId::Tree:
+        case Bisang::BlockId::OrcTree:
+            return true;
+        }
+        return false;
     }
 }
