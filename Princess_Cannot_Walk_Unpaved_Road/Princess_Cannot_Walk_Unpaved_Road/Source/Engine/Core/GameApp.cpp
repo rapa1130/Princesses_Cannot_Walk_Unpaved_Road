@@ -7,13 +7,8 @@
 #include "Engine/Renderer/Renderer.h"
 #include "Engine/Scene/SceneManager.h"
 #include "Engine/Prefab/PrefabFactory.h"
-
-#include "Game/Scenes/SampleScene.h"
-#include "Game/Scenes/BlockMapTestScene.h"
-#include "Game/Prefabs/PlayerPrefab.h"
-#include "Game/Prefabs/BlockMapPrefab.h"
-#include "Game/Prefabs/DebugOverlay.h"
-
+#include "Game/Registry/GameRegistry.h"
+#include "Game/AssetSettings/AssetSettings.h"
 #include <iostream>
 
 namespace Bisang
@@ -55,21 +50,19 @@ namespace Bisang
             return false;
         }
 
-        //리소스 매니저 초기화
+        // 리소스 매니저 초기화
         if (false == m_resourceManager->Initialize(m_renderer->GetD2DContext()))
         {
             return false;
         }
+        // 리소스 설정 적용
+        AssetSettings::Apply(m_resourceManager.get());
+        
+        // 씬 매니저, 씬 등록
+        GameRegistry::RegisterScenes(m_sceneManager.get());
 
-        // 씬 매니저 설정
-        m_sceneManager->AddScene<SampleScene>("SampleScene");
-        m_sceneManager->AddScene<BlockMapTestScene>("BlockMapTestScene");
-        m_sceneManager->SetStartScene("BlockMapTestScene");
-
-        // 프리팹 팩토리 설정
-        m_prefabFactory->RegisterPrefab<PlayerPrefab>("Player");
-        m_prefabFactory->RegisterPrefab<BlockMapPrefab>("BlockMap");
-        m_prefabFactory->RegisterPrefab<DebugOverlay>("DebugOverlay");
+        // 프리팹 팩토리, 프리팹 등록
+        GameRegistry::RegisterPrefabs(m_prefabFactory.get());
 
         // 타이머 초기화 ( 초기화 마지막 단계에 두는 것이 좋음 )
         m_gameTimer->Reset();

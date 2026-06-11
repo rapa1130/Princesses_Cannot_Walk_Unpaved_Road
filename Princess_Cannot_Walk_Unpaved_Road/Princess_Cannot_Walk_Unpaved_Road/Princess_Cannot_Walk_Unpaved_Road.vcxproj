@@ -35,6 +35,7 @@
     <ClInclude Include="Source\Engine\Input\InputManager.h" />
     <ClInclude Include="Source\Engine\Math\Vector.h" />
     <ClInclude Include="Source\Engine\Physics\Collision.h" />
+    <ClInclude Include="Source\Game\AssetSettings\AssetSettings.h" />
     <ClInclude Include="Source\Game\Prefabs\DebugOverlay.h" />
     <ClInclude Include="Source\Engine\Prefab\Prefab.h" />
     <ClInclude Include="Source\Engine\Renderer\Color.h" />
@@ -64,6 +65,7 @@
     <ClInclude Include="Source\Engine\Core\GameApp.h" />
     <ClInclude Include="Source\Game\Prefabs\BlockMapPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\PlayerPrefab.h" />
+    <ClInclude Include="Source\Game\Registry\GameRegistry.h" />
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Game\Scripts\BlockMapTest.h" />
@@ -89,6 +91,7 @@
     <ClCompile Include="Source\Engine\Math\Int3.h" />
     <ClCompile Include="Source\Engine\Math\Math.h" />
     <ClCompile Include="Source\Engine\Physics\Collision.cpp" />
+    <ClCompile Include="Source\Game\AssetSettings\AssetSettings.cpp" />
     <ClCompile Include="Source\Game\Prefabs\DebugOverlay.cpp" />
     <ClCompile Include="Source\Engine\Prefab\PrefabFactory.h" />
     <ClCompile Include="Source\Engine\Renderer\Color.cpp" />
@@ -113,6 +116,7 @@
     <ClCompile Include="Source\Engine\Windows\Window.cpp" />
     <ClCompile Include="Source\Game\Prefabs\BlockMapPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\playerPrefab.cpp" />
+    <ClCompile Include="Source\Game\Registry\GameRegistry.cpp" />
     <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
     <ClCompile Include="Source\Game\Scripts\BlockMapTest.cpp" />

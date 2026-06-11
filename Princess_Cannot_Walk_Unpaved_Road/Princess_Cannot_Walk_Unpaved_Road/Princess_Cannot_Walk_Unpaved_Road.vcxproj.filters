@@ -44,6 +44,8 @@
     <ClCompile Include="Source\Engine\Components\Script.cpp" />
     <ClCompile Include="Source\Game\Prefabs\DebugOverlay.cpp" />
     <ClCompile Include="Source\Game\Scripts\Overlay.cpp" />
+    <ClCompile Include="Source\Game\Registry\GameRegistry.cpp" />
+    <ClCompile Include="Source\Game\AssetSettings\AssetSettings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -87,5 +89,7 @@
     <ClInclude Include="Source\Engine\Core\GameContext.h" />
     <ClInclude Include="Source\Game\Prefabs\DebugOverlay.h" />
     <ClInclude Include="Source\Game\Scripts\Overlay.h" />
+    <ClInclude Include="Source\Game\Registry\GameRegistry.h" />
+    <ClInclude Include="Source\Game\AssetSettings\AssetSettings.h" />
   </ItemGroup>
 </Project>
