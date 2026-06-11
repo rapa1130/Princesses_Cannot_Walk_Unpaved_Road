@@ -5,14 +5,9 @@
 
 namespace Bisang
 {
-	RenderableComponent::RenderableComponent(GameObject* Owner, Scene* scene)
-		: Component(Owner, scene)
+	RenderableComponent::RenderableComponent(GameObject* Owner)
+		: Component(Owner)
 	{
 		m_transform = m_ownerObj->AddComponent<Transform>();
-	}
-
-	ResourceManager* Component::GetResourceManager()
-	{ 
-		return m_scene->GetResourceManager(); 
 	}
 }

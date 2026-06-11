@@ -3,13 +3,16 @@
 #include "Engine/Components/Component.h"
 #include "Engine/Object/GameObject.h"
 #include "Engine/Physics/Collision.h"
+#include "Engine/Prefab/PrefabFactory.h"
 
 #include <algorithm>
 
 namespace Bisang
 {
-	Scene::Scene(std::string sceneName, ResourceManager* resourceManager, InputManager* inputManager) :
-		m_sceneName(sceneName), m_resourceManager(resourceManager), m_inputManager(inputManager) {
+	Scene::Scene(std::string sceneName, GameContext* context)
+		: m_sceneName(sceneName), m_context(context)
+	{
+		m_prefabFactory = m_context->prefabFactory;
 	}
 
 	Scene::~Scene() = default;
@@ -42,7 +45,8 @@ namespace Bisang
 			}
 		}
 
-		ProcessDestroyGameObjectQueue();   // 오브젝트 지연삭제 실행
+		ProcessDeleteGameObjectQueue();   // 오브젝트 지연삭제 실행
+		ProcessAddGameObjectQueue();      // 오브젝트 지연추가 실행
 	}
 
 	void Scene::FixedUpdate()
@@ -73,8 +77,6 @@ namespace Bisang
 		CheckCollisions();
 	}
 
-
-
 	//*************************************************
 	// 렌더링
 	//************************************************* 
@@ -96,26 +98,128 @@ namespace Bisang
 	//*************************************************
 	// 게임 오브젝트
 	//************************************************* 
-
-	GameObject* Scene::CreateGameObject()
+	//##########
+	// 등록
+	//##########
+	GameObject* Scene::Instantiate(std::string prefabName)
 	{
-		std::unique_ptr<GameObject> newObj = std::make_unique<GameObject>(this);
-		GameObject* pNewObj = newObj.get();
-
-		newObj->SetId(++m_GameObjectCount);
-		m_gameObjects[newObj->GetId()] = std::move(newObj);
-
-		return pNewObj;
+		std::unique_ptr<GameObject> obj = m_prefabFactory->Create(prefabName);
+		if (obj == nullptr) return nullptr;
+		m_AddGameObjectQueue.push(std::move(obj));
+		return obj.get();
 	}
 
-	GameObject* Scene::CreateGameObject(std::string name)
+	void Scene::AddGameObject(std::string prefabName)
 	{
-		GameObject* pNewObj = CreateGameObject();
-		pNewObj->SetName(name);
-
-		return pNewObj;
+		std::unique_ptr<GameObject> obj = m_prefabFactory->Create(prefabName);
+		if (obj == nullptr) return;
+		AddGameObject(std::move(obj));
 	}
 
+	void Scene::AddGameObject(std::unique_ptr<GameObject> obj)
+	{
+		// 씬 등록 절차 수행
+		RegisterToScene(obj.get());
+
+		// 오브젝트 아이디 부여
+		obj->SetId(++m_GameObjectCount);
+
+		// 씬에 등록
+		m_gameObjects[obj->GetId()] = std::move(obj);
+	}
+
+	void Scene::ProcessAddGameObjectQueue()
+	{
+		// 지연 추가 큐를 비우면서 오브젝트 등록
+		while (false == m_AddGameObjectQueue.empty())
+		{
+			AddGameObject(std::move(m_AddGameObjectQueue.front()));
+			m_AddGameObjectQueue.pop();
+		}
+	}
+
+	void Scene::RegisterToScene(GameObject* obj)
+	{
+		obj->SetScene(this);
+
+		for (const auto& it : obj->GetComponents())
+		{
+			Component* comp = it.second.get();
+
+			// 렌더러블 컴포넌트면 씬에 추가 등록
+			RenderableComponent* rComp = dynamic_cast<RenderableComponent*>(comp);
+			if (rComp)
+			{
+				AddRenderableComponent(rComp);
+			}
+
+			// 콜라이더 컴포넌트면 씬에 추가 등록
+			Collider* collider = dynamic_cast<Collider*>(comp);
+			if (collider)
+			{
+				AddCollider(collider);
+			}
+		}
+	}
+
+	//##########
+	// 삭제
+	//##########
+	void Scene::DestroyGameObject(uint64_t id)
+	{
+		if (m_gameObjects.find(id) == m_gameObjects.end())
+			return;
+
+		// 지연 삭제 큐 push
+		m_DeleteGameObjectQueue.push(id);
+	}
+
+	void Scene::DeleteGameObject(uint64_t id)
+	{
+		// 씬 등록 해제 절차 실행
+		UnregisterFromScene(id);
+
+		// 유니크 포인터 메모리 해제
+		m_gameObjects[id].reset();
+
+		// 씬에서 삭제
+		m_gameObjects.erase(id);
+	}
+
+	void Scene::ProcessDeleteGameObjectQueue()
+	{
+		// 지연 삭제 큐를 비우면서 오브젝트 제거 및 메모리 해제
+		while (false == m_DeleteGameObjectQueue.empty())
+		{
+			DeleteGameObject(m_DeleteGameObjectQueue.front());
+			m_DeleteGameObjectQueue.pop();
+		}
+	}
+
+	void Scene::UnregisterFromScene(uint64_t id)
+	{
+		GameObject* obj = m_gameObjects[id].get();
+		
+		for (const auto& it : obj->GetComponents())
+		{
+			Component* comp = it.second.get();
+
+			if (auto* rComp = dynamic_cast<RenderableComponent*>(comp))
+			{
+				RemoveRenderableComponent(rComp);
+			}
+
+			if (auto* collider = dynamic_cast<Collider*>(comp))
+			{
+				RemoveCollider(collider);
+			}
+		}
+
+	}
+
+	//##########
+	// 조회
+	//##########
 	GameObject* Scene::GetGameObject(uint64_t id)
 	{
 		auto it = m_gameObjects.find(id);
@@ -126,7 +230,6 @@ namespace Bisang
 
 		return it->second.get();
 	}
-
 	GameObject* Scene::FindGameObjectByName(std::string name)
 	{
 		for (const auto& it : m_gameObjects)
@@ -137,27 +240,6 @@ namespace Bisang
 			}
 		}
 		return nullptr;
-	}
-
-	void Scene::DestroyGameObject(uint64_t id)
-	{
-		if (m_gameObjects.find(id) == m_gameObjects.end())
-			return;
-
-		// 지연 삭제 큐 push
-		m_destroyGameObjectQueue.push(id);
-	}
-
-	void Scene::ProcessDestroyGameObjectQueue()
-	{
-		// 지연 삭제 큐를 비우면서 오브젝트 제거 및 메모리 해제
-		while (false == m_destroyGameObjectQueue.empty())
-		{
-			uint64_t id = m_destroyGameObjectQueue.front();
-			m_gameObjects[id].reset();
-			m_gameObjects.erase(id);
-			m_destroyGameObjectQueue.pop();
-		}
 	}
 
 	//*************************************************

@@ -6,21 +6,31 @@
 #include "Engine/Resource/ResourceManager.h"
 #include "Engine/Renderer/Renderer.h"
 #include "Engine/Scene/SceneManager.h"
+#include "Engine/Prefab/PrefabFactory.h"
+
 #include "Game/Scenes/SampleScene.h"
 #include "Game/Scenes/BlockMapTestScene.h"
+#include "Game/Prefabs/PlayerPrefab.h"
+#include "Game/Prefabs/BlockMapPrefab.h"
 
 #include <iostream>
 
 namespace Bisang
 {
     GameApp::GameApp()
-        : m_gameTimer(std::make_unique<GameTimer>()),
-          m_window(std::make_unique<Window>()),
-          m_inputManager(std::make_unique<InputManager>()),
-          m_resourceManager(std::make_unique<ResourceManager>()),
-          m_renderer (std::make_unique<Renderer>(m_resourceManager.get())),
-          m_sceneManager(std::make_unique<SceneManager>(m_resourceManager.get(), m_inputManager.get(),m_renderer.get()))
     {
+        m_window = std::make_unique<Window>();
+        m_gameTimer = std::make_unique<GameTimer>();
+        m_renderer = std::make_unique<Renderer>();
+        
+        m_resourceManager = std::make_unique<ResourceManager>();
+        m_inputManager = std::make_unique<InputManager>();
+        m_prefabFactory = std::make_unique<PrefabFactory>(m_resourceManager.get());
+        m_context.resourceManager = m_resourceManager.get();
+        m_context.inputManager = m_inputManager.get();
+        m_context.prefabFactory = m_prefabFactory.get();
+
+        m_sceneManager = std::make_unique<SceneManager>(&m_context, m_renderer.get());
     }
 
     GameApp::~GameApp() = default;
@@ -55,6 +65,10 @@ namespace Bisang
         m_sceneManager->AddScene<SampleScene>("SampleScene");
         m_sceneManager->AddScene<BlockMapTestScene>("BlockMapTestScene");
         m_sceneManager->SetStartScene("BlockMapTestScene");
+
+        // 프리팹 팩토리 설정
+        m_prefabFactory->RegisterPrefab<PlayerPrefab>("Player");
+        m_prefabFactory->RegisterPrefab<BlockMapPrefab>("BlockMap");
 
         // 타이머 초기화 ( 초기화 마지막 단계에 두는 것이 좋음 )
         m_gameTimer->Reset();

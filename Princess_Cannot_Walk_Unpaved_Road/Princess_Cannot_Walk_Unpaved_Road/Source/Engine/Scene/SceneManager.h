@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Engine/Scene/Scene.h"
-
+#include "Engine/Core/GameContext.h"
 #include <string>
 #include <unordered_map>
 #include <memory>
@@ -9,8 +9,6 @@
 
 namespace Bisang
 {
-	class ResourceManager;
-	class InputManager;
 	class Renderer;
 
 	/**
@@ -29,10 +27,8 @@ namespace Bisang
 		 * @param[in] inputManager 입력 관리자
 		 */
 
-		SceneManager(ResourceManager* resourceManager, InputManager* inputManager,Renderer* renderer) :
-			m_resourceManager(resourceManager), m_inputManager(inputManager),m_renderer(renderer)
+		SceneManager(GameContext* context, Renderer* renderer) : m_context(context), m_renderer(renderer)
 		{
-
 		}
 
 		/**
@@ -57,8 +53,7 @@ namespace Bisang
 
 			m_scenes[sceneName] = std::make_unique<T>(
 				sceneName,
-				m_resourceManager,
-				m_inputManager
+				m_context
 			);
 		}
 
@@ -129,8 +124,7 @@ namespace Bisang
 		Scene* m_currentScene = nullptr;
 		std::string m_currentSceneName;
 
-		ResourceManager* m_resourceManager = nullptr;
-		InputManager* m_inputManager = nullptr;
+		GameContext* m_context = nullptr;
 		Renderer* m_renderer = nullptr;
 	};
 }

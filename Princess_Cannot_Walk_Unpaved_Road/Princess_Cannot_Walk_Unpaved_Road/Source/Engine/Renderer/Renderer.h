@@ -3,7 +3,6 @@
 #include"DxHeaders.h"
 #include<vector>
 #include"IRenderable.h"
-#include"Engine/Resource/ResourceManager.h"
 #include <typeindex>
 #include <type_traits>
 #include"Engine/Math/Vector.h"
@@ -21,13 +20,10 @@
 namespace Bisang
 {
 	class Scene;
-	class ResourceManager;
 	
 	class Renderer
 	{
 	public:
-		Renderer(ResourceManager* resourceManager)
-			:m_resourceManager(resourceManager) { }
 
 		bool Initialize(HWND hwnd, int width, int height);
 
@@ -51,8 +47,6 @@ namespace Bisang
 	protected:
 		D2D1::ColorF m_BgColor = D2D1::ColorF::Black;
 		std::vector<RenderCommand> m_renderCommands;
-	protected:
-		ResourceManager* m_resourceManager;
 
 	protected:
 		// D3D11

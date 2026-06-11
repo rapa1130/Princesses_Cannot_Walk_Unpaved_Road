@@ -12,7 +12,7 @@ namespace Bisang
 	class TextRenderer : public RenderableComponent
 	{
 	public:
-		TextRenderer(GameObject* ownerObj, Scene* scene);
+		TextRenderer(GameObject* ownerObj);
 
 		void DrawCall(Renderer* renderer) override;
 
@@ -25,7 +25,7 @@ namespace Bisang
 		float GetWidth() const;
 
 		//Setters
-		void SetTextFormat(std::wstring fontName, float fontSize);
+		void SetTextFormat(std::shared_ptr<TextFormatResource> textFormat);
 		void SetText(const std::wstring& text);
 		void SetColor(const Bisang::Color& color);
 		

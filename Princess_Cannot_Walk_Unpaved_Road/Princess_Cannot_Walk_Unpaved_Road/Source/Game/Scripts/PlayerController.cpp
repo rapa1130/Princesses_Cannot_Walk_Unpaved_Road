@@ -5,6 +5,7 @@
 #include "Engine/Core/Debug.h"
 #include "Engine/Components/BlockMap/BlockMap.h"
 #include <iostream>
+#include "Engine/Prefab/PrefabFactory.h"
 #include "Engine/Components/SpriteRenderer.h"
 
 
@@ -12,9 +13,10 @@ namespace Bisang
 {
 	void PlayerController::Start()
 	{
+		
 		m_transform = m_ownerObj->GetComponent<Transform>();
-		m_input = m_scene->GetInputManager();
-		m_blockMap = m_scene->FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
+		m_input = GetInputManager();
+		m_blockMap = FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
 		SetToStartPostion();
 		m_velocity = { 0,0,0 };
 		
@@ -23,22 +25,26 @@ namespace Bisang
 		m_acceleration = 3000.f;
         m_friction = 1000.0f;
         m_spriteRenderer = m_ownerObj->GetComponent<SpriteRenderer>();
+
 	}
 
 	void PlayerController::Update(float dT)
 	{
+
 		Move(dT);
         UpdateAnimation();
         
 	}
 
+
 	void PlayerController::FixedUpdate() {}
+
 
 	void PlayerController::Move(float dT)
 	{
         UpdateVelocity(dT);
 
-        // ÃÖ´ë ¼Óµµ Á¦ÇÑ
+        // ìµœëŒ€ ì†ë„ ì œí•œ
         float speed = m_velocity.Length();
 
         if (speed > m_maxSpeed)
@@ -46,7 +52,7 @@ namespace Bisang
             m_velocity = m_velocity.Normalized() * m_maxSpeed;
         }
 
-        // ½ÇÁ¦ ÀÌµ¿·®Àº velocity * dT
+        // ì‹¤ì œ ì´ë™ëŸ‰ì€ velocity * dT
         Vector3 step = m_velocity * dT;
 
         if (step.Length() <= 0.0f)
@@ -64,14 +70,14 @@ namespace Bisang
             Int3 nextBlockPos;
             if (false == m_blockMap->WorldToBlock(nextPos, nextBlockPos, playerZ))
             {
-                DEBUG_ERROR("Ä³¸¯ÅÍ ¹Ù¶óº¸´Â ¹æÇâ¿¡ ºí·° ¾øÀ½");
+                DEBUG_ERROR("ìºë¦­í„° ë°”ë¼ë³´ëŠ” ë°©í–¥ì— ë¸”ëŸ­ ì—†ìŒ");
                 return;
             }
             
             Int3 nowBlockPos;
             if (false == m_blockMap->WorldToBlock(nowPos, nowBlockPos, playerZ))
             {
-                DEBUG_ERROR("ÇöÀç Ä³¸¯ÅÍ À§Ä¡¿¡ ºí·° ¾øÀ½");
+                DEBUG_ERROR("í˜„ì¬ ìºë¦­í„° ìœ„ì¹˜ì— ë¸”ëŸ­ ì—†ìŒ");
                 return;
             }
 
@@ -135,7 +141,7 @@ namespace Bisang
         }
         else
         {
-            // ÀÔ·ÂÀÌ ¾øÀ¸¸é °¨¼Ó
+            // ì…ë ¥ì´ ì—†ìœ¼ë©´ ê°ì†
             float speed = m_velocity.Length();
 
             if (speed > 0.0f)
@@ -227,15 +233,15 @@ namespace Bisang
 			return false;
 		}
 		
-		// ¹Ù´Ú È®ÀÎ
+		// ë°”ë‹¥ í™•ì¸
 		Block* block = m_blockMap->GetBlock(blockPos + Int3{ 0, 0, -1});
 		
 		if (block == nullptr ) return false;
 		if (m_blockMap->IsWalkableFloor(block->blockId) == false) return false;
 
-		// º® È®ÀÎ
+		// ë²½ í™•ì¸
 		block = m_blockMap->GetBlock(blockPos);
-		//std::cout << "°¡·Á´Â ºí·°À§Ä¡ ºí·°À§Ä¡ ( " << blockPos.x << ", " << blockPos.y << ", " << blockPos.z << " )" << std::endl;
+		//std::cout << "ê°€ë ¤ëŠ” ë¸”ëŸ­ìœ„ì¹˜ ë¸”ëŸ­ìœ„ì¹˜ ( " << blockPos.x << ", " << blockPos.y << ", " << blockPos.z << " )" << std::endl;
 		//std::cout << (int)block->blockId << std::endl;
 		//std::cout << std::endl;
 		//std::cout << std::endl;

@@ -3,7 +3,7 @@
 
 namespace Bisang
 {
-	GameObject::GameObject(Scene* scene) : m_scene(scene)
+	GameObject::GameObject()
 	{
 		// 게임 오브젝트는 트랜스폼 필수 보유
 		AddComponent<Transform>();
@@ -22,19 +22,6 @@ namespace Bisang
 		{
 			child->ClearParent();
 			m_scene->DestroyGameObject(child->GetId());
-		}
-
-		// 소유중인 랜더러블 컴포넌트 씬에 등록 해제
-		for (RenderableComponent* rComp : m_renderableComponents)
-		{
-			m_scene->RemoveRenderableComponent(rComp);
-		}
-
-		// 소유중인 콜라이더 컴포넌트 씬에 등록 해제
-		Collider* collider = GetComponent<Collider>();
-		if (collider)
-		{
-			m_scene->RemoveCollider(collider);
 		}
 	}
 }

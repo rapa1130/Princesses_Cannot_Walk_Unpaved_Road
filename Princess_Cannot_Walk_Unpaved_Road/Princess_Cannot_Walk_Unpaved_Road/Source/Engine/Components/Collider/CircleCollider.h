@@ -6,8 +6,8 @@ namespace Bisang
     class CircleCollider : public Collider
     {
     public:
-        CircleCollider(GameObject* ownerObj, Scene* scene)
-            : Collider(ownerObj, scene, ColliderType::Circle)
+        CircleCollider(GameObject* ownerObj)
+            : Collider(ownerObj, ColliderType::Circle)
         {
         }
 

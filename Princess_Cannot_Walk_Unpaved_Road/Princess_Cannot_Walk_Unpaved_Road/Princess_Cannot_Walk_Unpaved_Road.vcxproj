@@ -28,12 +28,14 @@
     <ClInclude Include="Source\Engine\Components\SpriteRenderer.h" />
     <ClInclude Include="Source\Engine\Components\TextRenderer.h" />
     <ClInclude Include="Source\Engine\Components\Transform.h" />
+    <ClInclude Include="Source\Engine\Core\GameContext.h" />
     <ClInclude Include="Source\Engine\Core\GameTimer.h" />
     <ClInclude Include="Source\Engine\Core\Layer.h" />
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
     <ClInclude Include="Source\Engine\Input\InputManager.h" />
     <ClInclude Include="Source\Engine\Math\Vector.h" />
     <ClInclude Include="Source\Engine\Physics\Collision.h" />
+    <ClInclude Include="Source\Engine\Prefab\Prefab.h" />
     <ClInclude Include="Source\Engine\Renderer\Color.h" />
     <ClInclude Include="Source\Engine\Renderer\D2DBitmapInfo.h" />
     <ClInclude Include="Source\Engine\Renderer\DxHeaders.h" />
@@ -59,6 +61,8 @@
     <ClInclude Include="Source\Engine\Windows\Window.h" />
     <ClInclude Include="Source\Engine\Core\Debug.h" />
     <ClInclude Include="Source\Engine\Core\GameApp.h" />
+    <ClInclude Include="Source\Game\Prefabs\BlockMapPrefab.h" />
+    <ClInclude Include="Source\Game\Prefabs\PlayerPrefab.h" />
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Game\Scripts\BlockMapTest.h" />
@@ -73,6 +77,7 @@
     <ClCompile Include="Source\Engine\Components\Collider\Collider.cpp" />
     <ClCompile Include="Source\Engine\Components\Collider\Collider.h" />
     <ClCompile Include="Source\Engine\Components\LineRenderer.cpp" />
+    <ClCompile Include="Source\Engine\Components\Script.cpp" />
     <ClCompile Include="Source\Engine\Components\Script.h" />
     <ClCompile Include="Source\Engine\Components\SpriteRenderer.cpp" />
     <ClCompile Include="Source\Engine\Components\TextRenderer.cpp" />
@@ -82,6 +87,7 @@
     <ClCompile Include="Source\Engine\Math\Int3.h" />
     <ClCompile Include="Source\Engine\Math\Math.h" />
     <ClCompile Include="Source\Engine\Physics\Collision.cpp" />
+    <ClCompile Include="Source\Engine\Prefab\PrefabFactory.h" />
     <ClCompile Include="Source\Engine\Renderer\Color.cpp" />
     <ClCompile Include="Source\Engine\Resource\IResource.h" />
     <ClCompile Include="Main.cpp" />
@@ -102,6 +108,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Source\Engine\Windows\Window.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\BlockMapPrefab.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\playerPrefab.cpp" />
     <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
     <ClCompile Include="Source\Game\Scripts\BlockMapTest.cpp" />

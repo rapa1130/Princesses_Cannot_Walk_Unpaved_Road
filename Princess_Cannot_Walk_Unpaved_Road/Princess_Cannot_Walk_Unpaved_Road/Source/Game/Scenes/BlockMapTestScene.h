@@ -6,8 +6,8 @@ namespace Bisang
 	class BlockMapTestScene : public Scene
 	{
 	public:
-		BlockMapTestScene(std::string sceneName, ResourceManager* resourceManager, InputManager* inputManager) :
-			Scene(sceneName, resourceManager, inputManager) {
+		BlockMapTestScene(std::string sceneName, GameContext* context) : Scene(sceneName, context)
+		{
 		}
 
 		void Initialize() override;

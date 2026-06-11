@@ -4,8 +4,8 @@
 #include <cmath>
 #include <algorithm>
 #include <math.h>
-#include"Engine/Math/Vector.h"
-#include"Engine/Math/Math.h"
+#include "Engine/Math/Vector.h"
+#include "Engine/Math/Math.h"
 
 
 namespace Bisang
@@ -111,6 +111,7 @@ namespace Bisang
         {
             return gradient.x * dx + gradient.y * dy;
         }
+
 
         static float Fade(float t)
         {

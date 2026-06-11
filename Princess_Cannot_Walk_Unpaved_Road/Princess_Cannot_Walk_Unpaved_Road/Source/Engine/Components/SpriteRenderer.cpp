@@ -9,8 +9,8 @@
 
 namespace Bisang
 {
-	SpriteRenderer::SpriteRenderer(GameObject* ownerObj, Scene* scene) :
-		RenderableComponent(ownerObj, scene)
+	SpriteRenderer::SpriteRenderer(GameObject* ownerObj) :
+		RenderableComponent(ownerObj)
 	{
 	}
 
@@ -24,8 +24,6 @@ namespace Bisang
 		return m_height * m_transform->GetScale().y;
 	}
 
-
-
 	void SpriteRenderer::SetSprite(std::shared_ptr<TextureResource> sprite)
 	{
 		// 리소스 세팅
@@ -34,26 +32,10 @@ namespace Bisang
 		m_height = sprite->GetBitmap()->GetSize().height;
 	}
 
-	void SpriteRenderer::SetSprite(const std::wstring& path)
-	{
-		ResourceManager* resourceManager = GetResourceManager();
-		if (resourceManager == nullptr)
-		{
-			DEBUG_ERROR_LOCATION("ResourceManager is nullptr");
-			return;
-		}
-		m_sprite = resourceManager->LoadTexture(path);
-		if (m_sprite == nullptr)
-		{
-			DEBUG_ERROR_LOCATION("Fail to Load Sprite Texture");
-			return;
-		}
-		m_width = m_sprite->GetBitmap()->GetSize().width;
-		m_height = m_sprite->GetBitmap()->GetSize().height;
-	}
-
 	void SpriteRenderer::DrawCall(Renderer* renderer)
 	{
+		if (m_sprite == nullptr) return;
+
 		RenderCommand rc = RenderCommand::CreateSpriteRC(
 			GetLayer(),
 			m_transform->GetPosition(),

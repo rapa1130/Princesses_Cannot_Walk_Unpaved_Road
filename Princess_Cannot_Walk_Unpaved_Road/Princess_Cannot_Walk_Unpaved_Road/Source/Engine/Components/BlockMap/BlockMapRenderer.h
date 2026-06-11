@@ -14,12 +14,15 @@ namespace Bisang
     class BlockMapRenderer : public RenderableComponent
     {
     public:
-        BlockMapRenderer(GameObject* ownerObj, Scene* scene);
+        BlockMapRenderer(GameObject* ownerObj);
 
         virtual void DrawCall(Renderer* renderer) override;
 
         void SetBlockMap(BlockMap* blockMap) { m_blockMap = blockMap; }
         BlockMap* GetBlockMap() const { return m_blockMap; }
+
+        void SetBlockTexture(BlockId id, std::shared_ptr<TextureResource> texture);
+        void SetBlockTextures(const std::unordered_map<int, std::shared_ptr<TextureResource>>& textures);
 
         float GetAlpha() const { return m_alpha; }
         void SetAlpha(float alpha) { m_alpha = alpha; }

@@ -11,7 +11,7 @@ namespace Bisang
 	class SpriteRenderer : public RenderableComponent
 	{
 	public:
-		SpriteRenderer(GameObject* ownerObj, Scene* scene);
+		SpriteRenderer(GameObject* ownerObj);
 
 		void DrawCall(Renderer* renderer) override;
 

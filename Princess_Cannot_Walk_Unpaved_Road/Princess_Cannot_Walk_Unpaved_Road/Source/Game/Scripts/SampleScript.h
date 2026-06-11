@@ -6,7 +6,7 @@ namespace Bisang
 	class SampleScript : public Script
 	{
 	public:
-		SampleScript(GameObject* ownerObj, Scene* scene) : Script(ownerObj, scene) {}
+		SampleScript(GameObject* ownerObj) : Script(ownerObj) {}
 
 		void Start() override;
 		void Update(float dT) override;

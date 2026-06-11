@@ -10,8 +10,8 @@
 
 namespace Bisang
 {
-    BlockMap::BlockMap(GameObject* ownerObj, Scene* scene)
-        : Component(ownerObj, scene)
+    BlockMap::BlockMap(GameObject* ownerObj)
+        : Component(ownerObj)
     {
         SetAngle(81.489f, 6.44086f, 210.3719f);
         m_blockWidth = 239.641f;

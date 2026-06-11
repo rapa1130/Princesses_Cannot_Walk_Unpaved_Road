@@ -17,7 +17,7 @@ namespace Bisang
 	class GameObject
 	{
 	public:
-		GameObject(Scene* scene);
+		GameObject();
 		~GameObject();
 
 		/**
@@ -41,22 +41,11 @@ namespace Bisang
 				return static_cast<T*>(m_components[typeid(T)].get());
 			}
 
-			std::unique_ptr<T> newComp = std::make_unique<T>(this, m_scene);
+			std::unique_ptr<T> newComp = std::make_unique<T>(this);
 			T* pNewComp = newComp.get();
 
 			newComp->SetTypeIndex(typeid(T));
 			m_components[typeid(T)] = std::move(newComp);
-
-			if constexpr (std::is_base_of_v<RenderableComponent, T>)
-			{
-				m_renderableComponents.push_back(pNewComp);
-				m_scene->AddRenderableComponent(pNewComp);
-			}
-
-			if constexpr (std::is_base_of_v<Collider, T>)
-			{
-				m_scene->AddCollider(pNewComp);
-			}
 
 			return pNewComp;
 		}
@@ -82,8 +71,8 @@ namespace Bisang
 			return static_cast<T*>(it->second.get());
 		}
 
-
 		Scene* GetScene() const { return m_scene; }
+		void SetScene(Scene* scene) { m_scene = scene; }
 
 		void SetId(uint64_t id) { m_id = id; }
 		uint64_t GetId() { return m_id; }

@@ -9,7 +9,7 @@ namespace Bisang
 	class LineRenderer: public RenderableComponent
 	{
 	public:
-		LineRenderer(GameObject* ownerObj, Scene* scene);
+		LineRenderer(GameObject* ownerObj);
 		virtual void DrawCall(Renderer* renderer) override;
 
 		void SetStartPosition(const Vector3& startPos) { m_startPos = startPos; }

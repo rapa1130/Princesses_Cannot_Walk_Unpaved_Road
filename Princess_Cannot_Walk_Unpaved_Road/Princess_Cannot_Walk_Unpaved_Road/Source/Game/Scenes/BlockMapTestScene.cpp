@@ -1,100 +1,53 @@
 #include "BlockMapTestScene.h"
-#include "Engine/Object/GameObject.h"
-#include "Game/Scripts/PlayerController.h"
 #include "Engine/Core/Debug.h"
-#include "Engine/Components/SpriteRenderer.h"
-#include "Engine/Components/Transform.h"
-#include <iostream>
-#include "Engine/Components/BlockMap/BlockMap.h"
-#include "Engine/Components/BlockMap/BlockMapRenderer.h"
-#include "Engine/Core/Layer.h"
-#include "Game/Scripts/BlockMapTest.h"
-#include "Engine/Components/TextRenderer.h"
 #include "Engine/Resource/ResourceManager.h"
-
+#include "Engine/Prefab/PrefabFactory.h"
+#include <iostream>
 
 namespace Bisang
 {
 	void BlockMapTestScene::Initialize()
 	{
-		// ¾À ÁøÀÔ ½Ã ÃÊ±âÈ­ ÀÛ¾÷À» ¼öÇà ( ¸Ş¸ğ¸®, ¸®¼Ò½º µî )
+		// ì”¬ ì§„ì… ì‹œ ì´ˆê¸°í™” ì‘ì—…ì„ ìˆ˜í–‰ ( ë©”ëª¨ë¦¬, ë¦¬ì†ŒìŠ¤ ë“± )
 		DEBUG_LOG("Initialize SamepleScene \n");
 
+		// ë‚˜ì¤‘ì— ì„¤ì • ì½”ë“œë¡œ ëº„ê²ƒì„
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/test.png")->SetPivot({ 0, -40, 0 });
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/GrassBlock.png")->SetPivot({ 0, -20, 0 });
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/Water.png")->SetPivot({ 0, -20, 0 });
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/Rock.png")->SetPivot({ 0, -20, 0 });
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/Dirt.png")->SetPivot({ 0, -20, 0 });
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/Clay.png")->SetPivot({ 0, -20, 0 });
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/Tree.png")->SetPivot({ 0, -30, 0 });
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/OrcTree.png")->SetPivot({ 0, -30, 0 });
 	}
 
 	void BlockMapTestScene::Setup()
 	{
-		// ¾À¿¡ ÇÊ¿äÇÑ °ÔÀÓ¿ÀºêÁ§Æ®¿Í ÄÄÆ÷³ÍÆ® »ı¼º
+		// ì”¬ì— í•„ìš”í•œ ê²Œì„ì˜¤ë¸Œì íŠ¸ì™€ ì»´í¬ë„ŒíŠ¸ ìƒì„±
 		DEBUG_LOG("SetUp SamepleScene \n");
+    
+		AddGameObject("Player");
+		AddGameObject("BlockMap");
 
-		GameObject* blockMap = CreateGameObject("BlockMap");
-		BlockMap* bMap = blockMap->AddComponent<BlockMap>();
-		
-		bMap->InitMap(30, 30, 90);
-
-
-		m_resourceManager->LoadTexture(L"Assets/Textures/GrassBlock.png")->SetPivot({ 0, -20, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Water.png")->SetPivot({ 0, -20, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Rock.png")->SetPivot({ 0, -20, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Dirt.png")->SetPivot({ 0, -20, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Clay.png")->SetPivot({ 0, -20, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Tree.png")->SetPivot({ 0, -30, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/OrcTree.png")->SetPivot({ 0, -30, 0 });
-
-		BlockMapRenderer* bMapR = blockMap->AddComponent<BlockMapRenderer>();
-		bMapR->SetLayer(Layer::Iso);
-		bMapR->SetBlockMap(bMap);
-		
-		DEBUG_LOG("SetUp SamepleScene \n");
-
-		Transform* bMapT = blockMap->GetComponent<Transform>();
-		bMapT->SetScale({ 0.5, 0.5});
-		bMapT->SetPosition({ 100, 900, 0 });
-
-		blockMap->AddComponent<BlockMapTest>();
-
-		//////////////////////////////////////////////////////////////////////////////////////
-		GameObject* playerObj = CreateGameObject("Player");
-		Transform* tf = playerObj->GetComponent<Transform>();
-		tf->SetScale({ 0.8, 0.8 });
-		tf->SetPosition({ 200, 800, 1 });
-
-
-		SpriteRenderer* sr = playerObj->AddComponent<SpriteRenderer>();
-		sr->SetLayer(Layer::Iso);
-		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Front.png")->SetPivot({ -20, -40, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Back.png")->SetPivot({ -20, -40, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Left.png")->SetPivot({ -20, -40, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Right.png")->SetPivot({ -20, -40, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackLeft.png")->SetPivot({ -20, -40, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackRight.png")->SetPivot({ -20, -40, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontLeft.png")->SetPivot({ -20, -40, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontRight.png")->SetPivot({ -20, -40, 0 });
-
-
-		sr->SetSprite(L"Assets/Textures/Characters/Player/Player_Front.png");
-
-		playerObj->AddComponent<PlayerController>();
-
-		//////////////////////////////////////////////////////////////////////////////////////
 	}
 
 	void BlockMapTestScene::OnEnter()
 	{
-		// ¾À ÁøÀÔ ½Ã È£Ãâ / °ÔÀÓ ·ÎÁ÷¿¡ »ç¿ë
+		// ì”¬ ì§„ì… ì‹œ í˜¸ì¶œ / ê²Œì„ ë¡œì§ì— ì‚¬ìš©
 		DEBUG_LOG("OnEnter SamepleScene \n");
 	}
 
 	void BlockMapTestScene::OnExit()
 	{
-		// ¾À Á¾·á ½Ã È£Ãâ / °ÔÀÓ ·ÎÁ÷¿¡ »ç¿ë
+		// ì”¬ ì¢…ë£Œ ì‹œ í˜¸ì¶œ / ê²Œì„ ë¡œì§ì— ì‚¬ìš©
 		DEBUG_LOG("OnEnter On Exit \n");
 
 	}
 
 	void BlockMapTestScene::Finalize()
 	{
-		// ¾ÀÀÌ »ç¿ëÇÏ´ø ÀÚ¿øÀ» Á¤¸®ÇÏ°í Á¾·á Ã³¸®
+		// ì”¬ì´ ì‚¬ìš©í•˜ë˜ ìì›ì„ ì •ë¦¬í•˜ê³  ì¢…ë£Œ ì²˜ë¦¬
 		DEBUG_LOG("OnEnter Finalize \n");
 	}
 }

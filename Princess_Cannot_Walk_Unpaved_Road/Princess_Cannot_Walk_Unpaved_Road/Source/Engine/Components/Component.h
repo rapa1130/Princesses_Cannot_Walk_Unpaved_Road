@@ -8,12 +8,11 @@ namespace Bisang
 	class Transform;
 	class Scene;
 	class Renderer;
-	class ResourceManager;
 
 	class Component
 	{
 	public:
-		Component(GameObject* ownerObj, Scene* scene) : m_ownerObj(ownerObj), m_scene(scene) {}
+		Component(GameObject* ownerObj) : m_ownerObj(ownerObj) {}
 		virtual ~Component() = default;
 
 		std::type_index GetTypeIndex() { return m_typeIndex; }
@@ -24,8 +23,6 @@ namespace Bisang
 		virtual void Start() {}
 		virtual void Update(float dT) {}
 		virtual void FixedUpdate() {}
-
-		ResourceManager* GetResourceManager(); 
 
 		bool GetIsEnabled() { return m_isEnabled; }
 		void SetIsEnabled(bool b) { m_isEnabled = b; }
@@ -38,7 +35,6 @@ namespace Bisang
 	protected:
 		std::type_index m_typeIndex = typeid(Component);
 
-		Scene* m_scene = nullptr;           // 소속 씬
 		GameObject* m_ownerObj = nullptr;   // 주인 오브젝트
 
 		bool m_isEnabled = true;    // 업데이트 실행 여부
@@ -55,7 +51,7 @@ namespace Bisang
 	class RenderableComponent : public Component, public IRenderable
 	{
 	public:
-		RenderableComponent(GameObject* Owner, Scene* scene); 
+		RenderableComponent(GameObject* Owner); 
 
 		virtual ~RenderableComponent() = default;
 

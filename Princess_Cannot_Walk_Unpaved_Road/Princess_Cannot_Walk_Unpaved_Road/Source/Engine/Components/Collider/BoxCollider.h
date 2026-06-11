@@ -6,8 +6,8 @@ namespace Bisang
     class BoxCollider : public Collider
     {
     public:
-        BoxCollider(GameObject* ownerObj, Scene* scene)
-            : Collider(ownerObj, scene, ColliderType::Box)
+        BoxCollider(GameObject* ownerObj)
+            : Collider(ownerObj, ColliderType::Box)
         {
         }
 
