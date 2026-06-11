@@ -8,7 +8,7 @@
 #include "Engine/Prefab/PrefabFactory.h"
 #include "Engine/Components/SpriteRenderer.h"
 #include "Engine/Resource/ResourceManager.h"
-
+#include "Engine/Components/Collider/BoxCollider.h"
 
 namespace Bisang
 {
@@ -27,6 +27,9 @@ namespace Bisang
         m_friction = 1000.0f;
         m_spriteRenderer = m_ownerObj->GetComponent<SpriteRenderer>();
 
+        m_BoxCol = m_ownerObj->AddComponent<BoxCollider>();
+        m_BoxCol->SetSize({ 10.0f,17.0f });
+
 	}
 
 	void PlayerController::Update(float dT)
@@ -42,7 +45,7 @@ namespace Bisang
 	void PlayerController::Move(float dT)
 	{
         UpdateVelocity(dT);
-        // 최대 속도 제한
+
         float speed = m_velocity.Length();
 
         if (speed > m_maxSpeed)
@@ -50,52 +53,61 @@ namespace Bisang
             m_velocity = m_velocity.Normalized() * m_maxSpeed;
         }
 
-        // 실제 이동량은 velocity * dT
         Vector3 step = m_velocity * dT;
 
         if (step.Length() <= 0.0f)
             return;
 
         Vector3 nowPos = m_transform->GetPosition();
-        Vector3 nextPos = nowPos + step;
 
-        if (CanMoveTo(nextPos))
+        if (CanMoveCircleTo(nowPos + step))
         {
             m_transform->Translate(step);
+            return;
         }
-        else
+
+        Vector2 axisX2 = m_blockMap->GetAxisX().Normalized();
+        Vector2 axisY2 = m_blockMap->GetAxisY().Normalized();
+
+        Vector3 axisX(axisX2.x, axisX2.y, 0.0f);
+        Vector3 axisY(axisY2.x, axisY2.y, 0.0f);
+
+        Vector2 step2D(step.x, step.y);
+
+        Vector2 stepAxisX2 = axisX2 * Vector2::Dot(axisX2, step2D);
+        Vector2 stepAxisY2 = axisY2 * Vector2::Dot(axisY2, step2D);
+
+        Vector3 moveX(stepAxisX2.x, stepAxisX2.y, 0.0f);
+        Vector3 moveY(stepAxisY2.x, stepAxisY2.y, 0.0f);
+
+
+        bool movedX = false;
+        bool movedY = false;
+
+        if (CanMoveCircleTo(nowPos + moveX))
         {
-            Int3 nextBlockPos;
-            if (false == m_blockMap->WorldToBlock(nextPos, nextBlockPos, playerZ))
-            {
-                DEBUG_ERROR("캐릭터 바라보는 방향에 블럭 없음");
-                return;
-            }
-            
-            Int3 nowBlockPos;
-            if (false == m_blockMap->WorldToBlock(nowPos, nowBlockPos, playerZ))
-            {
-                DEBUG_ERROR("현재 캐릭터 위치에 블럭 없음");
-                return;
-            }
-
-            Int3 deltaBlockPos = nextBlockPos - nowBlockPos;
-
-            if (deltaBlockPos != Int3(0,0,0))
-            {
-                std::cout << deltaBlockPos.x << ", " << deltaBlockPos.y << ", " << deltaBlockPos.z << ", " << std::endl;
-            }
-
-            Vector2 xAxisNorm = m_blockMap->GetAxisX().Normalized();
-            Vector2 yAxisNorm = m_blockMap->GetAxisY().Normalized();
-
-            Vector2 stepAxisX = xAxisNorm *Vector2::Dot(xAxisNorm, step) ;
-            Vector2 stepAxisY = yAxisNorm *Vector2::Dot(yAxisNorm, step) ;
-
-            if (CanMoveTo(nowPos + stepAxisX))  m_transform->Translate(stepAxisX);
-            if (CanMoveTo(nowPos + stepAxisY)) m_transform->Translate(stepAxisY);
+            m_transform->Translate(moveX);
+            nowPos = m_transform->GetPosition();
+            movedX = true;
         }
 
+        if (CanMoveCircleTo(nowPos + moveY))
+        {
+            m_transform->Translate(moveY);
+            movedY = true;
+        }
+
+        if (!movedX)
+        {
+            float vDotX = m_velocity.x * axisX.x + m_velocity.y * axisX.y;
+            m_velocity -= axisX * vDotX;
+        }
+
+        if (!movedY)
+        {
+            float vDotY = m_velocity.x * axisY.x + m_velocity.y * axisY.y;
+            m_velocity -= axisY * vDotY;
+        }
 	}
 
 	void PlayerController::UpdateVelocity(float dT)
@@ -168,6 +180,34 @@ namespace Bisang
         }
 	}
 
+    bool PlayerController::CanMoveCircleTo(const Vector3& center)
+    {
+        Vector2 axisX2 = m_blockMap->GetAxisX().Normalized();
+        Vector2 axisY2 = m_blockMap->GetAxisY().Normalized();
+
+        Vector3 axisX(axisX2.x, axisX2.y, 0.0f);
+        Vector3 axisY(axisY2.x, axisY2.y, 0.0f);
+
+
+        Vector2 colSize = m_BoxCol->GetSize();
+        if (!CanMoveTo(center))
+            return false;
+
+        if (!CanMoveTo(center + axisX * colSize.x))
+            return false;
+
+        if (!CanMoveTo(center - axisX * colSize.x))
+            return false;
+
+        if (!CanMoveTo(center + axisY * colSize.y))
+            return false;
+
+        if (!CanMoveTo(center - axisY * colSize.y))
+            return false;
+
+        return true;
+    }
+
     void PlayerController::UpdateAnimation()
     {
         bool isFront = m_input->IsKeyDown(KeyCode::Down);
@@ -214,22 +254,6 @@ namespace Bisang
         }
 
 
-        /*
-        
-        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Front.png")->SetPivot({ -20, -40, 0 });
-        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Back.png")->SetPivot({ -20, -40, 0 });
-        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Left.png")->SetPivot({ -20, -40, 0 });
-        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Right.png")->SetPivot({ -20, -40, 0 });
-        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackLeft.png")->SetPivot({ -20, -40, 0 });
-        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackRight.png")->SetPivot({ -20, -40, 0 });
-        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontLeft.png")->SetPivot({ -20, -40, 0 });
-        m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontRight.png")->SetPivot({ -20, -40, 0 });
-
-
-        sr->SetSprite(L"Assets/Textures/Characters/Player/Player_Front.png");
-
-        */
-
     }
 
 
@@ -250,13 +274,7 @@ namespace Bisang
 
 		// 벽 확인
 		block = m_blockMap->GetBlock(blockPos);
-		//std::cout << "가려는 블럭위치 블럭위치 ( " << blockPos.x << ", " << blockPos.y << ", " << blockPos.z << " )" << std::endl;
-		//std::cout << (int)block->blockId << std::endl;
-		//std::cout << std::endl;
-		//std::cout << std::endl;
-		//std::cout << std::endl;
-		//std::cout << std::endl;
-		//std::cout << std::endl;
+
 
 		if (block == nullptr) return false;
 		if (m_blockMap->IsBlocking(block->blockId)) return false;
