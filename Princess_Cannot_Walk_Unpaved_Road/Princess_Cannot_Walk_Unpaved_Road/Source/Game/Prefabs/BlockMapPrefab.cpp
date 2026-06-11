@@ -21,7 +21,7 @@ namespace Bisang
 
 
         BlockMap* bMap = obj->AddComponent<BlockMap>();
-        bMap->InitMap(30, 30, 90);
+        bMap->InitMap(30, 3, 90);
 
 		for (int i = 0; i < 10; i++)
 		{
