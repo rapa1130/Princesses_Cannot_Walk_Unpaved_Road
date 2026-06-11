@@ -8,6 +8,7 @@ namespace Bisang
 	class InputManager;
 	class BlockMap;
 	class SpriteRenderer;
+	class BoxCollider;
 
 	class PlayerController : public Script
 	{
@@ -25,6 +26,7 @@ namespace Bisang
 	private:
 		void Move(float dT);
 		void UpdateVelocity(float dT);
+		bool CanMoveCircleTo(const Vector3& center);
 		void UpdateAnimation(); // юс╫ц
 
 	private:
@@ -39,6 +41,8 @@ namespace Bisang
 		float m_maxSpeed = 300.f;
 		float m_acceleration =100.f;
 		float m_friction = 10.0f;
+
+		BoxCollider* m_BoxCol;
 
 		SpriteRenderer* m_spriteRenderer = nullptr;
 	};

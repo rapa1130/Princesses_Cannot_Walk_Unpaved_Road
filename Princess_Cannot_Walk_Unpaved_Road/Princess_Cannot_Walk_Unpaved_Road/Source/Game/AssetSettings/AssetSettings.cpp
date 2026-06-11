@@ -5,14 +5,15 @@ namespace Bisang
 {
     void AssetSettings::Apply(ResourceManager* resourceManager)
     {
-		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Front.png")->SetPivot({ -20, -40, 0 });
-		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Back.png")->SetPivot({ -20, -40, 0 });
-		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Left.png")->SetPivot({ -20, -40, 0 });
-		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Right.png")->SetPivot({ -20, -40, 0 });
-		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackLeft.png")->SetPivot({ -20, -40, 0 });
-		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackRight.png")->SetPivot({ -20, -40, 0 });
-		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontLeft.png")->SetPivot({ -20, -40, 0 });
-		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontRight.png")->SetPivot({ -20, -40, 0 });
+		Vector3 playerTexPivot = { -15,-30,0 };
+		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Front.png")->SetPivot(playerTexPivot);
+		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Back.png")->SetPivot(playerTexPivot);
+		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Left.png")->SetPivot(playerTexPivot);
+		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Right.png")->SetPivot(playerTexPivot);
+		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackLeft.png")->SetPivot(playerTexPivot);
+		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackRight.png")->SetPivot(playerTexPivot);
+		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontLeft.png")->SetPivot(playerTexPivot);
+		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontRight.png")->SetPivot(playerTexPivot);
 
 		resourceManager->LoadTexture(L"Assets/Textures/Characters/Princess/Princess_Left.png")->SetPivot({ -20, -40, 0 });
 		resourceManager->LoadTexture(L"Assets/Textures/Characters/Princess/Princess_Right.png")->SetPivot({ -20, -40, 0 });
