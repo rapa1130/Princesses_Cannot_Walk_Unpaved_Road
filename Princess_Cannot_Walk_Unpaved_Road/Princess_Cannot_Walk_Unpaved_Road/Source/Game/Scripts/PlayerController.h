@@ -26,7 +26,7 @@ namespace Bisang
 	private:
 		void Move(float dT);
 		void UpdateVelocity(float dT);
-		bool CanMoveCircleTo(const Vector3& center);
+		bool CanMoveBoxArea(const Vector3& center);
 		void UpdateAnimation(); // юс╫ц
 
 	private:

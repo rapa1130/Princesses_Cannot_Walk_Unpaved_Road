@@ -14,12 +14,12 @@ namespace Bisang
         obj->SetName("Player");
 
         auto* tf = obj->GetComponent<Transform>();
-        tf->SetScale({ 0.8f, 0.8f });
+        tf->SetScale({ 0.7f, 0.7f });
         tf->SetPosition({ 400, 400, 1 });
 
         auto* sr = obj->AddComponent<SpriteRenderer>();
         sr->SetLayer(Layer::Iso);
-        sr->SetSprite(m_resourceManager->LoadTexture(L"Assets/Textures/test.png"));
+        sr->SetSprite(m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Front.png"));
 
         obj->AddComponent<PlayerController>();
         return obj;
