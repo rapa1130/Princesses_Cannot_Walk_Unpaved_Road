@@ -45,8 +45,8 @@ namespace Bisang
         void GenerateProceduralMap(unsigned int seed);
         void MakeStartZone();
 
-        int Index(Int3 pos) const;
-        bool InBounds(Int3 pos) const;
+        int Index(const Int3& pos) const;
+        bool InBounds(const Int3& pos) const;
 
         int GetWidth() const { return m_width; }
         int GetHeight() const { return m_height; }
@@ -56,18 +56,17 @@ namespace Bisang
         float GetBlockHeight() const { return m_blockHeight; }
         float GetBlockDepth() const { return m_blockDepth; }
 
-        const Block* GetBlock(Int3 pos) const;
-        Block* GetBlock(Int3 pos);
+        Block* GetBlock(const Int3& pos);
 
-        void SetBlock(Int3 pos, BlockId id);
-        void RemoveBlock(Int3 pos);
+        void SetBlock(const Int3& pos, BlockId id);
+        void RemoveBlock(const Int3& pos);
 
-        bool IsEmpty(Int3 pos) const;
+        bool IsEmpty(const Int3& pos);
 
-        Vector3 BlockToWorld(Int3 pos) const;
+        Vector3 BlockToWorld(const Int3& pos) const;
 
         // z√˛¿ª ±‚¡ÿ¿∏∑Œ world ¡¬«•∏¶ block ¡¬«•∑Œ ∫Ø»Ø
-        bool WorldToBlock(Vector3 worldPos, Int3& outPos, int heightLayer = 0) const;
+        bool WorldToBlock(const Vector3& worldPos, Int3& outPos, int heightLayer = 0) const;
 
         void SetAngle(float yaw, float pitch, float theta);
         Vector2 GetAngle() { return { m_yaw, m_pitch }; }

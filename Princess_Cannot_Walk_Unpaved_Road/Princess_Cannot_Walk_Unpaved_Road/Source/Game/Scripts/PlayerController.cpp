@@ -31,10 +31,8 @@ namespace Bisang
 
 	void PlayerController::Update(float dT)
 	{
-
 		Move(dT);
         UpdateAnimation();
-        
 	}
 
 
@@ -44,7 +42,6 @@ namespace Bisang
 	void PlayerController::Move(float dT)
 	{
         UpdateVelocity(dT);
-
         // 최대 속도 제한
         float speed = m_velocity.Length();
 
@@ -245,7 +242,8 @@ namespace Bisang
 		}
 		
 		// 바닥 확인
-		Block* block = m_blockMap->GetBlock(blockPos + Int3{ 0, 0, -1});
+        Int3 belowPos = blockPos + Int3{ 0, 0, -1 };
+		Block* block = m_blockMap->GetBlock(belowPos);
 		
 		if (block == nullptr ) return false;
 		if (m_blockMap->IsWalkableFloor(block->blockId) == false) return false;
