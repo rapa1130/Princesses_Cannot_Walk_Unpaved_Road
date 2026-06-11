@@ -9,6 +9,7 @@
 #include "Engine/Components/SpriteRenderer.h"
 #include "Engine/Resource/ResourceManager.h"
 #include "Engine/Components/Collider/BoxCollider.h"
+#include "Engine/Components/Animation/Animator.h"
 
 namespace Bisang
 {
@@ -29,6 +30,9 @@ namespace Bisang
 
         m_BoxCol = m_ownerObj->AddComponent<BoxCollider>();
         m_BoxCol->SetSize({ 10.0f,21.0f });
+
+        m_animator = m_ownerObj->AddComponent<Animator>();
+        InitializeAnimator();
 	}
 
 	void PlayerController::Update(float dT)
@@ -218,45 +222,29 @@ namespace Bisang
         bool isLeft = m_input->IsKeyDown(KeyCode::Left);
         bool isRight = m_input->IsKeyDown(KeyCode::Right);
 
-        if (isFront && isLeft)
-        {
-            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontLeft.png"));
-        }
-        else if (isFront && isRight)
-        {
-            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontRight.png"));
-        }
-        else if (isBack && isLeft)
-        {
-            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackLeft.png"));
-        }
-        else if (isBack && isRight)
-        {
-            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackRight.png"));
+        if (isFront && isLeft)          m_animator->SetClip(L"FrontLeft");
+        else if (isFront && isRight)    m_animator->SetClip(L"FrontRight");
+        else if (isBack && isLeft)      m_animator->SetClip(L"BackLeft");
+        else if (isBack && isRight)     m_animator->SetClip(L"BackRight");
+        else if (isBack)                m_animator->SetClip(L"Back");
+        else if (isFront)               m_animator->SetClip(L"Front");
+        else if (isLeft)                m_animator->SetClip(L"Right");
+        else if (isRight)               m_animator->SetClip(L"Left");
 
-        }
-        else if (isBack)
-        {
-            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_Back.png"));
+    }
 
-        }
-        else if (isFront)
+    void PlayerController::InitializeAnimator()
+    {
+        for (int i = 0; i < PlayerAnimCount; i++)
         {
-            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_Front.png"));
-
-        }
-        else if (isLeft)
-        {
-            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_Right.png"));
-
-        }
-        else if (isRight)
-        {
-            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_Left.png"));
-
+            AnimationClip clip;
+            clip.name = m_nameArr[i];
+            clip.loop = true;
+            clip.frames.push_back({ GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_" + m_nameArr[i] + L".png") });
+            m_animator->AddClip(clip);
         }
 
-
+        m_animator->Play();
     }
 
 

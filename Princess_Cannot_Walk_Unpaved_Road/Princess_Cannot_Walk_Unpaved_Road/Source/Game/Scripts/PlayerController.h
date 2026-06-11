@@ -2,6 +2,8 @@
 #include "Engine/Components/Script.h"
 #include "Engine/Math/Vector.h"
 
+#define PlayerAnimCount 8
+
 namespace Bisang
 {
 	class Transform;
@@ -9,6 +11,7 @@ namespace Bisang
 	class BlockMap;
 	class SpriteRenderer;
 	class BoxCollider;
+	class Animator;
 
 	class PlayerController : public Script
 	{
@@ -29,6 +32,8 @@ namespace Bisang
 		bool CanMoveBoxArea(const Vector3& center);
 		void UpdateAnimation(); // юс╫ц
 
+		void InitializeAnimator();
+
 	private:
 		Transform* m_transform = nullptr;
 		InputManager* m_input = nullptr;
@@ -42,8 +47,20 @@ namespace Bisang
 		float m_acceleration =100.f;
 		float m_friction = 10.0f;
 
-		BoxCollider* m_BoxCol;
+		BoxCollider* m_BoxCol = nullptr;
 
 		SpriteRenderer* m_spriteRenderer = nullptr;
+		Animator* m_animator = nullptr;
+
+		std::wstring m_nameArr[PlayerAnimCount] = {
+			L"FrontLeft",
+			L"FrontRight",
+			L"BackLeft",
+			L"BackRight",
+			L"Front",
+			L"Back",
+			L"Left",
+			L"Right",
+		};
 	};
 }
