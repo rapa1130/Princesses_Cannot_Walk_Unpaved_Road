@@ -18,4 +18,9 @@ namespace Bisang
 	{
 		return m_ownerObj->GetScene()->GetInputManager();
 	}
+
+	ResourceManager* Script::GetResourceManager() const
+	{
+		return m_ownerObj->GetScene()->GetResourceManager();
+	}
 }

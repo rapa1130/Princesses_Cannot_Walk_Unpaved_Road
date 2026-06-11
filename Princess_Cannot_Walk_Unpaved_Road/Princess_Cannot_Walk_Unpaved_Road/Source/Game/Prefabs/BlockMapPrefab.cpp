@@ -22,7 +22,7 @@ namespace Bisang
 
 
         BlockMap* bMap = obj->AddComponent<BlockMap>();
-        bMap->InitMap(30, 30, 30);
+        bMap->InitMap(30, 30, 90);
 
 		for (int i = 0; i < 10; i++)
 		{
@@ -36,7 +36,6 @@ namespace Bisang
 		}
 		srand(time(NULL));
 
-		bMap->GenerateProceduralMap(rand());
 
 
 		BlockMapRenderer* bMapR = obj->AddComponent<BlockMapRenderer>();

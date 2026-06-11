@@ -14,7 +14,7 @@ namespace Bisang
         obj->SetName("Player");
 
         auto* tf = obj->GetComponent<Transform>();
-        tf->SetScale({ 0.2f, 0.2f });
+        tf->SetScale({ 0.8f, 0.8f });
         tf->SetPosition({ 400, 400, 1 });
 
         auto* sr = obj->AddComponent<SpriteRenderer>();

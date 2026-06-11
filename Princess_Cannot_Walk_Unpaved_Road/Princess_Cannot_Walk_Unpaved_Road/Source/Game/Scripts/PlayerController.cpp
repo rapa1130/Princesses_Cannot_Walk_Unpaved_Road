@@ -7,6 +7,7 @@
 #include <iostream>
 #include "Engine/Prefab/PrefabFactory.h"
 #include "Engine/Components/SpriteRenderer.h"
+#include "Engine/Resource/ResourceManager.h"
 
 
 namespace Bisang
@@ -169,39 +170,39 @@ namespace Bisang
 
         if (isFront && isLeft)
         {
-            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_FrontLeft.png");
+            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontLeft.png"));
         }
         else if (isFront && isRight)
         {
-            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_FrontRight.png");
+            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_FrontRight.png"));
         }
         else if (isBack && isLeft)
         {
-            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_BackLeft.png");
+            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackLeft.png"));
         }
         else if (isBack && isRight)
         {
-            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_BackRight.png");
+            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_BackRight.png"));
 
         }
         else if (isBack)
         {
-            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_Back.png");
+            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_Back.png"));
 
         }
         else if (isFront)
         {
-            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_Front.png");
+            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_Front.png"));
 
         }
         else if (isLeft)
         {
-            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_Right.png");
+            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_Right.png"));
 
         }
         else if (isRight)
         {
-            m_spriteRenderer->SetSprite(L"Assets/Textures/Characters/Player/Player_Left.png");
+            m_spriteRenderer->SetSprite(GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_Left.png"));
 
         }
 

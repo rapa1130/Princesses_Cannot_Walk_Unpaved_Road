@@ -6,6 +6,7 @@ namespace Bisang
 {
 	class GameObject;
 	class InputManager;
+	class ResourceManager;
 
 	class Script : public Component
 	{
@@ -15,6 +16,7 @@ namespace Bisang
 		GameObject* Instantiate(const std::string& prefabName) const;
 		GameObject* FindGameObjectByName(const std::string& name) const;
 		InputManager* GetInputManager() const;
+		ResourceManager* GetResourceManager() const;
 		
 
 		virtual void Start() {}
