@@ -26,10 +26,10 @@ namespace Bisang
         std::unique_ptr<Window> m_window;
         std::unique_ptr<GameTimer> m_gameTimer;
         std::unique_ptr<SceneManager> m_sceneManager;
+        std::unique_ptr<Renderer> m_renderer;
 
         std::unique_ptr<InputManager> m_inputManager;
         std::unique_ptr<ResourceManager> m_resourceManager;
-        std::unique_ptr<Renderer> m_renderer;
         std::unique_ptr<PrefabFactory> m_prefabFactory;
         GameContext m_context;
 

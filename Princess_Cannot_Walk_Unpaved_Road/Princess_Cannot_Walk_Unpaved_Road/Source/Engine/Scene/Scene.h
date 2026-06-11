@@ -30,8 +30,7 @@ namespace Bisang
          * 씬 이름과 엔진 매니저들을 저장한다.
          *
          * @param[in] sceneName 씬 이름
-         * @param[in] resourceManager 리소스 관리자
-         * @param[in] inputManager 입력 관리자
+         * @param[in] context 씬에서 필요한 각종 매니저들
          */
         Scene(std::string sceneName, GameContext* context);
 
@@ -40,19 +39,22 @@ namespace Bisang
          */
         virtual ~Scene();
 
-        /**
-         * @brief 리소스 관리자를 반환한다.
-         *
-         * @return 리소스 관리자
-         */
-        ResourceManager* GetResourceManager() { return m_context->resourceManager; }
+        std::string GetSceneName() { return m_sceneName; }
 
         /**
-         * @brief 입력 관리자를 반환한다.
-         *
-         * @return 입력 관리자
-         */
+        * @brief 프리팹으로 게임 오브젝트 생성을 예약한다. [지연 생성]
+        *
+        * @param[in] prefabName 프리팹 팩토리에 등록된 프리팹 이름
+        *
+        */
+
+        ResourceManager* GetResourceManager() { return m_context->resourceManager; }
         InputManager* GetInputManager() { return m_context->inputManager; }
+
+
+        //*************************************************
+        // 생명주기
+        //************************************************* 
 
         /**
          * @brief 씬 진입 시 초기화 작업을 수행한다.
@@ -86,6 +88,11 @@ namespace Bisang
          */
         virtual void OnExit() = 0;
 
+
+        //*************************************************
+        // 업데이트
+        //************************************************* 
+
         /**
          * @brief 모든 컴포넌트의 Update를 수행한다.
          *
@@ -104,23 +111,29 @@ namespace Bisang
          */
         void FixedUpdate();
 
+
+        //*************************************************
+        // 렌더링
+        //************************************************* 
+
         /**
          * @brief 모든 렌더링 컴포넌트를 렌더링한다.
          */
         void Render(Renderer* renderer);
 
-        /**
-         * @brief 씬 이름을 반환한다.
-         *
-         * @return 씬 이름
-         */
-        std::string GetSceneName() { return m_sceneName; }
 
-         /**
-         * @brief 프리팹으로 게임 오브젝트 생성을 예약한다. [지연 생성]
+        //*************************************************
+        // 게임 오브젝트
+        //************************************************* 
+        //##########
+        // 등록
+        //##########
+        /**
+         * @brief 게임 오브젝트를 씬에 등록한다. [지연 등록]
          *
-         * @param[in] prefabName 프리팹 팩토리에 등록된 프리팹 이름
+         * @param[in] prefabName 프리팹 이름
          *
+         * @return GameObject* 게임 오브젝트 포인터
          */
         GameObject* Instantiate(std::string prefabName);
 
@@ -141,16 +154,6 @@ namespace Bisang
         void AddGameObject(std::string prefabName);
 
         /**
-         * @brief ID로 게임 오브젝트를 조회한다.
-         *
-         * @param[in] id 게임 오브젝트 ID
-         *
-         * @return 조회된 게임 오브젝트
-         * @return 존재하지 않을 경우 nullptr
-         */
-        GameObject* GetGameObject(uint64_t id);
-
-        /**
          * @brief 오브젝트 씬 등록 절차를 수행한다.
          *
          * @param[in] obj 등록할 오브젝트 포인터
@@ -159,17 +162,15 @@ namespace Bisang
         void RegisterToScene(GameObject* obj);
 
         /**
-         * @brief 이름으로 게임 오브젝트를 조회한다.
+         * @brief 지연 추가 큐를 처리한다.
          *
-         * @param[in] name 게임 오브젝트 이름
-         *
-         * @return 조회된 게임 오브젝트
-         * @return 존재하지 않을 경우 nullptr
+         * 추가 예정 게임 오브젝트를 추가한다.
          */
-        GameObject* FindGameObjectByName(std::string name);
+        void ProcessAddGameObjectQueue();
 
-
-
+        //##########
+        // 삭제
+        //##########
         /**
          * @brief 게임 오브젝트 삭제를 예약한다. [지연 삭제]
          *
@@ -187,6 +188,13 @@ namespace Bisang
         void DeleteGameObject(uint64_t id);
 
         /**
+         * @brief 지연 삭제 큐를 처리한다.
+         *
+         * 삭제 예정 게임 오브젝트를 제거하고 메모리를 해제한다.
+         */
+        void ProcessDeleteGameObjectQueue();
+
+        /**
          * @brief 오브젝트 씬 삭제 절차를 수행한다.
          *
          * @param[in] obj 삭제할 오브젝트 id
@@ -194,20 +202,33 @@ namespace Bisang
          */
         void UnregisterFromScene(uint64_t id);
 
+        //##########
+        // 조회
+        //##########
         /**
-         * @brief 지연 추가 큐를 처리한다.
+         * @brief ID로 게임 오브젝트를 조회한다.
          *
-         * 추가 예정 게임 오브젝트를 추가한다.
+         * @param[in] id 게임 오브젝트 ID
+         *
+         * @return 조회된 게임 오브젝트
+         * @return 존재하지 않을 경우 nullptr
          */
-        void ProcessAddGameObjectQueue();
+        GameObject* GetGameObject(uint64_t id);
 
         /**
-         * @brief 지연 삭제 큐를 처리한다.
+         * @brief 이름으로 게임 오브젝트를 조회한다.
          *
-         * 삭제 예정 게임 오브젝트를 제거하고 메모리를 해제한다.
+         * @param[in] name 게임 오브젝트 이름
+         *
+         * @return 조회된 게임 오브젝트
+         * @return 존재하지 않을 경우 nullptr
          */
-        void ProcessDeleteGameObjectQueue();
+        GameObject* FindGameObjectByName(std::string name);
 
+
+        //*************************************************
+        // 렌더링 컴포넌트
+        //************************************************* 
         /**
          * @brief 렌더링 컴포넌트를 등록한다.
          *
@@ -225,6 +246,10 @@ namespace Bisang
          */
         void RemoveRenderableComponent(RenderableComponent* component);
 
+
+        //*************************************************
+        // 콜라이더 컴포넌트
+        //************************************************* 
          /** @brief 콜라이더 컴포넌트를 등록한다.
          *
          * 이미 등록된 컴포넌트는 중복 등록되지 않는다.
@@ -248,7 +273,8 @@ namespace Bisang
 
 	protected:
 		std::string m_sceneName = "";                   // 씬이름
-        GameContext* m_context = nullptr;
+
+        GameContext* m_context = nullptr;              
         PrefabFactory* m_prefabFactory = nullptr;
 
 		//*************************************************
@@ -256,8 +282,8 @@ namespace Bisang
 		//************************************************* 
 		uint64_t m_GameObjectCount = 0;                                            // 오브젝트 개수, ID에 사용
 		std::unordered_map<uint64_t, std::unique_ptr<GameObject>> m_gameObjects;   // 오브젝트 맵
-        std::queue<std::unique_ptr<GameObject>> m_AddGameObjectQueue;           // 지연 추가 오브젝트
-		std::queue<uint64_t> m_DeleteGameObjectQueue;                             // 지연 삭제 오브젝트
+        std::queue<std::unique_ptr<GameObject>> m_AddGameObjectQueue;              // 지연 추가 오브젝트
+		std::queue<uint64_t> m_DeleteGameObjectQueue;                              // 지연 삭제 오브젝트
 
 
 		//*************************************************
