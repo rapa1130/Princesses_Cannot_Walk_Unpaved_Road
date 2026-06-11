@@ -103,8 +103,10 @@ namespace Bisang
                 DispatchMessageW(&msg);
             }
 
+            std::cout << 1 / m_deltaTime << std::endl;
+
             Update();
-            Render();
+            //Render();
         }
     }
 
