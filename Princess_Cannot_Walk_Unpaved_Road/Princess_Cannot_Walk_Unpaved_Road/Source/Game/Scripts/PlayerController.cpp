@@ -28,8 +28,7 @@ namespace Bisang
         m_spriteRenderer = m_ownerObj->GetComponent<SpriteRenderer>();
 
         m_BoxCol = m_ownerObj->AddComponent<BoxCollider>();
-        m_BoxCol->SetSize({ 10.0f,17.0f });
-
+        m_BoxCol->SetSize({ 10.0f,21.0f });
 	}
 
 	void PlayerController::Update(float dT)
@@ -60,7 +59,7 @@ namespace Bisang
 
         Vector3 nowPos = m_transform->GetPosition();
 
-        if (CanMoveCircleTo(nowPos + step))
+        if (CanMoveBoxArea(nowPos + step))
         {
             m_transform->Translate(step);
             return;
@@ -84,14 +83,14 @@ namespace Bisang
         bool movedX = false;
         bool movedY = false;
 
-        if (CanMoveCircleTo(nowPos + moveX))
+        if (CanMoveBoxArea(nowPos + moveX))
         {
             m_transform->Translate(moveX);
             nowPos = m_transform->GetPosition();
             movedX = true;
         }
 
-        if (CanMoveCircleTo(nowPos + moveY))
+        if (CanMoveBoxArea(nowPos + moveY))
         {
             m_transform->Translate(moveY);
             movedY = true;
@@ -180,7 +179,7 @@ namespace Bisang
         }
 	}
 
-    bool PlayerController::CanMoveCircleTo(const Vector3& center)
+    bool PlayerController::CanMoveBoxArea(const Vector3& center)
     {
         Vector2 axisX2 = m_blockMap->GetAxisX().Normalized();
         Vector2 axisY2 = m_blockMap->GetAxisY().Normalized();
@@ -193,17 +192,21 @@ namespace Bisang
         if (!CanMoveTo(center))
             return false;
 
-        if (!CanMoveTo(center + axisX * colSize.x))
+        if (!CanMoveTo(center + axisX * colSize.x + axisY * colSize.y))
             return false;
 
-        if (!CanMoveTo(center - axisX * colSize.x))
+        if (!CanMoveTo(center + axisX * colSize.x - axisY * colSize.y))
             return false;
 
-        if (!CanMoveTo(center + axisY * colSize.y))
+        if (!CanMoveTo(center - axisX * colSize.x + axisY * colSize.y))
             return false;
 
-        if (!CanMoveTo(center - axisY * colSize.y))
+        if (!CanMoveTo(center - axisX * colSize.x - axisY * colSize.y))
             return false;
+
+
+
+
 
         return true;
     }

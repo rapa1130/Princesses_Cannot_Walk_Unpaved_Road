@@ -5,7 +5,7 @@ namespace Bisang
 {
     void AssetSettings::Apply(ResourceManager* resourceManager)
     {
-		Vector3 playerTexPivot = { -15,-30,0 };
+		Vector3 playerTexPivot = { -12.5,-20,0 };
 		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Front.png")->SetPivot(playerTexPivot);
 		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Back.png")->SetPivot(playerTexPivot);
 		resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Left.png")->SetPivot(playerTexPivot);
