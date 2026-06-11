@@ -81,16 +81,14 @@ namespace Bisang
 		// BlockHeight
 		// BlockDepth
 		
-		std::cout << "Yaw    : " << m_blockMap->GetAngle().x << std::endl;
-		std::cout << "Pitch  : " << m_blockMap->GetAngle().y << std::endl;
-		std::cout << "theta  : " << m_blockMap->GetTheta() << std::endl;
-		std::cout << "width  : " << m_blockMap->GetBlockWidth() << std::endl;
-		std::cout << "height : " << m_blockMap->GetBlockHeight() << std::endl;
-		std::cout << "depth  : " << m_blockMap->GetBlockDepth() << std::endl;
+		//std::cout << "Yaw    : " << m_blockMap->GetAngle().x << std::endl;
+		//std::cout << "Pitch  : " << m_blockMap->GetAngle().y << std::endl;
+		//std::cout << "theta  : " << m_blockMap->GetTheta() << std::endl;
+		//std::cout << "width  : " << m_blockMap->GetBlockWidth() << std::endl;
+		//std::cout << "height : " << m_blockMap->GetBlockHeight() << std::endl;
+		//std::cout << "depth  : " << m_blockMap->GetBlockDepth() << std::endl;
 
-		std::cout << std::endl;
-		std::cout << std::endl;
-		std::cout << std::endl;
+
 
 	}
 
