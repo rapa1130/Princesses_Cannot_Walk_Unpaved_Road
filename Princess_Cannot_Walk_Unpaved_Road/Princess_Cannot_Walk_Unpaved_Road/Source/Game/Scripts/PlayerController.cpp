@@ -131,6 +131,16 @@ namespace Bisang
             inputDir += Vector3(axis.x, axis.y, 0.0f);
         }
 
+        if (m_input->IsKeyPressed(KeyCode::Space))
+        {
+            Instantiate("Player");
+        }
+
+        if (m_input->IsKeyPressed(KeyCode::Backspace))
+        {
+            Destory(FindGameObjectByName("Player"));
+        }
+
         bool hasInput = inputDir.Length() > 0.0f;
 
         if (hasInput)

@@ -9,6 +9,11 @@ namespace Bisang
 		return m_ownerObj->GetScene()->Instantiate(prefabName);
 	}
 
+	void Script::Destory(GameObject* obj)
+	{
+		return m_ownerObj->GetScene()->DestroyGameObject(obj->GetId());
+	}
+
 	GameObject* Script::FindGameObjectByName(const std::string& name) const
 	{
 		return m_ownerObj->GetScene()->FindGameObjectByName(name);
@@ -23,4 +28,6 @@ namespace Bisang
 	{
 		return m_ownerObj->GetScene()->GetResourceManager();
 	}
+
+
 }

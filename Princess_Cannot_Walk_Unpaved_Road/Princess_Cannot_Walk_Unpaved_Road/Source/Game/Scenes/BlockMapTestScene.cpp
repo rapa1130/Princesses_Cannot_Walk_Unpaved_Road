@@ -34,6 +34,7 @@ namespace Bisang
     
 		AddGameObject("Player");
 		AddGameObject("BlockMap");
+		AddGameObject("DebugOverlay");
 
 	}
 

@@ -12,6 +12,7 @@
 #include "Game/Scenes/BlockMapTestScene.h"
 #include "Game/Prefabs/PlayerPrefab.h"
 #include "Game/Prefabs/BlockMapPrefab.h"
+#include "Game/Prefabs/DebugOverlay.h"
 
 #include <iostream>
 
@@ -43,9 +44,7 @@ namespace Bisang
             return false;
         }
 
-        //리소스 매니저 초기화
-
-
+     
         // 렌더러 초기화
         if (false == m_renderer->Initialize(
             m_window->GetHandle(),
@@ -56,6 +55,7 @@ namespace Bisang
             return false;
         }
 
+        //리소스 매니저 초기화
         if (false == m_resourceManager->Initialize(m_renderer->GetD2DContext()))
         {
             return false;
@@ -69,6 +69,7 @@ namespace Bisang
         // 프리팹 팩토리 설정
         m_prefabFactory->RegisterPrefab<PlayerPrefab>("Player");
         m_prefabFactory->RegisterPrefab<BlockMapPrefab>("BlockMap");
+        m_prefabFactory->RegisterPrefab<DebugOverlay>("DebugOverlay");
 
         // 타이머 초기화 ( 초기화 마지막 단계에 두는 것이 좋음 )
         m_gameTimer->Reset();
