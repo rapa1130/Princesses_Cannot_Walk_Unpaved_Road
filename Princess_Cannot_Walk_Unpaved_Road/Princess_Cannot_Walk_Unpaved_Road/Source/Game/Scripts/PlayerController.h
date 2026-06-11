@@ -40,7 +40,6 @@ namespace Bisang
 		BlockMap* m_blockMap = nullptr;
 		int playerZ = 1;
 
-		//Vector2 m_dir;
 		Vector3 m_velocity;
 		float moveSpeed = 300;
 		float m_maxSpeed = 300.f;
