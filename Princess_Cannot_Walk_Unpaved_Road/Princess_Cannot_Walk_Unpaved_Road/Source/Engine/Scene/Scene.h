@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Engine/Core/GameContext.h"
+
 #include <unordered_map>
 #include <unordered_set>
 #include <queue>
@@ -9,7 +11,7 @@
 #include <vector>
 #include <cstddef>
 #include <functional>
-#include "Engine/Core/GameContext.h"
+
 
 namespace Bisang
 {
@@ -282,8 +284,9 @@ namespace Bisang
 		//************************************************* 
 		uint64_t m_GameObjectCount = 0;                                            // 오브젝트 개수, ID에 사용
 		std::unordered_map<uint64_t, std::unique_ptr<GameObject>> m_gameObjects;   // 오브젝트 맵
-        std::queue<std::unique_ptr<GameObject>> m_AddGameObjectQueue;              // 지연 추가 오브젝트
-		std::queue<uint64_t> m_DeleteGameObjectQueue;                              // 지연 삭제 오브젝트
+        std::queue<std::unique_ptr<GameObject>> m_addGameObjectQueue;              // 지연 추가 오브젝트
+		std::queue<uint64_t> m_deleteGameObjectQueue;                              // 지연 삭제 오브젝트
+        std::unordered_set<uint64_t> m_deleteGameObjectSet;
 
 
 		//*************************************************

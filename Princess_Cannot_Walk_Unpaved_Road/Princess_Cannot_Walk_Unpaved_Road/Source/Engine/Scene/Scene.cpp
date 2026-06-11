@@ -1,11 +1,13 @@
 #include "Scene.h"
 
+#include "Engine/Core/Debug.h"
 #include "Engine/Components/Component.h"
 #include "Engine/Object/GameObject.h"
 #include "Engine/Physics/Collision.h"
 #include "Engine/Prefab/PrefabFactory.h"
 
 #include <algorithm>
+#include <iostream>
 
 namespace Bisang
 {
@@ -74,7 +76,7 @@ namespace Bisang
 		}
 
 		// 콜라이더 충돌검사
-		CheckCollisions();
+		// CheckCollisions();
 	}
 
 	//*************************************************
@@ -103,10 +105,12 @@ namespace Bisang
 	//##########
 	GameObject* Scene::Instantiate(std::string prefabName)
 	{
+		std::cout << "Check" << std::endl;
 		std::unique_ptr<GameObject> obj = m_prefabFactory->Create(prefabName);
 		if (obj == nullptr) return nullptr;
-		m_AddGameObjectQueue.push(std::move(obj));
-		return obj.get();
+		GameObject* pObj = obj.get();
+		m_addGameObjectQueue.push(std::move(obj));
+		return pObj;
 	}
 
 	void Scene::AddGameObject(std::string prefabName)
@@ -131,10 +135,10 @@ namespace Bisang
 	void Scene::ProcessAddGameObjectQueue()
 	{
 		// 지연 추가 큐를 비우면서 오브젝트 등록
-		while (false == m_AddGameObjectQueue.empty())
+		while (false == m_addGameObjectQueue.empty())
 		{
-			AddGameObject(std::move(m_AddGameObjectQueue.front()));
-			m_AddGameObjectQueue.pop();
+			AddGameObject(std::move(m_addGameObjectQueue.front()));
+			m_addGameObjectQueue.pop();
 		}
 	}
 
@@ -154,11 +158,11 @@ namespace Bisang
 			}
 
 			// 콜라이더 컴포넌트면 씬에 추가 등록
-			Collider* collider = dynamic_cast<Collider*>(comp);
-			if (collider)
-			{
-				AddCollider(collider);
-			}
+			//Collider* collider = dynamic_cast<Collider*>(comp);
+			//if (collider)
+			//{
+			//	AddCollider(collider);
+			//}
 		}
 	}
 
@@ -167,20 +171,20 @@ namespace Bisang
 	//##########
 	void Scene::DestroyGameObject(uint64_t id)
 	{
-		if (m_gameObjects.find(id) == m_gameObjects.end())
-			return;
+		if (m_gameObjects.find(id) == m_gameObjects.end()) return;
+		if (m_deleteGameObjectSet.find(id) != m_deleteGameObjectSet.end()) return;
 
 		// 지연 삭제 큐 push
-		m_DeleteGameObjectQueue.push(id);
+		m_deleteGameObjectQueue.push(id);
+
+		// 지연 삭제 셋 insert
+		m_deleteGameObjectSet.insert(id);
 	}
 
 	void Scene::DeleteGameObject(uint64_t id)
 	{
 		// 씬 등록 해제 절차 실행
 		UnregisterFromScene(id);
-
-		// 유니크 포인터 메모리 해제
-		m_gameObjects[id].reset();
 
 		// 씬에서 삭제
 		m_gameObjects.erase(id);
@@ -189,10 +193,13 @@ namespace Bisang
 	void Scene::ProcessDeleteGameObjectQueue()
 	{
 		// 지연 삭제 큐를 비우면서 오브젝트 제거 및 메모리 해제
-		while (false == m_DeleteGameObjectQueue.empty())
+		while (false == m_deleteGameObjectQueue.empty())
 		{
-			DeleteGameObject(m_DeleteGameObjectQueue.front());
-			m_DeleteGameObjectQueue.pop();
+			uint64_t id = m_deleteGameObjectQueue.front();
+			m_deleteGameObjectQueue.pop();
+			m_deleteGameObjectSet.erase(id);
+
+			DeleteGameObject(id);
 		}
 	}
 
@@ -209,10 +216,10 @@ namespace Bisang
 				RemoveRenderableComponent(rComp);
 			}
 
-			if (auto* collider = dynamic_cast<Collider*>(comp))
-			{
-				RemoveCollider(collider);
-			}
+			//if (auto* collider = dynamic_cast<Collider*>(comp))
+			//{
+			//	RemoveCollider(collider);
+			//}
 		}
 
 	}
