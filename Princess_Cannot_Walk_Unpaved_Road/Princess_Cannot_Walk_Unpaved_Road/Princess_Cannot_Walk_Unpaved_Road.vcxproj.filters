@@ -42,6 +42,8 @@
     <ClCompile Include="Source\Game\Prefabs\BlockMapPrefab.cpp" />
     <ClCompile Include="Source\Engine\Prefab\PrefabFactory.h" />
     <ClCompile Include="Source\Engine\Components\Script.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\DebugOverlay.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Overlay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -83,5 +85,7 @@
     <ClInclude Include="Source\Game\Prefabs\PlayerPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\BlockMapPrefab.h" />
     <ClInclude Include="Source\Engine\Core\GameContext.h" />
+    <ClInclude Include="Source\Game\Prefabs\DebugOverlay.h" />
+    <ClInclude Include="Source\Game\Scripts\Overlay.h" />
   </ItemGroup>
 </Project>

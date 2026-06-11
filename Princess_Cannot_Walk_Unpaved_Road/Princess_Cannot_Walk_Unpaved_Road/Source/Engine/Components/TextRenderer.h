@@ -28,6 +28,7 @@ namespace Bisang
 		void SetTextFormat(std::shared_ptr<TextFormatResource> textFormat);
 		void SetText(const std::wstring& text);
 		void SetColor(const Bisang::Color& color);
+		void SetWidth(float width) { m_width = width; }
 		
 	private:
 
