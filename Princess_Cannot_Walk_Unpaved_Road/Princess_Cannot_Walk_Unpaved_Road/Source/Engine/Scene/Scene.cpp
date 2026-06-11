@@ -3,15 +3,16 @@
 #include "Engine/Components/Component.h"
 #include "Engine/Object/GameObject.h"
 #include "Engine/Physics/Collision.h"
-#include "Engine/Prefab/Prefab.h"
+#include "Engine/Prefab/PrefabFactory.h"
 
 #include <algorithm>
 
 namespace Bisang
 {
-	Scene::Scene(std::string sceneName, ResourceManager* resourceManager, InputManager* inputManager, PrefabFactory* prefabFactory) :
-		m_sceneName(sceneName), m_resourceManager(resourceManager), m_inputManager(inputManager), m_prefabFactory(prefabFactory) 
+	Scene::Scene(std::string sceneName, GameContext* context)
+		: m_sceneName(sceneName), m_context(context)
 	{
+		m_prefabFactory = m_context->prefabFactory;
 	}
 
 	Scene::~Scene() = default;
@@ -100,26 +101,17 @@ namespace Bisang
 	//##########
 	// 등록
 	//##########
-	void Scene::Instantiate(IPrefab* prefab)
+	GameObject* Scene::Instantiate(std::string prefabName)
 	{
-		if (prefab == nullptr) return;
-
-		std::unique_ptr<GameObject> obj = prefab->Instantiate();
-		if (obj == nullptr) return;
+		std::unique_ptr<GameObject> obj = m_prefabFactory->Create(prefabName);
+		if (obj == nullptr) return nullptr;
 		m_AddGameObjectQueue.push(std::move(obj));
+		return obj.get();
 	}
 
-	void Scene::Instantiate(std::unique_ptr<GameObject> obj)
+	void Scene::AddGameObject(std::string prefabName)
 	{
-		if (obj == nullptr) return;
-		m_AddGameObjectQueue.push(std::move(obj));
-	}
-
-	void Scene::AddGameObject(IPrefab* prefab)
-	{
-		if (prefab == nullptr) return;
-
-		std::unique_ptr<GameObject> obj = prefab->Instantiate();
+		std::unique_ptr<GameObject> obj = m_prefabFactory->Create(prefabName);
 		if (obj == nullptr) return;
 		AddGameObject(std::move(obj));
 	}

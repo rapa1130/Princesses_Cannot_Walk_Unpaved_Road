@@ -11,14 +11,15 @@ namespace Bisang
 		// 씬 진입 시 초기화 작업을 수행 ( 메모리, 리소스 등 )
 		DEBUG_LOG("Initialize SamepleScene \n");
 
-		m_resourceManager->LoadTexture(L"Assets/Textures/test.png")->SetPivot({ 0, -40, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/GrassBlock.png")->SetPivot({ 0, -20, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Water.png")->SetPivot({ 0, -20, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Rock.png")->SetPivot({ 0, -20, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Dirt.png")->SetPivot({ 0, -20, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Clay.png")->SetPivot({ 0, -20, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/Tree.png")->SetPivot({ 0, -30, 0 });
-		m_resourceManager->LoadTexture(L"Assets/Textures/OrcTree.png")->SetPivot({ 0, -30, 0 });
+		// 나중에 설정 코드로 뺄것임
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/test.png")->SetPivot({ 0, -40, 0 });
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/GrassBlock.png")->SetPivot({ 0, -20, 0 });
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/Water.png")->SetPivot({ 0, -20, 0 });
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/Rock.png")->SetPivot({ 0, -20, 0 });
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/Dirt.png")->SetPivot({ 0, -20, 0 });
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/Clay.png")->SetPivot({ 0, -20, 0 });
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/Tree.png")->SetPivot({ 0, -30, 0 });
+		m_context->resourceManager->LoadTexture(L"Assets/Textures/OrcTree.png")->SetPivot({ 0, -30, 0 });
 	}
 
 	void BlockMapTestScene::Setup()
@@ -26,8 +27,8 @@ namespace Bisang
 		// 씬에 필요한 게임오브젝트와 컴포넌트 생성
 		DEBUG_LOG("SetUp SamepleScene \n");
 	
-		AddGameObject(m_prefabFactory->Create("Player"));
-		AddGameObject(m_prefabFactory->Create("BlockMap"));
+		AddGameObject("Player");
+		AddGameObject("BlockMap");
 	}
 
 	void BlockMapTestScene::OnEnter()

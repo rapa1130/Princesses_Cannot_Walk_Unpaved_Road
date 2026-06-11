@@ -9,14 +9,12 @@
 #include <vector>
 #include <cstddef>
 #include <functional>
+#include "Engine/Core/GameContext.h"
 
 namespace Bisang
 {
 	class RenderableComponent;
     class Collider;
-	class ResourceManager;
-	class InputManager;
-    class PrefabFactory;
 	class GameObject;
     class Renderer;
     class IPrefab;
@@ -35,7 +33,7 @@ namespace Bisang
          * @param[in] resourceManager 리소스 관리자
          * @param[in] inputManager 입력 관리자
          */
-        Scene(std::string sceneName, ResourceManager* resourceManager, InputManager* inputManager, PrefabFactory* prefabFactory);
+        Scene(std::string sceneName, GameContext* context);
 
         /**
          * @brief 씬을 소멸한다.
@@ -47,21 +45,14 @@ namespace Bisang
          *
          * @return 리소스 관리자
          */
-        ResourceManager* GetResourceManager() { return m_resourceManager; }
+        ResourceManager* GetResourceManager() { return m_context->resourceManager; }
 
         /**
          * @brief 입력 관리자를 반환한다.
          *
          * @return 입력 관리자
          */
-        InputManager* GetInputManager() { return m_inputManager; }
-
-        /**
-         * @brief 프리팹 펙토리를 반환한다.
-         *
-         * @return 입력 관리자
-         */
-        PrefabFactory* GetPrefabFactory() { return m_prefabFactory; }
+        InputManager* GetInputManager() { return m_context->inputManager; }
 
         /**
          * @brief 씬 진입 시 초기화 작업을 수행한다.
@@ -128,34 +119,26 @@ namespace Bisang
          /**
          * @brief 프리팹으로 게임 오브젝트 생성을 예약한다. [지연 생성]
          *
-         * @param[in] 게임 오브젝트 유니크 포인터
+         * @param[in] prefabName 프리팹 팩토리에 등록된 프리팹 이름
          *
          */
-        void Instantiate(std::unique_ptr<GameObject> obj);
-
-        /**
-         * @brief 프리팹으로 게임 오브젝트 생성을 예약한다. [지연 생성]
-         *
-         * @param[in] prefab 프리팹 포인터
-         *
-         */
-        void Instantiate(IPrefab* prefab);
+        GameObject* Instantiate(std::string prefabName);
 
         /**
          * @brief 게임 오브젝트를 씬에 등록한다. [즉시 등록]
          *
-         * @param[in] 게임 오브젝트 유니크 포인터
-         *
-         */
-        void AddGameObject(IPrefab* prefab);
-
-        /**
-         * @brief 게임 오브젝트를 씬에 등록한다. [즉시 등록]
-         *
-         * @param[in] 게임 오브젝트 유니크 포인터
+         * @param[in] obj 게임 오브젝트 유니크 포인터
          *
          */
         void AddGameObject(std::unique_ptr<GameObject> obj);
+
+        /**
+         * @brief 게임 오브젝트를 씬에 등록한다. [즉시 등록]
+         *
+         * @param[in]  prefabName 프리팹 팩토리에 등록된 프리팹 이름
+         *
+         */
+        void AddGameObject(std::string prefabName);
 
         /**
          * @brief ID로 게임 오브젝트를 조회한다.
@@ -265,10 +248,8 @@ namespace Bisang
 
 	protected:
 		std::string m_sceneName = "";                   // 씬이름
-		ResourceManager* m_resourceManager = nullptr;   // 리소스 매니저
-		InputManager* m_inputManager = nullptr;         // 인풋 매니저
-        PrefabFactory* m_prefabFactory = nullptr;       // 프리팹 팩토리
-        
+        GameContext* m_context = nullptr;
+        PrefabFactory* m_prefabFactory = nullptr;
 
 		//*************************************************
 		// 게임 오브젝트 관리

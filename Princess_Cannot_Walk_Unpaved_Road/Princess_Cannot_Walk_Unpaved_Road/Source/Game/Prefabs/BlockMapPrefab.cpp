@@ -43,6 +43,7 @@ namespace Bisang
 		bMapR->SetLayer(Layer::Iso);
 		bMapR->SetBlockMap(bMap);
 
+
 		std::unordered_map<int, std::shared_ptr<TextureResource>> textures =
 		{
 			{static_cast<int>(BlockId::Grass), m_resourceManager->LoadTexture(L"Assets/Textures/GrassBlock.png")},

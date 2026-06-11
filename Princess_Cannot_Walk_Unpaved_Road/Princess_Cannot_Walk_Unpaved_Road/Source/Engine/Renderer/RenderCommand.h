@@ -2,10 +2,12 @@
 
 #include"Engine/Renderer/Color.h"
 #include"Engine/Math/Vector.h"
-
+#include "Engine/Resource/IResource.h"
 
 namespace Bisang
 {
+	class TextFormatResource;
+
 	enum class RenderCommandType
 	{
 		None,

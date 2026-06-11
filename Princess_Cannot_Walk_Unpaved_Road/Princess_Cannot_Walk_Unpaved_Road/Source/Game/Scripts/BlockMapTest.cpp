@@ -3,16 +3,16 @@
 #include "Engine/Components/Transform.h"
 #include "Engine/Input/InputManager.h"
 #include "Engine/Components/BlockMap/BlockMap.h"
-#include"Engine/Scene/Scene.h"
+#include "Engine/Scene/Scene.h"
 #include <iostream>
 
 namespace Bisang
 {
 	void BlockMapTest::Start()
 	{
-		GameObject* bObj = m_ownerObj->GetScene()->FindGameObjectByName("BlockMap");
+		GameObject* bObj = FindGameObjectByName("BlockMap");
 		m_blockMap = bObj->GetComponent<BlockMap>();
-		m_input = m_ownerObj->GetScene()->GetInputManager();
+		m_input = GetInputManager();
 	}
 
 	void BlockMapTest::Update(float dT)

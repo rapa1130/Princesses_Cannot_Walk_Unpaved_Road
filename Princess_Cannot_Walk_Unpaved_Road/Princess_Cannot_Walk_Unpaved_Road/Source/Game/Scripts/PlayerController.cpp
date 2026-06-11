@@ -53,7 +53,7 @@ namespace Bisang
 		}
 		if (m_input->IsKeyDown(KeyCode::Space))
 		{
-			m_ownerObj->GetScene()->Instantiate(m_ownerObj->GetScene()->GetPrefabFactory()->Create("Player"));
+			m_ownerObj->GetScene()->Instantiate("Player");
 		}
 
 

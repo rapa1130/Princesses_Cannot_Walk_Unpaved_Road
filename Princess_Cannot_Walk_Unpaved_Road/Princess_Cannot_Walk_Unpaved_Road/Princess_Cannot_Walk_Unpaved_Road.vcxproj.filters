@@ -82,5 +82,6 @@
     <ClInclude Include="Source\Engine\Prefab\Prefab.h" />
     <ClInclude Include="Source\Game\Prefabs\PlayerPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\BlockMapPrefab.h" />
+    <ClInclude Include="Source\Engine\Core\GameContext.h" />
   </ItemGroup>
 </Project>

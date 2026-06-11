@@ -1,14 +1,15 @@
 #include "Renderer.h"
-#include<algorithm>
-#include"Engine/Components/Component.h"
-#include"Engine/Core/GameApp.h"
-#include"Engine/Core/Layer.h"
-#include"Engine/Scene/SceneManager.h"
-#include"Engine/Scene/Scene.h"
-#include"Engine/Core/Debug.h"
-#include<iostream>
-#include"Engine/Renderer/RenderCommand.h"
-#include"Engine/Resource/TextResource.h"
+#include <algorithm>
+#include "Engine/Components/Component.h"
+#include "Engine/Core/GameApp.h"
+#include "Engine/Core/Layer.h"
+#include "Engine/Scene/SceneManager.h"
+#include "Engine/Scene/Scene.h"
+#include "Engine/Core/Debug.h"
+#include <iostream>
+#include "Engine/Renderer/RenderCommand.h"
+#include "Engine/Resource/TextResource.h"
+#include "Engine/Resource/TextureResource.h"
 
 namespace Bisang
 {

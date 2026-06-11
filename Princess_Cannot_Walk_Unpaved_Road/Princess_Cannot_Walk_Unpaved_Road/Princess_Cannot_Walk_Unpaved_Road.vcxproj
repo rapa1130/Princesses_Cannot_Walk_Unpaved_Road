@@ -28,6 +28,7 @@
     <ClInclude Include="Source\Engine\Components\SpriteRenderer.h" />
     <ClInclude Include="Source\Engine\Components\TextRenderer.h" />
     <ClInclude Include="Source\Engine\Components\Transform.h" />
+    <ClInclude Include="Source\Engine\Core\GameContext.h" />
     <ClInclude Include="Source\Engine\Core\GameTimer.h" />
     <ClInclude Include="Source\Engine\Core\Layer.h" />
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
