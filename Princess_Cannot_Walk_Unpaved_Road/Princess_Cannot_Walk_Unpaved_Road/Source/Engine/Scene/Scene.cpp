@@ -105,7 +105,6 @@ namespace Bisang
 	//##########
 	GameObject* Scene::Instantiate(std::string prefabName)
 	{
-		std::cout << "Check" << std::endl;
 		std::unique_ptr<GameObject> obj = m_prefabFactory->Create(prefabName);
 		if (obj == nullptr) return nullptr;
 		GameObject* pObj = obj.get();

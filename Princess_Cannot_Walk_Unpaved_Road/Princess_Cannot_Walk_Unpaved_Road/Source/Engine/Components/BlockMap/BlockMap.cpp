@@ -120,6 +120,7 @@ namespace Bisang
                     id = BlockId::Grass;
                 }
 
+
                 SetBlock({ x, y, groundZ }, id);
                 if (id == BlockId::Rock)
                 {
@@ -169,7 +170,8 @@ namespace Bisang
                 if (v.Length() < radius)
                 {
                     SetBlock({ nowX,nowY,1 }, BlockId::Empty);
-                    Block* zeroFloorBlock = GetBlock({ nowX,nowY,0 });
+                    Int3 pos{ nowX,nowY,0 };
+                    const Block* zeroFloorBlock = GetBlock(pos);
                     if (zeroFloorBlock->blockId == BlockId::Water)
                     {
                         SetBlock({ nowX,nowY,0 }, BlockId::Grass);
@@ -180,14 +182,14 @@ namespace Bisang
         }
     }
 
-    int BlockMap::Index(Int3 pos) const
+    int BlockMap::Index(const Int3& pos) const
     {
         return pos.z * (m_width * m_depth)
             + pos.y * m_width
             + pos.x;
     }
 
-    bool BlockMap::InBounds(Int3 pos) const
+    bool BlockMap::InBounds(const Int3& pos) const
     {
         return pos.x >= 0 &&
             pos.y >= 0 &&
@@ -197,7 +199,7 @@ namespace Bisang
             pos.z < m_height;
     }
 
-    const Block* BlockMap::GetBlock(Int3 pos) const
+    Block* BlockMap::GetBlock(const Int3& pos) 
     {
         if (!InBounds(pos))
             return nullptr;
@@ -205,15 +207,7 @@ namespace Bisang
         return &m_map[Index(pos)];
     }
 
-    Block* BlockMap::GetBlock(Int3 pos)
-    {
-        if (!InBounds(pos))
-            return nullptr;
-
-        return &m_map[Index(pos)];
-    }
-
-    void BlockMap::SetBlock(Int3 pos, BlockId id)
+    void BlockMap::SetBlock(const Int3& pos, BlockId id)
     {
         if (!InBounds(pos))
             return;
@@ -221,7 +215,7 @@ namespace Bisang
         m_map[Index(pos)].blockId = id;
     }
 
-    void BlockMap::RemoveBlock(Int3 pos)
+    void BlockMap::RemoveBlock(const Int3& pos)
     {
         if (!InBounds(pos))
             return;
@@ -229,9 +223,9 @@ namespace Bisang
         m_map[Index(pos)].blockId = BlockId::Empty;
     }
 
-    bool BlockMap::IsEmpty(Int3 pos) const
+    bool BlockMap::IsEmpty(const Int3& pos)
     {
-        const Block* block = GetBlock(pos);
+        Block* block = GetBlock(pos);
 
         if (block == nullptr)
             return true;
@@ -239,7 +233,7 @@ namespace Bisang
         return block->blockId == BlockId::Empty;
     }
 
-    Vector3 BlockMap::BlockToWorld(Int3 pos) const
+    Vector3 BlockMap::BlockToWorld(const Int3& pos) const
     {
         Vector2 local2D =
             m_axisX * (static_cast<float>(pos.x) * m_blockWidth) +
@@ -258,7 +252,7 @@ namespace Bisang
         );
     }
 
-    bool BlockMap::WorldToBlock(Vector3 worldPos, Int3& outPos, int heightLayer) const
+    bool BlockMap::WorldToBlock(const Vector3& worldPos, Int3& outPos, int heightLayer) const
     {
         // 블록맵의 Transform 정보
         Transform* transform = m_ownerObj->GetComponent<Transform>();
