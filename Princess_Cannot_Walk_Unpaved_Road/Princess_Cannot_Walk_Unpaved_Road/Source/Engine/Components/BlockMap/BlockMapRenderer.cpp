@@ -47,21 +47,19 @@ namespace Bisang
                     pos.y = y;
                     pos.z = z;
 
-                    const Block* block = m_blockMap->GetBlock(pos);
+                    Block* block = m_blockMap->GetBlock(pos);
 
                     // 맵 범위를 벗어났거나 블록 데이터가 없는 경우
                     if (block == nullptr)
                         continue;
 
-                    // 빈 블록은 렌더링하지 않음
-                    if (block->blockId == BlockId::Empty)
-                        continue;
 
                     RenderBlock renderBlock;
 
                     renderBlock.pos = pos;
-                    renderBlock.blockId = block->blockId;
+                    renderBlock.id = block->GetId();
                     renderBlock.worldPos = m_blockMap->BlockToWorld(pos);
+                    renderBlock.texture = block->GetTextureResource();
 
                     m_renderBlocks.push_back(renderBlock);
                 }
@@ -72,15 +70,8 @@ namespace Bisang
         // 정렬된 순서대로 DrawCall 생성
         for (const RenderBlock& renderBlock : m_renderBlocks)
         {
-            auto iter = m_blockTextures.find(static_cast<int>(renderBlock.blockId));
-
-            if (iter == m_blockTextures.end())
-                continue;
-
-            TextureResource* textureResource = iter->second.get();
-
-            if (textureResource == nullptr)
-                continue;
+            TextureResource* textureResource = renderBlock.texture;
+            if (textureResource == nullptr) continue;
 
             auto size = textureResource->GetBitmap()->GetSize();
 
@@ -99,17 +90,5 @@ namespace Bisang
 
             renderer->Submit(rc);
         }
-    }
-
-    void BlockMapRenderer::SetBlockTexture(BlockId id, std::shared_ptr<TextureResource> texture)
-    {
-        if (!texture) return;
-
-        m_blockTextures[static_cast<int>(id)] = std::move(texture);
-    }
-
-    void BlockMapRenderer::SetBlockTextures(const std::unordered_map<int, std::shared_ptr<TextureResource>>&textures)
-    {
-        m_blockTextures = textures;
     }
 }

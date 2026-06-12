@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Components\Animation\Animator.h" />
+    <ClInclude Include="Source\Engine\Components\BlockMap\Block.h" />
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockMap.h" />
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockMapRenderer.h" />
     <ClInclude Include="Source\Engine\Components\Collider\BoxCollider.h" />
@@ -70,7 +71,12 @@
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Game\Scripts\BlockMapTest.h" />
-    <ClInclude Include="Source\Engine\Components\BlockMap\PerlinNoise2D.h" />
+    <ClInclude Include="Source\Game\Scripts\Blocks\BlockId.h" />
+    <ClInclude Include="Source\Game\Scripts\Map\BlockMapGenerator.h" />
+    <ClInclude Include="Source\Game\Utility\PerlinNoise2D.h" />
+    <ClInclude Include="Source\Game\Scripts\Blocks\IPickable.h" />
+    <ClInclude Include="Source\Game\Scripts\Blocks\Itool.h" />
+    <ClInclude Include="Source\Game\Scripts\Blocks\MineableBlock.h" />
     <ClInclude Include="Source\Game\Scripts\Overlay.h" />
     <ClInclude Include="Source\Game\Scripts\PlayerController.h" />
   </ItemGroup>
@@ -122,6 +128,7 @@
     <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
     <ClCompile Include="Source\Game\Scripts\BlockMapTest.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Map\BlockMapGenerator.cpp" />
     <ClCompile Include="Source\Game\Scripts\Overlay.cpp" />
     <ClCompile Include="Source\Game\Scripts\PlayerController.cpp" />
     <ClCompile Include="Source\Game\Scripts\SampleScript.cpp" />

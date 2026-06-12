@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine/Components/Component.h"
+#include "Engine/Components/BlockMap/Block.h"
 #include "Engine/Math/Vector.h"
 #include "Engine/Math/Int3.h"
 
@@ -8,32 +9,6 @@
 #include<map>
 namespace Bisang
 {
-
-    enum class BlockId
-    {
-        Empty = 0,
-        
-
-        Grass = 1,
-        Dirt = 2,
-        Water = 3,
-
-
-        Rock = 4,
-        Clay = 5,
-        Tree = 6,
-
-        
-        OrcTree = 7,
-
-        RailPath = 8,
-    };
-
-    struct Block
-    {
-        BlockId blockId = BlockId::Empty;
-    };
-
     class BlockMap : public Component
     {
     public:
@@ -42,8 +17,8 @@ namespace Bisang
     public:
         void InitMap(int width, int height, int depth);
         void SetBlockSize(float width, float height, float depth);
-        void GenerateProceduralMap(unsigned int seed);
-        void MakeStartZone();
+        //void GenerateProceduralMap(unsigned int seed);
+        //void MakeStartZone();
 
         int Index(const Int3& pos) const;
         bool InBounds(const Int3& pos) const;
@@ -57,8 +32,8 @@ namespace Bisang
         float GetBlockDepth() const { return m_blockDepth; }
 
         Block* GetBlock(const Int3& pos);
+        void SetBlock(const Int3& pos, Block* block);
 
-        void SetBlock(const Int3& pos, BlockId id);
         void RemoveBlock(const Int3& pos);
 
         bool IsEmpty(const Int3& pos);
@@ -79,9 +54,6 @@ namespace Bisang
         void SetStartPosition(const Int3& pos);
         Int3 GetStartPosition() const;
 
-        bool IsWalkableFloor(BlockId id) const;
-        bool IsBlocking(BlockId id) const;
-
     private:
 
         /*
@@ -94,6 +66,8 @@ namespace Bisang
                   가로x
         */
 
+        std::vector<Block*> m_map;
+
         int m_width = 1;   // x축, 가로 블럭 개수
         int m_height = 1;  // z축, 높이 블럭 개수
         int m_depth = 1;   // y축, 깊이 블럭 개수
@@ -101,8 +75,6 @@ namespace Bisang
         float m_blockWidth = 1;   // 화면상 블럭 가로
         float m_blockHeight = 1;  // 화면상 블럭 높이
         float m_blockDepth = 1;   // 화면상 블럭 깊이
-
-        std::vector<Block> m_map;
 
         float m_yaw = 35.f;     // 좌우 회전
         float m_pitch = 55.f;   // 위아래 기울기

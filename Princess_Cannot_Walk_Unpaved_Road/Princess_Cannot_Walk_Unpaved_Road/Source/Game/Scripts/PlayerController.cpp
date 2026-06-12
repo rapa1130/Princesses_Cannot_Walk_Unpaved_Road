@@ -256,19 +256,16 @@ namespace Bisang
 			return false;
 		}
 		
-		// 바닥 확인
-        Int3 belowPos = blockPos + Int3{ 0, 0, -1 };
-		Block* block = m_blockMap->GetBlock(belowPos);
-		
-		if (block == nullptr ) return false;
-		if (m_blockMap->IsWalkableFloor(block->blockId) == false) return false;
+        Block* block;
 
 		// 벽 확인
 		block = m_blockMap->GetBlock(blockPos);
+		if (block == nullptr || false == block->GetIsSolid()) return false;
 
-
-		if (block == nullptr) return false;
-		if (m_blockMap->IsBlocking(block->blockId)) return false;
+        // 바닥 확인
+        Int3 belowPos = blockPos + Int3{ 0, 0, -1 };
+        block = m_blockMap->GetBlock(belowPos);
+        if (block == nullptr || false == block->GetIsSolid()) return false;
  		
 		return true;
 	}
