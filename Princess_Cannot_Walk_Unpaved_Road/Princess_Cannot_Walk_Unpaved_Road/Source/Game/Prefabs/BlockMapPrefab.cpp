@@ -44,13 +44,13 @@ namespace Bisang
 
 		std::unordered_map<int, std::shared_ptr<TextureResource>> textures =
 		{
-			{static_cast<int>(BlockId::Grass), m_resourceManager->LoadTexture(L"Assets/Textures/GrassBlock.png")},
-			{static_cast<int>(BlockId::Dirt), m_resourceManager->LoadTexture(L"Assets/Textures/Dirt.png")},
-			{static_cast<int>(BlockId::Water), m_resourceManager->LoadTexture(L"Assets/Textures/Water.png")},
-			{static_cast<int>(BlockId::Rock), m_resourceManager->LoadTexture(L"Assets/Textures/Rock.png")},
-			{static_cast<int>(BlockId::Clay), m_resourceManager->LoadTexture(L"Assets/Textures/Clay.png")},
-			{static_cast<int>(BlockId::Tree), m_resourceManager->LoadTexture(L"Assets/Textures/Tree.png")},
-			{static_cast<int>(BlockId::OrcTree), m_resourceManager->LoadTexture(L"Assets/Textures/OrcTree.png")}
+			{static_cast<int>(BlockId::Grass), m_resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/GrassBlock.png")},
+			{static_cast<int>(BlockId::Dirt), m_resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Dirt.png")},
+			{static_cast<int>(BlockId::Water), m_resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Water.png")},
+			{static_cast<int>(BlockId::Rock), m_resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Rock.png")},
+			{static_cast<int>(BlockId::Clay), m_resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Clay.png")},
+			{static_cast<int>(BlockId::Tree), m_resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Tree.png")},
+			{static_cast<int>(BlockId::OrcTree), m_resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/OrcTree.png")}
 		};
 		
 		bMapR->SetBlockTextures(textures);

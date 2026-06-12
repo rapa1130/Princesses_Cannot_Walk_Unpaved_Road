@@ -21,7 +21,7 @@ namespace Bisang
 		resourceManager->LoadTexture(L"Assets/Textures/Characters/Princess/Princess_Front.png")->SetPivot({ -20, -40, 0 });
 
 		//Setting Trees' Pivot
-		resourceManager->LoadTexture(L"Assets/Textures/Tree.png")->SetPivot({ 0, -10, 0 });
-		resourceManager->LoadTexture(L"Assets/Textures/OrcTree.png")->SetPivot({ 0, -10, 0 });
+		resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Tree.png")->SetPivot({ 0, -10, 0 });
+		resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/OrcTree.png")->SetPivot({ 0, -10, 0 });
     }
 }
