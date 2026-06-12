@@ -19,7 +19,7 @@ namespace Bisang
 
         auto* sr = obj->AddComponent<SpriteRenderer>();
         sr->SetLayer(Layer::Iso);
-        sr->SetSprite(m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Player_Front.png"));
+        sr->SetSprite(m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Default/Player_Front.png"));
 
         obj->AddComponent<PlayerController>();
         return obj;

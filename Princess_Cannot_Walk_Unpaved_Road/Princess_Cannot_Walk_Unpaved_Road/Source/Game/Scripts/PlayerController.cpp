@@ -240,7 +240,7 @@ namespace Bisang
             AnimationClip clip;
             clip.name = m_nameArr[i];
             clip.loop = true;
-            clip.frames.push_back({ GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_" + m_nameArr[i] + L".png") });
+            clip.frames.push_back({ GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Default/Player_" + m_nameArr[i] + L".png") });
             m_animator->AddClip(clip);
         }
 
