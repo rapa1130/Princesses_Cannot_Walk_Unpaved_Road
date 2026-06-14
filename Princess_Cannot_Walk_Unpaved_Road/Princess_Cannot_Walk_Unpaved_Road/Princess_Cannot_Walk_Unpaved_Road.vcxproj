@@ -71,7 +71,9 @@
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockInfoProvider.h" />
-    <ClInclude Include="Source\Game\Scripts\Monitering\Overlay.h" />
+    <ClInclude Include="Source\Game\Scripts\Monitoring\Overlay.h" />
+    <ClInclude Include="Source\Game\Scripts\Player\PlayerAnimationController.h" />
+    <ClInclude Include="Source\Game\Scripts\Player\PlayerStatus.h" />
     <ClInclude Include="Source\Game\Scripts\Temp\BlockMapTest.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockId.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockObjectInfo.h" />
@@ -127,9 +129,11 @@
     <ClCompile Include="Source\Game\Registry\GameRegistry.cpp" />
     <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
-    <ClCompile Include="Source\Game\Scripts\Monitering\Overlay.cpp">
+    <ClCompile Include="Source\Game\Scripts\Monitoring\Overlay.cpp">
       <DeploymentContent>false</DeploymentContent>
     </ClCompile>
+    <ClCompile Include="Source\Game\Scripts\Player\PlayerAnimationController.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Player\PlayerStatus.cpp" />
     <ClCompile Include="Source\Game\Scripts\Temp\BlockMapTest.cpp" />
     <ClCompile Include="Source\Game\Scripts\Blocks\BlockObjectInfoTable.cpp" />
     <ClCompile Include="Source\Game\Scripts\Map\BlockMapGenerator.cpp" />

@@ -1,0 +1,66 @@
+#include "PlayerAnimationController.h"
+
+#include "Engine/Object/GameObject.h"
+#include "Engine/Input/InputManager.h"
+#include "Engine/Components/Animation/Animator.h"
+#include "Engine/Resource/ResourceManager.h"
+#include "Engine/Resource/TextureResource.h"
+
+namespace Bisang
+{
+    void PlayerAnimationController::Start()
+    {
+        m_input = GetInputManager();
+        m_animator = m_ownerObj->GetComponent<Animator>();
+
+        InitializeAnimator();
+    }
+
+    void PlayerAnimationController::Update(float dT)
+    {
+        UpdateAnimation();
+    }
+
+    void PlayerAnimationController::InitializeAnimator()
+    {
+        if (m_animator == nullptr)
+            return;
+
+        for (int i = 0; i < PlayerAnimCount; ++i)
+        {
+            AnimationClip clip;
+            clip.name = m_nameArr[i];
+            clip.loop = true;
+
+            clip.frames.push_back({
+                GetResourceManager()->LoadTexture(
+                    L"Assets/Textures/Characters/Player/Default/Player_" + m_nameArr[i] + L".png"
+                )
+                });
+
+            m_animator->AddClip(clip);
+        }
+
+        m_animator->Play();
+    }
+
+    void PlayerAnimationController::UpdateAnimation()
+    {
+        if (m_input == nullptr || m_animator == nullptr)
+            return;
+
+        bool isFront = m_input->IsKeyDown(KeyCode::Down);
+        bool isBack = m_input->IsKeyDown(KeyCode::Up);
+        bool isLeft = m_input->IsKeyDown(KeyCode::Left);
+        bool isRight = m_input->IsKeyDown(KeyCode::Right);
+
+        if (isFront && isLeft)          m_animator->SetClip(L"FrontLeft");
+        else if (isFront && isRight)    m_animator->SetClip(L"FrontRight");
+        else if (isBack && isLeft)      m_animator->SetClip(L"BackLeft");
+        else if (isBack && isRight)     m_animator->SetClip(L"BackRight");
+        else if (isBack)                m_animator->SetClip(L"Back");
+        else if (isFront)               m_animator->SetClip(L"Front");
+        else if (isLeft)                m_animator->SetClip(L"Right");
+        else if (isRight)               m_animator->SetClip(L"Left");
+    }
+}

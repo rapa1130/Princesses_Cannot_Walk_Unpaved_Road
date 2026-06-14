@@ -216,6 +216,8 @@ namespace Bisang
                 }
             }
         }
+
+        m_blockMap->SetBlock(startPosition, MakeBlock(BlockId::Axe));
     }
 
     BlockObject BlockMapGenerator::MakeBlock(BlockId id) const

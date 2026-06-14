@@ -9,6 +9,7 @@
 #include "Engine/Components/Animation/Animator.h"
 
 #include "Game/Scripts/Player/PlayerController.h"
+#include "Game/Scripts/Player/PlayerAnimationController.h"
 
 #include <iostream>
 
@@ -33,6 +34,8 @@ namespace Bisang
         auto* animator = obj->AddComponent<Animator>();
 
         obj->AddComponent<PlayerController>();
+        obj->AddComponent<PlayerAnimationController>();
+
         return obj;
     }
 }
