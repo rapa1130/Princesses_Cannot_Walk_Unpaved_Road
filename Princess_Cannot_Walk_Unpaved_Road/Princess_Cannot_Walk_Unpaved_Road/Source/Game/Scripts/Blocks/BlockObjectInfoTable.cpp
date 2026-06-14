@@ -74,6 +74,14 @@ namespace Bisang
         orcTree.isSolid = true;
         orcTree.mineable = &rockMineable;
         Register(orcTree);
+
+        BlockObjectInfo axe;
+        axe.id = BlockId::Axe;
+        axe.kind = BlockObjectKind::Tool;
+        axe.toolType = ToolType::Axe;
+        axe.texture = resourceManager->LoadTexture(L"Assets/Textures/Tools/Axe/Axe_Front.png");
+
+
     }
 
     void BlockObjectInfoTable::Register(const BlockObjectInfo& blockInfo)
