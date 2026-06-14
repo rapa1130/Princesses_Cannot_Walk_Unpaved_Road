@@ -40,6 +40,7 @@ namespace Bisang
             int id;
             Vector3 worldPos;
             TextureResource* texture;
+            int orderInZ;
         };
 
     private:

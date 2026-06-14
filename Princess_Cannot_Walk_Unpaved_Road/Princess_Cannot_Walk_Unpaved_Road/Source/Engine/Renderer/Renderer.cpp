@@ -172,6 +172,8 @@ namespace Bisang
                 {
                     if (a.sortKey.z != b.sortKey.z)
                         return a.sortKey.z < b.sortKey.z;
+                    if (a.orderInZ != b.orderInZ)
+                        return a.orderInZ < b.orderInZ;
 
                     float deapthA = a.sortKey.x * 0.35 - a.sortKey.y;
                     float deapthB = b.sortKey.x * 0.35 - b.sortKey.y;
@@ -308,7 +310,8 @@ namespace Bisang
         const Vector3& position,
         const Vector2& size,
         float rot,
-        float alpha
+        float alpha,
+        int orderInZ
     )
     {
         RenderCommand ret = RenderCommand();
@@ -316,6 +319,7 @@ namespace Bisang
         ret.type = RenderCommandType::Sprite;
         ret.layer = layer;
         ret.sortKey = sortKey;
+        ret.orderInZ = orderInZ;
         ret.sprite.resource = resource;
         ret.sprite.position = position;
         ret.sprite.size = size;

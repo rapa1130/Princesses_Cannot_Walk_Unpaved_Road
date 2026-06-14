@@ -22,6 +22,8 @@ namespace Bisang
 
     private:
         void MakeStartZone(const Int3& startPosition, int radius);
+        void MakeInitialRoad(Int3& startPos);
+
         unsigned int CreateRandomSeed() const;
         BlockObject MakeBlock(BlockId id) const;
 
