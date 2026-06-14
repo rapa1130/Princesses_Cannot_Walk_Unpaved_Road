@@ -1,6 +1,7 @@
 #pragma once
 #include "Engine/Components/Script.h"
 #include "Engine/Math/Vector.h"
+#include "Engine/Math/Int3.h"
 
 #define PlayerAnimCount 8
 
@@ -25,10 +26,14 @@ namespace Bisang
 		
 		void SetToStartPostion();
 
+		Vector2& GetFaceDir() { return m_faceDir; }
+		Int3& GetCurrentPos() { return m_currentPos; }
+
 	private:
 		void Interact();
 		void Move(float dT);
 		void UpdateVelocity(float dT);
+		void UpdateCurrentPos();
 		bool CanMoveBoxArea(const Vector3& center);
 		bool CanMoveTo(const Vector3& worldPos) const;
 
@@ -41,8 +46,9 @@ namespace Bisang
 		BoxCollider* m_BoxCol = nullptr;
 		PlayerStatus* m_playerStatus = nullptr;
 
-
-		int playerZ = 1;
+		int m_playerZ = 1;
+		Vector2 m_faceDir = { 0, 1 };
+		Int3 m_currentPos;
 
 		Vector3 m_velocity;
 		float moveSpeed = 300;

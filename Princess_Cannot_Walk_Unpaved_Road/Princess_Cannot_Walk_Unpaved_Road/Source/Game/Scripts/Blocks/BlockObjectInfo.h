@@ -25,7 +25,7 @@ namespace Bisang
 
     struct MineableData
     {
-        int maxHp;
+        float maxHp;
         ToolType requiredTool;
         BlockId dropBlockId;
         int count;

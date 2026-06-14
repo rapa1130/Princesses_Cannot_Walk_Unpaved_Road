@@ -9,11 +9,19 @@ namespace Bisang
 {
     void BlockObjectInfoTable::Init(ResourceManager* resourceManager)
     {
-        static MineableData rockMineable
+        static MineableData ClayMineable
         {
-            5,
+            0.5,
             ToolType::Pickaxe,
-            BlockId::Rock,
+            BlockId::ClayResource,
+            1
+        };
+
+        static MineableData TreeMineable
+        {
+            0.5,
+            ToolType::Axe,
+            BlockId::TreeResource,
             1
         };
 
@@ -49,7 +57,6 @@ namespace Bisang
         rock.kind = BlockObjectKind::Terrain;
         rock.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Rock.png");
         rock.isSolid = true;
-        rock.mineable = &rockMineable;
         Register(rock);
 
 
@@ -67,6 +74,7 @@ namespace Bisang
         clay.kind = BlockObjectKind::Material;
         clay.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Clay.png");
         clay.isSolid = true;
+        clay.mineable = &ClayMineable;
         Register(clay);
 
         BlockObjectInfo tree;
@@ -74,7 +82,7 @@ namespace Bisang
         tree.kind = BlockObjectKind::Material;
         tree.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Tree.png");
         tree.isSolid = true;
-        tree.mineable = &rockMineable;
+        tree.mineable = &TreeMineable;
         Register(tree);
 
         BlockObjectInfo orcTree;
@@ -82,7 +90,7 @@ namespace Bisang
         orcTree.kind = BlockObjectKind::Material;
         orcTree.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/OrcTree.png");
         orcTree.isSolid = true;
-        orcTree.mineable = &rockMineable;
+        orcTree.mineable = &TreeMineable;
         Register(orcTree);
 
         BlockObjectInfo axe;
@@ -101,14 +109,14 @@ namespace Bisang
 
         BlockObjectInfo clayResource;
         clayResource.id = BlockId::ClayResource;
-        clayResource.kind = BlockObjectKind::Tool;
+        clayResource.kind = BlockObjectKind::Material;
         clayResource.toolType = ToolType::None;
         clayResource.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Resource/Clay Resource.png");
         Register(clayResource);
 
         BlockObjectInfo treeResource;
         treeResource.id = BlockId::TreeResource;
-        treeResource.kind = BlockObjectKind::Tool;
+        treeResource.kind = BlockObjectKind::Material;
         treeResource.toolType = ToolType::None;
         treeResource.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Resource/Tree Resource.png");
         Register(treeResource);

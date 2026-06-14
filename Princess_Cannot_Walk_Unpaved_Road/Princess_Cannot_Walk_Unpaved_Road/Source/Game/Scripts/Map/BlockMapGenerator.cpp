@@ -217,7 +217,7 @@ namespace Bisang
             }
         }
 
-        m_blockMap->SetBlock(startPosition, static_cast<int>(BlockId::Axe));
+        m_blockMap->SetBlock(startPosition + Int3{1, 2, 0 }, static_cast<int>(BlockId::Axe));
         m_blockMap->SetBlock(startPosition + Int3{1, 1, 0}, static_cast<int>(BlockId::PickAxe));
         m_blockMap->SetBlock(startPosition + Int3{ 2, 2, 0 }, static_cast<int>(BlockId::ClayResource));
         m_blockMap->SetBlock(startPosition + Int3{ 2, 1, 0 }, static_cast<int>(BlockId::TreeResource));

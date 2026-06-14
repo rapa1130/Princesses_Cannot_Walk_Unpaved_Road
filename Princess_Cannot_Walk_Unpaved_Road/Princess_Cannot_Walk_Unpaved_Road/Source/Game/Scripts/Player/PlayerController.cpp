@@ -35,10 +35,13 @@ namespace Bisang
         m_blockObjectInfoTable = blockObjectInfoProvider->GetTable();
 
         SetToStartPostion();
+
+        UpdateCurrentPos();
 	}
 
     void PlayerController::Update(float dT)
     {
+        UpdateCurrentPos();
         Move(dT);
         Interact();
     }
@@ -121,29 +124,58 @@ namespace Bisang
         const float stopThreshold = 0.01f;
 
         Vector3 inputDir{ 0.0f, 0.0f, 0.0f };
+        Vector2 faceDir = { 0, 0 };
 
-        if (m_input->IsKeyDown(KeyCode::Left))
+        bool left = m_input->IsKeyDown(KeyCode::Left);
+        bool right = m_input->IsKeyDown(KeyCode::Right);
+        bool up = m_input->IsKeyDown(KeyCode::Up);
+        bool down = m_input->IsKeyDown(KeyCode::Down);
+
+        int inputCount = 0;
+        if (left)  inputCount++;
+        if (right) inputCount++;
+        if (up)    inputCount++;
+        if (down)  inputCount++;
+
+        if (inputCount > 2)
+        {
+            left = false;
+            right = false;
+            up = false;
+            down = false;
+        }
+
+        if (left)
         {
             Vector2 axis = m_blockMap->GetAxisY() * -1.0f;
             inputDir += Vector3(axis.x, axis.y, 0.0f);
+            faceDir += Vector2(-1, 0);
         }
 
-        if (m_input->IsKeyDown(KeyCode::Right))
+        if (right)
         {
             Vector2 axis = m_blockMap->GetAxisY();
             inputDir += Vector3(axis.x, axis.y, 0.0f);
+            faceDir += Vector2(1, 0);
         }
 
-        if (m_input->IsKeyDown(KeyCode::Up))
+        if (up)
         {
             Vector2 axis = m_blockMap->GetAxisX();
             inputDir += Vector3(axis.x, axis.y, 0.0f);
+            faceDir += Vector2(0, -1);
         }
 
-        if (m_input->IsKeyDown(KeyCode::Down))
+        if (down)
         {
             Vector2 axis = m_blockMap->GetAxisX() * -1.0f;
             inputDir += Vector3(axis.x, axis.y, 0.0f);
+            faceDir += Vector2(0, 1);
+        }
+
+        if (faceDir != Vector2{0, 0})
+        {
+            m_faceDir = faceDir;
         }
 
         bool hasInput = inputDir.Length() > 0.0f;
@@ -207,7 +239,7 @@ namespace Bisang
 	bool PlayerController::CanMoveTo(const Vector3& worldPos) const
 	{
 		Int3 blockPos;
-		if (false == m_blockMap->WorldToBlock(worldPos, blockPos, playerZ))
+		if (false == m_blockMap->WorldToBlock(worldPos, blockPos, m_playerZ))
 		{
 			return false;
 		}
@@ -241,6 +273,18 @@ namespace Bisang
 		m_transform->SetPosition(startWorldPos);
 	}
 
+    void PlayerController::UpdateCurrentPos()
+    {
+        Int3 pos;
+        if (false == m_blockMap->WorldToBlock(
+            m_transform->GetPosition(),
+            pos,
+            m_playerZ
+        )) return;
+
+        m_currentPos = pos;
+    }
+
     //*************************************************
     // 상호작용
     //************************************************* 
@@ -252,7 +296,7 @@ namespace Bisang
         // 월드 -> 블럭맵 좌표 변환
         Vector3 vCurrentPos = m_transform->GetPosition();
         Int3 currentPos;
-        if (false == m_blockMap->WorldToBlock(vCurrentPos, currentPos, playerZ))
+        if (false == m_blockMap->WorldToBlock(vCurrentPos, currentPos, m_playerZ))
         {
             return;
         }
@@ -263,7 +307,8 @@ namespace Bisang
 
 
         // 도구면 착용
-        if (info.kind == BlockObjectKind::Tool)
+        if ( info.kind == BlockObjectKind::Tool ||
+             info.kind == BlockObjectKind::Material )
         {
             // 현재 손에 들고 있는 오브젝트 검사
             BlockId heldBObj = m_playerStatus->GetHeldBlockObj();
@@ -300,7 +345,6 @@ namespace Bisang
                 m_playerStatus->PutDown();
             }
         }
-
 
     }
 

@@ -1,20 +1,21 @@
 #include "PlayerAnimationController.h"
 
 #include "Engine/Object/GameObject.h"
-#include "Engine/Input/InputManager.h"
 #include "Engine/Components/Animation/Animator.h"
 #include "Engine/Resource/ResourceManager.h"
 #include "Engine/Resource/TextureResource.h"
+#include "Engine/Math/Vector.h"
 
 #include "Game/Scripts/Player/PlayerStatus.h"
+#include "Game/Scripts/Player/PlayerController.h"
 
 namespace Bisang
 {
     void PlayerAnimationController::Start()
     {
-        m_input = GetInputManager();
         m_animator = m_ownerObj->GetComponent<Animator>();
         m_playerStatus = m_ownerObj->GetComponent<PlayerStatus>();
+        m_controller = m_ownerObj->GetComponent<PlayerController>();
 
         InitializeAnimator();
     }
@@ -60,13 +61,15 @@ namespace Bisang
 
     void PlayerAnimationController::UpdateAnimation()
     {
-        if (m_input == nullptr || m_animator == nullptr)
+        if (m_animator == nullptr)
             return;
 
-        bool isFront = m_input->IsKeyDown(KeyCode::Down);
-        bool isBack = m_input->IsKeyDown(KeyCode::Up);
-        bool isLeft = m_input->IsKeyDown(KeyCode::Left);
-        bool isRight = m_input->IsKeyDown(KeyCode::Right);
+        Vector2 faceDir = m_controller->GetFaceDir();
+
+        bool isFront = (faceDir.y == 1);
+        bool isBack = (faceDir.y == -1);
+        bool isLeft = (faceDir.x == -1);
+        bool isRight = (faceDir.x == 1);
   
         if (m_playerStatus->GetHeldBlockObj() == BlockId::Empty)
         {
