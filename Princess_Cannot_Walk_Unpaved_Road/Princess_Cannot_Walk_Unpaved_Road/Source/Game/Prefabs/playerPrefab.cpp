@@ -13,6 +13,7 @@
 #include "Game/Scripts/Player/PlayerStatus.h"
 #include "Game/Scripts/Player/PickUpObject.h"
 #include "Game/Scripts/Player/MiningBlock.h"
+#include "Game/Scripts/Player/BuildingRoad.h"
 
 #include <iostream>
 
@@ -40,6 +41,7 @@ namespace Bisang
         player->AddComponent<PlayerAnimationController>();
         player->AddComponent<PlayerStatus>();
         player->AddComponent<MiningBlock>();
+        player->AddComponent<BuildingRoad>();
 
         return player;
     }

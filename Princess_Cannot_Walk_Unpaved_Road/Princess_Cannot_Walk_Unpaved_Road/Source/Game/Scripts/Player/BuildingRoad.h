@@ -6,11 +6,12 @@ namespace Bisang
 	class BlockMap;
 	class PlayerController;
 	class BlockObjectInfoTable;
+	class InputManager;
 
-	class MiningBlock : public Script
+	class BuildingRoad : public Script
 	{
 	public:
-		MiningBlock(GameObject* ownerObj) : Script(ownerObj) {}
+		BuildingRoad(GameObject* ownerObj) : Script(ownerObj) {}
 
 		void Start() override;
 		void Update(float dT) override;
@@ -20,9 +21,10 @@ namespace Bisang
 		BlockMap* m_blockMap = nullptr;
 		PlayerController* m_controller = nullptr;
 		BlockObjectInfoTable* m_infoTable = nullptr;
-	
 
-		float m_miningTimer = 0.f;
+
+		float m_buildingTimer = 0.f;
+		float m_buiildingTime = 0.5f;
 	};
 
 
