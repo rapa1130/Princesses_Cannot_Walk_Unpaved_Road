@@ -43,6 +43,8 @@
     <ClCompile Include="Source\Game\Scripts\Monitoring\Overlay.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\PlayerStatus.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\PlayerAnimationController.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Player\PickUpObject.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Player\MiningBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -105,5 +107,7 @@
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockInfoProvider.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PlayerStatus.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PlayerAnimationController.h" />
+    <ClInclude Include="Source\Game\Scripts\Player\PickUpObject.h" />
+    <ClInclude Include="Source\Game\Scripts\Player\MiningBlock.h" />
   </ItemGroup>
 </Project>

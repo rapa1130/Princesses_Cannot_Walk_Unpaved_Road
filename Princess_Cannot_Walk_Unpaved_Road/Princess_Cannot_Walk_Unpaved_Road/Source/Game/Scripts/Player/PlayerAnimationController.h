@@ -11,6 +11,7 @@ namespace Bisang
     class InputManager;
     class Animator;
     class PlayerStatus;
+    class PlayerController;
 
     class PlayerAnimationController : public Script
     {
@@ -25,8 +26,8 @@ namespace Bisang
         void UpdateAnimation();
 
     private:
-        InputManager* m_input = nullptr;
         Animator* m_animator = nullptr;
+        PlayerController* m_controller = nullptr;
         PlayerStatus* m_playerStatus = nullptr;
 
         std::wstring m_nameArr[PlayerAnimCount] =
