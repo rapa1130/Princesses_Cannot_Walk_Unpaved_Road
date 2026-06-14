@@ -27,7 +27,7 @@ namespace Bisang
     {
         if (HasReachRoadEnd())
         {
-            m_nowMoveDir = { 0,0,0 };
+            m_nowMoveDir = Int3{ 0,0,0 };
             return;
         }
 
@@ -44,8 +44,12 @@ namespace Bisang
             const Int3& nextTargetPos =m_railManager->GetRailPathof(m_nowWalkingRailIndex);
 
             m_nowMoveDir = nextTargetPos - targetPos;
-            //std::cout << m_nowMoveDir.x << ", " << m_nowMoveDir.y << std::endl;
             return;
+        }
+        if (m_nowMoveDir == Int3{ 0,0,0 } && m_nowWalkingRailIndex > 0)
+        {
+            const Int3& prevTargetPos = m_railManager->GetRailPathof(m_nowWalkingRailIndex - 1);
+            m_nowMoveDir = targetPos - prevTargetPos;
         }
         Move(nowWorldPos, targetWorldPos, dT);
     }
