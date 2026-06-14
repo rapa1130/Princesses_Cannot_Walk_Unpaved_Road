@@ -219,6 +219,8 @@ namespace Bisang
 
         m_blockMap->SetBlock(startPosition, static_cast<int>(BlockId::Axe));
         m_blockMap->SetBlock(startPosition + Int3{1, 1, 0}, static_cast<int>(BlockId::PickAxe));
+        m_blockMap->SetBlock(startPosition + Int3{ 2, 2, 0 }, static_cast<int>(BlockId::ClayResource));
+        m_blockMap->SetBlock(startPosition + Int3{ 2, 1, 0 }, static_cast<int>(BlockId::TreeResource));
     }
 
     void BlockMapGenerator::MakeInitialRoad(Int3& startPos)
@@ -228,17 +230,10 @@ namespace Bisang
             Int3 pos{ startPos.x,nowY,1 };
             Int3 underPos{ startPos.x,nowY,0 };
             
-            if (m_blockMap->GetBlock(underPos)->id == static_cast<int>(BlockId::Water))
-                m_blockMap->SetBlock(underPos, MakeBlock(BlockId::Dirt));
-            m_blockMap->SetBlock(pos, MakeBlock(BlockId::RailPath));
+            if (m_blockMap->GetBlock(underPos) == static_cast<int>(BlockId::Water))
+                m_blockMap->SetBlock(underPos, static_cast<int>(BlockId::Dirt));
+            m_blockMap->SetBlock(pos, static_cast<int>(BlockId::RailPath));
         }
-    }
-
-    BlockObject BlockMapGenerator::MakeBlock(BlockId id) const
-    {
-        BlockObject block;
-        block.id = static_cast<int>(id);
-        return block;
     }
 
     unsigned int BlockMapGenerator::CreateRandomSeed() const

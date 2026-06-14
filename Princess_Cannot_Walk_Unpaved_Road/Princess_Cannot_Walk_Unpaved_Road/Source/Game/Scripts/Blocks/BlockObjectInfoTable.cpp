@@ -99,6 +99,20 @@ namespace Bisang
         pickAxe.texture = resourceManager->LoadTexture(L"Assets/Textures/Tools/PickAxe/PickAxe_Left.png");
         Register(pickAxe);
 
+        BlockObjectInfo clayResource;
+        clayResource.id = BlockId::ClayResource;
+        clayResource.kind = BlockObjectKind::Tool;
+        clayResource.toolType = ToolType::None;
+        clayResource.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Resource/Clay Resource.png");
+        Register(clayResource);
+
+        BlockObjectInfo treeResource;
+        treeResource.id = BlockId::TreeResource;
+        treeResource.kind = BlockObjectKind::Tool;
+        treeResource.toolType = ToolType::None;
+        treeResource.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Resource/Tree Resource.png");
+        Register(treeResource);
+
 
     }
 

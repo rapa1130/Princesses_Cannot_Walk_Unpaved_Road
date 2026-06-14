@@ -48,7 +48,7 @@ namespace Bisang
         pickUpObj->SetName("PickUpObj");
 
         auto* tf = pickUpObj->GetComponent<Transform>();
-        tf->SetPosition({ 0, -40, 1 });
+        tf->SetPosition({ -5, -45, 1 });
         tf->SetScale({ 0.5, 0.5 });
 
         auto* sr = pickUpObj->AddComponent<SpriteRenderer>();
