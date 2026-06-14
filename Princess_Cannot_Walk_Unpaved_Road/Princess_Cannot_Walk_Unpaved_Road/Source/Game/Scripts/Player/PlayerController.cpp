@@ -22,15 +22,6 @@ namespace Bisang
 		m_transform = m_ownerObj->GetComponent<Transform>();
 		m_input = GetInputManager();
 		m_blockMap = FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
-        m_spriteRenderer = m_ownerObj->GetComponent<SpriteRenderer>();
-
-        // 콜라이더 설정
-        m_BoxCol = m_ownerObj->GetComponent<BoxCollider>();
-        m_BoxCol->SetSize({ 10.0f,21.0f });
-
-        // 애니메이터 설정
-        m_animator = m_ownerObj->GetComponent<Animator>();
-        InitializeAnimator();
 
         //moveSpeed = 300;
         m_maxSpeed = 200.f;
@@ -46,20 +37,25 @@ namespace Bisang
             ->GetComponent<BlockObjectInfoProvider>();
 
         m_blockObjectInfoTable = blockObjectInfoProvider->GetTable();
+
+        m_BoxCol = m_ownerObj->GetComponent<BoxCollider>();
+        m_animator = m_ownerObj->GetComponent<Animator>();
+        m_spriteRenderer = m_ownerObj->GetComponent<SpriteRenderer>();
+        InitializeAnimator();
 	}
 
-	void PlayerController::Update(float dT)
-	{
-		Move(dT);
+    void PlayerController::Update(float dT)
+    {
+        Move(dT);
         UpdateAnimation();
-	}
+    }
 
 
-	void PlayerController::FixedUpdate() {}
+    void PlayerController::FixedUpdate() {}
 
 
-	void PlayerController::Move(float dT)
-	{
+    void PlayerController::Move(float dT)
+    {
         UpdateVelocity(dT);
 
         float speed = m_velocity.Length();
@@ -124,10 +120,10 @@ namespace Bisang
             float vDotY = m_velocity.x * axisY.x + m_velocity.y * axisY.y;
             m_velocity -= axisY * vDotY;
         }
-	}
+    }
 
-	void PlayerController::UpdateVelocity(float dT)
-	{
+    void PlayerController::UpdateVelocity(float dT)
+    {
         const float stopThreshold = 0.01f;
 
         Vector3 inputDir{ 0.0f, 0.0f, 0.0f };
@@ -194,7 +190,7 @@ namespace Bisang
                 m_velocity = velocityDir * speed;
             }
         }
-	}
+    }
 
     bool PlayerController::CanMoveBoxArea(const Vector3& center)
     {
@@ -220,10 +216,6 @@ namespace Bisang
 
         if (!CanMoveTo(center - axisX * colSize.x - axisY * colSize.y))
             return false;
-
-
-
-
 
         return true;
     }
@@ -253,13 +245,12 @@ namespace Bisang
             AnimationClip clip;
             clip.name = m_nameArr[i];
             clip.loop = true;
-            clip.frames.push_back({ GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_" + m_nameArr[i] + L".png") });
+            clip.frames.push_back({ GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Default/Player_" + m_nameArr[i] + L".png") });
             m_animator->AddClip(clip);
         }
 
         m_animator->Play();
     }
-
 
 	bool PlayerController::CanMoveTo(const Vector3& worldPos) const
 	{

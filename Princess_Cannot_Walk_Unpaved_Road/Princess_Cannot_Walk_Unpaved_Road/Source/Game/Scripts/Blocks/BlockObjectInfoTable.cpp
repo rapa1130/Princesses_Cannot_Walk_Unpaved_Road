@@ -26,28 +26,28 @@ namespace Bisang
         BlockObjectInfo grass;
         grass.id = BlockId::Grass;
         grass.kind = BlockObjectKind::Terrain;
-        grass.texture = resourceManager->LoadTexture(L"Assets/Textures/GrassBlock.png");
+        grass.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/GrassBlock.png");
         grass.isSolid = true;
         Register(grass);
 
         BlockObjectInfo dirt;
         dirt.id = BlockId::Dirt;
         dirt.kind = BlockObjectKind::Terrain;
-        dirt.texture = resourceManager->LoadTexture(L"Assets/Textures/Dirt.png");
+        dirt.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Dirt.png");
         dirt.isSolid = true;
         Register(dirt);
 
         BlockObjectInfo water;
         water.id = BlockId::Water;
         water.kind = BlockObjectKind::Terrain;
-        water.texture = resourceManager->LoadTexture(L"Assets/Textures/Water.png");
+        water.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Water.png");
         water.isSolid = false;
         Register(water);
 
         BlockObjectInfo rock;
         rock.id = BlockId::Rock;
         rock.kind = BlockObjectKind::Terrain;
-        rock.texture = resourceManager->LoadTexture(L"Assets/Textures/Rock.png");
+        rock.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Rock.png");
         rock.isSolid = true;
         rock.mineable = &rockMineable;
         Register(rock);
@@ -55,14 +55,14 @@ namespace Bisang
         BlockObjectInfo clay;
         clay.id = BlockId::Clay;
         clay.kind = BlockObjectKind::Material;
-        clay.texture = resourceManager->LoadTexture(L"Assets/Textures/Clay.png");
+        clay.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Clay.png");
         clay.isSolid = true;
         Register(clay);
 
         BlockObjectInfo tree;
         tree.id = BlockId::Tree;
         tree.kind = BlockObjectKind::Material;
-        tree.texture = resourceManager->LoadTexture(L"Assets/Textures/Tree.png");
+        tree.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Tree.png");
         tree.isSolid = true;
         tree.mineable = &rockMineable;
         Register(tree);
@@ -70,7 +70,7 @@ namespace Bisang
         BlockObjectInfo orcTree;
         orcTree.id = BlockId::OrcTree;
         orcTree.kind = BlockObjectKind::Material;
-        orcTree.texture = resourceManager->LoadTexture(L"Assets/Textures/OrcTree.png");
+        orcTree.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/OrcTree.png");
         orcTree.isSolid = true;
         orcTree.mineable = &rockMineable;
         Register(orcTree);
