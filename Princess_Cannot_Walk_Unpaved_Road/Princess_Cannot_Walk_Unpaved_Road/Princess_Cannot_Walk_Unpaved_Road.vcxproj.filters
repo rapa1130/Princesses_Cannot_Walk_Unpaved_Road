@@ -40,7 +40,7 @@
     <ClCompile Include="Source\Engine\Components\Animation\Animator.cpp" />
     <ClCompile Include="Source\Game\Scripts\Map\BlockMapGenerator.cpp" />
     <ClCompile Include="Source\Game\Scripts\Blocks\BlockObjectInfoTable.cpp" />
-    <ClCompile Include="Source\Game\Scripts\Debug\Overlay.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Monitering\Overlay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -99,7 +99,7 @@
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockObjectInfo.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockObjectInfoTable.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockId.h" />
-    <ClInclude Include="Source\Game\Scripts\Debug\Overlay.h" />
+    <ClInclude Include="Source\Game\Scripts\Monitering\Overlay.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockInfoProvider.h" />
   </ItemGroup>
 </Project>

@@ -11,6 +11,7 @@ namespace Bisang
         Clay,
         Tree,
         OrcTree,
-        RailPath
+        RailPath,
+        Axe
     };
 }
