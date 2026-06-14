@@ -80,6 +80,7 @@ namespace Bisang
         axe.kind = BlockObjectKind::Tool;
         axe.toolType = ToolType::Axe;
         axe.texture = resourceManager->LoadTexture(L"Assets/Textures/Tools/Axe/Axe_Front.png");
+        Register(axe);
 
 
     }

@@ -6,7 +6,7 @@
 #include "Engine/Components/TextRenderer.h"
 #include "Engine/Resource/ResourceManager.h"
 
-#include "Game/Scripts/Monitering/Overlay.h"
+#include "Game/Scripts/Monitoring/Overlay.h"
 
 namespace Bisang
 {

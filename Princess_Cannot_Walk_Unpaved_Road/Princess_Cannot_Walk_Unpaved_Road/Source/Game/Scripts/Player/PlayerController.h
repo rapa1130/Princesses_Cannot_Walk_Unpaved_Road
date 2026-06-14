@@ -31,15 +31,15 @@ namespace Bisang
 		void Move(float dT);
 		void UpdateVelocity(float dT);
 		bool CanMoveBoxArea(const Vector3& center);
-		void UpdateAnimation(); // юс╫ц
-
-		void InitializeAnimator();
 
 	private:
 		BlockObjectInfoTable* m_blockObjectInfoTable;
 		Transform* m_transform = nullptr;
 		InputManager* m_input = nullptr;
 		BlockMap* m_blockMap = nullptr;
+		SpriteRenderer* m_spriteRenderer = nullptr;
+		BoxCollider* m_BoxCol = nullptr;
+
 		int playerZ = 1;
 
 		Vector3 m_velocity;
@@ -47,11 +47,6 @@ namespace Bisang
 		float m_maxSpeed = 300.f;
 		float m_acceleration =100.f;
 		float m_friction = 10.0f;
-
-		BoxCollider* m_BoxCol = nullptr;
-
-		SpriteRenderer* m_spriteRenderer = nullptr;
-		Animator* m_animator = nullptr;
 
 		std::wstring m_nameArr[PlayerAnimCount] = {
 			L"FrontLeft",
