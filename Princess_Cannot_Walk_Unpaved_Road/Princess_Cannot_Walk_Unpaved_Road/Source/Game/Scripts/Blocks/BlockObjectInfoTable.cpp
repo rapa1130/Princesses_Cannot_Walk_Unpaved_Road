@@ -100,6 +100,13 @@ namespace Bisang
         axe.texture = resourceManager->LoadTexture(L"Assets/Textures/Tools/Axe/Axe_Front.png");
         Register(axe);
 
+        BlockObjectInfo roller;
+        roller.id = BlockId::Roller;
+        roller.kind = BlockObjectKind::Tool;
+        roller.toolType = ToolType::Roller;
+        roller.texture = resourceManager->LoadTexture(L"Assets/Textures/Tools/Roller/Roller_Front.png");
+        Register(roller);
+
         BlockObjectInfo pickAxe;
         pickAxe.id = BlockId::PickAxe;
         pickAxe.kind = BlockObjectKind::Tool;

@@ -72,6 +72,7 @@
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockInfoProvider.h" />
     <ClInclude Include="Source\Game\Scripts\Monitoring\Overlay.h" />
+    <ClInclude Include="Source\Game\Scripts\Player\BuildingRoad.h" />
     <ClInclude Include="Source\Game\Scripts\Player\MiningBlock.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PickUpObject.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PlayerAnimationController.h" />
@@ -134,6 +135,7 @@
     <ClCompile Include="Source\Game\Scripts\Monitoring\Overlay.cpp">
       <DeploymentContent>false</DeploymentContent>
     </ClCompile>
+    <ClCompile Include="Source\Game\Scripts\Player\BuildingRoad.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\MiningBlock.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\PickUpObject.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\PlayerAnimationController.cpp" />
