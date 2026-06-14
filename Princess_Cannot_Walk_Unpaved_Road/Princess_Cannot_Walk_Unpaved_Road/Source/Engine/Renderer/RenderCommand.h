@@ -51,6 +51,7 @@ namespace Bisang
 		RenderCommandType type;
 		int layer;
 		Vector3 sortKey;
+		int orderInZ;
 
 		union
 		{
@@ -66,7 +67,8 @@ namespace Bisang
 			const Vector3& position,
 			const Vector2& size,
 			float rot,
-			float alpha = 1.0f
+			float alpha = 1.0f,
+			int orderInZ = 0
 		);
 
 		static RenderCommand CreateLineRC(
