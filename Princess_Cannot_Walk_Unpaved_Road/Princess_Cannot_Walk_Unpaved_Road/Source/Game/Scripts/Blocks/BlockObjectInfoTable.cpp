@@ -52,6 +52,16 @@ namespace Bisang
         rock.mineable = &rockMineable;
         Register(rock);
 
+
+        BlockObjectInfo rail;
+        rail.id = BlockId::RailPath;
+        rail.kind = BlockObjectKind::Terrain;
+        rail.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Road/Road.png");
+        rail.isSolid = false;
+        rail.orderInZ = -1;
+        Register(rail);
+
+
         BlockObjectInfo clay;
         clay.id = BlockId::Clay;
         clay.kind = BlockObjectKind::Material;

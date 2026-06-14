@@ -169,8 +169,9 @@ namespace Bisang
                 }
             }
         }
-
-        MakeStartZone({ width / 2, 10, objectZ }, 7);
+        Int3 startPos = { width / 2, 10, objectZ };
+        MakeStartZone(startPos, 7);
+        MakeInitialRoad(startPos);
     }
 
     void BlockMapGenerator::MakeStartZone(const Int3& startPosition, int radius)
@@ -218,6 +219,19 @@ namespace Bisang
         }
 
         m_blockMap->SetBlock(startPosition, MakeBlock(BlockId::Axe));
+    }
+
+    void BlockMapGenerator::MakeInitialRoad(Int3& startPos)
+    {
+        for (int nowY = 0; nowY <= startPos.y; nowY++)
+        {
+            Int3 pos{ startPos.x,nowY,1 };
+            Int3 underPos{ startPos.x,nowY,0 };
+            
+            if (m_blockMap->GetBlock(underPos)->id == static_cast<int>(BlockId::Water))
+                m_blockMap->SetBlock(underPos, MakeBlock(BlockId::Dirt));
+            m_blockMap->SetBlock(pos, MakeBlock(BlockId::RailPath));
+        }
     }
 
     BlockObject BlockMapGenerator::MakeBlock(BlockId id) const

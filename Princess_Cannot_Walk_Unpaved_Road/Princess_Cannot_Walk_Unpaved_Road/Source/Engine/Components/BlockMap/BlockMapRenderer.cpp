@@ -55,12 +55,14 @@ namespace Bisang
                     if (block->id == -1) continue;
                     
                     int id = block->id;
+                    const BlockObjectInfo& bObjInfo = m_blockObjectInfoTable->Get(BlockId(id));
 
                     RenderBlock renderBlock;
                     renderBlock.pos = pos;
                     renderBlock.id = id;
                     renderBlock.worldPos = m_blockMap->BlockToWorld(pos);
-                    renderBlock.texture = m_blockObjectInfoTable->Get(BlockId(id)).texture.get();
+                    renderBlock.texture = bObjInfo.texture.get();
+                    renderBlock.orderInZ = bObjInfo.orderInZ;
 
                     m_renderBlocks.push_back(renderBlock);
                 }
@@ -86,7 +88,8 @@ namespace Bisang
                     static_cast<float>(size.height) * m_transform->GetScale().y
                 ),
                 0.0f,
-                m_alpha
+                m_alpha,
+                renderBlock.orderInZ
             );
 
             renderer->Submit(rc);

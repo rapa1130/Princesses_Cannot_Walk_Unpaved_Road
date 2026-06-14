@@ -41,5 +41,6 @@ namespace Bisang
         bool isPickable = false;                    // 집을 수 있는지
         ToolType toolType = ToolType::None;         // 도구 타입
         const MineableData* mineable = nullptr;     // 캐기 정보
+        int orderInZ = 0;
     };
 }
