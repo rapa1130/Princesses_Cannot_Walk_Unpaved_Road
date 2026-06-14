@@ -14,4 +14,15 @@ namespace Bisang
 
         std::unique_ptr<GameObject> Instantiate() override;
     };
+
+    class PickUpObjPrefab : public IPrefab
+    {
+    public:
+        PickUpObjPrefab(ResourceManager* rm)
+            : IPrefab(rm)
+        {
+        }
+
+        std::unique_ptr<GameObject> Instantiate() override;
+    };
 }

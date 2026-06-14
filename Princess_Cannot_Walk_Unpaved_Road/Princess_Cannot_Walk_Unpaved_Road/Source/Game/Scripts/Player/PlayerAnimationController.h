@@ -4,12 +4,13 @@
 
 #include <string>
 
-#define PlayerAnimCount 8
+#define PlayerAnimCount 16
 
 namespace Bisang
 {
     class InputManager;
     class Animator;
+    class PlayerStatus;
 
     class PlayerAnimationController : public Script
     {
@@ -26,6 +27,7 @@ namespace Bisang
     private:
         InputManager* m_input = nullptr;
         Animator* m_animator = nullptr;
+        PlayerStatus* m_playerStatus = nullptr;
 
         std::wstring m_nameArr[PlayerAnimCount] =
         {
@@ -37,6 +39,14 @@ namespace Bisang
             L"Back",
             L"Left",
             L"Right",
+            L"HandsUp_FrontLeft",
+            L"HandsUp_FrontRight",
+            L"HandsUp_BackLeft",
+            L"HandsUp_BackRight",
+            L"HandsUp_Front",
+            L"HandsUp_Back",
+            L"HandsUp_Left",
+            L"HandsUp_Right"
         };
     };
 }

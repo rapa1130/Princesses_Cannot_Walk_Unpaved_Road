@@ -41,7 +41,7 @@ namespace Bisang
         {
             for (int y = 0; y < 10; ++y)
             {
-                m_blockMap->SetBlock({ x, y, 0 }, MakeBlock(BlockId::Grass));
+                m_blockMap->SetBlock({ x, y, 0 }, static_cast<int>(BlockId::Grass));
             }
         }
     }
@@ -137,7 +137,7 @@ namespace Bisang
 
                 m_blockMap->SetBlock(
                     { x, y, groundZ },
-                    MakeBlock(groundId));
+                    static_cast<int>(groundId));
 
                 if (groundId == BlockId::Water)
                     continue;
@@ -146,7 +146,7 @@ namespace Bisang
                 {
                     m_blockMap->SetBlock(
                         { x, y, objectZ },
-                        MakeBlock(BlockId::Rock));
+                        static_cast<int>(BlockId::Rock));
                 }
                 else if (tree > 0.55f &&
                     (groundId == BlockId::Grass || groundId == BlockId::Dirt))
@@ -158,14 +158,14 @@ namespace Bisang
 
                     m_blockMap->SetBlock(
                         { x, y, objectZ },
-                        MakeBlock(treeId));
+                        static_cast<int>(treeId));
                 }
                 else if (clay > 0.5f &&
                     (groundId == BlockId::Grass || groundId == BlockId::Dirt))
                 {
                     m_blockMap->SetBlock(
                         { x, y, objectZ },
-                        MakeBlock(BlockId::Clay));
+                        static_cast<int>(BlockId::Clay));
                 }
             }
         }
@@ -209,16 +209,16 @@ namespace Bisang
                 }
 
                 Int3 groundPos{ nowX, nowY, 0 };
-                BlockObject* zeroFloorBlock = m_blockMap->GetBlock(groundPos);
-                if (zeroFloorBlock != nullptr &&
-                    zeroFloorBlock->id == static_cast<int>(BlockId::Water))
+                int zeroFloorBlock = m_blockMap->GetBlock(groundPos);
+                if (zeroFloorBlock == static_cast<int>(BlockId::Water))
                 {
-                    m_blockMap->SetBlock(groundPos, MakeBlock(BlockId::Grass));
+                    m_blockMap->SetBlock(groundPos, static_cast<int>(BlockId::Grass));
                 }
             }
         }
 
-        m_blockMap->SetBlock(startPosition, MakeBlock(BlockId::Axe));
+        m_blockMap->SetBlock(startPosition, static_cast<int>(BlockId::Axe));
+        m_blockMap->SetBlock(startPosition + Int3{1, 1, 0}, static_cast<int>(BlockId::PickAxe));
     }
 
     void BlockMapGenerator::MakeInitialRoad(Int3& startPos)

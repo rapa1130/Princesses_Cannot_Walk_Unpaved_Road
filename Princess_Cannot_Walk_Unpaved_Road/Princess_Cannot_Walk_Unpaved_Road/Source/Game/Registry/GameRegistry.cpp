@@ -21,6 +21,7 @@ namespace Bisang
     void GameRegistry::RegisterPrefabs(PrefabFactory* prefabFactory)
     {
         prefabFactory->RegisterPrefab<PlayerPrefab>("Player");
+        prefabFactory->RegisterPrefab<PickUpObjPrefab>("PickUpObj");
         prefabFactory->RegisterPrefab<BlockMapPrefab>("BlockMap");
         prefabFactory->RegisterPrefab<DebugOverlay>("DebugOverlay");
     }

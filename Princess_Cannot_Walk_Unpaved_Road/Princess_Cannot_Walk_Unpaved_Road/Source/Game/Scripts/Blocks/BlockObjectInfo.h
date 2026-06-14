@@ -33,7 +33,7 @@ namespace Bisang
 
     struct BlockObjectInfo
     {
-        BlockId id;                                 // 블럭 아이디
+        BlockId id = BlockId::Empty;                // 블럭 아이디
         BlockObjectKind kind;                       // 종류
         std::shared_ptr<TextureResource> texture;   // 텍스처
         bool isSolid = false;                       // 통과할 수 있는지\
