@@ -39,11 +39,6 @@ namespace Bisang
 			if (false == FindAdjacent(adjacentPos, nowPos)) break;
 
 			m_railPaths.push_back(adjacentPos);
-			std::cout <<
-				m_railPaths.back().x << ", " <<
-				m_railPaths.back().y << ", " <<
-				m_railPaths.back().z << ", " <<
-				std::endl;
 			nowPos = adjacentPos;
 		}
 	}
