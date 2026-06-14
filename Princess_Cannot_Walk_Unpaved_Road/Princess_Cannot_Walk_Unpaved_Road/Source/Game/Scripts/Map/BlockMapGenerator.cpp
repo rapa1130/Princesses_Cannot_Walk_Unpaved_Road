@@ -169,9 +169,19 @@ namespace Bisang
                 }
             }
         }
-        Int3 startPos = { width / 2, 10, objectZ };
-        MakeStartZone(startPos, 7);
-        MakeInitialRoad(startPos);
+        m_startPosition = { width / 2, 10, objectZ };
+        MakeStartZone(m_startPosition, 7);
+        MakeInitialRoad(m_startPosition);
+    }
+
+    Int3 BlockMapGenerator::GetStartPosition() const
+    {
+        return m_startPosition;
+    }
+
+    Int3 BlockMapGenerator::GetRailStartPosition() const
+    {
+        return m_startRailPosition;
     }
 
     void BlockMapGenerator::MakeStartZone(const Int3& startPosition, int radius)
@@ -226,6 +236,10 @@ namespace Bisang
 
     void BlockMapGenerator::MakeInitialRoad(Int3& startPos)
     {
+        Int3 railStartPos = startPos;
+        railStartPos.y = 0;
+        m_startRailPosition = railStartPos;
+        
         for (int nowY = 0; nowY <= startPos.y; nowY++)
         {
             Int3 pos{ startPos.x,nowY,1 };
@@ -235,6 +249,12 @@ namespace Bisang
                 m_blockMap->SetBlock(underPos, static_cast<int>(BlockId::Dirt));
             m_blockMap->SetBlock(pos, static_cast<int>(BlockId::RailPath));
         }
+
+        m_blockMap->SetBlock({ startPos.x + 1,startPos.y,1 }, static_cast<int>(BlockId::RailPath));
+        m_blockMap->SetBlock({ startPos.x + 2,startPos.y,1 }, static_cast<int>(BlockId::RailPath));
+        m_blockMap->SetBlock({ startPos.x + 3,startPos.y,1 }, static_cast<int>(BlockId::RailPath));
+        m_blockMap->SetBlock({ startPos.x + 3,startPos.y+1,1 }, static_cast<int>(BlockId::RailPath));
+        m_blockMap->SetBlock({ startPos.x + 3,startPos.y+2,1 }, static_cast<int>(BlockId::RailPath));
     }
 
     unsigned int BlockMapGenerator::CreateRandomSeed() const
