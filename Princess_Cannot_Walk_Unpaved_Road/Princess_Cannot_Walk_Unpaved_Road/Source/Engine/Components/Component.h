@@ -20,6 +20,7 @@ namespace Bisang
 
 		virtual void Initialize() {}
 
+		virtual void Awake() {}
 		virtual void Start() {}
 		virtual void Update(float dT) {}
 		virtual void FixedUpdate() {}

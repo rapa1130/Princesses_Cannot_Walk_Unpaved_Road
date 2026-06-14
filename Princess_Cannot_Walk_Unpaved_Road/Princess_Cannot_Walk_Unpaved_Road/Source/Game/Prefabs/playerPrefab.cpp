@@ -1,9 +1,15 @@
 #include "Game/Prefabs/PlayerPrefab.h"
+
+#include "Engine/Core/Layer.h"
+#include "Engine/Resource/ResourceManager.h"
+
 #include "Engine/Components/Transform.h"
 #include "Engine/Components/SpriteRenderer.h"
-#include "Engine/Core/Layer.h"
-#include "Game/Scripts/PlayerController.h"
-#include "Engine/Resource/ResourceManager.h"
+#include "Engine/Components/Collider/BoxCollider.h"
+#include "Engine/Components/Animation/Animator.h"
+
+#include "Game/Scripts/Player/PlayerController.h"
+
 #include <iostream>
 
 namespace Bisang
@@ -20,6 +26,11 @@ namespace Bisang
         auto* sr = obj->AddComponent<SpriteRenderer>();
         sr->SetLayer(Layer::Iso);
         sr->SetSprite(m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Default/Player_Front.png"));
+
+        auto* bc = obj->AddComponent<BoxCollider>();
+        bc->SetSize({ 10.0f,21.0f });
+
+        auto* animator = obj->AddComponent<Animator>();
 
         obj->AddComponent<PlayerController>();
         return obj;

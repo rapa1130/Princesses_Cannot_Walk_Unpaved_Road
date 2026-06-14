@@ -11,9 +11,8 @@ namespace Bisang
 
 	void SceneManager::InitCurrentScene()
 	{
-		m_currentScene->Initialize();
 		m_currentScene->Setup();
-		m_currentScene->OnEnter();
+		m_currentScene->Initialize();
 	}
 
 	void SceneManager::ChangeScene(const std::string& sceneName)
@@ -23,16 +22,14 @@ namespace Bisang
 
 		if (m_currentScene)
 		{
-			m_currentScene->OnExit();
 			m_currentScene->Finalize();
 		}
 
 		m_currentScene = it->second.get();
 		m_currentSceneName = sceneName;
 
-		m_currentScene->Initialize();
 		m_currentScene->Setup();
-		m_currentScene->OnEnter();
+		m_currentScene->Initialize();
 	}
 
 	void SceneManager::FixedUpdate()

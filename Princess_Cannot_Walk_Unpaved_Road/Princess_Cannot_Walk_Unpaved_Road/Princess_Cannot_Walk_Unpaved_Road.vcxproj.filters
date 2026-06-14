@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Source\Engine\Resource\IResource.h" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Source\Engine\Core\Debug.cpp" />
     <ClCompile Include="Source\Engine\Core\GameApp.cpp" />
@@ -15,37 +14,33 @@
     <ClCompile Include="Source\Engine\Components\Component.cpp" />
     <ClCompile Include="Source\Engine\Core\GameTimer.cpp" />
     <ClCompile Include="Source\Engine\Components\Transform.cpp" />
-    <ClCompile Include="Source\Engine\Components\Script.h" />
-    <ClCompile Include="Source\Game\Scripts\SampleScript.h" />
-    <ClCompile Include="Source\Game\Scripts\SampleScript.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Temp\SampleScript.cpp" />
     <ClCompile Include="Source\Engine\Components\SpriteRenderer.cpp" />
-    <ClCompile Include="Source\Engine\Components\Collider\Collider.h" />
     <ClCompile Include="Source\Engine\Components\Collider\Collider.cpp" />
     <ClCompile Include="Source\Engine\Components\Collider\BoxCollider.cpp" />
     <ClCompile Include="Source\Engine\Components\Collider\CircleCollider.cpp" />
     <ClCompile Include="Source\Engine\Physics\Collision.cpp" />
-    <ClCompile Include="Source\Engine\Math\Math.h" />
     <ClCompile Include="Source\Engine\Resource\TextureResource.cpp" />
     <ClCompile Include="Source\Engine\Components\LineRenderer.cpp" />
     <ClCompile Include="Source\Engine\Components\TextRenderer.cpp" />
     <ClCompile Include="Source\Engine\Resource\TextResource.cpp" />
     <ClCompile Include="Source\Engine\Renderer\Color.cpp" />
     <ClCompile Include="Source\Engine\Components\BlockMap\BlockMap.cpp" />
-    <ClCompile Include="Source\Engine\Math\Int3.h" />
-    <ClCompile Include="Source\Engine\Math\Degree.h" />
     <ClCompile Include="Source\Engine\Components\BlockMap\BlockMapRenderer.cpp" />
     <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
-    <ClCompile Include="Source\Game\Scripts\PlayerController.cpp" />
-    <ClCompile Include="Source\Game\Scripts\BlockMapTest.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Player\PlayerController.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Temp\BlockMapTest.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
     <ClCompile Include="Source\Game\Prefabs\playerPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\BlockMapPrefab.cpp" />
-    <ClCompile Include="Source\Engine\Prefab\PrefabFactory.h" />
     <ClCompile Include="Source\Engine\Components\Script.cpp" />
     <ClCompile Include="Source\Game\Prefabs\DebugOverlay.cpp" />
-    <ClCompile Include="Source\Game\Scripts\Overlay.cpp" />
     <ClCompile Include="Source\Game\Registry\GameRegistry.cpp" />
     <ClCompile Include="Source\Game\AssetSettings\AssetSettings.cpp" />
+    <ClCompile Include="Source\Engine\Components\Animation\Animator.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Map\BlockMapGenerator.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Blocks\BlockObjectInfoTable.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Debug\Overlay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -79,17 +74,32 @@
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockMapRenderer.h" />
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Engine\Core\Layer.h" />
-    <ClInclude Include="Source\Game\Scripts\PlayerController.h" />
-    <ClInclude Include="Source\Game\Scripts\BlockMapTest.h" />
+    <ClInclude Include="Source\Game\Scripts\Player\PlayerController.h" />
+    <ClInclude Include="Source\Game\Scripts\Temp\BlockMapTest.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
-    <ClInclude Include="Source\Engine\Components\BlockMap\PerlinNoise2D.h" />
+    <ClInclude Include="Source\Game\Utility\PerlinNoise2D.h" />
     <ClInclude Include="Source\Engine\Prefab\Prefab.h" />
     <ClInclude Include="Source\Game\Prefabs\PlayerPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\BlockMapPrefab.h" />
     <ClInclude Include="Source\Engine\Core\GameContext.h" />
     <ClInclude Include="Source\Game\Prefabs\DebugOverlay.h" />
-    <ClInclude Include="Source\Game\Scripts\Overlay.h" />
     <ClInclude Include="Source\Game\Registry\GameRegistry.h" />
     <ClInclude Include="Source\Game\AssetSettings\AssetSettings.h" />
+    <ClInclude Include="Source\Engine\Components\Animation\Animator.h" />
+    <ClInclude Include="Source\Engine\Components\Collider\Collider.h" />
+    <ClInclude Include="Source\Engine\Components\Script.h" />
+    <ClInclude Include="Source\Engine\Math\Degree.h" />
+    <ClInclude Include="Source\Engine\Math\Int3.h" />
+    <ClInclude Include="Source\Engine\Math\Math.h" />
+    <ClInclude Include="Source\Engine\Prefab\PrefabFactory.h" />
+    <ClInclude Include="Source\Engine\Resource\IResource.h" />
+    <ClInclude Include="Source\Game\Scripts\Temp\SampleScript.h" />
+    <ClInclude Include="Source\Engine\Components\BlockMap\BlockObject.h" />
+    <ClInclude Include="Source\Game\Scripts\Map\BlockMapGenerator.h" />
+    <ClInclude Include="Source\Game\Scripts\Blocks\BlockObjectInfo.h" />
+    <ClInclude Include="Source\Game\Scripts\Blocks\BlockObjectInfoTable.h" />
+    <ClInclude Include="Source\Game\Scripts\Blocks\BlockId.h" />
+    <ClInclude Include="Source\Game\Scripts\Debug\Overlay.h" />
+    <ClInclude Include="Source\Game\Scripts\Blocks\BlockInfoProvider.h" />
   </ItemGroup>
 </Project>

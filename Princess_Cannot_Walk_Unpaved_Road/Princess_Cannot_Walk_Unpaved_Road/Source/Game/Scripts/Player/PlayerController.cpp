@@ -1,32 +1,27 @@
 #include "PlayerController.h"
-#include "Engine/Object/GameObject.h"
-#include "Engine/Components/Transform.h"
-#include "Engine/Input/InputManager.h"
+
 #include "Engine/Core/Debug.h"
-#include "Engine/Components/BlockMap/BlockMap.h"
-#include <iostream>
-#include "Engine/Prefab/PrefabFactory.h"
-#include "Engine/Components/SpriteRenderer.h"
+#include "Engine/Object/GameObject.h"
+#include "Engine/Input/InputManager.h"
 #include "Engine/Resource/ResourceManager.h"
+#include "Engine/Components/Transform.h"
+#include "Engine/Components/BlockMap/BlockMap.h"
+#include "Engine/Components/SpriteRenderer.h"
 #include "Engine/Components/Collider/BoxCollider.h"
 #include "Engine/Components/Animation/Animator.h"
+
+#include "Game/Scripts/Blocks/BlockInfoProvider.h"
+#include "Game/Scripts/Blocks/BlockObjectInfoTable.h"
+
+#include <iostream>
 
 namespace Bisang
 {
 	void PlayerController::Start()
 	{
-        m_transform = m_ownerObj->GetComponent<Transform>();
-        m_input = GetInputManager();
-        m_blockMap = FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
-        m_spriteRenderer = m_ownerObj->GetComponent<SpriteRenderer>();
-
-        // 콜라이더 설정
-        m_BoxCol = m_ownerObj->GetComponent<BoxCollider>();
-        m_BoxCol->SetSize({ 10.0f,21.0f });
-
-        // 애니메이터 설정
-        m_animator = m_ownerObj->GetComponent<Animator>();
-        InitializeAnimator();
+		m_transform = m_ownerObj->GetComponent<Transform>();
+		m_input = GetInputManager();
+		m_blockMap = FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
 
         //moveSpeed = 300;
         m_maxSpeed = 200.f;
@@ -37,12 +32,17 @@ namespace Bisang
         SetToStartPostion();
 
         // BlockInfoTable 참조
-        BlockObjectInfoProvider* blockObjectInfoProvider =
+        BlockObjectInfoProvider* blockObjectInfoProvider = 
             FindGameObjectByName("BlockMap")
             ->GetComponent<BlockObjectInfoProvider>();
 
         m_blockObjectInfoTable = blockObjectInfoProvider->GetTable();
-    }
+
+        m_BoxCol = m_ownerObj->GetComponent<BoxCollider>();
+        m_animator = m_ownerObj->GetComponent<Animator>();
+        m_spriteRenderer = m_ownerObj->GetComponent<SpriteRenderer>();
+        InitializeAnimator();
+	}
 
     void PlayerController::Update(float dT)
     {
@@ -217,10 +217,6 @@ namespace Bisang
         if (!CanMoveTo(center - axisX * colSize.x - axisY * colSize.y))
             return false;
 
-
-
-
-
         return true;
     }
 
@@ -249,32 +245,31 @@ namespace Bisang
             AnimationClip clip;
             clip.name = m_nameArr[i];
             clip.loop = true;
-            clip.frames.push_back({ GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_" + m_nameArr[i] + L".png") });
+            clip.frames.push_back({ GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Default/Player_" + m_nameArr[i] + L".png") });
             m_animator->AddClip(clip);
         }
 
         m_animator->Play();
     }
 
-
-    bool PlayerController::CanMoveTo(const Vector3& worldPos) const
-    {
-        Int3 blockPos;
-        if (false == m_blockMap->WorldToBlock(worldPos, blockPos, playerZ))
-        {
-            return false;
-        }
-
+	bool PlayerController::CanMoveTo(const Vector3& worldPos) const
+	{
+		Int3 blockPos;
+		if (false == m_blockMap->WorldToBlock(worldPos, blockPos, playerZ))
+		{
+			return false;
+		}
+		
         BlockObject* block;
 
-        // BlockMap에서 블럭 id 조회
-        block = m_blockMap->GetBlock(blockPos);
+		// BlockMap에서 블럭 id 조회
+		block = m_blockMap->GetBlock(blockPos);
 
         // 블럭 id로 info 조회
         BlockObjectInfo info = m_blockObjectInfoTable->Get(static_cast<BlockId>(block->id));
 
         // 벽 확인
-        if (info.isSolid) return false;
+		if (info.isSolid) return false;
 
 
         // 바닥 확인
@@ -284,15 +279,13 @@ namespace Bisang
 
         if (false == info.isSolid) return false;
 
-        return true;
-    }
+		return true;
+	}
 
-    void PlayerController::SetToStartPostion()
-    {
+	void PlayerController::SetToStartPostion()
+	{
         Int3 startBlockPos = { 15, 10, 1 };
-        Vector3 startWorldPos = m_blockMap->BlockToWorld(startBlockPos);
-        m_transform->SetPosition(startWorldPos);
-    }
-
-
+		Vector3 startWorldPos = m_blockMap->BlockToWorld(startBlockPos);
+		m_transform->SetPosition(startWorldPos);
+	}
 }

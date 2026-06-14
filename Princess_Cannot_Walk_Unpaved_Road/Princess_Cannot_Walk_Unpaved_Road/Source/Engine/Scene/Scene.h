@@ -63,7 +63,7 @@ namespace Bisang
          *
          * 초기 상태를 설정한다.
          */
-        virtual void Initialize() = 0;
+        void Initialize();
 
         /**
          * @brief 씬 종료 시 정리 작업을 수행한다.
@@ -79,16 +79,6 @@ namespace Bisang
          * 씬에 필요한 게임 오브젝트와 컴포넌트를 생성한다.
          */
         virtual void Setup() = 0;
-
-        /**
-         * @brief 씬 진입 시 호출된다.
-         */
-        virtual void OnEnter() = 0;
-
-        /**
-         * @brief 씬 종료 시 호출된다.
-         */
-        virtual void OnExit() = 0;
 
 
         //*************************************************

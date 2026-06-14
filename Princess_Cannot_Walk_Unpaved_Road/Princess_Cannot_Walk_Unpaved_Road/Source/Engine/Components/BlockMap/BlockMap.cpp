@@ -5,7 +5,6 @@
 #include "Engine/Components/Transform.h"
 #include <cassert>
 #include <cmath>
-#include "Engine/Components/BlockMap/PerlinNoise2D.h"
 #include <map>
 
 namespace Bisang
@@ -30,11 +29,13 @@ namespace Bisang
         m_height = height;
         m_depth = depth;
 
-        m_map.assign(m_width * m_height * m_depth, Block{});
-        srand(time(NULL));
-        GenerateProceduralMap(rand());
-        SetStartPosition({ m_width / 2 ,10 ,1 });
-        MakeStartZone();
+        m_map.assign(m_width * m_height * m_depth, BlockObject());
+
+ /*       SetStartPosition({ m_width / 2 ,10 ,1 });*/
+
+        //srand(time(NULL));
+        //GenerateProceduralMap(rand());
+        //MakeStartZone();
     }
 
     void BlockMap::SetBlockSize(float width, float height, float depth)
@@ -46,140 +47,6 @@ namespace Bisang
         m_blockWidth = width;
         m_blockHeight = height;
         m_blockDepth = depth;
-    }
-
-    void BlockMap::GenerateProceduralMap(unsigned int seed)
-    {
-        if (m_width <= 0 || m_depth <= 0 || m_height <= 0)
-            return;
-
-        // 일단 전체 맵 비우기
-        for (int z = 0; z < m_height; ++z)
-        {
-            for (int y = 0; y < m_depth; ++y)
-            {
-                for (int x = 0; x < m_width; ++x)
-                {
-                    //SetBlock({ x, y, z }, BlockId::Empty);
-                }
-            }
-        }
-
-        const int groundZ = 0;
-
-        const int octaveCount = 4;
-
-        const float waterScale = 0.045f;
-        const float treeScale = 0.090f;
-        const float rockScale = 0.075f;
-        const float clayScale = 0.065f;
-        const float dirtScale = 0.065f;
-
-        const float maxScale = std::max({ waterScale, treeScale, rockScale, clayScale,dirtScale });
-
-        // FractalNoise에서 frequency가 1,2,4,8로 올라가므로 grid 크기를 넉넉히 잡음
-        int noiseGridWidth = static_cast<int>(std::ceil(m_width * maxScale * 8.0f)) + 4;
-        int noiseGridDepth = static_cast<int>(std::ceil(m_depth * maxScale * 8.0f)) + 4;
-
-        noiseGridWidth = std::max(noiseGridWidth, 8);
-        noiseGridDepth = std::max(noiseGridDepth, 8);
-
-        PerlinNoise2D waterNoise(noiseGridWidth, noiseGridDepth, seed + 100);
-        PerlinNoise2D treeNoise(noiseGridWidth, noiseGridDepth, seed + 200);
-        PerlinNoise2D rockNoise(noiseGridWidth, noiseGridDepth, seed + 300);
-        PerlinNoise2D clayNoise(noiseGridWidth, noiseGridDepth, seed + 400);
-
-        for (int y = 0; y < m_depth; ++y)
-        {
-            for (int x = 0; x < m_width; ++x)
-            {
-                float water = waterNoise.FractalNoise(x * waterScale, y * waterScale, octaveCount);
-                float tree = treeNoise.FractalNoise(x * treeScale, y * treeScale, octaveCount);
-                float rock = rockNoise.FractalNoise(x * rockScale, y * rockScale, octaveCount);
-                float clay = clayNoise.FractalNoise(x * clayScale, y * clayScale, octaveCount);
-                float dirt = clayNoise.FractalNoise(x * dirtScale, y * dirtScale, octaveCount);
-
-                BlockId id = BlockId::Grass;
-
-                // 우선순위 중요
-                // Water가 먼저면 물 지역은 다른 자원으로 덮이지 않음
-                if (water > 0.55f)
-                {
-                    id = BlockId::Water;
-                }
-                else if (rock > 0.6f)
-                {
-                    id = BlockId::Rock;
-                }
-                else if (dirt > 0.5f)
-                {
-                    id = BlockId::Dirt;
-                }
-                else
-                {
-                    id = BlockId::Grass;
-                }
-
-
-                SetBlock({ x, y, groundZ }, id);
-                if (id == BlockId::Rock)
-                {
-                    SetBlock({ x, y, groundZ + 1 }, id);
-                }
-
-
-                if (tree > 0.55f && (id == BlockId::Grass || id == BlockId::Dirt))
-                {
-                    int ran = rand();
-                    if (ran % 2 == 0)
-                    {
-                        SetBlock({ x, y, groundZ + 1 }, BlockId::Tree);
-
-                    }
-                    else
-                    {
-                        SetBlock({ x, y, groundZ + 1 }, BlockId::OrcTree);
-
-                    }
-                }
-                else if (clay > 0.5f && (id == BlockId::Grass || id == BlockId::Dirt))
-                {
-                    SetBlock({ x, y, groundZ + 1 }, BlockId::Clay);
-                }
-            }
-        }
-    }
-
-    void BlockMap::MakeStartZone()
-    {
-        int centerX = m_startPosition.x;
-        int centerY = m_startPosition.y;
-
-        int radius = 7;
-
-        int left = centerX - radius;
-        int right = centerX + radius;
-        int top = centerY + radius;
-        int bottom = centerY - radius;
-
-        for (int nowX = left; nowX < right; nowX++)
-        {
-            for (int nowY = bottom; nowY < top; nowY++)
-            {
-                Vector2 v(nowX - centerX, nowY - centerY);
-                if (v.Length() < radius)
-                {
-                    SetBlock({ nowX,nowY,1 }, BlockId::Empty);
-                    Int3 pos{ nowX,nowY,0 };
-                    const Block* zeroFloorBlock = GetBlock(pos);
-                    if (zeroFloorBlock->blockId == BlockId::Water)
-                    {
-                        SetBlock({ nowX,nowY,0 }, BlockId::Grass);
-
-                    }
-                }
-            }
-        }
     }
 
     int BlockMap::Index(const Int3& pos) const
@@ -199,7 +66,7 @@ namespace Bisang
             pos.z < m_height;
     }
 
-    Block* BlockMap::GetBlock(const Int3& pos) 
+    BlockObject* BlockMap::GetBlock(const Int3& pos)
     {
         if (!InBounds(pos))
             return nullptr;
@@ -207,12 +74,12 @@ namespace Bisang
         return &m_map[Index(pos)];
     }
 
-    void BlockMap::SetBlock(const Int3& pos, BlockId id)
+    void BlockMap::SetBlock(const Int3& pos, BlockObject block)
     {
         if (!InBounds(pos))
             return;
 
-        m_map[Index(pos)].blockId = id;
+        m_map[Index(pos)] = block;
     }
 
     void BlockMap::RemoveBlock(const Int3& pos)
@@ -220,17 +87,18 @@ namespace Bisang
         if (!InBounds(pos))
             return;
 
-        m_map[Index(pos)].blockId = BlockId::Empty;
+        int index = Index(pos);
+        m_map[index].id = -1;
     }
 
     bool BlockMap::IsEmpty(const Int3& pos)
     {
-        Block* block = GetBlock(pos);
-
-        if (block == nullptr)
+        if (GetBlock(pos)->id == -1)
+        {
             return true;
-
-        return block->blockId == BlockId::Empty;
+        }
+        
+        return false;
     }
 
     Vector3 BlockMap::BlockToWorld(const Int3& pos) const
@@ -352,41 +220,12 @@ namespace Bisang
         m_axisX = Vector2::Rotate2D(m_axisX, DegToRad(m_theta));
         m_axisY = Vector2::Rotate2D(m_axisY, DegToRad(m_theta));
     }
-    void BlockMap::SetStartPosition(const Int3& pos)
-    {
-        m_startPosition = pos;
-    }
-    Int3 BlockMap::GetStartPosition() const 
-    {
-        return m_startPosition;
-    }
-
-    bool BlockMap::IsWalkableFloor(BlockId id) const
-    {
-        switch (id)
-        {
-        case Bisang::BlockId::Grass:
-        case Bisang::BlockId::Dirt:
-        case Bisang::BlockId::Rock:
-        case Bisang::BlockId::Clay:
-        case Bisang::BlockId::RailPath:
-            return true;
-        }
-        return false;
-    }
-
-    bool BlockMap::IsBlocking(BlockId id) const
-    {
-        switch (id)
-        {
-        case Bisang::BlockId::Grass:
-        case Bisang::BlockId::Dirt:
-        case Bisang::BlockId::Rock:
-        case Bisang::BlockId::Clay:
-        case Bisang::BlockId::Tree:
-        case Bisang::BlockId::OrcTree:
-            return true;
-        }
-        return false;
-    }
+    //void BlockMap::SetStartPosition(const Int3& pos)
+    //{
+    //    m_startPosition = pos;
+    //}
+    //Int3 BlockMap::GetStartPosition() const 
+    //{
+    //    return m_startPosition;
+    //}
 }
