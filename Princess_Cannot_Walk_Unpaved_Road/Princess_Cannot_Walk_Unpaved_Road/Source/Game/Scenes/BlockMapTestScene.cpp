@@ -16,6 +16,7 @@ namespace Bisang
 
 		GameObject* player = AddGameObject("Player");
 		GameObject* pickUpObj = AddGameObject("PickUpObj");
+		GameObject* princess = AddGameObject("Princess");
 		pickUpObj->SetParent(player);
 		
 		AddGameObject("DebugOverlay");

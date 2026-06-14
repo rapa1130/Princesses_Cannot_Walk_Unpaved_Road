@@ -211,6 +211,11 @@ namespace Bisang
             return std::sqrt(x * x + y * y + z * z);
         }
 
+        float Squared() const
+        {
+            return x * x + y * y + z * z;
+        }
+        
         void Normalize() 
         {
             float len = Length();

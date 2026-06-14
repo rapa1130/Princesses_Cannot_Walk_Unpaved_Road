@@ -234,7 +234,9 @@ namespace Bisang
 		return true;
 	}
 
-	void PlayerController::SetToStartPostion()
+
+
+    void PlayerController::SetToStartPostion()
 	{
         Int3 startBlockPos = { 15, 10, 1 };
 		Vector3 startWorldPos = m_blockMap->BlockToWorld(startBlockPos);

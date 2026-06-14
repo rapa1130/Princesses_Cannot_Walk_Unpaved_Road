@@ -67,6 +67,7 @@
     <ClInclude Include="Source\Engine\Core\GameApp.h" />
     <ClInclude Include="Source\Game\Prefabs\BlockMapPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\PlayerPrefab.h" />
+    <ClInclude Include="Source\Game\Prefabs\PrincessPrefab.h" />
     <ClInclude Include="Source\Game\Registry\GameRegistry.h" />
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
@@ -76,11 +77,14 @@
     <ClInclude Include="Source\Game\Scripts\Player\PickUpObject.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PlayerAnimationController.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PlayerStatus.h" />
+    <ClInclude Include="Source\Game\Scripts\Princess\PrincessAnimationController.h" />
+    <ClInclude Include="Source\Game\Scripts\Princess\PrincessController.h" />
     <ClInclude Include="Source\Game\Scripts\Temp\BlockMapTest.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockId.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockObjectInfo.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockObjectInfoTable.h" />
     <ClInclude Include="Source\Game\Scripts\Map\BlockMapGenerator.h" />
+    <ClInclude Include="Source\Game\Utility\EventBus.h" />
     <ClInclude Include="Source\Game\Utility\PerlinNoise2D.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PlayerController.h" />
   </ItemGroup>
@@ -128,6 +132,7 @@
     <ClCompile Include="Source\Engine\Windows\Window.cpp" />
     <ClCompile Include="Source\Game\Prefabs\BlockMapPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\playerPrefab.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\PrincessPrefab.cpp" />
     <ClCompile Include="Source\Game\Registry\GameRegistry.cpp" />
     <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
@@ -138,6 +143,8 @@
     <ClCompile Include="Source\Game\Scripts\Player\PickUpObject.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\PlayerAnimationController.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\PlayerStatus.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Princess\PrincessAnimationController.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Princess\PrincessController.cpp" />
     <ClCompile Include="Source\Game\Scripts\Temp\BlockMapTest.cpp" />
     <ClCompile Include="Source\Game\Scripts\Blocks\BlockObjectInfoTable.cpp" />
     <ClCompile Include="Source\Game\Scripts\Map\BlockMapGenerator.cpp" />

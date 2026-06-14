@@ -74,6 +74,8 @@ namespace Bisang
             return;
 
         m_map[Index(pos)] = blockId;
+
+        
     }
 
     void BlockMap::RemoveBlock(const Int3& pos)

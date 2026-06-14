@@ -32,7 +32,7 @@ namespace Bisang
 
         obj->AddComponent<BlockObjectInfoProvider>();
         obj->AddComponent<BlockMapGenerator>();
-        //obj->AddComponent<RailManager>();
+        obj->AddComponent<RailManager>();
 
         return obj;
     }

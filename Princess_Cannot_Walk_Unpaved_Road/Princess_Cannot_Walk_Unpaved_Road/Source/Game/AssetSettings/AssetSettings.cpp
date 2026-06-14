@@ -32,5 +32,12 @@ namespace Bisang
 		//Setting Trees' Pivot
 		resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Tree.png")->SetPivot({ 0, -10, 0 });
 		resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/OrcTree.png")->SetPivot({ 0, -10, 0 });
+
+		Vector3 princessTexPivot = { -17.5,-35,0 };
+		resourceManager->LoadTexture(L"Assets/Textures/Characters/Princess/Princess_Front.png")->SetPivot(princessTexPivot);
+		resourceManager->LoadTexture(L"Assets/Textures/Characters/Princess/Princess_Back.png")->SetPivot(princessTexPivot);
+		resourceManager->LoadTexture(L"Assets/Textures/Characters/Princess/Princess_Left.png")->SetPivot(princessTexPivot);
+		resourceManager->LoadTexture(L"Assets/Textures/Characters/Princess/Princess_Right.png")->SetPivot(princessTexPivot);
+
     }
 }
