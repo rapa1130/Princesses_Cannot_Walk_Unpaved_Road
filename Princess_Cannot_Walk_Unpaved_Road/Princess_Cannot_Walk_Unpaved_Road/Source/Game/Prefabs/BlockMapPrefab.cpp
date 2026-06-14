@@ -14,47 +14,18 @@ namespace Bisang
         std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
         obj->SetName("BlockMap");
 
-
-		Transform* bMapT = obj->GetComponent<Transform>();
-		bMapT->SetScale({ 0.5, 0.5 });
-		bMapT->SetPosition({ 100, 900, 0 });
-
+        Transform* bMapT = obj->GetComponent<Transform>();
+        bMapT->SetScale({ 0.5, 0.5 });
+        bMapT->SetPosition({ 100, 900, 0 });
 
         BlockMap* bMap = obj->AddComponent<BlockMap>();
-        bMap->InitMap(30, 3, 90);
 
-		for (int i = 0; i < 10; i++)
-		{
-			for (int ii = 0; ii < 10; ii++)
-			{
-				for (int iii = 0; iii <= 0; iii++)
-				{
-					bMap->SetBlock({ i, ii, iii }, BlockId::Grass);
-				}
-			}
-		}
-		srand(time(NULL));
+        BlockMapRenderer* bMapR = obj->AddComponent<BlockMapRenderer>();
+        bMapR->SetLayer(Layer::Iso);
+        bMapR->SetBlockMap(bMap);
 
-
-
-		BlockMapRenderer* bMapR = obj->AddComponent<BlockMapRenderer>();
-		bMapR->SetLayer(Layer::Iso);
-		bMapR->SetBlockMap(bMap);
-
-
-		std::unordered_map<int, std::shared_ptr<TextureResource>> textures =
-		{
-			{static_cast<int>(BlockId::Grass), m_resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/GrassBlock.png")},
-			{static_cast<int>(BlockId::Dirt), m_resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Dirt.png")},
-			{static_cast<int>(BlockId::Water), m_resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Water.png")},
-			{static_cast<int>(BlockId::Rock), m_resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Rock.png")},
-			{static_cast<int>(BlockId::Clay), m_resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Clay.png")},
-			{static_cast<int>(BlockId::Tree), m_resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Tree.png")},
-			{static_cast<int>(BlockId::OrcTree), m_resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/OrcTree.png")}
-		};
-		
-		bMapR->SetBlockTextures(textures);
-
+        obj->AddComponent<BlockObjectInfoProvider>();
+        obj->AddComponent<BlockMapGenerator>();
 
         return obj;
     }

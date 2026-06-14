@@ -15,38 +15,47 @@ namespace Bisang
 {
 	void PlayerController::Start()
 	{
-		
-		m_transform = m_ownerObj->GetComponent<Transform>();
-		m_input = GetInputManager();
-		m_blockMap = FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
-		SetToStartPostion();
-		m_velocity = { 0,0,0 };
-		
-		//moveSpeed = 300;
-		m_maxSpeed = 200.f;
-		m_acceleration = 3000.f;
-        m_friction = 1000.0f;
+        m_transform = m_ownerObj->GetComponent<Transform>();
+        m_input = GetInputManager();
+        m_blockMap = FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
         m_spriteRenderer = m_ownerObj->GetComponent<SpriteRenderer>();
 
-        m_BoxCol = m_ownerObj->AddComponent<BoxCollider>();
+        // 콜라이더 설정
+        m_BoxCol = m_ownerObj->GetComponent<BoxCollider>();
         m_BoxCol->SetSize({ 10.0f,21.0f });
 
-        m_animator = m_ownerObj->AddComponent<Animator>();
+        // 애니메이터 설정
+        m_animator = m_ownerObj->GetComponent<Animator>();
         InitializeAnimator();
-	}
 
-	void PlayerController::Update(float dT)
-	{
-		Move(dT);
+        //moveSpeed = 300;
+        m_maxSpeed = 200.f;
+        m_acceleration = 3000.f;
+        m_friction = 1000.0f;
+        m_velocity = { 0,0,0 };
+
+        SetToStartPostion();
+
+        // BlockInfoTable 참조
+        BlockObjectInfoProvider* blockObjectInfoProvider =
+            FindGameObjectByName("BlockMap")
+            ->GetComponent<BlockObjectInfoProvider>();
+
+        m_blockObjectInfoTable = blockObjectInfoProvider->GetTable();
+    }
+
+    void PlayerController::Update(float dT)
+    {
+        Move(dT);
         UpdateAnimation();
-	}
+    }
 
 
-	void PlayerController::FixedUpdate() {}
+    void PlayerController::FixedUpdate() {}
 
 
-	void PlayerController::Move(float dT)
-	{
+    void PlayerController::Move(float dT)
+    {
         UpdateVelocity(dT);
 
         float speed = m_velocity.Length();
@@ -111,10 +120,10 @@ namespace Bisang
             float vDotY = m_velocity.x * axisY.x + m_velocity.y * axisY.y;
             m_velocity -= axisY * vDotY;
         }
-	}
+    }
 
-	void PlayerController::UpdateVelocity(float dT)
-	{
+    void PlayerController::UpdateVelocity(float dT)
+    {
         const float stopThreshold = 0.01f;
 
         Vector3 inputDir{ 0.0f, 0.0f, 0.0f };
@@ -181,7 +190,7 @@ namespace Bisang
                 m_velocity = velocityDir * speed;
             }
         }
-	}
+    }
 
     bool PlayerController::CanMoveBoxArea(const Vector3& center)
     {
@@ -240,7 +249,7 @@ namespace Bisang
             AnimationClip clip;
             clip.name = m_nameArr[i];
             clip.loop = true;
-            clip.frames.push_back({ GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Default/Player_" + m_nameArr[i] + L".png") });
+            clip.frames.push_back({ GetResourceManager()->LoadTexture(L"Assets/Textures/Characters/Player/Player_" + m_nameArr[i] + L".png") });
             m_animator->AddClip(clip);
         }
 
@@ -248,37 +257,42 @@ namespace Bisang
     }
 
 
-	bool PlayerController::CanMoveTo(const Vector3& worldPos) const
-	{
-		Int3 blockPos;
-		if (false == m_blockMap->WorldToBlock(worldPos, blockPos, playerZ))
-		{
-			return false;
-		}
-		
-		// 바닥 확인
+    bool PlayerController::CanMoveTo(const Vector3& worldPos) const
+    {
+        Int3 blockPos;
+        if (false == m_blockMap->WorldToBlock(worldPos, blockPos, playerZ))
+        {
+            return false;
+        }
+
+        BlockObject* block;
+
+        // BlockMap에서 블럭 id 조회
+        block = m_blockMap->GetBlock(blockPos);
+
+        // 블럭 id로 info 조회
+        BlockObjectInfo info = m_blockObjectInfoTable->Get(static_cast<BlockId>(block->id));
+
+        // 벽 확인
+        if (info.isSolid) return false;
+
+
+        // 바닥 확인
         Int3 belowPos = blockPos + Int3{ 0, 0, -1 };
-		Block* block = m_blockMap->GetBlock(belowPos);
-		
-		if (block == nullptr ) return false;
-		if (m_blockMap->IsWalkableFloor(block->blockId) == false) return false;
+        block = m_blockMap->GetBlock(belowPos);
+        info = m_blockObjectInfoTable->Get(static_cast<BlockId>(block->id));
 
-		// 벽 확인
-		block = m_blockMap->GetBlock(blockPos);
+        if (false == info.isSolid) return false;
 
+        return true;
+    }
 
-		if (block == nullptr) return false;
-		if (m_blockMap->IsBlocking(block->blockId)) return false;
- 		
-		return true;
-	}
-
-	void PlayerController::SetToStartPostion()
-	{
-		Int3 startBlockPos = m_blockMap->GetStartPosition();
-		Vector3 startWorldPos = m_blockMap->BlockToWorld(startBlockPos);
-		m_transform->SetPosition(startWorldPos);
-	}
+    void PlayerController::SetToStartPostion()
+    {
+        Int3 startBlockPos = { 15, 10, 1 };
+        Vector3 startWorldPos = m_blockMap->BlockToWorld(startBlockPos);
+        m_transform->SetPosition(startWorldPos);
+    }
 
 
 }
