@@ -169,9 +169,19 @@ namespace Bisang
                 }
             }
         }
-        Int3 startPos = { width / 2, 10, objectZ };
-        MakeStartZone(startPos, 7);
-        MakeInitialRoad(startPos);
+        m_startPosition = { width / 2, 10, objectZ };
+        MakeStartZone(m_startPosition, 7);
+        MakeInitialRoad(m_startPosition);
+    }
+
+    Int3 BlockMapGenerator::GetStartPosition() const
+    {
+        return m_startPosition;
+    }
+
+    Int3 BlockMapGenerator::GetRailStartPosition() const
+    {
+        return m_startRailPosition;
     }
 
     void BlockMapGenerator::MakeStartZone(const Int3& startPosition, int radius)

@@ -9,6 +9,7 @@
 #include "Game/Scripts/Player/PlayerController.h"
 #include "Game/Scripts/Map/BlockMapGenerator.h"
 #include "Game/Scripts/Blocks/BlockInfoProvider.h"
+#include "Game/Scripts/Map/RailManager.h"
 
 #include <random>
 
@@ -31,6 +32,7 @@ namespace Bisang
 
         obj->AddComponent<BlockObjectInfoProvider>();
         obj->AddComponent<BlockMapGenerator>();
+        //obj->AddComponent<RailManager>();
 
         return obj;
     }
