@@ -1,152 +1,233 @@
 #include "BlockMapGenerator.h"
 
-#include "Engine/Components/BlockMap/BlockMap.h"
-#include "Engine/Resource/ResourceManager.h"
+#include "Engine/Object/GameObject.h"
 
-#include "Game/Scripts/Blocks/BlockId.h"
+#include "Engine/Components/BlockMap/BlockMap.h"
+#include "Engine/Components/BlockMap/BlockMapRenderer.h"
+
+#include "Game/Scripts/Blocks/BlockInfoProvider.h"
 #include "Game/Utility/PerlinNoise2D.h"
 
 #include <algorithm>
+#include <cmath>
+#include <cstdlib>
+#include <random>
 
 namespace Bisang
 {
-	void BlockMapGenerator::Generate(BlockMap* blockMap)
-	{
-		blockMap->InitMap(30, 3, 90);
-
-		for (int i = 0; i < 10; i++)
-		{
-			for (int ii = 0; ii < 10; ii++)
-			{
-				for (int iii = 0; iii <= 0; iii++)
-				{
-					Block* block = new Block(1, true, GetResourceManager()->LoadTexture(L"Assets/Textures/GrassBlock.png"));
-					blockMap->SetBlock({ i, ii, iii }, block);
-				}
-			}
-		}
-	}
-
-    void BlockMapGenerator::GenerateProceduralMap(unsigned int seed, int width, int height, int depth )
-{
-    if (width <= 0 || height <= 0 || depth <= 0)
-        return;
-
-
-    const int groundZ = 0;
-    const int octaveCount = 4;
-    const float waterScale = 0.045f;
-    const float treeScale = 0.090f;
-    const float rockScale = 0.075f;
-    const float clayScale = 0.065f;
-    const float dirtScale = 0.065f;
-
-    const float maxScale = (std::max)({ waterScale, treeScale, rockScale, clayScale,dirtScale });
-
-    // FractalNoise에서 frequency가 1,2,4,8로 올라가므로 grid 크기를 넉넉히 잡음
-    int noiseGridWidth = static_cast<int>(std::ceil(width * maxScale * 8.0f)) + 4;
-    int noiseGridDepth = static_cast<int>(std::ceil(depth * maxScale * 8.0f)) + 4;
-
-    noiseGridWidth = (std::max)(noiseGridWidth, 8);
-    noiseGridDepth = (std::max)(noiseGridDepth, 8);
-
-    PerlinNoise2D waterNoise(noiseGridWidth, noiseGridDepth, seed + 100);
-    PerlinNoise2D treeNoise(noiseGridWidth, noiseGridDepth, seed + 200);
-    PerlinNoise2D rockNoise(noiseGridWidth, noiseGridDepth, seed + 300);
-    PerlinNoise2D clayNoise(noiseGridWidth, noiseGridDepth, seed + 400);
-
-    for (int y = 0; y < depth; ++y)
+    void BlockMapGenerator::Start()
     {
-        for (int x = 0; x < width; ++x)
+        m_blockMap = m_ownerObj->GetComponent<BlockMap>();
+        GenerateProceduralMap(
+            CreateRandomSeed(),
+            30,
+            3,
+            90
+        );
+
+        BlockMapRenderer* blockMapRenderer = m_ownerObj->GetComponent<BlockMapRenderer>();
+        BlockObjectInfoProvider* blockMapInfoProvider = m_ownerObj->GetComponent<BlockObjectInfoProvider>();
+        blockMapRenderer->SetBlockObjectInfoTable(blockMapInfoProvider->GetTable());
+    }
+
+    void BlockMapGenerator::Generate()
+    {
+        if (m_blockMap == nullptr)
+            return;
+
+        m_blockMap->InitMap(30, 3, 90);
+
+        for (int x = 0; x < 10; ++x)
         {
-            float water = waterNoise.FractalNoise(x * waterScale, y * waterScale, octaveCount);
-            float tree = treeNoise.FractalNoise(x * treeScale, y * treeScale, octaveCount);
-            float rock = rockNoise.FractalNoise(x * rockScale, y * rockScale, octaveCount);
-            float clay = clayNoise.FractalNoise(x * clayScale, y * clayScale, octaveCount);
-            float dirt = clayNoise.FractalNoise(x * dirtScale, y * dirtScale, octaveCount);
-
-            BlockId id = BlockId::Grass;
-
-            // 우선순위 중요
-            // Water가 먼저면 물 지역은 다른 자원으로 덮이지 않음
-            if (water > 0.55f)
+            for (int y = 0; y < 10; ++y)
             {
-                id = BlockId::Water;
-            }
-            else if (rock > 0.6f)
-            {
-                id = BlockId::Rock;
-            }
-            else if (dirt > 0.5f)
-            {
-                id = BlockId::Dirt;
-            }
-            else
-            {
-                id = BlockId::Grass;
-            }
-
-
-            SetBlock({ x, y, groundZ }, id);
-            if (id == BlockId::Rock)
-            {
-                SetBlock({ x, y, groundZ + 1 }, id);
-            }
-
-
-            if (tree > 0.55f && (id == BlockId::Grass || id == BlockId::Dirt))
-            {
-                int ran = rand();
-                if (ran % 2 == 0)
-                {
-                    SetBlock({ x, y, groundZ + 1 }, BlockId::Tree);
-
-                }
-                else
-                {
-                    SetBlock({ x, y, groundZ + 1 }, BlockId::OrcTree);
-
-                }
-            }
-            else if (clay > 0.5f && (id == BlockId::Grass || id == BlockId::Dirt))
-            {
-                SetBlock({ x, y, groundZ + 1 }, BlockId::Clay);
+                m_blockMap->SetBlock({ x, y, 0 }, MakeBlock(BlockId::Grass));
             }
         }
     }
-}
 
-void BlockMap::MakeStartZone()
-{
-    int centerX = m_startPosition.x;
-    int centerY = m_startPosition.y;
-
-    int radius = 7;
-
-    int left = centerX - radius;
-    int right = centerX + radius;
-    int top = centerY + radius;
-    int bottom = centerY - radius;
-
-    for (int nowX = left; nowX < right; nowX++)
+    void BlockMapGenerator::GenerateProceduralMap(
+        unsigned int seed,
+        int width,
+        int height,
+        int depth)
     {
-        for (int nowY = bottom; nowY < top; nowY++)
-        {
-            Vector2 v(nowX - centerX, nowY - centerY);
-            if (v.Length() < radius)
-            {
-                SetBlock({ nowX,nowY,1 }, BlockId::Empty);
-                Int3 pos{ nowX,nowY,0 };
-                const Block* zeroFloorBlock = GetBlock(pos);
-                if (zeroFloorBlock->blockId == BlockId::Water)
-                {
-                    SetBlock({ nowX,nowY,0 }, BlockId::Grass);
+        if (m_blockMap == nullptr)
+            return;
 
+        if (width <= 0 || height <= 0 || depth <= 0)
+            return;
+
+        m_blockMap->InitMap(width, height, depth);
+
+        const int groundZ = 0;
+        const int objectZ = 1;
+
+        const int octaveCount = 4;
+
+
+        const float waterScale = 0.045f;
+        const float treeScale = 0.090f;
+        const float rockScale = 0.075f;
+        const float clayScale = 0.065f;
+        const float dirtScale = 0.065f;
+
+        const float maxScale = (std::max)({
+            waterScale,
+            treeScale,
+            rockScale,
+            clayScale,
+            dirtScale
+            });
+
+        int noiseGridWidth =
+            static_cast<int>(std::ceil(width * maxScale * 8.0f)) + 4;
+
+        int noiseGridDepth =
+            static_cast<int>(std::ceil(depth * maxScale * 8.0f)) + 4;
+
+        noiseGridWidth = (std::max)(noiseGridWidth, 8);
+        noiseGridDepth = (std::max)(noiseGridDepth, 8);
+
+        PerlinNoise2D waterNoise(noiseGridWidth, noiseGridDepth, seed + 100);
+        PerlinNoise2D treeNoise(noiseGridWidth, noiseGridDepth, seed + 200);
+        PerlinNoise2D rockNoise(noiseGridWidth, noiseGridDepth, seed + 300);
+        PerlinNoise2D clayNoise(noiseGridWidth, noiseGridDepth, seed + 400);
+        PerlinNoise2D dirtNoise(noiseGridWidth, noiseGridDepth, seed + 500);
+
+        for (int y = 0; y < depth; ++y)
+        {
+            for (int x = 0; x < width; ++x)
+            {
+                float water = waterNoise.FractalNoise(
+                    x * waterScale,
+                    y * waterScale,
+                    octaveCount);
+
+                float tree = treeNoise.FractalNoise(
+                    x * treeScale,
+                    y * treeScale,
+                    octaveCount);
+
+                float rock = rockNoise.FractalNoise(
+                    x * rockScale,
+                    y * rockScale,
+                    octaveCount);
+
+                float clay = clayNoise.FractalNoise(
+                    x * clayScale,
+                    y * clayScale,
+                    octaveCount);
+
+                float dirt = dirtNoise.FractalNoise(
+                    x * dirtScale,
+                    y * dirtScale,
+                    octaveCount);
+
+                BlockId groundId = BlockId::Grass;
+
+                if (water > 0.55f)
+                {
+                    groundId = BlockId::Water;
+                }
+                else if (dirt > 0.5f)
+                {
+                    groundId = BlockId::Dirt;
+                }
+
+                m_blockMap->SetBlock(
+                    { x, y, groundZ },
+                    MakeBlock(groundId));
+
+                if (groundId == BlockId::Water)
+                    continue;
+
+                if (rock > 0.6f)
+                {
+                    m_blockMap->SetBlock(
+                        { x, y, objectZ },
+                        MakeBlock(BlockId::Rock));
+                }
+                else if (tree > 0.55f &&
+                    (groundId == BlockId::Grass || groundId == BlockId::Dirt))
+                {
+                    BlockId treeId =
+                        (std::rand() % 2 == 0)
+                        ? BlockId::Tree
+                        : BlockId::OrcTree;
+
+                    m_blockMap->SetBlock(
+                        { x, y, objectZ },
+                        MakeBlock(treeId));
+                }
+                else if (clay > 0.5f &&
+                    (groundId == BlockId::Grass || groundId == BlockId::Dirt))
+                {
+                    m_blockMap->SetBlock(
+                        { x, y, objectZ },
+                        MakeBlock(BlockId::Clay));
+                }
+            }
+        }
+
+        MakeStartZone({ width / 2, 10, objectZ }, 7);
+    }
+
+    void BlockMapGenerator::MakeStartZone(const Int3& startPosition, int radius)
+    {
+        if (m_blockMap == nullptr)
+            return;
+
+        if (radius <= 0)
+            return;
+
+        int centerX = startPosition.x;
+        int centerY = startPosition.y;
+
+        int left = centerX - radius;
+        int right = centerX + radius;
+        int top = centerY + radius;
+        int bottom = centerY - radius;
+
+        int radiusSquared = radius * radius;
+
+        for (int nowX = left; nowX < right; nowX++)
+        {
+            for (int nowY = bottom; nowY < top; nowY++)
+            {
+                int dx = nowX - centerX;
+                int dy = nowY - centerY;
+
+                if (dx * dx + dy * dy >= radiusSquared)
+                    continue;
+
+                Int3 objectPos{ nowX, nowY, startPosition.z };
+                if (m_blockMap->InBounds(objectPos))
+                {
+                    m_blockMap->RemoveBlock(objectPos);
+                }
+
+                Int3 groundPos{ nowX, nowY, 0 };
+                BlockObject* zeroFloorBlock = m_blockMap->GetBlock(groundPos);
+                if (zeroFloorBlock != nullptr &&
+                    zeroFloorBlock->id == static_cast<int>(BlockId::Water))
+                {
+                    m_blockMap->SetBlock(groundPos, MakeBlock(BlockId::Grass));
                 }
             }
         }
     }
-}
 
+    BlockObject BlockMapGenerator::MakeBlock(BlockId id) const
+    {
+        BlockObject block;
+        block.id = static_cast<int>(id);
+        return block;
+    }
 
+    unsigned int BlockMapGenerator::CreateRandomSeed() const
+    {
+        std::random_device rd;
+        return rd();
+    }
 }

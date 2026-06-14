@@ -1,11 +1,16 @@
 #include "Game/Prefabs/BlockMapPrefab.h"
+
 #include "Engine/Components/Transform.h"
 #include "Engine/Components/BlockMap/BlockMap.h"
 #include "Engine/Components/BlockMap/BlockMapRenderer.h"
 #include "Engine/Resource/ResourceManager.h"
 #include "Engine/Core/Layer.h"
+
+#include "Game/Scripts/Player/PlayerController.h"
+#include "Game/Scripts/Map/BlockMapGenerator.h"
+#include "Game/Scripts/Blocks/BlockInfoProvider.h"
+
 #include <random>
-#include "Game/Scripts/PlayerController.h"
 
 namespace Bisang
 {
@@ -20,11 +25,12 @@ namespace Bisang
 
         BlockMap* bMap = obj->AddComponent<BlockMap>();
 
-		srand(time(NULL));
-
 		BlockMapRenderer* bMapR = obj->AddComponent<BlockMapRenderer>();
 		bMapR->SetLayer(Layer::Iso);
 		bMapR->SetBlockMap(bMap);
+
+        obj->AddComponent<BlockObjectInfoProvider>();
+        obj->AddComponent<BlockMapGenerator>();
 
         return obj;
     }

@@ -12,6 +12,7 @@ namespace Bisang
 	class SpriteRenderer;
 	class BoxCollider;
 	class Animator;
+	class BlockObjectInfoTable;
 
 	class PlayerController : public Script
 	{
@@ -35,6 +36,7 @@ namespace Bisang
 		void InitializeAnimator();
 
 	private:
+		BlockObjectInfoTable* m_blockObjectInfoTable;
 		Transform* m_transform = nullptr;
 		InputManager* m_input = nullptr;
 		BlockMap* m_blockMap = nullptr;

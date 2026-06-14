@@ -10,11 +10,8 @@ namespace Bisang
 		{
 		}
 
-		void Initialize() override;
 		void Finalize() override;
 		void Setup() override;
-		void OnEnter() override;
-		void OnExit() override;
 
 	private:
 		GameObject* m_player = nullptr;

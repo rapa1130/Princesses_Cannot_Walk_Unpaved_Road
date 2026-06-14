@@ -6,12 +6,6 @@
 
 namespace Bisang
 {
-	void BlockMapTestScene::Initialize()
-	{
-		// 씬 진입 시 초기화 작업을 수행 ( 메모리, 리소스 등 )
-		DEBUG_LOG("Initialize SamepleScene \n");
-	}
-
 	void BlockMapTestScene::Setup()
 	{
 		// 씬에 필요한 게임오브젝트와 컴포넌트 생성
@@ -20,19 +14,6 @@ namespace Bisang
 		AddGameObject("Player");
 		AddGameObject("BlockMap");
 		AddGameObject("DebugOverlay");
-
-	}
-
-	void BlockMapTestScene::OnEnter()
-	{
-		// 씬 진입 시 호출 / 게임 로직에 사용
-		DEBUG_LOG("OnEnter SamepleScene \n");
-	}
-
-	void BlockMapTestScene::OnExit()
-	{
-		// 씬 종료 시 호출 / 게임 로직에 사용
-		DEBUG_LOG("OnEnter On Exit \n");
 
 	}
 

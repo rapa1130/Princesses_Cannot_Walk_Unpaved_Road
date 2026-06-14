@@ -20,6 +20,24 @@ namespace Bisang
 	Scene::~Scene() = default;
 
 	//*************************************************
+	// 생명주기
+	//************************************************* 
+
+	void Scene::Initialize()
+	{
+		// 게임 오브젝트 순회
+		for (const auto& it : m_gameObjects)
+		{
+			// 오브젝트 소유 컴포넌트 순회
+			for (const auto& jt : it.second->GetComponents())
+			{
+				Component* comp = jt.second.get();
+				comp->Awake();
+			}
+		}
+	}
+
+	//*************************************************
 	// 업데이트
 	//************************************************* 
 

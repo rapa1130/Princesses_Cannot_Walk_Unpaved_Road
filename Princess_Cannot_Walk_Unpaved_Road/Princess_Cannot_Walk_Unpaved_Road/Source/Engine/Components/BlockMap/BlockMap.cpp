@@ -29,7 +29,7 @@ namespace Bisang
         m_height = height;
         m_depth = depth;
 
-        m_map.assign(m_width * m_height * m_depth, nullptr);
+        m_map.assign(m_width * m_height * m_depth, BlockObject());
 
  /*       SetStartPosition({ m_width / 2 ,10 ,1 });*/
 
@@ -66,15 +66,15 @@ namespace Bisang
             pos.z < m_height;
     }
 
-    Block* BlockMap::GetBlock(const Int3& pos) 
+    BlockObject* BlockMap::GetBlock(const Int3& pos)
     {
         if (!InBounds(pos))
             return nullptr;
 
-        return m_map[Index(pos)];
+        return &m_map[Index(pos)];
     }
 
-    void BlockMap::SetBlock(const Int3& pos, Block* block)
+    void BlockMap::SetBlock(const Int3& pos, BlockObject block)
     {
         if (!InBounds(pos))
             return;
@@ -88,16 +88,15 @@ namespace Bisang
             return;
 
         int index = Index(pos);
-        delete m_map[index];
-        m_map[index] = nullptr;
+        m_map[index].id = -1;
     }
 
     bool BlockMap::IsEmpty(const Int3& pos)
     {
-        Block* block = GetBlock(pos);
-
-        if (block == nullptr)
+        if (GetBlock(pos)->id == -1)
+        {
             return true;
+        }
         
         return false;
     }

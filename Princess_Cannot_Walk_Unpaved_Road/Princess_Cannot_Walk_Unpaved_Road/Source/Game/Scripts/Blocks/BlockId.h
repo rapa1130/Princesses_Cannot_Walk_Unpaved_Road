@@ -1,16 +1,16 @@
 #pragma once
-
 namespace Bisang
 {
-	enum class BlockId
-	{
-		Grass,
-		Dirt,
-		Water,
-		Rock,
-		Clay,
-		Tree,
-		OrcTree,
-		RailPath
-	};
+    enum class BlockId
+    {
+        Empty = -1,
+        Grass,
+        Dirt,
+        Water,
+        Rock,
+        Clay,
+        Tree,
+        OrcTree,
+        RailPath
+    };
 }

@@ -1,12 +1,14 @@
 #pragma once
 
 #include "Engine/Components/Component.h"
-#include "Engine/Components/BlockMap/Block.h"
+#include "Engine/Components/BlockMap/BlockObject.h"
 #include "Engine/Math/Vector.h"
 #include "Engine/Math/Int3.h"
 
 #include <vector>
-#include<map>
+#include <map>
+#include <memory>
+
 namespace Bisang
 {
     class BlockMap : public Component
@@ -17,8 +19,6 @@ namespace Bisang
     public:
         void InitMap(int width, int height, int depth);
         void SetBlockSize(float width, float height, float depth);
-        //void GenerateProceduralMap(unsigned int seed);
-        //void MakeStartZone();
 
         int Index(const Int3& pos) const;
         bool InBounds(const Int3& pos) const;
@@ -31,8 +31,8 @@ namespace Bisang
         float GetBlockHeight() const { return m_blockHeight; }
         float GetBlockDepth() const { return m_blockDepth; }
 
-        Block* GetBlock(const Int3& pos);
-        void SetBlock(const Int3& pos, Block* block);
+        BlockObject* GetBlock(const Int3& pos);
+        void SetBlock(const Int3& pos, BlockObject block);
 
         void RemoveBlock(const Int3& pos);
 
@@ -51,8 +51,10 @@ namespace Bisang
         const Vector2& GetAxisY() const { return m_axisY; }
         const Vector2& GetAxisZ() const { return m_axisZ; }
 
-        void SetStartPosition(const Int3& pos);
-        Int3 GetStartPosition() const;
+        //void SetStartPosition(const Int3& pos);
+        //Int3 GetStartPosition() const;
+        //void GenerateProceduralMap(unsigned int seed);
+        //void MakeStartZone();
 
     private:
 
@@ -66,7 +68,7 @@ namespace Bisang
                   가로x
         */
 
-        std::vector<Block*> m_map;
+        std::vector<BlockObject> m_map;
 
         int m_width = 1;   // x축, 가로 블럭 개수
         int m_height = 1;  // z축, 높이 블럭 개수
@@ -84,7 +86,7 @@ namespace Bisang
         Vector2 m_axisY;
         Vector2 m_axisZ;
 
-        Int3 m_startPosition;
+        //Int3 m_startPosition;
 
     };
 }

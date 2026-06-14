@@ -5,6 +5,8 @@
 #include "Engine/Components/Transform.h"
 #include "Engine/Resource/TextureResource.h"
 
+#include "Game/Scripts/Blocks/BlockObjectInfoTable.h"
+
 #include <algorithm>
 
 namespace Bisang
@@ -47,19 +49,18 @@ namespace Bisang
                     pos.y = y;
                     pos.z = z;
 
-                    Block* block = m_blockMap->GetBlock(pos);
+                    BlockObject* block = m_blockMap->GetBlock(pos);
 
                     // 맵 범위를 벗어났거나 블록 데이터가 없는 경우
-                    if (block == nullptr)
-                        continue;
-
+                    if (block->id == -1) continue;
+                    
+                    int id = block->id;
 
                     RenderBlock renderBlock;
-
                     renderBlock.pos = pos;
-                    renderBlock.id = block->GetId();
+                    renderBlock.id = id;
                     renderBlock.worldPos = m_blockMap->BlockToWorld(pos);
-                    renderBlock.texture = block->GetTextureResource();
+                    renderBlock.texture = m_blockObjectInfoTable->Get(BlockId(id)).texture.get();
 
                     m_renderBlocks.push_back(renderBlock);
                 }

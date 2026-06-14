@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Components\Animation\Animator.h" />
-    <ClInclude Include="Source\Engine\Components\BlockMap\Block.h" />
+    <ClInclude Include="Source\Engine\Components\BlockMap\BlockObject.h" />
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockMap.h" />
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockMapRenderer.h" />
     <ClInclude Include="Source\Engine\Components\Collider\BoxCollider.h" />
@@ -70,15 +70,15 @@
     <ClInclude Include="Source\Game\Registry\GameRegistry.h" />
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
-    <ClInclude Include="Source\Game\Scripts\BlockMapTest.h" />
+    <ClInclude Include="Source\Game\Scripts\Blocks\BlockInfoProvider.h" />
+    <ClInclude Include="Source\Game\Scripts\Debug\Overlay.h" />
+    <ClInclude Include="Source\Game\Scripts\Temp\BlockMapTest.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockId.h" />
+    <ClInclude Include="Source\Game\Scripts\Blocks\BlockObjectInfo.h" />
+    <ClInclude Include="Source\Game\Scripts\Blocks\BlockObjectInfoTable.h" />
     <ClInclude Include="Source\Game\Scripts\Map\BlockMapGenerator.h" />
     <ClInclude Include="Source\Game\Utility\PerlinNoise2D.h" />
-    <ClInclude Include="Source\Game\Scripts\Blocks\IPickable.h" />
-    <ClInclude Include="Source\Game\Scripts\Blocks\Itool.h" />
-    <ClInclude Include="Source\Game\Scripts\Blocks\MineableBlock.h" />
-    <ClInclude Include="Source\Game\Scripts\Overlay.h" />
-    <ClInclude Include="Source\Game\Scripts\PlayerController.h" />
+    <ClInclude Include="Source\Game\Scripts\Player\PlayerController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine\Components\Animation\Animator.cpp" />
@@ -127,12 +127,13 @@
     <ClCompile Include="Source\Game\Registry\GameRegistry.cpp" />
     <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
-    <ClCompile Include="Source\Game\Scripts\BlockMapTest.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Debug\Overlay.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Temp\BlockMapTest.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Blocks\BlockObjectInfoTable.cpp" />
     <ClCompile Include="Source\Game\Scripts\Map\BlockMapGenerator.cpp" />
-    <ClCompile Include="Source\Game\Scripts\Overlay.cpp" />
-    <ClCompile Include="Source\Game\Scripts\PlayerController.cpp" />
-    <ClCompile Include="Source\Game\Scripts\SampleScript.cpp" />
-    <ClInclude Include="Source\Game\Scripts\SampleScript.h" />
+    <ClCompile Include="Source\Game\Scripts\Player\PlayerController.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Temp\SampleScript.cpp" />
+    <ClInclude Include="Source\Game\Scripts\Temp\SampleScript.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

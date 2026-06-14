@@ -1,38 +1,51 @@
 #include "PlayerController.h"
-#include "Engine/Object/GameObject.h"
-#include "Engine/Components/Transform.h"
-#include "Engine/Input/InputManager.h"
+
 #include "Engine/Core/Debug.h"
-#include "Engine/Components/BlockMap/BlockMap.h"
-#include <iostream>
-#include "Engine/Prefab/PrefabFactory.h"
-#include "Engine/Components/SpriteRenderer.h"
+#include "Engine/Object/GameObject.h"
+#include "Engine/Input/InputManager.h"
 #include "Engine/Resource/ResourceManager.h"
+#include "Engine/Components/Transform.h"
+#include "Engine/Components/BlockMap/BlockMap.h"
+#include "Engine/Components/SpriteRenderer.h"
 #include "Engine/Components/Collider/BoxCollider.h"
 #include "Engine/Components/Animation/Animator.h"
+
+#include "Game/Scripts/Blocks/BlockInfoProvider.h"
+#include "Game/Scripts/Blocks/BlockObjectInfoTable.h"
+
+#include <iostream>
 
 namespace Bisang
 {
 	void PlayerController::Start()
 	{
-		
 		m_transform = m_ownerObj->GetComponent<Transform>();
 		m_input = GetInputManager();
 		m_blockMap = FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
-		SetToStartPostion();
-		m_velocity = { 0,0,0 };
-		
-		//moveSpeed = 300;
-		m_maxSpeed = 200.f;
-		m_acceleration = 3000.f;
-        m_friction = 1000.0f;
         m_spriteRenderer = m_ownerObj->GetComponent<SpriteRenderer>();
 
-        m_BoxCol = m_ownerObj->AddComponent<BoxCollider>();
+        // 콜라이더 설정
+        m_BoxCol = m_ownerObj->GetComponent<BoxCollider>();
         m_BoxCol->SetSize({ 10.0f,21.0f });
 
-        m_animator = m_ownerObj->AddComponent<Animator>();
+        // 애니메이터 설정
+        m_animator = m_ownerObj->GetComponent<Animator>();
         InitializeAnimator();
+
+        //moveSpeed = 300;
+        m_maxSpeed = 200.f;
+        m_acceleration = 3000.f;
+        m_friction = 1000.0f;
+        m_velocity = { 0,0,0 };
+
+        SetToStartPostion();
+
+        // BlockInfoTable 참조
+        BlockObjectInfoProvider* blockObjectInfoProvider = 
+            FindGameObjectByName("BlockMap")
+            ->GetComponent<BlockObjectInfoProvider>();
+
+        m_blockObjectInfoTable = blockObjectInfoProvider->GetTable();
 	}
 
 	void PlayerController::Update(float dT)
@@ -256,26 +269,32 @@ namespace Bisang
 			return false;
 		}
 		
-        Block* block;
+        BlockObject* block;
 
-		// 벽 확인
+		// BlockMap에서 블럭 id 조회
 		block = m_blockMap->GetBlock(blockPos);
-		if (block == nullptr || false == block->GetIsSolid()) return false;
+
+        // 블럭 id로 info 조회
+        BlockObjectInfo info = m_blockObjectInfoTable->Get(static_cast<BlockId>(block->id));
+
+        // 벽 확인
+		if (info.isSolid) return false;
+
 
         // 바닥 확인
         Int3 belowPos = blockPos + Int3{ 0, 0, -1 };
         block = m_blockMap->GetBlock(belowPos);
-        if (block == nullptr || false == block->GetIsSolid()) return false;
- 		
+        info = m_blockObjectInfoTable->Get(static_cast<BlockId>(block->id));
+
+        if (false == info.isSolid) return false;
+
 		return true;
 	}
 
 	void PlayerController::SetToStartPostion()
 	{
-		Int3 startBlockPos = m_blockMap->GetStartPosition();
+        Int3 startBlockPos = { 15, 10, 1 };
 		Vector3 startWorldPos = m_blockMap->BlockToWorld(startBlockPos);
 		m_transform->SetPosition(startWorldPos);
 	}
-
-
 }
