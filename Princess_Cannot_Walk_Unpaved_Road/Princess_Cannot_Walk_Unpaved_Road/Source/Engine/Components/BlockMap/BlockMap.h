@@ -31,8 +31,8 @@ namespace Bisang
         float GetBlockHeight() const { return m_blockHeight; }
         float GetBlockDepth() const { return m_blockDepth; }
 
-        BlockObject* GetBlock(const Int3& pos);
-        void SetBlock(const Int3& pos, BlockObject block);
+        int GetBlock(const Int3& pos);
+        void SetBlock(const Int3& pos, int blockId);
 
         void RemoveBlock(const Int3& pos);
 
@@ -51,10 +51,6 @@ namespace Bisang
         const Vector2& GetAxisY() const { return m_axisY; }
         const Vector2& GetAxisZ() const { return m_axisZ; }
 
-        //void SetStartPosition(const Int3& pos);
-        //Int3 GetStartPosition() const;
-        //void GenerateProceduralMap(unsigned int seed);
-        //void MakeStartZone();
 
     private:
 
@@ -68,7 +64,7 @@ namespace Bisang
                   가로x
         */
 
-        std::vector<BlockObject> m_map;
+        std::vector<int> m_map;
 
         int m_width = 1;   // x축, 가로 블럭 개수
         int m_height = 1;  // z축, 높이 블럭 개수
@@ -85,8 +81,5 @@ namespace Bisang
         Vector2 m_axisX;
         Vector2 m_axisY;
         Vector2 m_axisZ;
-
-        //Int3 m_startPosition;
-
     };
 }

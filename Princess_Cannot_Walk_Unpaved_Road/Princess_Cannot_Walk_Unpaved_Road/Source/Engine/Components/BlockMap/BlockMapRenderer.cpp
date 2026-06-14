@@ -49,12 +49,12 @@ namespace Bisang
                     pos.y = y;
                     pos.z = z;
 
-                    BlockObject* block = m_blockMap->GetBlock(pos);
+                    int block = m_blockMap->GetBlock(pos);
 
                     // 맵 범위를 벗어났거나 블록 데이터가 없는 경우
-                    if (block->id == -1) continue;
+                    if (block == -1) continue;
                     
-                    int id = block->id;
+                    int id = block;
 
                     RenderBlock renderBlock;
                     renderBlock.pos = pos;

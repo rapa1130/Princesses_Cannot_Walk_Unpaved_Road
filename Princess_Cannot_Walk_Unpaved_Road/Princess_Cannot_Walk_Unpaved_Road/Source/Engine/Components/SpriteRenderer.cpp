@@ -26,6 +26,12 @@ namespace Bisang
 
 	void SpriteRenderer::SetSprite(std::shared_ptr<TextureResource> sprite)
 	{
+		if (sprite == nullptr)
+		{
+			m_sprite = nullptr;
+			return;
+		}
+
 		// 리소스 세팅
 		m_sprite = std::shared_ptr<TextureResource>(sprite);
 		m_width = sprite->GetBitmap()->GetSize().width;
@@ -38,9 +44,9 @@ namespace Bisang
 
 		RenderCommand rc = RenderCommand::CreateSpriteRC(
 			GetLayer(),
-			m_transform->GetPosition(),
+			m_transform->GetWorldPosition(),
 			m_sprite.get(),
-			m_transform->GetPosition() + m_sprite->GetPivot(),
+			m_transform->GetWorldPosition() + m_sprite->GetPivot(),
 			Vector2(GetWidth(), GetHeight()),
 			m_transform->GetRotation(),
 			m_alpha

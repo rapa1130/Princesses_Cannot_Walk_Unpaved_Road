@@ -14,23 +14,19 @@ namespace Bisang
 	public:
 		PlayerStatus(GameObject* ownerObj) : Script(ownerObj) {}
 
-		void EquipTool(ToolType tool, std::shared_ptr<TextureResource> texture)
+		void PickUp(BlockId bObj)
 		{
-			m_equippedTool = tool;
-			m_toolTexture = texture;
+			m_heldBlockObj = bObj;
 		}
 
-		void UnequipTool()
+		void PutDown()
 		{
-			m_equippedTool = ToolType::None;
-			m_toolTexture = nullptr;
+			m_heldBlockObj = BlockId::Empty;
 		}
 
-		ToolType GetToolType() { return m_equippedTool; }
-		std::shared_ptr<TextureResource> GetToolTexture() { return m_toolTexture; }
+		BlockId GetHeldBlockObj() { return m_heldBlockObj; }
 
 	private:
-		ToolType m_equippedTool = ToolType::None;
-		std::shared_ptr<TextureResource> m_toolTexture;
+		BlockId m_heldBlockObj = BlockId::Empty;
 	};
 }

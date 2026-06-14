@@ -10,6 +10,8 @@
 
 #include "Game/Scripts/Player/PlayerController.h"
 #include "Game/Scripts/Player/PlayerAnimationController.h"
+#include "Game/Scripts/Player/PlayerStatus.h"
+#include "Game/Scripts/Player/PickUpObject.h"
 
 #include <iostream>
 
@@ -17,25 +19,43 @@ namespace Bisang
 {
     std::unique_ptr<GameObject> PlayerPrefab::Instantiate()
     {
-        std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
-        obj->SetName("Player");
+        std::unique_ptr<GameObject> player = std::make_unique<GameObject>();
+        player->SetName("Player");
 
-        auto* tf = obj->GetComponent<Transform>();
+        auto* tf = player->GetComponent<Transform>();
         tf->SetScale({ 0.7f, 0.7f });
         tf->SetPosition({ 400, 400, 1 });
 
-        auto* sr = obj->AddComponent<SpriteRenderer>();
+        auto* sr = player->AddComponent<SpriteRenderer>();
         sr->SetLayer(Layer::Iso);
         sr->SetSprite(m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Player/Default/Player_Front.png"));
 
-        auto* bc = obj->AddComponent<BoxCollider>();
+        auto* bc = player->AddComponent<BoxCollider>();
         bc->SetSize({ 10.0f,21.0f });
 
-        auto* animator = obj->AddComponent<Animator>();
+        auto* animator = player->AddComponent<Animator>();
 
-        obj->AddComponent<PlayerController>();
-        obj->AddComponent<PlayerAnimationController>();
+        player->AddComponent<PlayerController>();
+        player->AddComponent<PlayerAnimationController>();
+        player->AddComponent<PlayerStatus>();
 
-        return obj;
+        return player;
+    }
+
+    std::unique_ptr<GameObject> PickUpObjPrefab::Instantiate()
+    {
+        std::unique_ptr<GameObject> pickUpObj = std::make_unique<GameObject>();
+        pickUpObj->SetName("PickUpObj");
+
+        auto* tf = pickUpObj->GetComponent<Transform>();
+        tf->SetPosition({ 0, -40, 1 });
+        tf->SetScale({ 0.5, 0.5 });
+
+        auto* sr = pickUpObj->AddComponent<SpriteRenderer>();
+        sr->SetLayer(Layer::Iso);
+
+        pickUpObj->AddComponent<PickUpObject>();
+#
+        return pickUpObj;
     }
 }

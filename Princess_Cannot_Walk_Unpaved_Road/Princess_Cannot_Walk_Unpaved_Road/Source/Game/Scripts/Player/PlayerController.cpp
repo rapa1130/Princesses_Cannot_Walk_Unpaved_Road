@@ -12,6 +12,7 @@
 
 #include "Game/Scripts/Blocks/BlockInfoProvider.h"
 #include "Game/Scripts/Blocks/BlockObjectInfoTable.h"
+#include "Game/Scripts/Player/PlayerStatus.h"
 
 #include <iostream>
 
@@ -19,17 +20,12 @@ namespace Bisang
 {
 	void PlayerController::Start()
 	{
+        m_input = GetInputManager();
 		m_transform = m_ownerObj->GetComponent<Transform>();
-		m_input = GetInputManager();
 		m_blockMap = FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
-
-        //moveSpeed = 300;
-        m_maxSpeed = 200.f;
-        m_acceleration = 3000.f;
-        m_friction = 1000.0f;
-        m_velocity = { 0,0,0 };
-
-        SetToStartPostion();
+        m_BoxCol = m_ownerObj->GetComponent<BoxCollider>();
+        m_spriteRenderer = m_ownerObj->GetComponent<SpriteRenderer>();
+        m_playerStatus = m_ownerObj->GetComponent<PlayerStatus>();
 
         // BlockInfoTable 참조
         BlockObjectInfoProvider* blockObjectInfoProvider = 
@@ -38,18 +34,19 @@ namespace Bisang
 
         m_blockObjectInfoTable = blockObjectInfoProvider->GetTable();
 
-        m_BoxCol = m_ownerObj->GetComponent<BoxCollider>();
-        m_spriteRenderer = m_ownerObj->GetComponent<SpriteRenderer>();
-
+        SetToStartPostion();
 	}
 
     void PlayerController::Update(float dT)
     {
         Move(dT);
+        Interact();
     }
 
-    void PlayerController::FixedUpdate() {}
 
+    //*************************************************
+    // 이동
+    //************************************************* 
 
     void PlayerController::Move(float dT)
     {
@@ -149,16 +146,6 @@ namespace Bisang
             inputDir += Vector3(axis.x, axis.y, 0.0f);
         }
 
-        if (m_input->IsKeyPressed(KeyCode::Space))
-        {
-            Instantiate("Player");
-        }
-
-        if (m_input->IsKeyPressed(KeyCode::Backspace))
-        {
-            Destory(FindGameObjectByName("Player"));
-        }
-
         bool hasInput = inputDir.Length() > 0.0f;
 
         if (hasInput)
@@ -225,13 +212,13 @@ namespace Bisang
 			return false;
 		}
 		
-        BlockObject* block;
+        int block;
 
 		// BlockMap에서 블럭 id 조회
 		block = m_blockMap->GetBlock(blockPos);
 
         // 블럭 id로 info 조회
-        BlockObjectInfo info = m_blockObjectInfoTable->Get(static_cast<BlockId>(block->id));
+        BlockObjectInfo info = m_blockObjectInfoTable->Get(static_cast<BlockId>(block));
 
         // 벽 확인
 		if (info.isSolid) return false;
@@ -240,7 +227,7 @@ namespace Bisang
         // 바닥 확인
         Int3 belowPos = blockPos + Int3{ 0, 0, -1 };
         block = m_blockMap->GetBlock(belowPos);
-        info = m_blockObjectInfoTable->Get(static_cast<BlockId>(block->id));
+        info = m_blockObjectInfoTable->Get(static_cast<BlockId>(block));
 
         if (false == info.isSolid) return false;
 
@@ -253,4 +240,68 @@ namespace Bisang
 		Vector3 startWorldPos = m_blockMap->BlockToWorld(startBlockPos);
 		m_transform->SetPosition(startWorldPos);
 	}
+
+    //*************************************************
+    // 상호작용
+    //************************************************* 
+
+    void PlayerController::Interact()
+    {
+        if (false == m_input->IsKeyPressed(KeyCode::Space)) return;
+
+        // 월드 -> 블럭맵 좌표 변환
+        Vector3 vCurrentPos = m_transform->GetPosition();
+        Int3 currentPos;
+        if (false == m_blockMap->WorldToBlock(vCurrentPos, currentPos, playerZ))
+        {
+            return;
+        }
+
+        // 현재 위치 블럭 오브젝트 조회
+        int bObj = m_blockMap->GetBlock(currentPos);   
+        BlockObjectInfo info = m_blockObjectInfoTable->Get(static_cast<BlockId>(bObj));
+
+
+        // 도구면 착용
+        if (info.kind == BlockObjectKind::Tool)
+        {
+            // 현재 손에 들고 있는 오브젝트 검사
+            BlockId heldBObj = m_playerStatus->GetHeldBlockObj();
+            
+            // 착용
+            m_playerStatus->PickUp(info.id);
+
+            if (heldBObj == BlockId::Empty)
+            {
+                m_blockMap->RemoveBlock(currentPos);
+            }
+
+            else
+            {
+                m_blockMap->SetBlock(
+                    currentPos, 
+                    static_cast<int>(heldBObj)
+                );
+            }
+        }
+
+        if (info.id == BlockId::Empty)
+        {
+            // 현재 손에 들고 있는 오브젝트 검사
+            BlockId heldBObj = m_playerStatus->GetHeldBlockObj();
+
+            if (heldBObj != BlockId::Empty)
+            {
+                m_blockMap->SetBlock(
+                    currentPos,
+                    static_cast<int>(heldBObj)
+                );
+
+                m_playerStatus->PutDown();
+            }
+        }
+
+
+    }
+
 }

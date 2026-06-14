@@ -135,7 +135,7 @@ namespace Bisang
          * @param[in] obj 게임 오브젝트 유니크 포인터
          *
          */
-        void AddGameObject(std::unique_ptr<GameObject> obj);
+        GameObject* AddGameObject(std::unique_ptr<GameObject> obj);
 
         /**
          * @brief 게임 오브젝트를 씬에 등록한다. [즉시 등록]
@@ -143,7 +143,7 @@ namespace Bisang
          * @param[in]  prefabName 프리팹 팩토리에 등록된 프리팹 이름
          *
          */
-        void AddGameObject(std::string prefabName);
+        GameObject* AddGameObject(std::string prefabName);
 
         /**
          * @brief 오브젝트 씬 등록 절차를 수행한다.
