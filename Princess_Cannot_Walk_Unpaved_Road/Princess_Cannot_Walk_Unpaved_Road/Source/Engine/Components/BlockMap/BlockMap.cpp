@@ -29,13 +29,7 @@ namespace Bisang
         m_height = height;
         m_depth = depth;
 
-        m_map.assign(m_width * m_height * m_depth, BlockObject());
-
- /*       SetStartPosition({ m_width / 2 ,10 ,1 });*/
-
-        //srand(time(NULL));
-        //GenerateProceduralMap(rand());
-        //MakeStartZone();
+        m_map.assign(m_width * m_height * m_depth, -1);
     }
 
     void BlockMap::SetBlockSize(float width, float height, float depth)
@@ -66,20 +60,20 @@ namespace Bisang
             pos.z < m_height;
     }
 
-    BlockObject* BlockMap::GetBlock(const Int3& pos)
+    int BlockMap::GetBlock(const Int3& pos)
     {
         if (!InBounds(pos))
-            return nullptr;
+            return -1;
 
-        return &m_map[Index(pos)];
+        return m_map[Index(pos)];
     }
 
-    void BlockMap::SetBlock(const Int3& pos, BlockObject block)
+    void BlockMap::SetBlock(const Int3& pos, int blockId)
     {
         if (!InBounds(pos))
             return;
 
-        m_map[Index(pos)] = block;
+        m_map[Index(pos)] = blockId;
     }
 
     void BlockMap::RemoveBlock(const Int3& pos)
@@ -88,12 +82,12 @@ namespace Bisang
             return;
 
         int index = Index(pos);
-        m_map[index].id = -1;
+        m_map[index] = -1;
     }
 
     bool BlockMap::IsEmpty(const Int3& pos)
     {
-        if (GetBlock(pos)->id == -1)
+        if (GetBlock(pos) == -1)
         {
             return true;
         }
@@ -220,12 +214,4 @@ namespace Bisang
         m_axisX = Vector2::Rotate2D(m_axisX, DegToRad(m_theta));
         m_axisY = Vector2::Rotate2D(m_axisY, DegToRad(m_theta));
     }
-    //void BlockMap::SetStartPosition(const Int3& pos)
-    //{
-    //    m_startPosition = pos;
-    //}
-    //Int3 BlockMap::GetStartPosition() const 
-    //{
-    //    return m_startPosition;
-    //}
 }

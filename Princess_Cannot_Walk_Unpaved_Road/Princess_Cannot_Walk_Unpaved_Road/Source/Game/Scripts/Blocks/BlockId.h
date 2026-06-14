@@ -12,6 +12,9 @@ namespace Bisang
         Tree,
         OrcTree,
         RailPath,
-        Axe
+        Axe,
+        PickAxe,
+        ClayResource,
+        TreeResource
     };
 }

@@ -13,6 +13,7 @@ namespace Bisang
 	class BoxCollider;
 	class Animator;
 	class BlockObjectInfoTable;
+	class PlayerStatus;
 
 	class PlayerController : public Script
 	{
@@ -21,16 +22,15 @@ namespace Bisang
 
 		void Start() override;
 		void Update(float dT) override;
-		void FixedUpdate() override;
 		
-
-		bool CanMoveTo(const Vector3& worldPos) const;
 		void SetToStartPostion();
 
 	private:
+		void Interact();
 		void Move(float dT);
 		void UpdateVelocity(float dT);
 		bool CanMoveBoxArea(const Vector3& center);
+		bool CanMoveTo(const Vector3& worldPos) const;
 
 	private:
 		BlockObjectInfoTable* m_blockObjectInfoTable;
@@ -39,24 +39,15 @@ namespace Bisang
 		BlockMap* m_blockMap = nullptr;
 		SpriteRenderer* m_spriteRenderer = nullptr;
 		BoxCollider* m_BoxCol = nullptr;
+		PlayerStatus* m_playerStatus = nullptr;
+
 
 		int playerZ = 1;
 
 		Vector3 m_velocity;
 		float moveSpeed = 300;
-		float m_maxSpeed = 300.f;
-		float m_acceleration =100.f;
-		float m_friction = 10.0f;
-
-		std::wstring m_nameArr[PlayerAnimCount] = {
-			L"FrontLeft",
-			L"FrontRight",
-			L"BackLeft",
-			L"BackRight",
-			L"Front",
-			L"Back",
-			L"Left",
-			L"Right",
-		};
+		float m_maxSpeed = 200.f;
+		float m_acceleration = 3000.f;
+		float m_friction = 1000.0f;
 	};
 }

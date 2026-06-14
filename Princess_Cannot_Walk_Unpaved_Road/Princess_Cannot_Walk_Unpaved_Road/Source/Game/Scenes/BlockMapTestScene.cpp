@@ -1,6 +1,7 @@
 #include "BlockMapTestScene.h"
 #include "Engine/Core/Debug.h"
 #include "Engine/Resource/ResourceManager.h"
+#include "Engine/Object/GameObject.h"
 #include "Engine/Prefab/PrefabFactory.h"
 #include <iostream>
 
@@ -11,10 +12,13 @@ namespace Bisang
 		// 씬에 필요한 게임오브젝트와 컴포넌트 생성
 		DEBUG_LOG("SetUp SamepleScene \n");
     
-		AddGameObject("Player");
 		AddGameObject("BlockMap");
-		AddGameObject("DebugOverlay");
 
+		GameObject* player = AddGameObject("Player");
+		GameObject* pickUpObj = AddGameObject("PickUpObj");
+		pickUpObj->SetParent(player);
+		
+		AddGameObject("DebugOverlay");
 	}
 
 	void BlockMapTestScene::Finalize()

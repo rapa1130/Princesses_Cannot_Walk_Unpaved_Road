@@ -130,15 +130,20 @@ namespace Bisang
 		return pObj;
 	}
 
-	void Scene::AddGameObject(std::string prefabName)
+	GameObject* Scene::AddGameObject(std::string prefabName)
 	{
 		std::unique_ptr<GameObject> obj = m_prefabFactory->Create(prefabName);
-		if (obj == nullptr) return;
+		if (obj == nullptr) return nullptr;
+		GameObject* pObj = obj.get();
 		AddGameObject(std::move(obj));
+
+		return pObj;
 	}
 
-	void Scene::AddGameObject(std::unique_ptr<GameObject> obj)
+	GameObject* Scene::AddGameObject(std::unique_ptr<GameObject> obj)
 	{
+		GameObject* pObj = obj.get();
+
 		// 씬 등록 절차 수행
 		RegisterToScene(obj.get());
 
@@ -147,6 +152,8 @@ namespace Bisang
 
 		// 씬에 등록
 		m_gameObjects[obj->GetId()] = std::move(obj);
+
+		return pObj;
 	}
 
 	void Scene::ProcessAddGameObjectQueue()
