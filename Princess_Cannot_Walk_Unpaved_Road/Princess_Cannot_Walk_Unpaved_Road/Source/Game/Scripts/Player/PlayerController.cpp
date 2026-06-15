@@ -109,13 +109,18 @@ namespace Bisang
         if (!movedX)
         {
             float vDotX = m_velocity.x * axisX.x + m_velocity.y * axisX.y;
+            float vDotY = m_velocity.x * axisY.x + m_velocity.y * axisY.y;
+
             m_velocity -= axisX * vDotX;
+            m_velocity -= axisY * vDotY * m_collisionFrictionMultiplier;
         }
 
         if (!movedY)
         {
+            float vDotX = m_velocity.x * axisX.x + m_velocity.y * axisX.y;
             float vDotY = m_velocity.x * axisY.x + m_velocity.y * axisY.y;
             m_velocity -= axisY * vDotY;
+            m_velocity -= axisX * vDotX * m_collisionFrictionMultiplier;
         }
     }
 
