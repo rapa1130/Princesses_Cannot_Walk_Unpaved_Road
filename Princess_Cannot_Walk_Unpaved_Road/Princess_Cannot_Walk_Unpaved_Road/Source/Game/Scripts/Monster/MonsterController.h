@@ -19,12 +19,15 @@ namespace Bisang
 
 
 		void Jump(float dT);
+		void DestructArea();
 
 		void SetWorldPosbyBlockY(int blockY);
 		void SetMoveTerm(float moveTerm);
 		void SetLeapDistance(int dist);
 		void SetJumpDuration(float duration);
 		void SetJumpHeight(float height);
+		void SetDestructRangeY(int rangeY);
+
 
 	private:
 		BlockMap* m_blockMap = nullptr;
@@ -45,6 +48,8 @@ namespace Bisang
 		float m_jumpHeight = 60.0f;
 
 		bool m_isJumping = false;
+
+		int m_destructRangeY = 3;
 	};
 
 

@@ -4,6 +4,8 @@
 #include "Engine/Components/Transform.h"
 #include "Engine/Components/SpriteRenderer.h"
 #include "Engine/Core/Layer.h"
+#include "Game/Scripts/Blocks/BlockId.h"
+
 #include <iostream>
 
 namespace Bisang
@@ -23,6 +25,7 @@ namespace Bisang
 		SetLeapDistance(6);
 		SetJumpHeight(60.0f);
 		SetJumpDuration(0.7f);
+		SetDestructRangeY(3);
 	}
 
 
@@ -63,6 +66,7 @@ namespace Bisang
 		{
 			t = 1.0f;
 			m_isJumping = false;
+			DestructArea();
 		}
 
 		Vector3 pos = m_jumpStartPos + (m_jumpTargetPos - m_jumpStartPos) * t;
@@ -73,6 +77,20 @@ namespace Bisang
 		pos.y -= jumpOffset;
 
 		m_transform->SetPosition(pos);
+	}
+
+	void MonsterController::DestructArea()
+	{
+		int width = m_blockMap->GetWidth();
+		for (int i = 0; i < width; i++)
+		{
+			int destructStartY = m_position.y - m_destructRangeY;
+			int destructEndY = m_position.y + m_destructRangeY;
+			for (int j = destructStartY; j < destructEndY; j++)
+			{
+				m_blockMap->SetBlock({ i,j,1 }, static_cast<int>(BlockId::Empty));
+			}
+		}
 	}
 	
 
@@ -99,5 +117,9 @@ namespace Bisang
 	void MonsterController::SetJumpHeight(float height)
 	{
 		m_jumpHeight = height;
+	}
+	void MonsterController::SetDestructRangeY(int rangeY)
+	{
+		m_destructRangeY = rangeY;
 	}
 }
