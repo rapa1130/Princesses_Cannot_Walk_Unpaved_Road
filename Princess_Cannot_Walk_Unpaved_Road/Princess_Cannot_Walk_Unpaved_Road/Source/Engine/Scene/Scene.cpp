@@ -311,6 +311,16 @@ namespace Bisang
 		}
 	}
 
+	void Scene::SetSceneCamera(Camera2D* cam2d)
+	{
+		m_cam2D = cam2d;
+	}
+
+	Camera2D* Scene::GetSceneCamera() const
+	{
+		return m_cam2D;
+	}
+
 	//*************************************************
 	// 콜라이더 컴포넌트
 	//************************************************* 

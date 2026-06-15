@@ -13,6 +13,8 @@
 #include <functional>
 
 
+
+
 namespace Bisang
 {
 	class RenderableComponent;
@@ -20,6 +22,7 @@ namespace Bisang
 	class GameObject;
     class Renderer;
     class IPrefab;
+    class Camera2D;
     
 
 	class Scene
@@ -239,6 +242,11 @@ namespace Bisang
         void RemoveRenderableComponent(RenderableComponent* component);
 
 
+        void SetSceneCamera(Camera2D* cam2d);
+        Camera2D* GetSceneCamera() const;
+
+
+
         //*************************************************
         // 콜라이더 컴포넌트
         //************************************************* 
@@ -279,10 +287,13 @@ namespace Bisang
         std::unordered_set<uint64_t> m_deleteGameObjectSet;
 
 
+
 		//*************************************************
 		// 렌더링 컴포넌트
 		//************************************************* 
 		std::vector<RenderableComponent*> m_renderableComponents;   // 렌더링 컴포넌트 ( 레이어 순서 오름차순 정렬 되어있음 )
+
+        Camera2D* m_cam2D = nullptr;
 
         //*************************************************
         // 콜라이더

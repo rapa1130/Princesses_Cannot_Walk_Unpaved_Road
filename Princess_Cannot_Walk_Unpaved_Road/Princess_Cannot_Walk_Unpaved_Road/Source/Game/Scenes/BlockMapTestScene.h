@@ -9,7 +9,7 @@ namespace Bisang
 		BlockMapTestScene(std::string sceneName, GameContext* context) : Scene(sceneName, context)
 		{
 		}
-
+		
 		void Finalize() override;
 		void Setup() override;
 

@@ -28,7 +28,7 @@ namespace Bisang
 		bool Initialize(HWND hwnd, int width, int height);
 
 		void RenderScene(Scene* scene);
-		void RenderAllCommands();
+		void RenderAllCommands(Scene* scene);
 
 		void Submit(const RenderCommand& command);
 
@@ -47,6 +47,8 @@ namespace Bisang
 	protected:
 		D2D1::ColorF m_BgColor = D2D1::ColorF::Black;
 		std::vector<RenderCommand> m_renderCommands;
+		float m_viewportWidth = 0.0f;
+		float m_viewportHeight = 0.0f;
 
 	protected:
 		// D3D11
