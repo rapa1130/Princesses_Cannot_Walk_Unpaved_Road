@@ -2,6 +2,8 @@
 #include "Engine/Object/GameObject.h"
 #include "Engine/Components/BlockMap/BlockMap.h"
 
+#include "Game/Scripts/GameManager/GameManager.h"
+
 #include <iostream>
 #include <algorithm>
 
@@ -10,7 +12,7 @@ namespace Bisang
 	void RailManager::Start()
 	{
 		m_blockMap = m_ownerObj->GetComponent<BlockMap>();
-		m_blockMapGen = m_ownerObj->GetComponent<BlockMapGenerator>();
+		m_gM = FindGameObjectByName("GameManager")->GetComponent<GameManager>();
 		
 		FindInitialPath();
 
@@ -24,7 +26,7 @@ namespace Bisang
 
 	void RailManager::FindInitialPath()
 	{
-		Int3 startRailPos = m_blockMapGen->GetRailStartPosition();
+		Int3 startRailPos = m_gM->GetStartRailPosition();
 		m_railPaths.push_back(startRailPos);
 
 		FindPathFrom(startRailPos);

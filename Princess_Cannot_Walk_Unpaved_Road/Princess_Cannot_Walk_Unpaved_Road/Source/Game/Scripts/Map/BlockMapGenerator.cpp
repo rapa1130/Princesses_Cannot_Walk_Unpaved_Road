@@ -1,64 +1,34 @@
 #include "BlockMapGenerator.h"
 
 #include "Engine/Object/GameObject.h"
-
 #include "Engine/Components/BlockMap/BlockMap.h"
-#include "Engine/Components/BlockMap/BlockMapRenderer.h"
 
-#include "Game/Scripts/Blocks/BlockInfoProvider.h"
 #include "Game/Utility/PerlinNoise2D.h"
 
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
-#include <random>
+
 
 namespace Bisang
 {
-    void BlockMapGenerator::Start()
-    {
-        m_blockMap = m_ownerObj->GetComponent<BlockMap>();
-        GenerateProceduralMap(
-            CreateRandomSeed(),
-            30,
-            3,
-            90
-        );
-
-        BlockMapRenderer* blockMapRenderer = m_ownerObj->GetComponent<BlockMapRenderer>();
-        BlockObjectInfoProvider* blockMapInfoProvider = m_ownerObj->GetComponent<BlockObjectInfoProvider>();
-        blockMapRenderer->SetBlockObjectInfoTable(blockMapInfoProvider->GetTable());
-    }
-
-    void BlockMapGenerator::Generate()
-    {
-        if (m_blockMap == nullptr)
-            return;
-
-        m_blockMap->InitMap(30, 3, 90);
-
-        for (int x = 0; x < 10; ++x)
-        {
-            for (int y = 0; y < 10; ++y)
-            {
-                m_blockMap->SetBlock({ x, y, 0 }, static_cast<int>(BlockId::Grass));
-            }
-        }
-    }
-
     void BlockMapGenerator::GenerateProceduralMap(
+        BlockMap* blockMap,
         unsigned int seed,
         int width,
         int height,
-        int depth)
+        int depth,
+        Int3 startPosition,
+        Int3 endPosition
+    )
     {
-        if (m_blockMap == nullptr)
+        if (blockMap == nullptr)
             return;
 
         if (width <= 0 || height <= 0 || depth <= 0)
             return;
 
-        m_blockMap->InitMap(width, height, depth);
+        blockMap->InitMap(width, height, depth);
 
         const int groundZ = 0;
         const int objectZ = 1;
@@ -135,7 +105,7 @@ namespace Bisang
                     groundId = BlockId::Dirt;
                 }
 
-                m_blockMap->SetBlock(
+                blockMap->SetBlock(
                     { x, y, groundZ },
                     static_cast<int>(groundId));
 
@@ -144,7 +114,7 @@ namespace Bisang
 
                 if (rock > 0.6f)
                 {
-                    m_blockMap->SetBlock(
+                    blockMap->SetBlock(
                         { x, y, objectZ },
                         static_cast<int>(BlockId::Rock));
                 }
@@ -156,44 +126,36 @@ namespace Bisang
                         ? BlockId::Tree
                         : BlockId::OrcTree;
 
-                    m_blockMap->SetBlock(
+                    blockMap->SetBlock(
                         { x, y, objectZ },
                         static_cast<int>(treeId));
                 }
                 else if (clay > 0.5f &&
                     (groundId == BlockId::Grass || groundId == BlockId::Dirt))
                 {
-                    m_blockMap->SetBlock(
+                    blockMap->SetBlock(
                         { x, y, objectZ },
                         static_cast<int>(BlockId::Clay));
                 }
             }
         }
-        m_startPosition = { width / 2, 10, objectZ };
-        MakeStartZone(m_startPosition, 7);
-        MakeInitialRoad(m_startPosition);
+
+        MakeEmptytZone(blockMap, startPosition, 7);
+        MakeEmptytZone(blockMap, endPosition, 7);
+        MakeInitialRoad(blockMap, startPosition);
     }
 
-    Int3 BlockMapGenerator::GetStartPosition() const
-    {
-        return m_startPosition;
-    }
 
-    Int3 BlockMapGenerator::GetRailStartPosition() const
+    void BlockMapGenerator::MakeEmptytZone(BlockMap* blockMap, const Int3& pos, int radius)
     {
-        return m_startRailPosition;
-    }
-
-    void BlockMapGenerator::MakeStartZone(const Int3& startPosition, int radius)
-    {
-        if (m_blockMap == nullptr)
+        if (blockMap == nullptr)
             return;
 
         if (radius <= 0)
             return;
 
-        int centerX = startPosition.x;
-        int centerY = startPosition.y;
+        int centerX = pos.x;
+        int centerY = pos.y;
 
         int left = centerX - radius;
         int right = centerX + radius;
@@ -212,54 +174,44 @@ namespace Bisang
                 if (dx * dx + dy * dy >= radiusSquared)
                     continue;
 
-                Int3 objectPos{ nowX, nowY, startPosition.z };
-                if (m_blockMap->InBounds(objectPos))
+                Int3 objectPos{ nowX, nowY, pos.z };
+                if (blockMap->InBounds(objectPos))
                 {
-                    m_blockMap->RemoveBlock(objectPos);
+                    blockMap->RemoveBlock(objectPos);
                 }
 
                 Int3 groundPos{ nowX, nowY, 0 };
-                int zeroFloorBlock = m_blockMap->GetBlock(groundPos);
+                int zeroFloorBlock = blockMap->GetBlock(groundPos);
                 if (zeroFloorBlock == static_cast<int>(BlockId::Water))
                 {
-                    m_blockMap->SetBlock(groundPos, static_cast<int>(BlockId::Grass));
+                    blockMap->SetBlock(groundPos, static_cast<int>(BlockId::Grass));
                 }
             }
         }
 
-        m_blockMap->SetBlock(startPosition + Int3{1, 2, 0 }, static_cast<int>(BlockId::Axe));
-        m_blockMap->SetBlock(startPosition + Int3{1, 1, 0}, static_cast<int>(BlockId::PickAxe));
-        m_blockMap->SetBlock(startPosition + Int3{ 1, 3, 0 }, static_cast<int>(BlockId::Hammer));
-        m_blockMap->SetBlock(startPosition + Int3{ 2, 2, 0 }, static_cast<int>(BlockId::ClayResource));
-        m_blockMap->SetBlock(startPosition + Int3{ 2, 1, 0 }, static_cast<int>(BlockId::TreeResource));
+        blockMap->SetBlock(pos + Int3{1, 2, 0 }, static_cast<int>(BlockId::Axe));
+        blockMap->SetBlock(pos + Int3{1, 1, 0}, static_cast<int>(BlockId::PickAxe));
+        blockMap->SetBlock(pos + Int3{ 1, 3, 0 }, static_cast<int>(BlockId::Hammer));
+        blockMap->SetBlock(pos + Int3{ 2, 2, 0 }, static_cast<int>(BlockId::ClayResource));
+        blockMap->SetBlock(pos + Int3{ 2, 1, 0 }, static_cast<int>(BlockId::TreeResource));
     }
 
-    void BlockMapGenerator::MakeInitialRoad(Int3& startPos)
-    {
-        Int3 railStartPos = startPos;
-        railStartPos.y = 0;
-        m_startRailPosition = railStartPos;
-        
+    void BlockMapGenerator::MakeInitialRoad(BlockMap* blockMap, Int3& startPos)
+    {   
         for (int nowY = 0; nowY <= startPos.y; nowY++)
         {
             Int3 pos{ startPos.x,nowY,1 };
             Int3 underPos{ startPos.x,nowY,0 };
             
-            if (m_blockMap->GetBlock(underPos) == static_cast<int>(BlockId::Water))
-                m_blockMap->SetBlock(underPos, static_cast<int>(BlockId::Dirt));
-            m_blockMap->SetBlock(pos, static_cast<int>(BlockId::RailPath));
+            if (blockMap->GetBlock(underPos) == static_cast<int>(BlockId::Water))
+                blockMap->SetBlock(underPos, static_cast<int>(BlockId::Dirt));
+            blockMap->SetBlock(pos, static_cast<int>(BlockId::RailPath));
         }
 
-        m_blockMap->SetBlock({ startPos.x + 1,startPos.y,1 }, static_cast<int>(BlockId::RailPath));
-        m_blockMap->SetBlock({ startPos.x + 2,startPos.y,1 }, static_cast<int>(BlockId::RailPath));
-        m_blockMap->SetBlock({ startPos.x + 3,startPos.y,1 }, static_cast<int>(BlockId::RailPath));
-        m_blockMap->SetBlock({ startPos.x + 3,startPos.y+1,1 }, static_cast<int>(BlockId::RailPath));
-        m_blockMap->SetBlock({ startPos.x + 3,startPos.y+2,1 }, static_cast<int>(BlockId::RailPath));
-    }
-
-    unsigned int BlockMapGenerator::CreateRandomSeed() const
-    {
-        std::random_device rd;
-        return rd();
+        blockMap->SetBlock({ startPos.x + 1,startPos.y,1 }, static_cast<int>(BlockId::RailPath));
+        blockMap->SetBlock({ startPos.x + 2,startPos.y,1 }, static_cast<int>(BlockId::RailPath));
+        blockMap->SetBlock({ startPos.x + 3,startPos.y,1 }, static_cast<int>(BlockId::RailPath));
+        blockMap->SetBlock({ startPos.x + 3,startPos.y+1,1 }, static_cast<int>(BlockId::RailPath));
+        blockMap->SetBlock({ startPos.x + 3,startPos.y+2,1 }, static_cast<int>(BlockId::RailPath));
     }
 }

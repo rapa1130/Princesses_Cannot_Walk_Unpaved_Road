@@ -1,11 +1,14 @@
-#include"PrincessController.h"
+#include "PrincessController.h"
+
 #include "Engine/Object/GameObject.h"
 #include "Engine/Components/Animation/Animator.h"
 #include "Engine/Components/BlockMap/BlockMap.h"
-#include "Game/Scripts/Map/BlockMapGenerator.h"
 #include "Engine/Math/Int3.h"
 #include "Engine/Components/Transform.h"
+
+#include "Game/Scripts/Map/BlockMapGenerator.h"
 #include "Game/Scripts/Map/RailManager.h"
+#include "Game/Scripts/GameManager/GameManager.h"
 
 #include <iostream>
 
@@ -19,7 +22,11 @@ namespace Bisang
         m_blockMap = blockMapGO->GetComponent<BlockMap>();
         m_railManager = blockMapGO->GetComponent<RailManager>();
 
-        Int3 startPos = blockMapGO->GetComponent<BlockMapGenerator>()->GetRailStartPosition();
+        Int3 startPos = 
+            FindGameObjectByName("GameManager")
+            ->GetComponent<GameManager>()
+            ->GetStartRailPosition();
+
         SetBlockPosition(startPos);
     }
 

@@ -14,7 +14,7 @@
 namespace Bisang
 {
     class BlockMap;
-    class BlockMapGenerator;
+    class GameManager;
 
 
     class RailManager : public Script
@@ -37,7 +37,7 @@ namespace Bisang
 
 
         BlockMap* m_blockMap = nullptr;
-        BlockMapGenerator* m_blockMapGen = nullptr;
+        GameManager* m_gM = nullptr;
 
         std::vector<Int3> m_railPaths;
 
