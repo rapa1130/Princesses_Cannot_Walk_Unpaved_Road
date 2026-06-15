@@ -21,6 +21,8 @@ namespace Bisang
 		GameObject* princess = AddGameObject("Princess");
 		GameObject* camera = AddGameObject("Camera");
 		SetSceneCamera(camera->GetComponent<Camera2D>());
+		GameObject* monster = AddGameObject("BigMonster");
+
 
 		pickUpObj->SetParent(player);
 		
