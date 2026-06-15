@@ -6,6 +6,7 @@ namespace Bisang
 	{
 		constexpr int Background = 0;
 		constexpr int Iso = 1;
-		constexpr int UI = 2;
+		constexpr int Monster = 2;
+		constexpr int UI = 3;
 	}
 }
