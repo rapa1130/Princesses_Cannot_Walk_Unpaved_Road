@@ -55,5 +55,6 @@ namespace Bisang
 		float m_maxSpeed = 200.f;
 		float m_acceleration = 3000.f;
 		float m_friction = 1000.0f;
+		float m_collisionFrictionMultiplier = 0.75f;
 	};
 }
