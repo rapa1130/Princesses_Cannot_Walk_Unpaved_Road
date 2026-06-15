@@ -45,6 +45,15 @@
     <ClCompile Include="Source\Game\Scripts\Player\PlayerAnimationController.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\PickUpObject.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\MiningBlock.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\PrincessPrefab.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Map\RailManager.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Player\BuildingRoad.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Princess\PrincessAnimationController.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Princess\PrincessController.cpp" />
+    <ClCompile Include="Source\Engine\Components\Camera\Camera2D.cpp" />
+    <ClCompile Include="Source\Engine\Components\Camera\Camara2D.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Camera\CameraController.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\CameraPrefab.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -109,5 +118,14 @@
     <ClInclude Include="Source\Game\Scripts\Player\PlayerAnimationController.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PickUpObject.h" />
     <ClInclude Include="Source\Game\Scripts\Player\MiningBlock.h" />
+    <ClInclude Include="Source\Game\Prefabs\PrincessPrefab.h" />
+    <ClInclude Include="Source\Game\Scripts\Map\RailManager.h" />
+    <ClInclude Include="Source\Game\Scripts\Player\BuildingRoad.h" />
+    <ClInclude Include="Source\Game\Scripts\Princess\PrincessAnimationController.h" />
+    <ClInclude Include="Source\Game\Scripts\Princess\PrincessController.h" />
+    <ClInclude Include="Source\Game\Utility\EventBus.h" />
+    <ClInclude Include="Source\Engine\Components\Camera\Camara2D.h" />
+    <ClInclude Include="Source\Game\Scripts\Camera\CameraController.h" />
+    <ClInclude Include="Source\Game\Prefabs\CameraPrefab.h" />
   </ItemGroup>
 </Project>

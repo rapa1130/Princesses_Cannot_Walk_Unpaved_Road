@@ -23,6 +23,7 @@
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockObject.h" />
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockMap.h" />
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockMapRenderer.h" />
+    <ClInclude Include="Source\Engine\Components\Camera\Camara2D.h" />
     <ClInclude Include="Source\Engine\Components\Collider\BoxCollider.h" />
     <ClInclude Include="Source\Engine\Components\Collider\CircleCollider.h" />
     <ClInclude Include="Source\Engine\Components\LineRenderer.h" />
@@ -38,6 +39,7 @@
     <ClInclude Include="Source\Engine\Math\Vector.h" />
     <ClInclude Include="Source\Engine\Physics\Collision.h" />
     <ClInclude Include="Source\Game\AssetSettings\AssetSettings.h" />
+    <ClInclude Include="Source\Game\Prefabs\CameraPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\DebugOverlay.h" />
     <ClInclude Include="Source\Engine\Prefab\Prefab.h" />
     <ClInclude Include="Source\Engine\Renderer\Color.h" />
@@ -72,6 +74,7 @@
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockInfoProvider.h" />
+    <ClInclude Include="Source\Game\Scripts\Camera\CameraController.h" />
     <ClInclude Include="Source\Game\Scripts\Map\RailManager.h" />
     <ClInclude Include="Source\Game\Scripts\Monitoring\Overlay.h" />
     <ClInclude Include="Source\Game\Scripts\Player\BuildingRoad.h" />
@@ -94,6 +97,8 @@
     <ClCompile Include="Source\Engine\Components\Animation\Animator.cpp" />
     <ClCompile Include="Source\Engine\Components\BlockMap\BlockMap.cpp" />
     <ClCompile Include="Source\Engine\Components\BlockMap\BlockMapRenderer.cpp" />
+    <ClCompile Include="Source\Engine\Components\Camera\Camara2D.cpp" />
+    <ClCompile Include="Source\Engine\Components\Camera\Camera2D.cpp" />
     <ClCompile Include="Source\Engine\Components\Collider\BoxCollider.cpp" />
     <ClCompile Include="Source\Engine\Components\Collider\CircleCollider.cpp" />
     <ClCompile Include="Source\Engine\Components\Collider\Collider.cpp" />
@@ -110,6 +115,7 @@
     <ClInclude Include="Source\Engine\Math\Math.h" />
     <ClCompile Include="Source\Engine\Physics\Collision.cpp" />
     <ClCompile Include="Source\Game\AssetSettings\AssetSettings.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\CameraPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\DebugOverlay.cpp" />
     <ClInclude Include="Source\Engine\Prefab\PrefabFactory.h" />
     <ClCompile Include="Source\Engine\Renderer\Color.cpp" />
@@ -138,6 +144,7 @@
     <ClCompile Include="Source\Game\Registry\GameRegistry.cpp" />
     <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Camera\CameraController.cpp" />
     <ClCompile Include="Source\Game\Scripts\Map\RailManager.cpp" />
     <ClCompile Include="Source\Game\Scripts\Monitoring\Overlay.cpp">
       <DeploymentContent>false</DeploymentContent>

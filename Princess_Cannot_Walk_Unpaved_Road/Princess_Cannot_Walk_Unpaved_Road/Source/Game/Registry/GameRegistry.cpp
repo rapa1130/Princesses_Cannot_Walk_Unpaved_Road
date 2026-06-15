@@ -9,6 +9,7 @@
 #include "Game/Prefabs/BlockMapPrefab.h"
 #include "Game/Prefabs/DebugOverlay.h"
 #include "Game/Prefabs/PrincessPrefab.h"
+#include "Game/Prefabs/CameraPrefab.h"
 
 namespace Bisang
 {
@@ -26,5 +27,6 @@ namespace Bisang
         prefabFactory->RegisterPrefab<BlockMapPrefab>("BlockMap");
         prefabFactory->RegisterPrefab<DebugOverlay>("DebugOverlay");
         prefabFactory->RegisterPrefab<PrincessPrefab>("Princess");
+        prefabFactory->RegisterPrefab<CameraPrefab>("Camera");
     }
 }

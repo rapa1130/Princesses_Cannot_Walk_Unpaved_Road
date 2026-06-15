@@ -3,6 +3,8 @@
 #include "Engine/Resource/ResourceManager.h"
 #include "Engine/Object/GameObject.h"
 #include "Engine/Prefab/PrefabFactory.h"
+#include "Engine/Components/Camera/Camara2D.h"
+
 #include <iostream>
 
 namespace Bisang
@@ -17,6 +19,9 @@ namespace Bisang
 		GameObject* player = AddGameObject("Player");
 		GameObject* pickUpObj = AddGameObject("PickUpObj");
 		GameObject* princess = AddGameObject("Princess");
+		GameObject* camera = AddGameObject("Camera");
+		SetSceneCamera(camera->GetComponent<Camera2D>());
+
 		pickUpObj->SetParent(player);
 		
 		AddGameObject("DebugOverlay");
