@@ -23,6 +23,8 @@ namespace Bisang
 		void SetWorldPosbyBlockY(int blockY);
 		void SetMoveTerm(float moveTerm);
 		void SetLeapDistance(int dist);
+		void SetJumpDuration(float duration);
+		void SetJumpHeight(float height);
 
 	private:
 		BlockMap* m_blockMap = nullptr;
@@ -32,8 +34,6 @@ namespace Bisang
 
 		float m_moveTerm;
 		int m_leapDistance;
-
-
 
 		Int3 m_position;
 

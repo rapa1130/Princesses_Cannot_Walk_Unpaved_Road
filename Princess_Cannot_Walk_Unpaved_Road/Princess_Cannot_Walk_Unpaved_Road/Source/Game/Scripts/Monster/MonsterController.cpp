@@ -21,6 +21,8 @@ namespace Bisang
 		SetWorldPosbyBlockY(-20);
 		SetMoveTerm(1.5f);
 		SetLeapDistance(6);
+		SetJumpHeight(60.0f);
+		SetJumpDuration(0.7f);
 	}
 
 
@@ -89,5 +91,13 @@ namespace Bisang
 	void MonsterController::SetLeapDistance(int dist)
 	{
 		m_leapDistance = dist;
+	}
+	void MonsterController::SetJumpDuration(float duration)
+	{
+		m_jumpDuration = duration;
+	}
+	void MonsterController::SetJumpHeight(float height)
+	{
+		m_jumpHeight = height;
 	}
 }
