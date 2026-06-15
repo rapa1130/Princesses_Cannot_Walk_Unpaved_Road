@@ -14,7 +14,7 @@ namespace Bisang
         RailPath,
         Axe,
         PickAxe,
-        Roller,
+        Hammer,
         ClayResource,
         TreeResource
     };
