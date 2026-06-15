@@ -8,6 +8,7 @@ namespace Bisang
 	class BlockMap;
 	class Transform;
 	class SpriteRenderer;
+	class CameraController;
 
 	class MonsterController : public Script
 	{
@@ -17,22 +18,28 @@ namespace Bisang
 		void Start() override;
 		void Update(float dT) override;
 
-
-		void Jump(float dT);
 		void DestructArea();
+		void SetDestructRangeY(int rangeY);
 
 		void SetWorldPosbyBlockY(int blockY);
+
+		void Jump(float dT);
 		void SetMoveTerm(float moveTerm);
 		void SetLeapDistance(int dist);
 		void SetJumpDuration(float duration);
 		void SetJumpHeight(float height);
-		void SetDestructRangeY(int rangeY);
+
+
+		void ShakeCameraByDist();
+		void SetMinShakeDistY(float minShakeDistY);
+		void SetShakePower(int shakePower);
 
 
 	private:
 		BlockMap* m_blockMap = nullptr;
 		Transform* m_transform = nullptr;
 		SpriteRenderer* m_spriteRenderer = nullptr;
+		CameraController* m_camCtrl = nullptr;
 
 
 		float m_moveTerm;
@@ -50,6 +57,9 @@ namespace Bisang
 		bool m_isJumping = false;
 
 		int m_destructRangeY = 3;
+
+		float m_minShakeDistY;
+		float m_shakePower;
 	};
 
 
