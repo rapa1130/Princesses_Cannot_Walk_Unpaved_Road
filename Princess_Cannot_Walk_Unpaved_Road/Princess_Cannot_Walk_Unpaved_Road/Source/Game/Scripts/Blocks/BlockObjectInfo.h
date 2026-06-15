@@ -20,7 +20,7 @@ namespace Bisang
         None,
         Pickaxe,
         Axe,
-        Roller
+        Hammer
     };
 
     struct MineableData

@@ -42,7 +42,7 @@ namespace Bisang
 		BlockObjectInfo heldInfo = m_infoTable->Get(heldBlockObj);
 
 		if (info.id == BlockId::ClayResource &&
-			heldInfo.toolType == ToolType::Roller)
+			heldInfo.toolType == ToolType::Hammer)
 		{
 			if (m_buildingTimer >= m_buiildingTime)
 			{
