@@ -31,8 +31,8 @@ namespace Bisang
 
 
 		void ShakeCameraByDist();
-		void SetMinShakeDistY(float minShakeDistY);
-		void SetShakePower(int shakePower);
+		void SetMinShakeDistY(int minShakeDistY); //카메라 셰이크 효과 적용하는 최소 y축 거리
+		void SetShakePower(int shakePower); 
 
 
 	private:
@@ -58,7 +58,7 @@ namespace Bisang
 
 		int m_destructRangeY = 3;
 
-		float m_minShakeDistY;
+		int m_minShakeDistY;
 		float m_shakePower;
 	};
 
