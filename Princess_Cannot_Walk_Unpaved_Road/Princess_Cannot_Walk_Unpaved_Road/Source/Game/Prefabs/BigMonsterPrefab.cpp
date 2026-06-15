@@ -8,5 +8,6 @@ namespace Bisang
 		std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
 		obj->SetName("BigMonster");
 		obj->AddComponent<MonsterController>();
+		return obj;
 	}
 }
