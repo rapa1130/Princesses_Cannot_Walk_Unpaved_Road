@@ -4,6 +4,9 @@
 #include "Engine/Components/Transform.h"
 #include "Engine/Components/SpriteRenderer.h"
 #include "Engine/Core/Layer.h"
+#include "Game/Scripts/Blocks/BlockId.h"
+#include "Game/Scripts/Camera/CameraController.h"
+
 #include <iostream>
 
 namespace Bisang
@@ -18,11 +21,17 @@ namespace Bisang
 		m_spriteRenderer->SetLayer(Layer::Monster);
 		m_transform->SetScale({ 0.75f,0.75f });
 
-		SetWorldPosbyBlockY(-20);
+		m_camCtrl = FindGameObjectByName("Camera")->GetComponent<CameraController>();
+
+		SetWorldPosbyBlockY(-50);
 		SetMoveTerm(1.5f);
 		SetLeapDistance(6);
 		SetJumpHeight(60.0f);
 		SetJumpDuration(0.7f);
+		SetDestructRangeY(3);
+
+		SetMinShakeDistY(1000.0f);
+		SetShakePower(300.0f);
 	}
 
 
@@ -63,6 +72,8 @@ namespace Bisang
 		{
 			t = 1.0f;
 			m_isJumping = false;
+			ShakeCameraByDist();
+			DestructArea();
 		}
 
 		Vector3 pos = m_jumpStartPos + (m_jumpTargetPos - m_jumpStartPos) * t;
@@ -73,6 +84,31 @@ namespace Bisang
 		pos.y -= jumpOffset;
 
 		m_transform->SetPosition(pos);
+	}
+
+	void MonsterController::DestructArea()
+	{
+		int width = m_blockMap->GetWidth();
+		for (int i = 0; i < width; i++)
+		{
+			int destructStartY = m_position.y - m_destructRangeY;
+			int destructEndY = m_position.y + m_destructRangeY;
+			for (int j = destructStartY; j < destructEndY; j++)
+			{
+				m_blockMap->SetBlock({ i,j,1 }, static_cast<int>(BlockId::Empty));
+			}
+		}
+	}
+
+	void MonsterController::ShakeCameraByDist()
+	{
+		Vector3 camPos = m_camCtrl->GetOwner()->GetComponent<Transform>()->GetPosition();
+		Vector3 monsterPos = m_transform->GetPosition();
+
+
+		float dist = monsterPos.y - camPos.y;
+
+		if (dist < m_minShakeDistY) m_camCtrl->CameraShake(m_shakePower/ dist); // 카메라와 괴물사이의 거리에 따라 처리하자.
 	}
 	
 
@@ -99,5 +135,17 @@ namespace Bisang
 	void MonsterController::SetJumpHeight(float height)
 	{
 		m_jumpHeight = height;
+	}
+	void MonsterController::SetDestructRangeY(int rangeY)
+	{
+		m_destructRangeY = rangeY;
+	}
+	void MonsterController::SetMinShakeDistY(float minShakeDistY)
+	{
+		m_minShakeDistY = minShakeDistY;
+	}
+	void MonsterController::SetShakePower(int shakePower)
+	{
+		m_shakePower = shakePower;
 	}
 }
