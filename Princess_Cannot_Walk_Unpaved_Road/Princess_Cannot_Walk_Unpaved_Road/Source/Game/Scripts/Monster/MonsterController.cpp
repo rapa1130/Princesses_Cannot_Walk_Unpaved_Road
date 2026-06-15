@@ -6,6 +6,7 @@
 #include "Engine/Core/Layer.h"
 #include "Game/Scripts/Blocks/BlockId.h"
 #include "Game/Scripts/Camera/CameraController.h"
+#include "Engine/Math/Math.h"
 
 #include <iostream>
 
@@ -23,15 +24,15 @@ namespace Bisang
 
 		m_camCtrl = FindGameObjectByName("Camera")->GetComponent<CameraController>();
 
-		SetWorldPosbyBlockY(-50);
+		SetWorldPosbyBlockY(-100);
 		SetMoveTerm(1.5f);
 		SetLeapDistance(6);
 		SetJumpHeight(60.0f);
 		SetJumpDuration(0.7f);
 		SetDestructRangeY(3);
 
-		SetMinShakeDistY(1000.0f);
-		SetShakePower(300.0f);
+		SetMinShakeDistY(300);
+		SetShakePower(500.0f);
 	}
 
 
@@ -102,13 +103,26 @@ namespace Bisang
 
 	void MonsterController::ShakeCameraByDist()
 	{
-		Vector3 camPos = m_camCtrl->GetOwner()->GetComponent<Transform>()->GetPosition();
+		if (!m_camCtrl || !m_transform)
+			return;
+
+		Transform* camTransform = m_camCtrl->GetOwner()->GetComponent<Transform>();
+		if (!camTransform)
+			return;
+
+		Vector3 camPos = camTransform->GetPosition();
 		Vector3 monsterPos = m_transform->GetPosition();
 
+		float distY = std::abs(monsterPos.y - camPos.y);
 
-		float dist = monsterPos.y - camPos.y;
+		if (distY >= m_minShakeDistY)
+			return;
+		if (distY == 0) distY = 0.01f;
 
-		if (dist < m_minShakeDistY) m_camCtrl->CameraShake(m_shakePower/ dist); // 카메라와 괴물사이의 거리에 따라 처리하자.
+		float shakeRatio = 1.0f / distY ;
+		shakeRatio = Bisang::fClamp(shakeRatio, 0, 300.0f);
+		float shakePower = m_shakePower * shakeRatio;
+		m_camCtrl->CameraShake(shakePower); 
 	}
 	
 
@@ -140,7 +154,7 @@ namespace Bisang
 	{
 		m_destructRangeY = rangeY;
 	}
-	void MonsterController::SetMinShakeDistY(float minShakeDistY)
+	void MonsterController::SetMinShakeDistY(int minShakeDistY)
 	{
 		m_minShakeDistY = minShakeDistY;
 	}
