@@ -14,6 +14,7 @@
 #include "Game/Scripts/Blocks/BlockObjectInfoTable.h"
 #include "Game/Scripts/Player/PlayerStatus.h"
 #include "Game/Scripts/Audio/AudioManager.h"
+#include "Game/Scripts/Highlighter/Highlighter.h"
 
 #include <iostream>
 
@@ -38,19 +39,43 @@ namespace Bisang
         m_blockObjectInfoTable = blockObjectInfoProvider->GetTable();
 
         UpdateCurrentPos();
+
+        //m_highlighter = FindGameObjectByName("Highlighter")->GetComponent<Highlighter>();
 	}
 
     void PlayerController::Update(float dT)
     {
-        UpdateCurrentPos();
         Move(dT);
-        Interact();
+        UpdateCurrentPos();
+
+        Int3 interactableBlockPos;
+        BlockId interatableBlockID;
+
+        //int x = (int)m_faceDir.x;
+        //int y = (int)m_faceDir.y;
+        //Int3 FacePos = m_currentPos + Int3(-y,x,0);
+        // m_highlighter->SetHighlightBlock(FacePos, BlockId::Dirt);
+        
+        bool bExistInteract = UpdateInteratable(interactableBlockPos,interatableBlockID);
+        //m_highlighter->SetHighlightBlock(interactableBlockPos, interatableBlockID);
+        Interact(interactableBlockPos);
+
+        if(bExistInteract)
+        {
+            m_highlighter->SetHighlightBlock(interactableBlockPos, interatableBlockID);
+        }
+        else
+        {
+            m_highlighter->SetHighlightBlock(Int3(), BlockId::Empty);
+        }
     }
 
 
     //*************************************************
     // 이동
     //************************************************* 
+
+    
 
     void PlayerController::Move(float dT)
     {
@@ -272,7 +297,6 @@ namespace Bisang
 		return true;
 	}
 
-
     void PlayerController::UpdateCurrentPos()
     {
         Int3 pos;
@@ -285,24 +309,148 @@ namespace Bisang
         m_currentPos = pos;
     }
 
+
+    bool PlayerController::UpdateInteratable(Int3& blockPos,BlockId& outBlockID)
+    {
+        Vector2 faceDir = m_faceDir;
+        if (faceDir == Vector2{ 1,-1 } ||
+            faceDir == Vector2{ -1,-1 } ||
+            faceDir == Vector2{ 1,1 } ||
+            faceDir == Vector2{ -1,1 })
+        {
+            blockPos = m_currentPos;
+            return false;
+        }
+        Int3 fwdPos = m_currentPos + Int3(-m_faceDir.y, m_faceDir.x, 0);
+        Int3 fwdDownPos = fwdPos + Int3(0, 0, -1);
+
+        BlockId currentBlock = static_cast<BlockId>(m_blockMap->GetBlock(m_currentPos));
+        BlockId fwdBlock = static_cast<BlockId>(m_blockMap->GetBlock(fwdPos));
+        BlockId fwdDownBlock = static_cast<BlockId>(m_blockMap->GetBlock(fwdDownPos));
+        BlockId heldBlock = m_playerStatus->GetHeldBlockObj();
+
+        if (heldBlock == BlockId::Empty)
+        {
+            switch (currentBlock)
+            {
+                case BlockId::Axe:
+                case BlockId::PickAxe:
+                case BlockId::Hammer:
+                case BlockId::ClayResource:
+                case BlockId::TreeResource:
+
+                    blockPos = m_currentPos;
+                    outBlockID = currentBlock;
+                    return true;
+            }
+            switch (fwdBlock)
+            {
+                case BlockId::Axe:
+                case BlockId::PickAxe:
+                case BlockId::Hammer:
+                case BlockId::ClayResource:
+                case BlockId::TreeResource:
+
+                    blockPos = fwdPos;
+                    outBlockID = fwdBlock;
+                    return true;
+            }
+        }
+
+        else if(heldBlock == BlockId::Axe)
+        {
+            switch (fwdBlock)
+            {
+                case BlockId::Tree:
+                case BlockId::OrcTree:
+                    blockPos = fwdPos;
+                    outBlockID = fwdBlock;
+                    return true;
+            }
+            
+            blockPos = m_currentPos;
+            outBlockID = BlockId::Empty;
+            return true;
+        }
+
+        else if (heldBlock == BlockId::PickAxe)
+        {
+            switch (fwdBlock)
+            {
+            case BlockId::Clay:
+                blockPos = fwdPos;
+                outBlockID = fwdBlock;
+                return true;
+            }
+
+            blockPos = m_currentPos;
+            outBlockID = BlockId::Empty;
+            return true;
+
+        }
+
+        else if (heldBlock == BlockId::Hammer)
+        {
+            switch (currentBlock)
+            {
+            case BlockId::ClayResource:
+                blockPos = m_currentPos;
+                outBlockID = BlockId::RailPath;
+                return true;
+            }
+            switch (fwdBlock)
+            {
+            case BlockId::ClayResource:
+                blockPos = fwdPos;
+                outBlockID = BlockId::RailPath;
+                return true;
+            }
+            blockPos = m_currentPos;
+            outBlockID = BlockId::Empty;
+            return true;
+        }
+        else if (heldBlock == BlockId::ClayResource)
+        {
+            blockPos = m_currentPos;
+            outBlockID = BlockId::Empty;
+            return true;
+        }
+        else if (heldBlock == BlockId::TreeResource)
+        {
+            switch (fwdDownBlock)
+            {
+            case BlockId::Water:
+                blockPos = fwdDownPos;
+                outBlockID = BlockId::WoodBridge;
+                return true;
+            default:
+                blockPos = m_currentPos;
+                outBlockID = BlockId::Empty;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     //*************************************************
     // 상호작용
     //************************************************* 
 
-    void PlayerController::Interact()
+    void PlayerController::Interact(const Int3& blockPos)
     {
         if (false == m_input->IsKeyPressed(KeyCode::Space)) return;
 
         // 월드 -> 블럭맵 좌표 변환
-        Vector3 vCurrentPos = m_transform->GetPosition();
-        Int3 currentPos;
-        if (false == m_blockMap->WorldToBlock(vCurrentPos, currentPos, m_playerZ))
-        {
-            return;
-        }
+        //Vector3 vCurrentPos = m_transform->GetPosition();
+        //Int3 currentPos;
+        //if (false == m_blockMap->WorldToBlock(vCurrentPos, currentPos, m_playerZ))
+        //{
+        //    return;
+        //}
 
         // 현재 위치 블럭 오브젝트 조회
-        int bObj = m_blockMap->GetBlock(currentPos);   
+        int bObj = m_blockMap->GetBlock(blockPos);
         BlockObjectInfo info = m_blockObjectInfoTable->Get(static_cast<BlockId>(bObj));
 
 
@@ -319,13 +467,13 @@ namespace Bisang
 
             if (heldBObj == BlockId::Empty)
             {
-                m_blockMap->RemoveBlock(currentPos);
+                m_blockMap->RemoveBlock(blockPos);
             }
 
             else
             {
                 m_blockMap->SetBlock(
-                    currentPos, 
+                    blockPos,
                     static_cast<int>(heldBObj)
                 );
             }
@@ -339,7 +487,7 @@ namespace Bisang
             if (heldBObj != BlockId::Empty)
             {
                 m_blockMap->SetBlock(
-                    currentPos,
+                    blockPos,
                     static_cast<int>(heldBObj)
                 );
 

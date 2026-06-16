@@ -73,6 +73,7 @@
     <ClInclude Include="Source\Engine\Core\GameApp.h" />
     <ClInclude Include="Source\Game\Prefabs\BlockMapPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\GameManagerPrefab.h" />
+    <ClInclude Include="Source\Game\Prefabs\HighlighterPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\PlayerPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\PrincessPrefab.h" />
     <ClInclude Include="Source\Game\Registry\GameRegistry.h" />
@@ -82,6 +83,7 @@
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockInfoProvider.h" />
     <ClInclude Include="Source\Engine\Components\Camera\CameraController.h" />
     <ClInclude Include="Source\Game\Scripts\GameManager\GameManager.h" />
+    <ClInclude Include="Source\Game\Scripts\Highlighter\Highlighter.h" />
     <ClInclude Include="Source\Game\Scripts\Map\RailManager.h" />
     <ClInclude Include="Source\Game\Scripts\Monitoring\Overlay.h" />
     <ClInclude Include="Source\Game\Scripts\Monster\MonsterController.h" />
@@ -151,6 +153,7 @@
     <ClCompile Include="Source\Engine\Windows\Window.cpp" />
     <ClCompile Include="Source\Game\Prefabs\BlockMapPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\GameManaerPrefab.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\HighlighterPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\playerPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\PrincessPrefab.cpp" />
     <ClCompile Include="Source\Game\Registry\GameRegistry.cpp" />
@@ -159,6 +162,7 @@
     <ClCompile Include="Source\Engine\Components\Camera\CameraController.cpp" />
     <ClCompile Include="Source\Game\Scripts\Audio\AudioManager.cpp" />
     <ClCompile Include="Source\Game\Scripts\GameManager\GameManager.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Highlighter\Highlighter.cpp" />
     <ClCompile Include="Source\Game\Scripts\Map\RailManager.cpp" />
     <ClCompile Include="Source\Game\Scripts\Monitoring\Overlay.cpp">
       <DeploymentContent>false</DeploymentContent>

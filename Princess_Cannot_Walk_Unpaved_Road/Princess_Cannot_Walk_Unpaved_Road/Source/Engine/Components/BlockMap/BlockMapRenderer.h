@@ -48,5 +48,6 @@ namespace Bisang
         std::vector<RenderBlock> m_renderBlocks;
         BlockObjectInfoTable* m_blockObjectInfoTable;
         float m_alpha = 1.0f;
+
     };
 }

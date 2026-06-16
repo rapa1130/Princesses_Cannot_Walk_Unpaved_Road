@@ -8,6 +8,8 @@
 #include "Game/Scripts/Blocks/BlockInfoProvider.h"
 #include "Game/Scripts/Map/BlockMapGenerator.h"
 #include "Game/Scripts/Map/RailManager.h"
+#include "Game/Scripts/Player/PlayerController.h"
+#include "Game/Scripts/Highlighter/Highlighter.h"
 
 #include <random>
 #include <iostream>
@@ -37,6 +39,7 @@ namespace Bisang
 
 		// 플레이어 스폰
 		SpawnPlayer();
+		SpawnHighlighter();
 		// 공주 스폰
 		SpawnPrincess();
 
@@ -80,9 +83,8 @@ namespace Bisang
 	void GameManager::SpawnPlayer()
 	{
 		Vector3 playerStartPos = m_blockMap->BlockToWorld(m_startPosition);
-		m_player = 
-			Instantiate("Player", playerStartPos)
-			->GetComponent<Transform>();
+		m_playerGO = Instantiate("Player", playerStartPos);
+		m_player = m_playerGO->GetComponent<Transform>();
 		GameObject* pickUpObj = Instantiate("PickUpObj");
 		pickUpObj->SetParent(m_player->GetOwner());
 	}
@@ -93,6 +95,14 @@ namespace Bisang
 		m_princess =
 			Instantiate("Princess", princessStartPos)
 			->GetComponent<Transform>();
+	}
+
+	void GameManager::SpawnHighlighter()
+	{
+		m_highlighter = Instantiate("Highlighter", { 0,0,0 });
+		PlayerController* pc =m_playerGO->GetComponent<PlayerController>();
+		pc->SetHighlight(m_highlighter->GetComponent<Highlighter>());
+		
 	}
 
 	void GameManager::SetCameraPrincess()

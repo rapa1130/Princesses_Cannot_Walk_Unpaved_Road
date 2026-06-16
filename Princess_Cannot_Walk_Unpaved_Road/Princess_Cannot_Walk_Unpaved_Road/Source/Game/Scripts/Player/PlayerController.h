@@ -2,6 +2,7 @@
 #include "Engine/Components/Script.h"
 #include "Engine/Math/Vector.h"
 #include "Engine/Math/Int3.h"
+#include "Game/Scripts/Blocks/BlockId.h"
 
 #define PlayerAnimCount 8
 
@@ -16,6 +17,7 @@ namespace Bisang
 	class BlockObjectInfoTable;
 	class PlayerStatus;
 	class AudioManager;
+	class Highlighter;
 
 	class PlayerController : public Script
 	{
@@ -28,13 +30,19 @@ namespace Bisang
 		Vector2& GetFaceDir() { return m_faceDir; }
 		Int3& GetCurrentPos() { return m_currentPos; }
 
+		void SetHighlight(Highlighter* highlighter) { m_highlighter = highlighter; }
+
 	private:
-		void Interact();
+		void Interact(const Int3& blockPos);
 		void Move(float dT);
 		void UpdateVelocity(float dT);
 		void UpdateCurrentPos();
+		void UpdateHighlight(const Int3& blockPos);
+		bool UpdateInteratable(Int3& blockPos,BlockId& blockID);
+		
 		bool CanMoveBoxArea(const Vector3& center);
 		bool CanMoveTo(const Vector3& worldPos) const;
+		
 
 	private:
 		BlockObjectInfoTable* m_blockObjectInfoTable;
@@ -45,6 +53,8 @@ namespace Bisang
 		BoxCollider* m_BoxCol = nullptr;
 		PlayerStatus* m_playerStatus = nullptr;
 		AudioManager* m_audio = nullptr;
+		Highlighter* m_highlighter = nullptr;
+
 
 		int m_playerZ = 1;
 		Vector2 m_faceDir = { 0, 1 };
