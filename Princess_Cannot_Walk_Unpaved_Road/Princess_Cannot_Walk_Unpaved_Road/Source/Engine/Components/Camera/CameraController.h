@@ -17,6 +17,8 @@ namespace Bisang
 
         void Start() override;
         void Update(float dT) override;
+        
+        void CameraShake(float shakePower);
 
         void SetTarget(GameObject* target);
 
@@ -25,5 +27,11 @@ namespace Bisang
         Transform* m_target = nullptr;
 
         Vector3 m_initailPrincessPos;
+
+        float m_shakeTimer = 0.0f;
+        float m_shakeDuration = 0.35f;
+        float m_shakePower = 18.0f;
+
+        bool m_isShaking = false;
     };
 }

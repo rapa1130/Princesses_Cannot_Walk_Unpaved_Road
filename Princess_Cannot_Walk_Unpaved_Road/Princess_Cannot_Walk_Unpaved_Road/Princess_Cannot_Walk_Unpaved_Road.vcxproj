@@ -39,6 +39,7 @@
     <ClInclude Include="Source\Engine\Math\Vector.h" />
     <ClInclude Include="Source\Engine\Physics\Collision.h" />
     <ClInclude Include="Source\Game\AssetSettings\AssetSettings.h" />
+    <ClInclude Include="Source\Game\Prefabs\BigMonsterPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\CameraPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\DebugOverlay.h" />
     <ClInclude Include="Source\Engine\Prefab\Prefab.h" />
@@ -79,6 +80,7 @@
     <ClInclude Include="Source\Game\Scripts\GameManager\GameManager.h" />
     <ClInclude Include="Source\Game\Scripts\Map\RailManager.h" />
     <ClInclude Include="Source\Game\Scripts\Monitoring\Overlay.h" />
+    <ClInclude Include="Source\Game\Scripts\Monster\MonsterController.h" />
     <ClInclude Include="Source\Game\Scripts\Player\BuildingRoad.h" />
     <ClInclude Include="Source\Game\Scripts\Player\MiningBlock.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PickUpObject.h" />
@@ -116,6 +118,7 @@
     <ClInclude Include="Source\Engine\Math\Math.h" />
     <ClCompile Include="Source\Engine\Physics\Collision.cpp" />
     <ClCompile Include="Source\Game\AssetSettings\AssetSettings.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\BigMonsterPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\CameraPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\DebugOverlay.cpp" />
     <ClInclude Include="Source\Engine\Prefab\PrefabFactory.h" />
@@ -152,6 +155,7 @@
     <ClCompile Include="Source\Game\Scripts\Monitoring\Overlay.cpp">
       <DeploymentContent>false</DeploymentContent>
     </ClCompile>
+    <ClCompile Include="Source\Game\Scripts\Monster\MonsterController.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\BuildingRoad.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\MiningBlock.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\PickUpObject.cpp" />

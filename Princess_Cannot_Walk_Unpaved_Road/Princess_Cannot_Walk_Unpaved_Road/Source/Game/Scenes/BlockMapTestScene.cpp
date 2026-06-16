@@ -19,7 +19,9 @@ namespace Bisang
 
 		GameObject* camera = AddGameObject("Camera");
 		SetSceneCamera(camera->GetComponent<Camera2D>());
-		
+
+		GameObject* monster = AddGameObject("BigMonster");
+
 		AddGameObject("DebugOverlay");
 	}
 

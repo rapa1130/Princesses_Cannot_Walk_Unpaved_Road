@@ -39,5 +39,8 @@ namespace Bisang
 		resourceManager->LoadTexture(L"Assets/Textures/Characters/Princess/Princess_Left.png")->SetPivot(princessTexPivot);
 		resourceManager->LoadTexture(L"Assets/Textures/Characters/Princess/Princess_Right.png")->SetPivot(princessTexPivot);
 
+		resourceManager->LoadTexture(L"Assets/Textures/Characters/Monsters/Rabbit Monster.png")->SetPivot({-800,-800,0});
+
+
     }
 }
