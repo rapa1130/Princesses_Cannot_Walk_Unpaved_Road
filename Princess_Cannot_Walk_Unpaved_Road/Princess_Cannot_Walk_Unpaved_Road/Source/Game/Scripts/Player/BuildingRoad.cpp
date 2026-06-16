@@ -38,6 +38,10 @@ namespace Bisang
 	void BuildingRoad::Update(float dT)
 	{
 		Int3 currentPos = m_controller->GetCurrentPos();
+
+		Vector2 vFace =m_controller->GetFaceDir();
+		Int3 fwdPos = m_controller->GetCurrentPos() + Int3(-vFace.y,vFace.x,0);
+
 		BlockId heldBlockObj = m_playerStatus->GetHeldBlockObj();
 		BlockObjectInfo heldInfo = m_infoTable->Get(heldBlockObj);
 		int id;
@@ -46,7 +50,9 @@ namespace Bisang
 		// 돌 길 설치
 		Int3 BelowPos = currentPos - Int3{0, 0, -1};
 		id = m_blockMap->GetBlock(currentPos);
+		int fwdId = m_blockMap->GetBlock(fwdPos);
 		info = m_infoTable->Get(static_cast<BlockId>(id));
+		BlockObjectInfo fwdInfo = m_infoTable->Get(static_cast<BlockId>(fwdId));
 
 		if (info.id == BlockId::ClayResource &&
 			heldInfo.toolType == ToolType::Hammer)
@@ -62,6 +68,25 @@ namespace Bisang
 			if (m_buildingTimer >= m_buiildingTime)
 			{
 				m_blockMap->SetBlock(currentPos, (int)(BlockId::RailPath));
+			}
+
+			m_buildingTimer += dT;
+		}
+
+		else if (fwdInfo.id == BlockId::ClayResource &&
+			heldInfo.toolType == ToolType::Hammer)
+		{
+			m_soundTimer += dT;
+
+			if (m_soundTimer >= m_soundInterval)
+			{
+				m_audio->PlayHammerSound();
+				m_soundTimer = 0.f;
+			}
+
+			if (m_buildingTimer >= m_buiildingTime)
+			{
+				m_blockMap->SetBlock(fwdPos, (int)(BlockId::RailPath));
 			}
 
 			m_buildingTimer += dT;

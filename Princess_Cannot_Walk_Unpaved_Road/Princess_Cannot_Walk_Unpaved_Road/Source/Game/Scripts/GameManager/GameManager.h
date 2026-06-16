@@ -27,6 +27,7 @@ namespace Bisang
         void GenerateMap();
         void SpawnPlayer();
         void SpawnPrincess();
+        void SpawnHighlighter();
         void SetCameraPrincess();
 
     private:
@@ -37,5 +38,7 @@ namespace Bisang
 
         Transform* m_player = nullptr;
         Transform* m_princess = nullptr;
+        GameObject* m_highlighter = nullptr;    
+        GameObject* m_playerGO = nullptr;
     };
 }

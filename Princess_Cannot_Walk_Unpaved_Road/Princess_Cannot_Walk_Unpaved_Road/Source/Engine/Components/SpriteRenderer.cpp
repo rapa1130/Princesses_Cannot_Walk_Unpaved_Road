@@ -23,6 +23,10 @@ namespace Bisang
 	{
 		return m_height * m_transform->GetScale().y;
 	}
+	int SpriteRenderer::GetOrderInZ() const
+	{
+		return m_orderInZ;
+	}
 	Bisang::Color SpriteRenderer::GetColor() const
 	{
 		return m_color;
