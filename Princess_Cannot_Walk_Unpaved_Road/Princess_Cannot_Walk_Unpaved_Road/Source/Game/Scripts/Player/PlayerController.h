@@ -29,12 +29,16 @@ namespace Bisang
 		Int3& GetCurrentPos() { return m_currentPos; }
 
 	private:
-		void Interact();
+		void Interact(const Int3& blockPos);
 		void Move(float dT);
 		void UpdateVelocity(float dT);
 		void UpdateCurrentPos();
+		void UpdateHighlight(const Int3& blockPos);
+		bool UpdateInteratable(Int3& blockPos);
+		
 		bool CanMoveBoxArea(const Vector3& center);
 		bool CanMoveTo(const Vector3& worldPos) const;
+		
 
 	private:
 		BlockObjectInfoTable* m_blockObjectInfoTable;
@@ -45,6 +49,7 @@ namespace Bisang
 		BoxCollider* m_BoxCol = nullptr;
 		PlayerStatus* m_playerStatus = nullptr;
 		AudioManager* m_audio = nullptr;
+
 
 		int m_playerZ = 1;
 		Vector2 m_faceDir = { 0, 1 };

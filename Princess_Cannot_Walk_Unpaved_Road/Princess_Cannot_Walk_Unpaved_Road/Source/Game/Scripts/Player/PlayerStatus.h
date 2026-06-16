@@ -26,6 +26,7 @@ namespace Bisang
 
 		BlockId GetHeldBlockObj() { return m_heldBlockObj; }
 
+
 	private:
 		BlockId m_heldBlockObj = BlockId::Empty;
 	};
