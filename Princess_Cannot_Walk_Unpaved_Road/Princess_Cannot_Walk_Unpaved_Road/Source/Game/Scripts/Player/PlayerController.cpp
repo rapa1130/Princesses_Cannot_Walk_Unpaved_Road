@@ -41,13 +41,24 @@ namespace Bisang
     {
         UpdateCurrentPos();
         Move(dT);
-        Interact();
+
+        Int3 interactableBlockPos;
+        bool bExistInteract = UpdateInteratable(interactableBlockPos);
+
+        if(bExistInteract)
+        {
+            UpdateHighlight(interactableBlockPos);
+            Interact(interactableBlockPos);
+        }
+
     }
 
 
     //*************************************************
     // 이동
     //************************************************* 
+
+    
 
     void PlayerController::Move(float dT)
     {
@@ -282,24 +293,58 @@ namespace Bisang
         m_currentPos = pos;
     }
 
-    //*************************************************
-    // 상호작용
-    //************************************************* 
-
-    void PlayerController::Interact()
+    void PlayerController::UpdateHighlight(const Int3& blockPos)
     {
-        if (false == m_input->IsKeyPressed(KeyCode::Space)) return;
+        //BlockId heldBlock = m_playerStatus->GetHeldBlockObj();
 
-        // 월드 -> 블럭맵 좌표 변환
+        //switch (heldBlock)
+        //{
+        //case Bisang::BlockId::Empty:
+        //    break;
+        //case Bisang::BlockId::Axe:
+        //    break;
+        //case Bisang::BlockId::PickAxe:
+        //    break;
+        //case Bisang::BlockId::Hammer:
+        //    break;
+        //case Bisang::BlockId::ClayResource:
+        //    break;
+        //case Bisang::BlockId::TreeResource:
+        //    break;
+        //}
+
+    }
+
+    bool PlayerController::UpdateInteratable(Int3& blockPos)
+    {
         Vector3 vCurrentPos = m_transform->GetPosition();
         Int3 currentPos;
         if (false == m_blockMap->WorldToBlock(vCurrentPos, currentPos, m_playerZ))
         {
-            return;
+            return false;
         }
+        blockPos = currentPos;
+        return true;
+    }
+
+    //*************************************************
+    // 상호작용
+    //************************************************* 
+
+    void PlayerController::Interact(const Int3& blockPos)
+    {
+        if (false == m_input->IsKeyPressed(KeyCode::Space)) return;
+
+        // 월드 -> 블럭맵 좌표 변환
+        //Vector3 vCurrentPos = m_transform->GetPosition();
+        //Int3 currentPos;
+        //if (false == m_blockMap->WorldToBlock(vCurrentPos, currentPos, m_playerZ))
+        //{
+        //    return;
+        //}
 
         // 현재 위치 블럭 오브젝트 조회
-        int bObj = m_blockMap->GetBlock(currentPos);   
+        int bObj = m_blockMap->GetBlock(blockPos);
         BlockObjectInfo info = m_blockObjectInfoTable->Get(static_cast<BlockId>(bObj));
 
 
@@ -315,13 +360,13 @@ namespace Bisang
 
             if (heldBObj == BlockId::Empty)
             {
-                m_blockMap->RemoveBlock(currentPos);
+                m_blockMap->RemoveBlock(blockPos);
             }
 
             else
             {
                 m_blockMap->SetBlock(
-                    currentPos, 
+                    blockPos,
                     static_cast<int>(heldBObj)
                 );
             }
@@ -335,7 +380,7 @@ namespace Bisang
             if (heldBObj != BlockId::Empty)
             {
                 m_blockMap->SetBlock(
-                    currentPos,
+                    blockPos,
                     static_cast<int>(heldBObj)
                 );
 

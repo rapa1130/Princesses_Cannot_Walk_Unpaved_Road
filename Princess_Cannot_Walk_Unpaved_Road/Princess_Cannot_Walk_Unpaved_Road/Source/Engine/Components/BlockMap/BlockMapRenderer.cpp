@@ -81,6 +81,9 @@ namespace Bisang
 
             auto size = textureResource->GetBitmap()->GetSize();
 
+
+            Color color = Color(1.0f, 1.0f, 1.0f, 0.35f);
+
             RenderCommand rc = RenderCommand::CreateSpriteRC(
                 GetLayer(),
                 renderBlock.worldPos,
