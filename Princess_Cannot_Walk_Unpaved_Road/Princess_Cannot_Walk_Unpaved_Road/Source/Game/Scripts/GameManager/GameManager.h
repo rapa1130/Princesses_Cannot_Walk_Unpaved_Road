@@ -3,8 +3,8 @@
 #include "Engine/Components/Script.h"
 #include "Engine/Math/Int3.h"
 
-#define MAP_WIDTH 50
-#define MAP_HEIGHT 50
+#define MAP_WIDTH 40
+#define MAP_HEIGHT 2
 #define MAP_DEPTH 200
 
 namespace Bisang
