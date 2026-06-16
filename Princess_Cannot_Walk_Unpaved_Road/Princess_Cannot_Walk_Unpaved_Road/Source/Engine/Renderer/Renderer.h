@@ -35,6 +35,7 @@ namespace Bisang
 		void RenderSprite(const RenderCommand& command);
 		void RenderLine(const RenderCommand& command);
 		void RenderText(const RenderCommand& command);
+		void RenderSpriteMask(const RenderCommand& command);
 
 
 		ID2D1DeviceContext4* GetD2DContext() const

@@ -23,6 +23,16 @@ namespace Bisang
 	{
 		return m_height * m_transform->GetScale().y;
 	}
+	Bisang::Color SpriteRenderer::GetColor() const
+	{
+		return m_color;
+	}
+
+	SpriteDrawFlags SpriteRenderer::GetDrawFlags() const
+	{
+		return m_drawFlags;
+	}
+
 
 	void SpriteRenderer::SetSprite(std::shared_ptr<TextureResource> sprite)
 	{
@@ -49,7 +59,8 @@ namespace Bisang
 			m_transform->GetWorldPosition() + m_sprite->GetPivot(),
 			Vector2(GetWidth(), GetHeight()),
 			m_transform->GetRotation(),
-			m_alpha
+			m_color,
+			m_drawFlags
 		);
 
 		renderer->Submit(rc);

@@ -90,7 +90,8 @@ namespace Bisang
                     static_cast<float>(size.height) * m_transform->GetScale().y
                 ),
                 0.0f,
-                m_alpha,
+                Bisang::Color(1.0f,1.0f,1.0f,1.0f),
+                SpriteDrawFlags::Sprite,
                 renderBlock.orderInZ
             );
 

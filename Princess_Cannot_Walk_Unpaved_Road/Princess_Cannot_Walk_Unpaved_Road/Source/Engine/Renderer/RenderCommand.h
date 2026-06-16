@@ -17,6 +17,25 @@ namespace Bisang
 		Rectangle
 	};
 
+	enum class SpriteDrawFlags
+	{
+		None    = 0,
+		Sprite  = 1<<0,
+		Overlay = 1<<1,
+	};
+
+	inline SpriteDrawFlags operator|(SpriteDrawFlags a, SpriteDrawFlags b)
+	{
+		return static_cast<SpriteDrawFlags>(
+			static_cast<unsigned char>(a) | static_cast<unsigned char>(b)
+			);
+	}
+
+	inline bool HasFlag(SpriteDrawFlags flags, SpriteDrawFlags flag)
+	{
+		return (static_cast<unsigned char>(flags) & static_cast<unsigned char>(flag)) != 0;
+	}
+
 
 	struct SpriteCommandData
 	{
@@ -24,7 +43,8 @@ namespace Bisang
 		Vector3 position;
 		Vector2 size;
 		float rot;
-		float alpha;
+		SpriteDrawFlags drawFlag;
+		Bisang::Color color;
 	};
 
 	struct LineCommandData
@@ -67,7 +87,8 @@ namespace Bisang
 			const Vector3& position,
 			const Vector2& size,
 			float rot,
-			float alpha = 1.0f,
+			Bisang::Color color,
+			SpriteDrawFlags drawFlag = SpriteDrawFlags::Sprite,
 			int orderInZ = 0
 		);
 
