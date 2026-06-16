@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Components\Animation\Animator.h" />
+    <ClInclude Include="Source\Engine\Components\AudioSource\AudioSource.h" />
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockObject.h" />
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockMap.h" />
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockMapRenderer.h" />
@@ -38,7 +39,9 @@
     <ClInclude Include="Source\Engine\Input\InputManager.h" />
     <ClInclude Include="Source\Engine\Math\Vector.h" />
     <ClInclude Include="Source\Engine\Physics\Collision.h" />
+    <ClInclude Include="Source\Engine\Resource\AudioClip.h" />
     <ClInclude Include="Source\Game\AssetSettings\AssetSettings.h" />
+    <ClInclude Include="Source\Game\Prefabs\AudioManagerPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\BigMonsterPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\CameraPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\DebugOverlay.h" />
@@ -75,6 +78,7 @@
     <ClInclude Include="Source\Game\Registry\GameRegistry.h" />
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
+    <ClInclude Include="Source\Game\Scripts\Audio\AudioManager.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockInfoProvider.h" />
     <ClInclude Include="Source\Engine\Components\Camera\CameraController.h" />
     <ClInclude Include="Source\Game\Scripts\GameManager\GameManager.h" />
@@ -99,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine\Components\Animation\Animator.cpp" />
+    <ClCompile Include="Source\Engine\Components\AudioSource\AudioSource.cpp" />
     <ClCompile Include="Source\Engine\Components\BlockMap\BlockMap.cpp" />
     <ClCompile Include="Source\Engine\Components\BlockMap\BlockMapRenderer.cpp" />
     <ClCompile Include="Source\Engine\Components\Camera\Camara2D.cpp" />
@@ -117,7 +122,9 @@
     <ClInclude Include="Source\Engine\Math\Int3.h" />
     <ClInclude Include="Source\Engine\Math\Math.h" />
     <ClCompile Include="Source\Engine\Physics\Collision.cpp" />
+    <ClCompile Include="Source\Engine\Resource\AudioClip.cpp" />
     <ClCompile Include="Source\Game\AssetSettings\AssetSettings.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\AudioManagerPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\BigMonsterPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\CameraPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\DebugOverlay.cpp" />
@@ -150,6 +157,7 @@
     <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
     <ClCompile Include="Source\Engine\Components\Camera\CameraController.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Audio\AudioManager.cpp" />
     <ClCompile Include="Source\Game\Scripts\GameManager\GameManager.cpp" />
     <ClCompile Include="Source\Game\Scripts\Map\RailManager.cpp" />
     <ClCompile Include="Source\Game\Scripts\Monitoring\Overlay.cpp">

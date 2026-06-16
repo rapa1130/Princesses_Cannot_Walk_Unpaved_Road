@@ -8,6 +8,7 @@
 #include "Game/Scripts/Player/PlayerStatus.h"
 #include "Game/Scripts/Player/PlayerController.h"
 #include "Game/Scripts/Blocks/BlockInfoProvider.h"
+#include "Game/Scripts/Audio/AudioManager.h"
 
 #include <iostream>
 
@@ -17,16 +18,17 @@ namespace Bisang
 	{
 		m_playerStatus = m_ownerObj->GetComponent<PlayerStatus>();
 
-		m_blockMap = 
-			FindGameObjectByName("BlockMap")
+		m_blockMap = FindGameObjectByName("BlockMap")
 			->GetComponent<BlockMap>();
 		m_controller = m_ownerObj->GetComponent<PlayerController>();
 
-		BlockObjectInfoProvider* provider = 
-			FindGameObjectByName("BlockMap")
+		BlockObjectInfoProvider* provider = FindGameObjectByName("BlockMap")
 			->GetComponent<BlockObjectInfoProvider>();
 
 		m_infoTable = provider->GetTable();
+
+		m_audio = FindGameObjectByName("AudioManager")
+			->GetComponent<AudioManager>();
 	}
 
 	void MiningBlock::Update(float dT)
@@ -53,6 +55,22 @@ namespace Bisang
 		if (info.mineable != nullptr &&
 			info.mineable->requiredTool == heldInfo.toolType)
 		{
+			m_soundTimer += dT;
+
+			if (m_soundTimer >= m_soundInterval)
+			{
+				if (info.id == BlockId::Clay)
+				{
+					m_audio->PlayPickAxeSound();
+				}
+
+				if (info.id == BlockId::Tree || info.id == BlockId::OrcTree)
+				{
+					m_audio->PlayAxeSound();
+				}
+				m_soundTimer = 0.f;
+			}
+
 			if (m_miningTimer >= info.mineable->maxHp)
 			{
 				m_blockMap->SetBlock(frontPos, (int)(info.mineable->dropBlockId));
@@ -64,6 +82,7 @@ namespace Bisang
 		else
 		{
 			m_miningTimer = 0.f;
+			m_soundTimer = 0.f;
 		}
 
 

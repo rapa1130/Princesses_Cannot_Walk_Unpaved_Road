@@ -12,6 +12,7 @@
 #include "Game/Prefabs/CameraPrefab.h"
 #include "Game/Prefabs/GameManagerPrefab.h"
 #include "Game/Prefabs/BigMonsterPrefab.h"
+#include "Game/Prefabs/AudioManagerPrefab.h"
 
 namespace Bisang
 {
@@ -32,5 +33,6 @@ namespace Bisang
         prefabFactory->RegisterPrefab<CameraPrefab>("Camera");
         prefabFactory->RegisterPrefab<GameManagerPrefab>("GameManager");
         prefabFactory->RegisterPrefab<BigMonsterPrefab>("BigMonster");
+        prefabFactory->RegisterPrefab<AudioManagerPrefab>("AudioManager");
     }
 }
