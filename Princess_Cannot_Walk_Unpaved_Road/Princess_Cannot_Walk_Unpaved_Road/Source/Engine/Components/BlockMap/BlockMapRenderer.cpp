@@ -53,6 +53,7 @@ namespace Bisang
 
                     // 맵 범위를 벗어났거나 블록 데이터가 없는 경우
                     if (block == -1) continue;
+                    if (block == static_cast<int>(BlockId::Empty)) continue;
                     
 
                     int id = block;
