@@ -304,9 +304,25 @@ namespace Bisang
             right,
             bottom
         );
-        
 
-        m_d2dContext->DrawBitmap(bitmap, destRect);
+        
+        if (HasFlag(command.sprite.drawFlag, SpriteDrawFlags::Sprite))
+        {
+            m_d2dContext->DrawBitmap(bitmap, destRect);
+        }
+        if (HasFlag(command.sprite.drawFlag, SpriteDrawFlags::Overlay))
+        {
+            m_brush->SetColor(command.sprite.color);
+            auto oldAA = m_d2dContext->GetAntialiasMode();
+            m_d2dContext->SetAntialiasMode(D2D1_ANTIALIAS_MODE_ALIASED);
+            m_d2dContext->FillOpacityMask(
+                bitmap,
+                m_brush.Get(),
+                &destRect,
+                nullptr
+            );
+            m_d2dContext->SetAntialiasMode(oldAA);
+        }
     }
 
     void Renderer::RenderLine(const RenderCommand& command)
@@ -360,6 +376,8 @@ namespace Bisang
         );
     }
 
+
+
     RenderCommand RenderCommand::CreateSpriteRC(
         int layer,
         Vector3 sortKey,
@@ -367,7 +385,8 @@ namespace Bisang
         const Vector3& position,
         const Vector2& size,
         float rot,
-        float alpha,
+        Bisang::Color color,
+        SpriteDrawFlags drawFlag,
         int orderInZ
     )
     {
@@ -381,7 +400,8 @@ namespace Bisang
         ret.sprite.position = position;
         ret.sprite.size = size;
         ret.sprite.rot = rot;
-        ret.sprite.alpha = alpha;
+        ret.sprite.color = color;
+        ret.sprite.drawFlag = drawFlag;
 
         return ret;
     }
