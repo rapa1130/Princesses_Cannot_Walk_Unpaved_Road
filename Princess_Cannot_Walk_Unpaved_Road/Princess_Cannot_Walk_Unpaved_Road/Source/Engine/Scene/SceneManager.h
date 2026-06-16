@@ -53,6 +53,7 @@ namespace Bisang
 
 			m_scenes[sceneName] = std::make_unique<T>(
 				sceneName,
+				this,
 				m_context
 			);
 		}
@@ -84,7 +85,14 @@ namespace Bisang
 		 *
 		 * @param[in] sceneName 전환할 씬 이름
 		 */
-		void ChangeScene(const std::string& sceneName);
+		void ChangeScene();
+
+		/**
+		 * @brief 현재 씬을 다른 씬으로 전환하는 것을 예약한다.
+		 *
+		 * @param[in] sceneName 전환할 씬 이름
+		 */
+		void RequestChangeScene(const std::string& sceneName);
 
 		/**
 		 * @brief 현재 씬 Setup(), OnEnter() 실행
@@ -126,5 +134,8 @@ namespace Bisang
 
 		GameContext* m_context = nullptr;
 		Renderer* m_renderer = nullptr;
+
+		std::string m_pendingSceneName;
+		bool m_hasPendingSceneChange = false;
 	};
 }

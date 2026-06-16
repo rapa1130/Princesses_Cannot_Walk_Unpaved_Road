@@ -5,7 +5,7 @@
 #include "Engine/Components/SpriteRenderer.h"
 #include "Engine/Core/Layer.h"
 #include "Game/Scripts/Blocks/BlockId.h"
-#include "Game/Scripts/Camera/CameraController.h"
+#include "Engine/Components/Camera/CameraController.h"
 #include "Engine/Math/Math.h"
 
 #include <iostream>

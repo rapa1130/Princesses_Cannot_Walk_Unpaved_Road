@@ -8,19 +8,14 @@ namespace Bisang
 	void CameraController::Start()
 	{
 		m_cam2D = m_ownerObj->GetComponent<Camera2D>();
-		GameObject* princess = FindGameObjectByName("Princess");
-		m_princessTransform = princess->GetComponent<Transform>();
-		m_initailPrincessPos = m_princessTransform->GetPosition();
 	}
 
 	void CameraController::Update(float dT)
 	{
-        if (!m_cam2D || !m_princessTransform)
+        if (!m_cam2D || !m_target)
             return;
 
-        Vector3 princessPos = m_princessTransform->GetPosition();
-
-        Vector3 cameraPos = princessPos;
+        Vector3 cameraPos = m_target->GetPosition();
 
         if (m_isShaking)
         {
@@ -44,7 +39,6 @@ namespace Bisang
             cameraPos.y += randY * power;
         }
 
-        //m_cam2D->SetPosition(cameraPos);
         m_cam2D->SetCameraPostion(cameraPos);
 	}
 	void CameraController::CameraShake(float shakePower)
@@ -53,4 +47,10 @@ namespace Bisang
 		m_isShaking = true;
 		m_shakeTimer = 0.0f;
 	}
+
+	void CameraController::SetTarget(GameObject* target)
+	{
+		m_target = target->GetComponent<Transform>();
+	}
+
 }

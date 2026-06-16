@@ -14,7 +14,7 @@
 namespace Bisang
 {
     class BlockMap;
-    class BlockMapGenerator;
+    class GameManager;
 
 
     class RailManager : public Script
@@ -28,6 +28,7 @@ namespace Bisang
         void FindPathFrom(const Int3& pos);
 
         int GetNowRailPathSize() const;
+        bool HasRailPathAt(int index) const;
         const Int3& GetRailPathof(int index) const;
 
 
@@ -37,7 +38,7 @@ namespace Bisang
 
 
         BlockMap* m_blockMap = nullptr;
-        BlockMapGenerator* m_blockMapGen = nullptr;
+        GameManager* m_gM = nullptr;
 
         std::vector<Int3> m_railPaths;
 

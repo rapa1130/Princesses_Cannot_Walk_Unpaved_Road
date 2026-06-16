@@ -98,6 +98,9 @@ namespace Bisang
 
             Update();
             Render();
+
+            // 씬 체인지가 예약되어있다면 씬 바꾸기
+            m_sceneManager->ChangeScene();
         }
     }
 

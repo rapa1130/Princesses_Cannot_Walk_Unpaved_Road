@@ -15,9 +15,12 @@ namespace Bisang
 		m_currentScene->Initialize();
 	}
 
-	void SceneManager::ChangeScene(const std::string& sceneName)
+	void SceneManager::ChangeScene()
 	{
-		auto it = m_scenes.find(sceneName);
+		if (false == m_hasPendingSceneChange) return;
+		m_hasPendingSceneChange = false;
+
+		auto it = m_scenes.find(m_pendingSceneName);
 		if (it == m_scenes.end()) return;
 
 		if (m_currentScene)
@@ -26,10 +29,16 @@ namespace Bisang
 		}
 
 		m_currentScene = it->second.get();
-		m_currentSceneName = sceneName;
+		m_currentSceneName = m_pendingSceneName;
 
 		m_currentScene->Setup();
 		m_currentScene->Initialize();
+	}
+
+	void SceneManager::RequestChangeScene(const std::string& sceneName)
+	{
+		m_pendingSceneName = sceneName;
+		m_hasPendingSceneChange = true;
 	}
 
 	void SceneManager::FixedUpdate()

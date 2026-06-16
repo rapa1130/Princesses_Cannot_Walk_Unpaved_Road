@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine/Components/Component.h"
+#include "Engine/Math/Vector.h"
 #include <string>
 
 namespace Bisang
@@ -14,12 +15,14 @@ namespace Bisang
 		Script(GameObject* ownerObj) : Component(ownerObj) {}
 		
 		GameObject* Instantiate(const std::string& prefabName) const;
+		GameObject* Instantiate(const std::string& prefabName, Vector3 worldPos) const;
+
 		void Destory(GameObject* obj);
 
 		GameObject* FindGameObjectByName(const std::string& name) const;
 		InputManager* GetInputManager() const;
 		ResourceManager* GetResourceManager() const;
-		
+		void ChangeScene(const std::string& sceneName) const;
 
 		virtual void Start() {}
 		virtual void Update(float dT) {}

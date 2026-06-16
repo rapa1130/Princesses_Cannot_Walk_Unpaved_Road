@@ -88,8 +88,10 @@ namespace Bisang
 			parent->AddChild(this);
 		}
 		void ClearParent() { m_parent = nullptr; }
-		void AddChild(GameObject* child) { m_children.insert(child); }
-		void RemoveChild(GameObject* child) { m_children.erase(child); }
+
+		std::set<GameObject*> GetChildrens() { return m_childrens; }
+		void AddChild(GameObject* child) { m_childrens.insert(child); }
+		void RemoveChild(GameObject* child) { m_childrens.erase(child); }
 
 		bool GetIsPendingDestroy() { return m_isPendingDestroy; }
 		void SetIsPendingDestroy(bool b) { m_isPendingDestroy = b; }
@@ -102,7 +104,7 @@ namespace Bisang
 		std::string m_name = "NewObject";   // 오브젝트 이름
 
 		GameObject* m_parent = nullptr;     // 부모 오브젝트
-		std::set<GameObject*> m_children;   // 자식 오브젝트
+		std::set<GameObject*> m_childrens;   // 자식 오브젝트
 
 		bool m_isPendingDestroy = false;    // 지연 삭제 예정 여부
 

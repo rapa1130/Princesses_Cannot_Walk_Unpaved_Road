@@ -128,6 +128,14 @@ namespace Bisang
         treeResource.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Resource/Tree Resource.png");
         Register(treeResource);
 
+        BlockObjectInfo woodBridge;
+        woodBridge.id = BlockId::WoodBridge;
+        woodBridge.kind = BlockObjectKind::Terrain;
+        woodBridge.toolType = ToolType::None;
+        woodBridge.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/WoodBridge.png");
+        woodBridge.isSolid = true;
+        Register(woodBridge);
+
 
     }
 

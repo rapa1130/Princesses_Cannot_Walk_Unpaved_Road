@@ -23,8 +23,6 @@ namespace Bisang
 
 		void Start() override;
 		void Update(float dT) override;
-		
-		void SetToStartPostion();
 
 		Vector2& GetFaceDir() { return m_faceDir; }
 		Int3& GetCurrentPos() { return m_currentPos; }

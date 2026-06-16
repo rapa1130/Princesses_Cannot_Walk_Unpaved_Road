@@ -54,6 +54,8 @@
     <ClCompile Include="Source\Engine\Components\Camera\Camara2D.cpp" />
     <ClCompile Include="Source\Game\Scripts\Camera\CameraController.cpp" />
     <ClCompile Include="Source\Game\Prefabs\CameraPrefab.cpp" />
+    <ClCompile Include="Source\Game\Scripts\GameManager\GameManager.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\GameManaerPrefab.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -127,5 +129,7 @@
     <ClInclude Include="Source\Engine\Components\Camera\Camara2D.h" />
     <ClInclude Include="Source\Game\Scripts\Camera\CameraController.h" />
     <ClInclude Include="Source\Game\Prefabs\CameraPrefab.h" />
+    <ClInclude Include="Source\Game\Scripts\GameManager\GameManager.h" />
+    <ClInclude Include="Source\Game\Prefabs\GameManagerPrefab.h" />
   </ItemGroup>
 </Project>
