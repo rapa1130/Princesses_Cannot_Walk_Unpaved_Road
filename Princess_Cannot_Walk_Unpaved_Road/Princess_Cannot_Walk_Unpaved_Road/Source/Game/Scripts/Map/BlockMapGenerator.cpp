@@ -143,6 +143,10 @@ namespace Bisang
         MakeEmptytZone(blockMap, startPosition, 7);
         MakeEmptytZone(blockMap, endPosition, 7);
         MakeInitialRoad(blockMap, startPosition);
+
+        blockMap->SetBlock(startPosition + Int3{ -3, -1, 0 }, static_cast<int>(BlockId::Axe));
+        blockMap->SetBlock(startPosition + Int3{ -3, 0, 0 }, static_cast<int>(BlockId::PickAxe));
+        blockMap->SetBlock(startPosition + Int3{ -3, 1, 0 }, static_cast<int>(BlockId::Hammer));
     }
 
 
@@ -188,12 +192,6 @@ namespace Bisang
                 }
             }
         }
-
-        blockMap->SetBlock(pos + Int3{1, 2, 0 }, static_cast<int>(BlockId::Axe));
-        blockMap->SetBlock(pos + Int3{1, 1, 0}, static_cast<int>(BlockId::PickAxe));
-        blockMap->SetBlock(pos + Int3{ 1, 3, 0 }, static_cast<int>(BlockId::Hammer));
-        blockMap->SetBlock(pos + Int3{ 2, 2, 0 }, static_cast<int>(BlockId::ClayResource));
-        blockMap->SetBlock(pos + Int3{ 2, 1, 0 }, static_cast<int>(BlockId::TreeResource));
     }
 
     void BlockMapGenerator::MakeInitialRoad(BlockMap* blockMap, Int3& startPos)
@@ -208,10 +206,6 @@ namespace Bisang
             blockMap->SetBlock(pos, static_cast<int>(BlockId::RailPath));
         }
 
-        blockMap->SetBlock({ startPos.x + 1,startPos.y,1 }, static_cast<int>(BlockId::RailPath));
-        blockMap->SetBlock({ startPos.x + 2,startPos.y,1 }, static_cast<int>(BlockId::RailPath));
-        blockMap->SetBlock({ startPos.x + 3,startPos.y,1 }, static_cast<int>(BlockId::RailPath));
-        blockMap->SetBlock({ startPos.x + 3,startPos.y+1,1 }, static_cast<int>(BlockId::RailPath));
-        blockMap->SetBlock({ startPos.x + 3,startPos.y+2,1 }, static_cast<int>(BlockId::RailPath));
+
     }
 }

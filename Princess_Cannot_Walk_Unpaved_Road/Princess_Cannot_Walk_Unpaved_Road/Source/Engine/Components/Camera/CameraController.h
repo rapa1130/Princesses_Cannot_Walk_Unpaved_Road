@@ -6,6 +6,8 @@
 
 namespace Bisang
 {
+    class Transform;
+    class GameObject;
     class Camera2D;
     
     class CameraController : public Script
@@ -16,9 +18,11 @@ namespace Bisang
         void Start() override;
         void Update(float dT) override;
 
+        void SetTarget(GameObject* target);
+
     private:
         Camera2D* m_cam2D = nullptr;
-        Transform* m_princessTransform = nullptr;
+        Transform* m_target = nullptr;
 
         Vector3 m_initailPrincessPos;
     };

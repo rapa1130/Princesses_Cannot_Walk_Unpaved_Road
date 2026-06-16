@@ -7,6 +7,8 @@
 #include"Engine/Renderer/RenderCommand.h"
 #include"Engine/Renderer/Renderer.h"
 
+#include <iostream>
+
 namespace Bisang
 {
     TextRenderer::TextRenderer(GameObject* ownerObj) :
@@ -35,7 +37,6 @@ namespace Bisang
             m_transform->GetScale(),
             m_color 
         );
-
 
         renderer->Submit(rc);
 	}

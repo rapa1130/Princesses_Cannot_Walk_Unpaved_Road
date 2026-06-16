@@ -16,6 +16,7 @@ namespace Bisang
         PickAxe,
         Hammer,
         ClayResource,
-        TreeResource
+        TreeResource,
+        WoodBridge
     };
 }

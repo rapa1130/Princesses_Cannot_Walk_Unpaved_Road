@@ -21,13 +21,6 @@ namespace Bisang
         m_transform = m_ownerObj->GetComponent<Transform>();
         m_blockMap = blockMapGO->GetComponent<BlockMap>();
         m_railManager = blockMapGO->GetComponent<RailManager>();
-
-        Int3 startPos = 
-            FindGameObjectByName("GameManager")
-            ->GetComponent<GameManager>()
-            ->GetStartRailPosition();
-
-        SetBlockPosition(startPos);
     }
 
     void PrincessController::Update(float dT)
@@ -38,6 +31,9 @@ namespace Bisang
             return;
         }
 
+        if (!m_railManager->HasRailPathAt(m_nowWalkingRailIndex))
+            return;
+
         const Int3& targetPos = m_railManager->GetRailPathof(m_nowWalkingRailIndex);
         Vector3 targetWorldPos = m_blockMap->BlockToWorld(targetPos);
         Vector3 nowWorldPos = m_transform->GetPosition();
@@ -47,27 +43,21 @@ namespace Bisang
             m_nowWalkingRailIndex++;
             
             if (HasReachRoadEnd()) return;
+            if (!m_railManager->HasRailPathAt(m_nowWalkingRailIndex)) return;
 
             const Int3& nextTargetPos =m_railManager->GetRailPathof(m_nowWalkingRailIndex);
 
             m_nowMoveDir = nextTargetPos - targetPos;
             return;
         }
-        if (m_nowMoveDir == Int3{ 0,0,0 } && m_nowWalkingRailIndex > 0)
+        if (m_nowMoveDir == Int3{ 0,0,0 } && m_nowWalkingRailIndex > 0 &&
+            m_railManager->HasRailPathAt(m_nowWalkingRailIndex - 1))
         {
             const Int3& prevTargetPos = m_railManager->GetRailPathof(m_nowWalkingRailIndex - 1);
             m_nowMoveDir = targetPos - prevTargetPos;
         }
         Move(nowWorldPos, targetWorldPos, dT);
     }
-
-    void PrincessController::SetBlockPosition(const Int3& blockPos)
-    {
-        Vector3 startWorldPos = m_blockMap->BlockToWorld(blockPos);
-        m_transform->SetPosition(startWorldPos);
-    }
-
-
 
     float PrincessController::GetMoveSpeed() const
     {
@@ -93,6 +83,9 @@ namespace Bisang
     }
     bool PrincessController::HasReachRoadEnd() const
     {
+        if (m_railManager == nullptr)
+            return true;
+
         return m_railManager->GetNowRailPathSize() <= m_nowWalkingRailIndex;
     }
     bool PrincessController::HasReachedCurrentRoadPoint(const Vector3& nowWorldPos, const Vector3& targetWorldPos) const

@@ -25,6 +25,8 @@ namespace Bisang
 
 		float m_buildingTimer = 0.f;
 		float m_buiildingTime = 0.5f;
+		float m_buildingTimer2 = 0.f;
+		float m_buiildingTime2 = 0.5f;
 	};
 
 

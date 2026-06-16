@@ -5,15 +5,18 @@
 #include "Engine/Object/GameObject.h"
 #include "Engine/Physics/Collision.h"
 #include "Engine/Prefab/PrefabFactory.h"
+#include "Engine/Components/Transform.h"
+#include "Engine/Scene/SceneManager.h"
 
 #include <algorithm>
 #include <iostream>
 
 namespace Bisang
 {
-	Scene::Scene(std::string sceneName, GameContext* context)
+	Scene::Scene(std::string sceneName, SceneManager* sceneManager, GameContext* context)
 		: m_sceneName(sceneName), m_context(context)
 	{
+		m_sceneManager = sceneManager;
 		m_prefabFactory = m_context->prefabFactory;
 	}
 
@@ -35,6 +38,31 @@ namespace Bisang
 				comp->Awake();
 			}
 		}
+	}
+
+	void Scene::Finalize()
+	{
+		while (!m_addGameObjectQueue.empty())
+		{
+			m_addGameObjectQueue.pop();
+		}
+
+		while (!m_deleteGameObjectQueue.empty())
+		{
+			m_deleteGameObjectQueue.pop();
+		}
+
+		m_deleteGameObjectSet.clear();
+
+		m_renderableComponents.clear();
+		m_colliders.clear();
+		m_prevCollisions.clear();
+		m_currentCollisions.clear();
+
+		m_cam2D = nullptr;
+
+		m_gameObjects.clear();
+		m_GameObjectCount = 0;
 	}
 
 	//*************************************************
@@ -121,13 +149,26 @@ namespace Bisang
 	//##########
 	// 등록
 	//##########
+
 	GameObject* Scene::Instantiate(std::string prefabName)
 	{
 		std::unique_ptr<GameObject> obj = m_prefabFactory->Create(prefabName);
 		if (obj == nullptr) return nullptr;
+
 		GameObject* pObj = obj.get();
 		m_addGameObjectQueue.push(std::move(obj));
+
 		return pObj;
+	}
+
+	GameObject* Scene::Instantiate(std::string prefabName, Vector3 worldPos)
+	{
+		GameObject* obj = Instantiate(prefabName);
+		if (obj == nullptr) return nullptr;
+
+		obj->GetComponent<Transform>()->SetPosition(worldPos);
+
+		return obj;
 	}
 
 	GameObject* Scene::AddGameObject(std::string prefabName)
@@ -198,6 +239,18 @@ namespace Bisang
 		if (m_gameObjects.find(id) == m_gameObjects.end()) return;
 		if (m_deleteGameObjectSet.find(id) != m_deleteGameObjectSet.end()) return;
 
+		GameObject* obj = m_gameObjects[id].get();
+		GameObject* parent = obj->GetParent();
+		if (parent != nullptr)
+		{
+			parent->RemoveChild(obj);
+		}
+
+		for (GameObject* child : obj->GetChildrens())
+		{
+			DestroyGameObject(child->GetId());
+		}
+		
 		// 지연 삭제 큐 push
 		m_deleteGameObjectQueue.push(id);
 
@@ -435,5 +488,9 @@ namespace Bisang
 		}
 	}
 
+	void Scene::RequestChangeScene(const std::string& sceneName)
+	{
+		m_sceneManager->RequestChangeScene(sceneName);
+	}
 
 }

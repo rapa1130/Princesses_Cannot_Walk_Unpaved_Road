@@ -6,11 +6,11 @@ namespace Bisang
 	class BlockMapTestScene : public Scene
 	{
 	public:
-		BlockMapTestScene(std::string sceneName, GameContext* context) : Scene(sceneName, context)
+		BlockMapTestScene(std::string sceneName, SceneManager* sceneManager, GameContext* context) 
+			: Scene(sceneName, sceneManager, context)
 		{
 		}
 		
-		void Finalize() override;
 		void Setup() override;
 
 	private:

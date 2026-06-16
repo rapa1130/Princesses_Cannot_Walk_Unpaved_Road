@@ -8,13 +8,17 @@ namespace Bisang
 	void CameraController::Start()
 	{
 		m_cam2D = m_ownerObj->GetComponent<Camera2D>();
-		GameObject* princess = FindGameObjectByName("Princess");
-		m_princessTransform = princess->GetComponent<Transform>();
-		m_initailPrincessPos = m_princessTransform->GetPosition();
 	}
 
 	void CameraController::Update(float dT)
 	{
-		m_cam2D->SetCameraPostion(m_princessTransform->GetWorldPosition());
+		if (m_target == nullptr) return;
+		m_cam2D->SetCameraPostion(m_target->GetWorldPosition());
 	}
+
+	void CameraController::SetTarget(GameObject* target)
+	{
+		m_target = target->GetComponent<Transform>();
+	}
+
 }

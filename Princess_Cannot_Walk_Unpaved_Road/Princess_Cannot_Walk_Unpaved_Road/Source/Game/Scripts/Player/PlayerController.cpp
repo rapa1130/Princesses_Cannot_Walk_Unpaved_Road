@@ -34,8 +34,6 @@ namespace Bisang
 
         m_blockObjectInfoTable = blockObjectInfoProvider->GetTable();
 
-        SetToStartPostion();
-
         UpdateCurrentPos();
 	}
 
@@ -266,14 +264,6 @@ namespace Bisang
 		return true;
 	}
 
-
-
-    void PlayerController::SetToStartPostion()
-	{
-        Int3 startBlockPos = { 15, 10, 1 };
-		Vector3 startWorldPos = m_blockMap->BlockToWorld(startBlockPos);
-		m_transform->SetPosition(startWorldPos);
-	}
 
     void PlayerController::UpdateCurrentPos()
     {

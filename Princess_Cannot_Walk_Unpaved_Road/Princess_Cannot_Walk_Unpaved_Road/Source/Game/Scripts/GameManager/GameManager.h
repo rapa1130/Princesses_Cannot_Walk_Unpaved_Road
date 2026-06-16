@@ -3,8 +3,13 @@
 #include "Engine/Components/Script.h"
 #include "Engine/Math/Int3.h"
 
+#define MAP_WIDTH 50
+#define MAP_HEIGHT 50
+#define MAP_DEPTH 200
+
 namespace Bisang
 {
+    class GameObject;
     class BlockMap;
 
     class GameManager : public Script
@@ -20,11 +25,17 @@ namespace Bisang
     private:
         unsigned int CreateRandomSeed() const;
         void GenerateMap();
+        void SpawnPlayer();
+        void SpawnPrincess();
+        void SetCameraPrincess();
 
     private:
         BlockMap* m_blockMap = nullptr;
-        int m_playerZ = 1;
+        int m_playerZ = 1;   // 플레이어 블럭맵 높이
         Int3 m_startPosition;
         Int3 m_endPosition;
+
+        Transform* m_player = nullptr;
+        Transform* m_princess = nullptr;
     };
 }

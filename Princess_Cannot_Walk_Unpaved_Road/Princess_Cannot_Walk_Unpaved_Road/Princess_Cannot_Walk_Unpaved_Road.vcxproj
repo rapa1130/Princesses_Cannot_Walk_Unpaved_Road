@@ -75,7 +75,7 @@
     <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockInfoProvider.h" />
-    <ClInclude Include="Source\Game\Scripts\Camera\CameraController.h" />
+    <ClInclude Include="Source\Engine\Components\Camera\CameraController.h" />
     <ClInclude Include="Source\Game\Scripts\GameManager\GameManager.h" />
     <ClInclude Include="Source\Game\Scripts\Map\RailManager.h" />
     <ClInclude Include="Source\Game\Scripts\Monitoring\Overlay.h" />
@@ -100,7 +100,6 @@
     <ClCompile Include="Source\Engine\Components\BlockMap\BlockMap.cpp" />
     <ClCompile Include="Source\Engine\Components\BlockMap\BlockMapRenderer.cpp" />
     <ClCompile Include="Source\Engine\Components\Camera\Camara2D.cpp" />
-    <ClCompile Include="Source\Engine\Components\Camera\Camera2D.cpp" />
     <ClCompile Include="Source\Engine\Components\Collider\BoxCollider.cpp" />
     <ClCompile Include="Source\Engine\Components\Collider\CircleCollider.cpp" />
     <ClCompile Include="Source\Engine\Components\Collider\Collider.cpp" />
@@ -147,7 +146,7 @@
     <ClCompile Include="Source\Game\Registry\GameRegistry.cpp" />
     <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
-    <ClCompile Include="Source\Game\Scripts\Camera\CameraController.cpp" />
+    <ClCompile Include="Source\Engine\Components\Camera\CameraController.cpp" />
     <ClCompile Include="Source\Game\Scripts\GameManager\GameManager.cpp" />
     <ClCompile Include="Source\Game\Scripts\Map\RailManager.cpp" />
     <ClCompile Include="Source\Game\Scripts\Monitoring\Overlay.cpp">

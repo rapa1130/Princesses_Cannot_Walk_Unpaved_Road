@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine/Core/GameContext.h"
+#include "Engine/Math/Vector.h"
 
 #include <unordered_map>
 #include <unordered_set>
@@ -17,6 +18,7 @@
 
 namespace Bisang
 {
+    class SceneManager;
 	class RenderableComponent;
     class Collider;
 	class GameObject;
@@ -37,7 +39,7 @@ namespace Bisang
          * @param[in] sceneName 씬 이름
          * @param[in] context 씬에서 필요한 각종 매니저들
          */
-        Scene(std::string sceneName, GameContext* context);
+        Scene(std::string sceneName, SceneManager* sceneManager, GameContext* context);
 
         /**
          * @brief 씬을 소멸한다.
@@ -56,6 +58,10 @@ namespace Bisang
         ResourceManager* GetResourceManager() { return m_context->resourceManager; }
         InputManager* GetInputManager() { return m_context->inputManager; }
 
+        //*************************************************
+        // 씬 교체 요청
+        //************************************************* 
+        void RequestChangeScene(const std::string& sceneName);
 
         //*************************************************
         // 생명주기
@@ -74,7 +80,8 @@ namespace Bisang
          * 씬이 사용하던 자원을 정리하고
          * 종료 처리를 수행한다.
          */
-        virtual void Finalize() = 0;
+        void Finalize();
+        bool IsFinalizing() const { return m_isFinalizing; }
 
         /**
          * @brief 씬을 구성한다.
@@ -131,6 +138,7 @@ namespace Bisang
          * @return GameObject* 게임 오브젝트 포인터
          */
         GameObject* Instantiate(std::string prefabName);
+        GameObject* Instantiate(std::string prefabName, Vector3 worldPos);
 
         /**
          * @brief 게임 오브젝트를 씬에 등록한다. [즉시 등록]
@@ -276,6 +284,8 @@ namespace Bisang
 
         GameContext* m_context = nullptr;              
         PrefabFactory* m_prefabFactory = nullptr;
+        SceneManager* m_sceneManager = nullptr;
+        bool m_isFinalizing = false;
 
 		//*************************************************
 		// 게임 오브젝트 관리
@@ -285,8 +295,6 @@ namespace Bisang
         std::queue<std::unique_ptr<GameObject>> m_addGameObjectQueue;              // 지연 추가 오브젝트
 		std::queue<uint64_t> m_deleteGameObjectQueue;                              // 지연 삭제 오브젝트
         std::unordered_set<uint64_t> m_deleteGameObjectSet;
-
-
 
 		//*************************************************
 		// 렌더링 컴포넌트

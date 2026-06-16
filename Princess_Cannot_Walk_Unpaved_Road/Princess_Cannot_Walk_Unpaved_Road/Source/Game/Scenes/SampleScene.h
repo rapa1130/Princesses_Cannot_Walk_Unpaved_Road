@@ -6,11 +6,11 @@ namespace Bisang
 	class SampleScene : public Scene
 	{
 	public:
-		SampleScene(std::string sceneName, GameContext* context) : Scene(sceneName, context)
+		SampleScene(std::string sceneName, SceneManager* sceneManager, GameContext* context)
+			: Scene(sceneName, sceneManager, context)
 		{
 		}
 		
-		void Finalize() override;
 		void Setup() override;
 
 	private:

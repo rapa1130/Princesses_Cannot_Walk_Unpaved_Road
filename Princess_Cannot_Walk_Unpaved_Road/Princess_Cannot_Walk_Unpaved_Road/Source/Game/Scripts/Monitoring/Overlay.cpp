@@ -3,6 +3,8 @@
 #include "Engine/Object/GameObject.h"
 #include "Engine/Components/TextRenderer.h"
 
+#include <iostream>
+
 namespace Bisang
 {
 	void Overlay::Start()

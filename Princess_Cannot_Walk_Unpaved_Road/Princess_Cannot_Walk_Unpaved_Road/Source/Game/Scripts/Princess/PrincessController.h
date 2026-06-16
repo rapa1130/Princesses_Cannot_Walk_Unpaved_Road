@@ -22,8 +22,6 @@ namespace Bisang
 		void Start() override;
 		void Update(float dT) override;
 
-		void SetBlockPosition(const Int3& blockPos);
-
 		float GetMoveSpeed() const;
 		void SetMoveSpeed(float speed);
 

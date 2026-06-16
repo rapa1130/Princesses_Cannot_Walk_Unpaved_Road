@@ -1,4 +1,7 @@
 #pragma once
+
+#include "Engine/Math/Vector.h"
+
 #include <memory>
 namespace Bisang
 {

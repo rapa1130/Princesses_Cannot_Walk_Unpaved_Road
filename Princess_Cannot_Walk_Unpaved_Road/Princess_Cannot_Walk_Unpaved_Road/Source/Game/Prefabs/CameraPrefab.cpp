@@ -1,7 +1,7 @@
 #include "CameraPrefab.h"
 #include "Engine/Components/Camera/Camara2D.h"
 #include "Engine/Object/GameObject.h"
-#include "Game/Scripts/Camera/CameraController.h"
+#include "Engine/Components/Camera/CameraController.h"
 
 namespace Bisang
 {

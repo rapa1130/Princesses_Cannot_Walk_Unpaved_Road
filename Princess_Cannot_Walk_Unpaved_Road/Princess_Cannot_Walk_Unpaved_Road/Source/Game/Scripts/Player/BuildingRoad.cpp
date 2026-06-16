@@ -33,13 +33,15 @@ namespace Bisang
 	void BuildingRoad::Update(float dT)
 	{
 		Int3 currentPos = m_controller->GetCurrentPos();
-		Int3 BelowPos = currentPos - Int3{0, 0, -1};
-
-		int id = m_blockMap->GetBlock(currentPos);
-		BlockObjectInfo info = m_infoTable->Get(static_cast<BlockId>(id));
-
 		BlockId heldBlockObj = m_playerStatus->GetHeldBlockObj();
 		BlockObjectInfo heldInfo = m_infoTable->Get(heldBlockObj);
+		int id;
+		BlockObjectInfo info;
+
+		// 돌 길 설치
+		Int3 BelowPos = currentPos - Int3{0, 0, -1};
+		id = m_blockMap->GetBlock(currentPos);
+		info = m_infoTable->Get(static_cast<BlockId>(id));
 
 		if (info.id == BlockId::ClayResource &&
 			heldInfo.toolType == ToolType::Hammer)
@@ -58,6 +60,37 @@ namespace Bisang
 		}
 
 
+		// 물 판자 설치
 
+		Vector2 faceDir = m_controller->GetFaceDir();
+		if (faceDir == Vector2{ 1,-1 } ||
+			faceDir == Vector2{ -1,-1 } ||
+			faceDir == Vector2{ 1,1 } ||
+			faceDir == Vector2{ -1,1 })
+		{
+			return;
+		}
+		Int3 frontBelowPos = currentPos + Int3(-1 * (int)faceDir.y, (int)faceDir.x, -1);
+		Int3 frontPos = currentPos + Int3(-1 * (int)faceDir.y, (int)faceDir.x, 0);
+		id = m_blockMap->GetBlock(frontBelowPos);
+		info = m_infoTable->Get(static_cast<BlockId>(id));
+
+		if (info.id == BlockId::Water &&
+			heldInfo.id == BlockId::TreeResource)
+		{
+			if (m_buildingTimer2 >= m_buiildingTime2)
+			{
+				m_blockMap->SetBlock(frontBelowPos, (int)(BlockId::WoodBridge));
+				m_playerStatus->PutDown();
+			}
+
+			m_buildingTimer2 += dT;
+		}
+
+		else
+		{
+			m_buildingTimer2 = 0.f;
+		}
+		
 	}
 }

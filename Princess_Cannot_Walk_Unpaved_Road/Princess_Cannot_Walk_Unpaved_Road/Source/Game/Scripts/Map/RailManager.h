@@ -28,6 +28,7 @@ namespace Bisang
         void FindPathFrom(const Int3& pos);
 
         int GetNowRailPathSize() const;
+        bool HasRailPathAt(int index) const;
         const Int3& GetRailPathof(int index) const;
 
 
