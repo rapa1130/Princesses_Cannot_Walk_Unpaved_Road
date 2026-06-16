@@ -3,9 +3,9 @@
 #include "Engine/Components/Script.h"
 #include "Engine/Math/Int3.h"
 
-#define MAP_WIDTH 40
+#define MAP_WIDTH 20
 #define MAP_HEIGHT 2
-#define MAP_DEPTH 200
+#define MAP_DEPTH 100
 
 namespace Bisang
 {
@@ -25,8 +25,10 @@ namespace Bisang
     private:
         unsigned int CreateRandomSeed() const;
         void GenerateMap();
-        void SpawnPlayer();
+        void SpawnPlayer1();
+        void SpawnPlayer2();
         void SpawnPrincess();
+        void SpawnRabbit();
         void SetCameraPrincess();
 
     private:
@@ -35,7 +37,9 @@ namespace Bisang
         Int3 m_startPosition;
         Int3 m_endPosition;
 
-        Transform* m_player = nullptr;
+        Transform* m_player1 = nullptr;
+        Transform* m_player2 = nullptr;
         Transform* m_princess = nullptr;
+        Transform* m_rabbit = nullptr;
     };
 }

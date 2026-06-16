@@ -2,14 +2,13 @@
 
 #include "Engine/Core/Debug.h"
 #include "Engine/Object/GameObject.h"
-#include "Engine/Input/InputManager.h"
 #include "Engine/Resource/ResourceManager.h"
 #include "Engine/Components/Transform.h"
 #include "Engine/Components/BlockMap/BlockMap.h"
 #include "Engine/Components/SpriteRenderer.h"
 #include "Engine/Components/Collider/BoxCollider.h"
 #include "Engine/Components/Animation/Animator.h"
-
+#include "Engine/Input/InputManager.h"
 #include "Game/Scripts/Blocks/BlockInfoProvider.h"
 #include "Game/Scripts/Blocks/BlockObjectInfoTable.h"
 #include "Game/Scripts/Player/PlayerStatus.h"
@@ -132,10 +131,10 @@ namespace Bisang
         Vector3 inputDir{ 0.0f, 0.0f, 0.0f };
         Vector2 faceDir = { 0, 0 };
 
-        bool left = m_input->IsKeyDown(KeyCode::Left);
-        bool right = m_input->IsKeyDown(KeyCode::Right);
-        bool up = m_input->IsKeyDown(KeyCode::Up);
-        bool down = m_input->IsKeyDown(KeyCode::Down);
+        bool left = m_input->IsKeyDown(m_keyMapping[0]);
+        bool right = m_input->IsKeyDown(m_keyMapping[1]);
+        bool up = m_input->IsKeyDown(m_keyMapping[2]);
+        bool down = m_input->IsKeyDown(m_keyMapping[3]);
 
         int inputCount = 0;
         if (left)  inputCount++;

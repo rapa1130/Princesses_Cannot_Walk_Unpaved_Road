@@ -13,7 +13,7 @@ namespace Bisang
 	void PickUpObject::Start()
 	{
 		m_playerStatus =
-			FindGameObjectByName("Player")
+			m_ownerObj->GetParent()
 			->GetComponent<PlayerStatus>();
 
 		m_pickUpObject =

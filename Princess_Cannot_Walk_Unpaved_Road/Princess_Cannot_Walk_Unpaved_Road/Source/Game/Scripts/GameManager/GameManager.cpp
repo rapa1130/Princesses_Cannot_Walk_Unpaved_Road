@@ -8,6 +8,7 @@
 #include "Game/Scripts/Blocks/BlockInfoProvider.h"
 #include "Game/Scripts/Map/BlockMapGenerator.h"
 #include "Game/Scripts/Map/RailManager.h"
+#include "Game/Scripts/Player/PlayerController.h"
 
 #include <random>
 #include <iostream>
@@ -28,7 +29,7 @@ namespace Bisang
 
 		// 시작, 끝 지점 초기화
 		m_startPosition = { MAP_WIDTH / 2, 10 , m_playerZ };
-		m_endPosition = { MAP_WIDTH / 2, 3 , m_playerZ };
+		m_endPosition = { MAP_WIDTH / 2, 30 , m_playerZ };
 
 		// 랜덤 맵 생성
 		GenerateMap();
@@ -36,9 +37,12 @@ namespace Bisang
 		FindGameObjectByName("BlockMap")->GetComponent<RailManager>()->FindInitialPath();
 
 		// 플레이어 스폰
-		SpawnPlayer();
+		SpawnPlayer1();
+		SpawnPlayer2();
 		// 공주 스폰
 		SpawnPrincess();
+		// 토끼 스폰
+		SpawnRabbit();
 
 		// 카메라 공주 설정
 		SetCameraPrincess();
@@ -50,10 +54,10 @@ namespace Bisang
 		if (!m_blockMap->WorldToBlock(m_princess->GetPosition(), currentPrincessPos, 1))
 			return;
 
-		//if (currentPrincessPos == m_endPosition)
-		//{
-		//	ChangeScene("BlockMapTestScene");
-		//}
+		if (currentPrincessPos == m_endPosition)
+		{
+			ChangeScene("BlockMapTestScene");
+		}
 	}
 
 	void GameManager::GenerateMap()
@@ -77,21 +81,38 @@ namespace Bisang
 		return rd();
 	}
 
-	void GameManager::SpawnPlayer()
+	void GameManager::SpawnPlayer1()
 	{
 		Vector3 playerStartPos = m_blockMap->BlockToWorld(m_startPosition);
-		m_player = 
-			Instantiate("Player", playerStartPos)
+		m_player1 = Instantiate("Player", playerStartPos + Vector3(1, 0, 0))
 			->GetComponent<Transform>();
 		GameObject* pickUpObj = Instantiate("PickUpObj");
-		pickUpObj->SetParent(m_player->GetOwner());
+		pickUpObj->SetParent(m_player1->GetOwner());
+	}
+
+	void GameManager::SpawnPlayer2()
+	{
+		Vector3 playerStartPos = m_blockMap->BlockToWorld(m_startPosition);
+		m_player2 = Instantiate("Player", playerStartPos + Vector3(-1, 0, 0))
+			->GetComponent<Transform>();
+		GameObject* pickUpObj = Instantiate("PickUpObj");
+		pickUpObj->SetParent(m_player2->GetOwner());
+
+		m_player2->GetOwner()
+			->GetComponent<PlayerController>()
+			->SetKeyMapping(
+				{ KeyCode::A,
+				  KeyCode::D,
+				  KeyCode::W,
+				  KeyCode::S }
+			);
+
 	}
 
 	void GameManager::SpawnPrincess()
 	{
 		Vector3 princessStartPos = m_blockMap->BlockToWorld(Int3(m_startPosition.x, 0, 1));
-		m_princess =
-			Instantiate("Princess", princessStartPos)
+		m_princess =Instantiate("Princess", princessStartPos)
 			->GetComponent<Transform>();
 	}
 
@@ -102,6 +123,12 @@ namespace Bisang
 			->GetComponent<CameraController>();
 
 		mainCamera->SetTarget(m_princess->GetOwner());
+	}
+
+	void GameManager::SpawnRabbit()
+	{
+		m_rabbit = Instantiate("BigMonster")
+			->GetComponent<Transform>();
 	}
 
 
