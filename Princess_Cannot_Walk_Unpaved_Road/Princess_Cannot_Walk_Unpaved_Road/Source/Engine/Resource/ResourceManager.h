@@ -10,6 +10,7 @@
 #include "Engine/Renderer/DxHeaders.h"
 #include "Engine/Resource/IResource.h"
 #include "Engine/Resource/TextureResource.h"
+#include "Engine/Resource/AudioClip.h"
 
 
 namespace Bisang
@@ -51,6 +52,8 @@ namespace Bisang
             const std::wstring& fontName,
             float fontSiz
         );
+
+        std::shared_ptr<AudioClip> LoadAudioClip(const std::wstring& path);
 
         /**
          * @brief 이미 로드된 리소스를 가져온다.

@@ -13,6 +13,7 @@
 #include "Game/Scripts/Blocks/BlockInfoProvider.h"
 #include "Game/Scripts/Blocks/BlockObjectInfoTable.h"
 #include "Game/Scripts/Player/PlayerStatus.h"
+#include "Game/Scripts/Audio/AudioManager.h"
 
 #include <iostream>
 
@@ -26,6 +27,8 @@ namespace Bisang
         m_BoxCol = m_ownerObj->GetComponent<BoxCollider>();
         m_spriteRenderer = m_ownerObj->GetComponent<SpriteRenderer>();
         m_playerStatus = m_ownerObj->GetComponent<PlayerStatus>();
+        m_audio = FindGameObjectByName("AudioManager")
+            ->GetComponent<AudioManager>();
 
         // BlockInfoTable 참조
         BlockObjectInfoProvider* blockObjectInfoProvider = 
@@ -312,6 +315,7 @@ namespace Bisang
             
             // 착용
             m_playerStatus->PickUp(info.id);
+            m_audio->PlayPickUpSound();
 
             if (heldBObj == BlockId::Empty)
             {
@@ -340,6 +344,7 @@ namespace Bisang
                 );
 
                 m_playerStatus->PutDown();
+                m_audio->PlayPutDownSound();
             }
         }
 

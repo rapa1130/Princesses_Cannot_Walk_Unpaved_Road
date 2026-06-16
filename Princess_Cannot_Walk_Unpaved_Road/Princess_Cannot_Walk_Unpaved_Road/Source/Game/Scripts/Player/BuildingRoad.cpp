@@ -9,6 +9,7 @@
 #include "Game/Scripts/Player/PlayerStatus.h"
 #include "Game/Scripts/Player/PlayerController.h"
 #include "Game/Scripts/Blocks/BlockInfoProvider.h"
+#include "Game/Scripts/Audio/AudioManager.h"
 
 #include <iostream>
 
@@ -28,6 +29,10 @@ namespace Bisang
 			->GetComponent<BlockObjectInfoProvider>();
 
 		m_infoTable = provider->GetTable();
+
+
+		m_audio = FindGameObjectByName("AudioManager")
+			->GetComponent<AudioManager>();
 	}
 
 	void BuildingRoad::Update(float dT)
@@ -46,6 +51,14 @@ namespace Bisang
 		if (info.id == BlockId::ClayResource &&
 			heldInfo.toolType == ToolType::Hammer)
 		{
+			m_soundTimer += dT;
+
+			if (m_soundTimer >= m_soundInterval)
+			{
+				m_audio->PlayHammerSound();
+				m_soundTimer = 0.f;
+			}
+
 			if (m_buildingTimer >= m_buiildingTime)
 			{
 				m_blockMap->SetBlock(currentPos, (int)(BlockId::RailPath));
@@ -57,6 +70,7 @@ namespace Bisang
 		else
 		{
 			m_buildingTimer = 0.f;
+			m_soundTimer = 0.f;
 		}
 
 
@@ -82,6 +96,8 @@ namespace Bisang
 			{
 				m_blockMap->SetBlock(frontBelowPos, (int)(BlockId::WoodBridge));
 				m_playerStatus->PutDown();
+
+				m_audio->PlayWoodPutSound();
 			}
 
 			m_buildingTimer2 += dT;

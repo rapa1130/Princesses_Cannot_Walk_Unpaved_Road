@@ -15,6 +15,7 @@ namespace Bisang
 	class Animator;
 	class BlockObjectInfoTable;
 	class PlayerStatus;
+	class AudioManager;
 
 	class PlayerController : public Script
 	{
@@ -43,6 +44,7 @@ namespace Bisang
 		SpriteRenderer* m_spriteRenderer = nullptr;
 		BoxCollider* m_BoxCol = nullptr;
 		PlayerStatus* m_playerStatus = nullptr;
+		AudioManager* m_audio = nullptr;
 
 		int m_playerZ = 1;
 		Vector2 m_faceDir = { 0, 1 };

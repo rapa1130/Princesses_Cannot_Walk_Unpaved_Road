@@ -17,6 +17,7 @@ namespace Bisang
         m_playerStatus = m_ownerObj->GetComponent<PlayerStatus>();
         m_controller = m_ownerObj->GetComponent<PlayerController>();
 
+
         InitializeAnimator();
     }
 

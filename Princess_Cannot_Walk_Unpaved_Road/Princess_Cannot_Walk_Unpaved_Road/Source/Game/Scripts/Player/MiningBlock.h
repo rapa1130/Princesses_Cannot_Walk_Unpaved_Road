@@ -6,6 +6,7 @@ namespace Bisang
 	class BlockMap;
 	class PlayerController;
 	class BlockObjectInfoTable;
+	class AudioManager;
 
 	class MiningBlock : public Script
 	{
@@ -20,9 +21,14 @@ namespace Bisang
 		BlockMap* m_blockMap = nullptr;
 		PlayerController* m_controller = nullptr;
 		BlockObjectInfoTable* m_infoTable = nullptr;
+		AudioManager* m_audio = nullptr;
 	
 
 		float m_miningTimer = 0.f;
+
+		float m_soundTimer = 0.f;
+		float m_soundInterval = 0.25f;
+
 	};
 
 

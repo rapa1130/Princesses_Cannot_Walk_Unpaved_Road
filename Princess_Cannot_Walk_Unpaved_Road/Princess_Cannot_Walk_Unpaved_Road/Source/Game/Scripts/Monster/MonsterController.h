@@ -9,6 +9,7 @@ namespace Bisang
 	class Transform;
 	class SpriteRenderer;
 	class CameraController;
+	class AudioManager;
 
 	class MonsterController : public Script
 	{
@@ -40,7 +41,9 @@ namespace Bisang
 		Transform* m_transform = nullptr;
 		SpriteRenderer* m_spriteRenderer = nullptr;
 		CameraController* m_camCtrl = nullptr;
+		AudioManager* m_audio = nullptr;
 
+		float m_distY = 1000.0f;
 
 		float m_moveTerm;
 		int m_leapDistance;

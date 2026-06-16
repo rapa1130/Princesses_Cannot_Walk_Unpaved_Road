@@ -42,5 +42,10 @@ namespace Bisang
 		resourceManager->LoadTexture(L"Assets/Textures/Characters/Monsters/Rabbit Monster.png")->SetPivot({-800,-800,0});
 
 
+		//ÀÚ¿ø ÇÇº¿
+		resourceManager->LoadTexture(L"Assets/Textures/Maps/Resource/Clay Resource.png")->SetPivot({ 0,5,0 });
+		resourceManager->LoadTexture(L"Assets/Textures/Maps/Resource/Tree Resource.png")->SetPivot({ 0,5,0 });
+
+
     }
 }

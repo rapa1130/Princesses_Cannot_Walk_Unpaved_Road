@@ -96,4 +96,18 @@ namespace Bisang
         Cache(key, resource);
         return resource;
     }
+
+    std::shared_ptr<AudioClip> ResourceManager::LoadAudioClip(const std::wstring& path)
+    {
+        if (auto cached = FindCached<AudioClip>(path))
+            return cached;
+
+        auto resource = std::make_shared<AudioClip>();
+
+        if (!resource->LoadFromFile(path))
+            return nullptr;
+
+        Cache(path, resource);
+        return resource;
+    }
 }

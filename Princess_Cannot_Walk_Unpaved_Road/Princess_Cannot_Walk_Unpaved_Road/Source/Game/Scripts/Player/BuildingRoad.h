@@ -7,6 +7,7 @@ namespace Bisang
 	class PlayerController;
 	class BlockObjectInfoTable;
 	class InputManager;
+	class AudioManager;
 
 	class BuildingRoad : public Script
 	{
@@ -21,12 +22,17 @@ namespace Bisang
 		BlockMap* m_blockMap = nullptr;
 		PlayerController* m_controller = nullptr;
 		BlockObjectInfoTable* m_infoTable = nullptr;
+		AudioManager* m_audio = nullptr;
 
 
 		float m_buildingTimer = 0.f;
 		float m_buiildingTime = 0.5f;
 		float m_buildingTimer2 = 0.f;
 		float m_buiildingTime2 = 0.5f;
+
+
+		float m_soundTimer = 0.f;
+		float m_soundInterval = 0.25f;
 	};
 
 

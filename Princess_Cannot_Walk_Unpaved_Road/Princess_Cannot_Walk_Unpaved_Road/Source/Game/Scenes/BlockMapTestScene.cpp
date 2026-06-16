@@ -23,6 +23,8 @@ namespace Bisang
 		GameObject* monster = AddGameObject("BigMonster");
 
 		AddGameObject("DebugOverlay");
+
+		AddGameObject("AudioManager");
 	}
 
 }

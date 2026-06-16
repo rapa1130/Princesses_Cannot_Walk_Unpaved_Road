@@ -7,6 +7,7 @@
 #include "Game/Scripts/Blocks/BlockId.h"
 #include "Engine/Components/Camera/CameraController.h"
 #include "Engine/Math/Math.h"
+#include "Game/Scripts/Audio/AudioManager.h"
 
 #include <iostream>
 
@@ -21,6 +22,9 @@ namespace Bisang
 		m_spriteRenderer = m_ownerObj->GetComponent<SpriteRenderer>();
 		m_spriteRenderer->SetLayer(Layer::Monster);
 		m_transform->SetScale({ 0.75f,0.75f });
+
+		m_audio = FindGameObjectByName("AudioManager")
+			->GetComponent<AudioManager>();
 
 		m_camCtrl = FindGameObjectByName("Camera")->GetComponent<CameraController>();
 
@@ -73,6 +77,9 @@ namespace Bisang
 		{
 			t = 1.0f;
 			m_isJumping = false;
+			float volume = 1.0f - (m_distY / static_cast<float>(m_minShakeDistY));
+			volume = fClamp(volume, 0.0f, 1.0f);
+			m_audio->PlayGiantStepSound(volume);
 			ShakeCameraByDist();
 			DestructArea();
 		}
@@ -113,13 +120,13 @@ namespace Bisang
 		Vector3 camPos = camTransform->GetPosition();
 		Vector3 monsterPos = m_transform->GetPosition();
 
-		float distY = std::abs(monsterPos.y - camPos.y);
+		m_distY = std::abs(monsterPos.y - camPos.y);
 
-		if (distY >= m_minShakeDistY)
+		if (m_distY >= m_minShakeDistY)
 			return;
-		if (distY == 0) distY = 0.01f;
+		if (m_distY == 0) m_distY = 0.01f;
 
-		float shakeRatio = 1.0f / distY ;
+		float shakeRatio = 1.0f / m_distY;
 		shakeRatio = Bisang::fClamp(shakeRatio, 0, 300.0f);
 		float shakePower = m_shakePower * shakeRatio;
 		m_camCtrl->CameraShake(shakePower); 
