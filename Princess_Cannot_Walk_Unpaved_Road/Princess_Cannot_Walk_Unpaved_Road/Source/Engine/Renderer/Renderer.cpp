@@ -216,19 +216,19 @@ namespace Bisang
             else
             {
                 m_d2dContext->SetTransform(viewM);
-                switch (command.type)
-                {
-                case RenderCommandType::Sprite:
-                    RenderSprite(command);
-                    break;
-                case RenderCommandType::Line:
-                    RenderLine(command);
-                    break;
-                case RenderCommandType::Text:
-                    RenderText(command);
-                default:
-                    break;
-                }
+            }
+            switch (command.type)
+            {
+            case RenderCommandType::Sprite:
+                RenderSprite(command);
+                break;
+            case RenderCommandType::Line:
+                RenderLine(command);
+                break;
+            case RenderCommandType::Text:
+                RenderText(command);
+            default:
+                break;
             }
 
         }
