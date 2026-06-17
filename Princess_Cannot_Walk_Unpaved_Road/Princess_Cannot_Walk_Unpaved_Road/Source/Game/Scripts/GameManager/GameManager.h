@@ -12,11 +12,13 @@ namespace Bisang
     class GameObject;
     class BlockMap;
     class MonsterController;
+    class AudioManager;
 
     class GameManager : public Script
     {
     public:
         GameManager(GameObject* ownerObj) : Script(ownerObj) {}
+
 
         void Start() override;
         void Update(float dT) override;
@@ -35,6 +37,8 @@ namespace Bisang
 
     private:
         BlockMap* m_blockMap = nullptr;
+        AudioManager* m_audio = nullptr;
+
         int m_playerZ = 1;   // ÇÃ·¹ÀÌ¾î ºí·°¸Ê ³ôÀÌ
         Int3 m_startPosition;
         Int3 m_endPosition;
