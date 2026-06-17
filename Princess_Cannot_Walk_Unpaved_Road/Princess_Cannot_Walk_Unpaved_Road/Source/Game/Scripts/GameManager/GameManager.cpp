@@ -12,6 +12,7 @@
 #include "Game/Scripts/Highlighter/Highlighter.h"
 #include "Game/Scripts/Portal/PortalParticle.h"
 #include "Game/Scripts/Monster/MonsterController.h"
+#include "Game/Scripts/Player/PlayerAnimationController.h"
 
 #include <random>
 #include <iostream>
@@ -123,6 +124,8 @@ namespace Bisang
 		GameObject* highlighter = Instantiate("Highlighter", { 0,0,0 });
 		PlayerController* pc = player2->GetComponent<PlayerController>();
 		pc->SetHighlight(highlighter->GetComponent<Highlighter>());
+
+		player2->GetComponent<PlayerAnimationController>()->SetPlayerNumber(2);
 	}
 
 	void GameManager::SpawnPrincess()

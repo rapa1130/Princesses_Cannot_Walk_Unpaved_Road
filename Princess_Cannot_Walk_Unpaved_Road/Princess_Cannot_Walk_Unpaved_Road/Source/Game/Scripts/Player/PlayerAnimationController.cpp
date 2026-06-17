@@ -39,18 +39,44 @@ namespace Bisang
 
             if (i < 8)
             {
-                clip.frames.push_back({
-                    GetResourceManager()->LoadTexture(
-                        L"Assets/Textures/Characters/Player/Default/Player_" + m_nameArr[i] + L".png")
-                });
+                if (m_playerNumber == 1)
+                {
+                    clip.frames.push_back({
+                        GetResourceManager()->LoadTexture(
+                            L"Assets/Textures/Characters/Player1/Default/Player1_" + m_nameArr[i] + L".png")
+                        });
+                }
+
+                else if (m_playerNumber == 2)
+                {
+                    clip.frames.push_back({
+                        GetResourceManager()->LoadTexture(
+                            L"Assets/Textures/Characters/Player2/Default/Player2_" + m_nameArr[i] + L".png")
+                        });
+                }
+
+
+                
             }
 
             else
             {
-                clip.frames.push_back({
-                    GetResourceManager()->LoadTexture(
-                        L"Assets/Textures/Characters/Player/HandsUp/Player_" + m_nameArr[i] + L".png")
-                    });
+                if (m_playerNumber == 1)
+                {
+                    clip.frames.push_back({
+                        GetResourceManager()->LoadTexture(
+                            L"Assets/Textures/Characters/Player1/HandsUp/Player1_" + m_nameArr[i] + L".png")
+                          });
+                }
+
+                else if (m_playerNumber == 2)
+                {
+                    clip.frames.push_back({
+                        GetResourceManager()->LoadTexture(
+                            L"Assets/Textures/Characters/Player2/HandsUp/Player2_" + m_nameArr[i] + L".png")
+                          });
+                }
+
             }
 
 
@@ -86,14 +112,14 @@ namespace Bisang
 
         else
         {
-            if (isFront && isLeft)          m_animator->SetClip(L"HandsUp_FrontLeft");
-            else if (isFront && isRight)    m_animator->SetClip(L"HandsUp_FrontRight");
-            else if (isBack && isLeft)      m_animator->SetClip(L"HandsUp_BackLeft");
-            else if (isBack && isRight)     m_animator->SetClip(L"HandsUp_BackRight");
-            else if (isBack)                m_animator->SetClip(L"HandsUp_Back");
-            else if (isFront)               m_animator->SetClip(L"HandsUp_Front");
-            else if (isLeft)                m_animator->SetClip(L"HandsUp_Right");
-            else if (isRight)               m_animator->SetClip(L"HandsUp_Left");
+            if (isFront && isLeft)          m_animator->SetClip(L"RaiseHand_FrontLeft");
+            else if (isFront && isRight)    m_animator->SetClip(L"RaiseHand_FrontRight");
+            else if (isBack && isLeft)      m_animator->SetClip(L"RaiseHand_BackLeft");
+            else if (isBack && isRight)     m_animator->SetClip(L"RaiseHand_BackRight");
+            else if (isBack)                m_animator->SetClip(L"RaiseHand_Back");
+            else if (isFront)               m_animator->SetClip(L"RaiseHand_Front");
+            else if (isLeft)                m_animator->SetClip(L"RaiseHand_Right");
+            else if (isRight)               m_animator->SetClip(L"RaiseHand_Left");
         }
     }
 }
