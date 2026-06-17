@@ -4,10 +4,10 @@
 
 namespace Bisang
 {
-    class PortalPrefab : public IPrefab
+    class PortalParticlePrefab : public IPrefab
     {
     public:
-        PortalPrefab(ResourceManager* rm)
+        PortalParticlePrefab(ResourceManager* rm)
             : IPrefab(rm)
         {
         }
