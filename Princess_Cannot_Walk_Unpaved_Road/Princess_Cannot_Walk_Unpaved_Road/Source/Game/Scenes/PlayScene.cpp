@@ -21,7 +21,7 @@ namespace Bisang
 		AddGameObject("BlockMap");
 		AddGameObject("RailTracker");
 
-		AddGameObject("DebugOverlay");
+		//AddGameObject("DebugOverlay");
 
 		AddGameObject("AudioManager");
 	}
