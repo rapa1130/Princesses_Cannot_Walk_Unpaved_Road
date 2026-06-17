@@ -17,6 +17,7 @@
 #include "Game/Prefabs/AudioManagerPrefab.h"
 #include "Game/Prefabs/HighlighterPrefab.h"
 #include "Game/Prefabs/TitlePrefab.h"
+#include "Game/Prefabs/RailTrackerPrefab.h"
 
 namespace Bisang
 {
@@ -34,6 +35,7 @@ namespace Bisang
         prefabFactory->RegisterPrefab<PlayerPrefab>("Player");
         prefabFactory->RegisterPrefab<PickUpObjPrefab>("PickUpObj");
         prefabFactory->RegisterPrefab<BlockMapPrefab>("BlockMap");
+        prefabFactory->RegisterPrefab<RailTrackerPrefab>("RailTracker");
         prefabFactory->RegisterPrefab<DebugOverlay>("DebugOverlay");
         prefabFactory->RegisterPrefab<PrincessPrefab>("Princess");
         prefabFactory->RegisterPrefab<CameraPrefab>("Camera");
@@ -42,5 +44,6 @@ namespace Bisang
         prefabFactory->RegisterPrefab<AudioManagerPrefab>("AudioManager");
         prefabFactory->RegisterPrefab<HighlighterPrefab>("Highlighter");
         prefabFactory->RegisterPrefab<TitlePrefab>("Title");
+        prefabFactory->RegisterPrefab<TitleTextPrefab>("TitleText");
     }
 }

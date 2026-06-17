@@ -8,6 +8,7 @@ namespace Bisang
 	public:
 		MainSceneChange(GameObject* ownerObj) : Script(ownerObj) {}
 
+		void Start() override;
 		void Update(float dT) override;
 	};
 }

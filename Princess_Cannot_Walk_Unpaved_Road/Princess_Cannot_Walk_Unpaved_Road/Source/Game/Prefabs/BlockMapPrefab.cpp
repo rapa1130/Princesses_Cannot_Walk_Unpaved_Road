@@ -31,7 +31,6 @@ namespace Bisang
 		bMapR->SetBlockMap(bMap);
 
         obj->AddComponent<BlockObjectInfoProvider>();
-        obj->AddComponent<RailManager>();
 
         return obj;
     }

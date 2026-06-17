@@ -12,11 +12,8 @@ namespace Bisang
 	public:
 		BlockObjectInfoProvider(GameObject* ownerObj) : Script(ownerObj) {}
 
-		void Awake() override
-		{
-			m_table = std::make_unique<BlockObjectInfoTable>();
-			m_table->Init(GetResourceManager());
-		}
+		void Awake() override;
+		void Start() override;
 
 		BlockObjectInfoTable* GetTable()
 		{

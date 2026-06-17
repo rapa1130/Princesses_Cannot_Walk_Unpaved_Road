@@ -46,7 +46,7 @@ namespace Bisang
 	protected:
 
 	protected:
-		D2D1::ColorF m_BgColor = D2D1::ColorF::Black;
+		D2D1::ColorF m_BgColor = D2D1::ColorF(0.2f,0.2f,0.2f,1.0f);
 		std::vector<RenderCommand> m_renderCommands;
 		float m_viewportWidth = 0.0f;
 		float m_viewportHeight = 0.0f;

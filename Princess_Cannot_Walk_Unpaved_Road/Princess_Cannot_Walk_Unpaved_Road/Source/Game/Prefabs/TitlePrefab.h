@@ -14,4 +14,15 @@ namespace Bisang
 
         std::unique_ptr<GameObject> Instantiate() override;
     };
+
+    class TitleTextPrefab : public IPrefab
+    {
+    public:
+        TitleTextPrefab(ResourceManager* rm)
+            : IPrefab(rm)
+        {
+        }
+
+        std::unique_ptr<GameObject> Instantiate() override;
+    };
 }

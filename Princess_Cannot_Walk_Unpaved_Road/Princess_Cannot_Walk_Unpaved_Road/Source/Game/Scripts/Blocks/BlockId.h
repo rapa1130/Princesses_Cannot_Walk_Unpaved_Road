@@ -17,6 +17,7 @@ namespace Bisang
         Hammer,
         ClayResource,
         TreeResource,
-        WoodBridge
+        WoodBridge,
+        PinkBlock
     };
 }

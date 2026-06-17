@@ -59,15 +59,10 @@ namespace Bisang
         bool isLeft = dir.y < 0;
         bool isRight = dir.y > 0;
 
-        //bool isFront = m_input->IsKeyDown(KeyCode::Down);
-        //bool isBack = m_input->IsKeyDown(KeyCode::Up);
-        //bool isLeft = m_input->IsKeyDown(KeyCode::Left);
-        //bool isRight = m_input->IsKeyDown(KeyCode::Right);
-
         if (isBack)         m_animator->SetClip(L"Back");
         else if (isFront)   m_animator->SetClip(L"Front");
         else if (isLeft)    m_animator->SetClip(L"Right");
         else if (isRight)   m_animator->SetClip(L"Left");
-        //else                m_animator->SetClip(L"Front");
+
     }
 }
