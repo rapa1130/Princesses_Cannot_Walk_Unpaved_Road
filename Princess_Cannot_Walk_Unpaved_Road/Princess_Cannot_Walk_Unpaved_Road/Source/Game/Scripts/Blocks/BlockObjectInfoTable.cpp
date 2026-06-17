@@ -71,7 +71,7 @@ namespace Bisang
 
         BlockObjectInfo clay;
         clay.id = BlockId::Clay;
-        clay.kind = BlockObjectKind::Material;
+        clay.kind = BlockObjectKind::Terrain;
         clay.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Clay.png");
         clay.isSolid = true;
         clay.mineable = &ClayMineable;
@@ -79,7 +79,7 @@ namespace Bisang
 
         BlockObjectInfo tree;
         tree.id = BlockId::Tree;
-        tree.kind = BlockObjectKind::Material;
+        tree.kind = BlockObjectKind::Terrain;
         tree.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/Tree.png");
         tree.isSolid = true;
         tree.mineable = &TreeMineable;
@@ -87,7 +87,7 @@ namespace Bisang
 
         BlockObjectInfo orcTree;
         orcTree.id = BlockId::OrcTree;
-        orcTree.kind = BlockObjectKind::Material;
+        orcTree.kind = BlockObjectKind::Terrain;
         orcTree.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/OrcTree.png");
         orcTree.isSolid = true;
         orcTree.mineable = &TreeMineable;

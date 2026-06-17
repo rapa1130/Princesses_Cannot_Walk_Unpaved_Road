@@ -47,7 +47,6 @@ namespace Bisang
 		void Move(float dT);
 		void UpdateVelocity(float dT);
 		void UpdateCurrentPos();
-		void UpdateHighlight(const Int3& blockPos);
 		bool UpdateInteratable(Int3& blockPos,BlockId& blockID);
 		
 		bool CanMoveBoxArea(const Vector3& center);
