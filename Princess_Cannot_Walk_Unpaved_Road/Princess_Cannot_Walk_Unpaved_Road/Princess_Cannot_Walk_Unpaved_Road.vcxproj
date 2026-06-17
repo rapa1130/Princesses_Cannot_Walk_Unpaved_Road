@@ -75,6 +75,7 @@
     <ClInclude Include="Source\Game\Prefabs\GameManagerPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\HighlighterPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\PlayerPrefab.h" />
+    <ClInclude Include="Source\Game\Prefabs\PortalPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\PrincessPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\RailTrackerPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\TitlePrefab.h" />
@@ -99,6 +100,7 @@
     <ClInclude Include="Source\Game\Scripts\Player\PickUpObject.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PlayerAnimationController.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PlayerStatus.h" />
+    <ClInclude Include="Source\Game\Scripts\Portal\Portal.h" />
     <ClInclude Include="Source\Game\Scripts\Princess\PrincessAnimationController.h" />
     <ClInclude Include="Source\Game\Scripts\Princess\PrincessController.h" />
     <ClInclude Include="Source\Game\Scripts\SceneChange\MainSceneChange.h" />
@@ -171,6 +173,7 @@
     <ClCompile Include="Source\Game\Prefabs\GameManaerPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\HighlighterPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\playerPrefab.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\PortalPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\PrincessPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\TitlePrefab.cpp" />
     <ClCompile Include="Source\Game\Registry\GameRegistry.cpp" />
@@ -193,6 +196,7 @@
     <ClCompile Include="Source\Game\Scripts\Player\PickUpObject.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\PlayerAnimationController.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\PlayerStatus.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Portal\Portal.cpp" />
     <ClCompile Include="Source\Game\Scripts\Princess\PrincessAnimationController.cpp" />
     <ClCompile Include="Source\Game\Scripts\Princess\PrincessController.cpp" />
     <ClCompile Include="Source\Game\Scripts\SceneChange\MainSceneChange.cpp" />

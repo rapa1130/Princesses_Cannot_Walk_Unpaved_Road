@@ -68,6 +68,8 @@
     <ClCompile Include="Source\Game\Scenes\OverScene.cpp" />
     <ClCompile Include="Source\Game\Prefabs\TitlePrefab.cpp" />
     <ClCompile Include="Source\Game\Scripts\SceneChange\MainSceneChange.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Portal\Portal.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\PortalPrefab.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -156,5 +158,7 @@
     <ClInclude Include="Source\Game\Scenes\OverScene.h" />
     <ClInclude Include="Source\Game\Prefabs\TitlePrefab.h" />
     <ClInclude Include="Source\Game\Scripts\SceneChange\MainSceneChange.h" />
+    <ClInclude Include="Source\Game\Scripts\Portal\Portal.h" />
+    <ClInclude Include="Source\Game\Prefabs\PortalPrefab.h" />
   </ItemGroup>
 </Project>
