@@ -20,10 +20,12 @@ namespace Bisang
 
         void Start() override;
         void Update(float dT) override;
+        void SetPlayerNumber(int playerNum) { m_playerNumber = playerNum; }
 
     private:
         void InitializeAnimator();
         void UpdateAnimation();
+        int m_playerNumber = 1;
 
     private:
         Animator* m_animator = nullptr;
@@ -40,14 +42,14 @@ namespace Bisang
             L"Back",
             L"Left",
             L"Right",
-            L"HandsUp_FrontLeft",
-            L"HandsUp_FrontRight",
-            L"HandsUp_BackLeft",
-            L"HandsUp_BackRight",
-            L"HandsUp_Front",
-            L"HandsUp_Back",
-            L"HandsUp_Left",
-            L"HandsUp_Right"
+            L"RaiseHand_FrontLeft",
+            L"RaiseHand_FrontRight",
+            L"RaiseHand_BackLeft",
+            L"RaiseHand_BackRight",
+            L"RaiseHand_Front",
+            L"RaiseHand_Back",
+            L"RaiseHand_Left",
+            L"RaiseHand_Right"
         };
     };
 }
