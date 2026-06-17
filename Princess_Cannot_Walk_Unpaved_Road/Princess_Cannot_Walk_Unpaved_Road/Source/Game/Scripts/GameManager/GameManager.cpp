@@ -28,7 +28,7 @@ namespace Bisang
 
 		// 시작, 끝 지점 초기화
 		m_startPosition = { MAP_WIDTH / 2, 10 , m_playerZ };
-		m_endPosition = { MAP_WIDTH / 2, 13 , m_playerZ };
+		m_endPosition = { MAP_WIDTH / 2, 90 , m_playerZ };
 
 		// 랜덤 맵 생성
 		GenerateMap();

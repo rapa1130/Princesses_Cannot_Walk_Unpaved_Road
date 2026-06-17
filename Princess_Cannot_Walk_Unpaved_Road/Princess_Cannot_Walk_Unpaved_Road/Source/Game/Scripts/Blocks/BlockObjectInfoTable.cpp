@@ -144,6 +144,30 @@ namespace Bisang
         pinkBlock.isSolid = true;
         Register(pinkBlock);
 
+        BlockObjectInfo blueBlock;
+        blueBlock.id = BlockId::BlueBlock;
+        blueBlock.kind = BlockObjectKind::Terrain;
+        blueBlock.toolType = ToolType::None;
+        blueBlock.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/BlueBlock.png");
+        blueBlock.isSolid = true;
+        Register(blueBlock);
+
+        BlockObjectInfo yellowBlock;
+        yellowBlock.id = BlockId::YellowBlock;
+        yellowBlock.kind = BlockObjectKind::Terrain;
+        yellowBlock.toolType = ToolType::None;
+        yellowBlock.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/YellowBlock.png");
+        yellowBlock.isSolid = true;
+        Register(yellowBlock);
+
+        BlockObjectInfo greenBlock;
+        greenBlock.id = BlockId::GreenBlock;
+        greenBlock.kind = BlockObjectKind::Terrain;
+        greenBlock.toolType = ToolType::None;
+        greenBlock.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/GreenBlock.png");
+        greenBlock.isSolid = true;
+        Register(greenBlock);
+
 
     }
 

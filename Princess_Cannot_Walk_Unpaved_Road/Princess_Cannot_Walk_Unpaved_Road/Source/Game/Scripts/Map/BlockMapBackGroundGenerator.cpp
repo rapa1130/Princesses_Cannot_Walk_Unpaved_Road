@@ -322,7 +322,7 @@ namespace Bisang
 			{
 				map->SetBlock(
 					{ width, depth, 0 },
-					static_cast<int>(BlockId::Water)
+					static_cast<int>(BlockId::GreenBlock)
 				);
 			}
 		}
@@ -383,7 +383,7 @@ namespace Bisang
 			{
 				map->SetBlock(
 					{ width, depth, 0 },
-					static_cast<int>(BlockId::Water)
+					static_cast<int>(BlockId::YellowBlock)
 				);
 			}
 		}
@@ -442,7 +442,7 @@ namespace Bisang
 			{
 				map->SetBlock(
 					{ width, depth, 0 },
-					static_cast<int>(BlockId::Water)
+					static_cast<int>(BlockId::BlueBlock)
 				);
 			}
 		}

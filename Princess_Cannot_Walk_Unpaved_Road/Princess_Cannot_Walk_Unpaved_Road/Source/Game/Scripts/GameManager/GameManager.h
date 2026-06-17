@@ -3,7 +3,7 @@
 #include "Engine/Components/Script.h"
 #include "Engine/Math/Int3.h"
 
-#define MAP_WIDTH 20
+#define MAP_WIDTH 30
 #define MAP_HEIGHT 2
 #define MAP_DEPTH 100
 
