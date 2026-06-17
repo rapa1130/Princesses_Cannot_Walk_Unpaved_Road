@@ -2,7 +2,13 @@
 #include "Engine/Components/Script.h"
 #include "Engine/Math/Vector.h"
 #include "Engine/Math/Int3.h"
+
+#include "Engine/Input/InputCode.h"
+
+#include <vector>
+
 #include "Game/Scripts/Blocks/BlockId.h"
+
 
 #define PlayerAnimCount 8
 
@@ -30,7 +36,11 @@ namespace Bisang
 		Vector2& GetFaceDir() { return m_faceDir; }
 		Int3& GetCurrentPos() { return m_currentPos; }
 
+
+		void SetKeyMapping(std::vector<KeyCode> keyMapping) { m_keyMapping = keyMapping; }
+
 		void SetHighlight(Highlighter* highlighter) { m_highlighter = highlighter; }
+
 
 	private:
 		void Interact(const Int3& blockPos);
@@ -66,5 +76,12 @@ namespace Bisang
 		float m_acceleration = 3000.f;
 		float m_friction = 1000.0f;
 		float m_collisionFrictionMultiplier = 0.75f;
+
+		std::vector<KeyCode> m_keyMapping =
+		{ KeyCode::Left,
+		  KeyCode::Right,
+		  KeyCode::Up,
+		  KeyCode::Down,
+		  KeyCode::Enter };
 	};
 }

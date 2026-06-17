@@ -45,7 +45,7 @@ namespace Bisang
 
     void AudioManager::PlayBgm()
     {
-        PlayLoop("BGM", 0.3);
+        PlayLoop("BGM", 0.1);
     }
 
     void AudioManager::PlayPickAxeSound()

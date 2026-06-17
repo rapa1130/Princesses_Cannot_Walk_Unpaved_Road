@@ -21,29 +21,35 @@ namespace Bisang
 		m_blockMap = FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
 
 		//*************************************************
-		// ºí·° ¸Ê ·»´õ·¯¿¡ blockinfotable ÁÖÀÔ -> ÅØ½ºÃ³ ¸ÅÇÎ°¡´É
-		// * ÇöÀç ¿£ÁøÀÌ °ÔÀÓÄÚµå¿¡ ÀÇÁ¸ ³ªÁß¿¡ ¼öÁ¤ ÇÊ¿ä
+		// ë¸”ëŸ­ ë§µ ë Œë”ëŸ¬ì— blockinfotable ì£¼ìž… -> í…ìŠ¤ì²˜ ë§¤í•‘ê°€ëŠ¥
+		// * í˜„ìž¬ ì—”ì§„ì´ ê²Œìž„ì½”ë“œì— ì˜ì¡´ ë‚˜ì¤‘ì— ìˆ˜ì • í•„ìš”
 		//************************************************* 
 		BlockMapRenderer* blockMapRenderer = FindGameObjectByName("BlockMap")->GetComponent<BlockMapRenderer>();
 		BlockObjectInfoProvider* blockMapInfoProvider = FindGameObjectByName("BlockMap")->GetComponent<BlockObjectInfoProvider>();
 		blockMapRenderer->SetBlockObjectInfoTable(blockMapInfoProvider->GetTable());
 
-		// ½ÃÀÛ, ³¡ ÁöÁ¡ ÃÊ±âÈ­
+		// ì‹œìž‘, ë ì§€ì  ì´ˆê¸°í™”
 		m_startPosition = { MAP_WIDTH / 2, 10 , m_playerZ };
-		m_endPosition = { MAP_WIDTH / 2, 3 , m_playerZ };
+		m_endPosition = { MAP_WIDTH / 2, 30 , m_playerZ };
 
-		// ·£´ý ¸Ê »ý¼º
+		// ëžœë¤ ë§µ ìƒì„±
 		GenerateMap();
 
 		FindGameObjectByName("BlockMap")->GetComponent<RailManager>()->FindInitialPath();
 
-		// ÇÃ·¹ÀÌ¾î ½ºÆù
-		SpawnPlayer();
-		SpawnHighlighter();
-		// °øÁÖ ½ºÆù
-		SpawnPrincess();
+		// í”Œë ˆì´ì–´ ìŠ¤í°
 
-		// Ä«¸Þ¶ó °øÁÖ ¼³Á¤
+		SpawnPlayer1();
+		SpawnPlayer2();
+
+		SpawnHighlighter();
+
+		// ê³µì£¼ ìŠ¤í°
+		SpawnPrincess();
+		// í† ë¼ ìŠ¤í°
+		SpawnRabbit();
+
+		// ì¹´ë©”ë¼ ê³µì£¼ ì„¤ì •
 		SetCameraPrincess();
 	}
 
@@ -53,15 +59,15 @@ namespace Bisang
 		if (!m_blockMap->WorldToBlock(m_princess->GetPosition(), currentPrincessPos, 1))
 			return;
 
-		//if (currentPrincessPos == m_endPosition)
-		//{
-		//	ChangeScene("BlockMapTestScene");
-		//}
+		if (currentPrincessPos == m_endPosition)
+		{
+			ChangeScene("BlockMapTestScene");
+		}
 	}
 
 	void GameManager::GenerateMap()
 	{
-		unsigned int seed = CreateRandomSeed();   // ½Ãµå »ý¼º
+		unsigned int seed = CreateRandomSeed();   // ì‹œë“œ ìƒì„±
 
 		BlockMapGenerator mapGenerator;
 		mapGenerator.GenerateProceduralMap(
@@ -80,20 +86,39 @@ namespace Bisang
 		return rd();
 	}
 
-	void GameManager::SpawnPlayer()
+	void GameManager::SpawnPlayer1()
 	{
 		Vector3 playerStartPos = m_blockMap->BlockToWorld(m_startPosition);
-		m_playerGO = Instantiate("Player", playerStartPos);
-		m_player = m_playerGO->GetComponent<Transform>();
+		m_player1 = Instantiate("Player", playerStartPos + Vector3(1, 0, 0))
+			->GetComponent<Transform>();
 		GameObject* pickUpObj = Instantiate("PickUpObj");
-		pickUpObj->SetParent(m_player->GetOwner());
+		pickUpObj->SetParent(m_player1->GetOwner());
+	}
+
+	void GameManager::SpawnPlayer2()
+	{
+		Vector3 playerStartPos = m_blockMap->BlockToWorld(m_startPosition);
+		m_player2 = Instantiate("Player", playerStartPos + Vector3(-1, 0, 0))
+			->GetComponent<Transform>();
+		GameObject* pickUpObj = Instantiate("PickUpObj");
+		pickUpObj->SetParent(m_player2->GetOwner());
+
+		m_player2->GetOwner()
+			->GetComponent<PlayerController>()
+			->SetKeyMapping(
+				{ KeyCode::A,
+				  KeyCode::D,
+				  KeyCode::W,
+				  KeyCode::S,
+				  KeyCode::Space}
+			);
+
 	}
 
 	void GameManager::SpawnPrincess()
 	{
 		Vector3 princessStartPos = m_blockMap->BlockToWorld(Int3(m_startPosition.x, 0, 1));
-		m_princess =
-			Instantiate("Princess", princessStartPos)
+		m_princess =Instantiate("Princess", princessStartPos)
 			->GetComponent<Transform>();
 	}
 
@@ -112,6 +137,12 @@ namespace Bisang
 			->GetComponent<CameraController>();
 
 		mainCamera->SetTarget(m_princess->GetOwner());
+	}
+
+	void GameManager::SpawnRabbit()
+	{
+		m_rabbit = Instantiate("BigMonster")
+			->GetComponent<Transform>();
 	}
 
 
