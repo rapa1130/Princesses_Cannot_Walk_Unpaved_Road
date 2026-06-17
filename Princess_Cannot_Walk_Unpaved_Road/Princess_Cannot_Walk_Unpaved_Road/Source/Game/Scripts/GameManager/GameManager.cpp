@@ -104,7 +104,8 @@ namespace Bisang
 				{ KeyCode::A,
 				  KeyCode::D,
 				  KeyCode::W,
-				  KeyCode::S }
+				  KeyCode::S,
+				  KeyCode::Space}
 			);
 
 	}

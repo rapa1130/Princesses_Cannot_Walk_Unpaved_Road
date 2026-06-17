@@ -290,7 +290,7 @@ namespace Bisang
 
     void PlayerController::Interact()
     {
-        if (false == m_input->IsKeyPressed(KeyCode::Space)) return;
+        if (false == m_input->IsKeyPressed(m_keyMapping[4])) return;
 
         // 월드 -> 블럭맵 좌표 변환
         Vector3 vCurrentPos = m_transform->GetPosition();

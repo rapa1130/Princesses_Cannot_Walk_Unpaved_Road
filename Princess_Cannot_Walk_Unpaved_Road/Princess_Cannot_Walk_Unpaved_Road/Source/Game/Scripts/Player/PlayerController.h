@@ -66,6 +66,7 @@ namespace Bisang
 		{ KeyCode::Left,
 		  KeyCode::Right,
 		  KeyCode::Up,
-		  KeyCode::Down };
+		  KeyCode::Down,
+		  KeyCode::Enter };
 	};
 }
