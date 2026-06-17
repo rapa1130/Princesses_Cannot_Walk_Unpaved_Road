@@ -10,6 +10,7 @@
 #include "Game/Scripts/Map/RailManager.h"
 #include "Game/Scripts/Player/PlayerController.h"
 #include "Game/Scripts/Highlighter/Highlighter.h"
+#include "Game/Scripts/Portal/PortalParticle.h"
 
 #include <random>
 #include <iostream>
@@ -41,6 +42,8 @@ namespace Bisang
 
 		// 카메라 공주 설정
 		SetCameraPrincess();
+
+		SpawnPortal();
 	}
 
 	void GameManager::Update(float dT)
@@ -51,7 +54,8 @@ namespace Bisang
 
 		if (currentPrincessPos == m_endPosition)
 		{
-			ChangeScene("BlockMapTestScene");
+			//ChangeScene("BlockMapTestScene");
+			ChangeScene("PlayScene");
 		}
 	}
 
@@ -128,6 +132,18 @@ namespace Bisang
 			->GetComponent<CameraController>();
 
 		mainCamera->SetTarget(m_princess->GetOwner());
+	}
+
+	void GameManager::SpawnPortal()
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			GameObject* portalPraticleGO = Instantiate("PortalParticle");
+			PortalParticle* portalParticle = portalPraticleGO->GetComponent<PortalParticle>();
+			portalParticle->SetPosition(m_endPosition);
+		}
+		Int3 floorPos = { m_endPosition.x,m_endPosition.y,0 };
+		m_blockMap->SetBlock(floorPos, static_cast<int>(BlockId::PinkBlock));
 	}
 
 	void GameManager::SpawnRabbit()

@@ -12,10 +12,10 @@ namespace Bisang
 	class Transform;
 	class BlockMap;
 
-	class Portal : public Script
+	class PortalParticle : public Script
 	{
 		public:
-			Portal(GameObject* ownerObj) : Script(ownerObj) {}
+			PortalParticle(GameObject* ownerObj) : Script(ownerObj) {}
 
 			void Start() override;
 			void Update(float dT) override;
@@ -40,9 +40,9 @@ namespace Bisang
 			float m_speed;         // ÆÄÆ¼Å¬º° »ó½Â ¼Óµµ
 			float m_alphaPhase;    // ±ôºýÀÓ¿ë, ¼±ÅÃ
 
-			float m_risingSpeed = 10.f;
-			float m_risingDistance = 10.f;
-			float m_randRadius = 10.0f;
+			float m_risingSpeed = 0.4f;
+			float m_risingDistance = 40.f;
+			float m_randRadius = 20.0f;
 
 			Int3 m_pos;
 			Vector3 m_worldPos;
