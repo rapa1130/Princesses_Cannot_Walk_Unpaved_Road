@@ -7,6 +7,8 @@
 #include "Game/Scenes/PlayScene.h"
 #include "Game/Scenes/MainScene.h"
 #include "Game/Scenes/StoryScene.h"
+#include "Game/Scenes/OverScene.h"
+#include "Game/Scenes/ClearScene.h"
 
 #include "Game/Prefabs/PlayerPrefab.h"
 #include "Game/Prefabs/BlockMapPrefab.h"
@@ -29,8 +31,10 @@ namespace Bisang
         sceneManager->AddScene<PlayScene>("PlayScene");
         sceneManager->AddScene<MainScene>("MainScene");
         sceneManager->AddScene<StoryScene>("StoryScene");
+        sceneManager->AddScene<OverScene>("OverScene");
+        sceneManager->AddScene<ClearScene>("ClearScene");
 
-        sceneManager->SetStartScene("MainScene");
+        sceneManager->SetStartScene("ClearScene");
     }
 
     void GameRegistry::RegisterPrefabs(PrefabFactory* prefabFactory)

@@ -51,7 +51,7 @@ namespace Bisang
 
 		if (currentPrincessPos == m_endPosition)
 		{
-			ChangeScene("BlockMapTestScene");
+			ChangeScene("PlayScene");
 		}
 	}
 
