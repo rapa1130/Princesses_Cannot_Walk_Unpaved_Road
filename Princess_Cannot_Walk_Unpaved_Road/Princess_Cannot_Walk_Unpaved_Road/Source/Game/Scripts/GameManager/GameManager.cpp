@@ -1,4 +1,4 @@
-#include "GameManager.h"
+         #include "GameManager.h"
 
 #include "Engine/Object/GameObject.h"
 #include "Engine/Components/BlockMap/BlockMapRenderer.h"
@@ -41,8 +41,6 @@ namespace Bisang
 
 		SpawnPlayer1();
 		SpawnPlayer2();
-
-		SpawnHighlighter();
 
 		// 공주 스폰
 		SpawnPrincess();
@@ -89,19 +87,22 @@ namespace Bisang
 	void GameManager::SpawnPlayer1()
 	{
 		Vector3 playerStartPos = m_blockMap->BlockToWorld(m_startPosition);
-		m_player1 = Instantiate("Player", playerStartPos + Vector3(1, 0, 0))
-			->GetComponent<Transform>();
+		GameObject* player1 = Instantiate("Player", playerStartPos + Vector3(0, 0, 0));
+		m_player1 = player1->GetComponent<Transform>();
+
 		GameObject* pickUpObj = Instantiate("PickUpObj");
-		pickUpObj->SetParent(m_player1->GetOwner());
+		pickUpObj->SetParent(player1);
+
+		GameObject* highlighter = Instantiate("Highlighter", { 0,0,0 });
+		PlayerController* pc = player1->GetComponent<PlayerController>();
+		pc->SetHighlight(highlighter->GetComponent<Highlighter>());
 	}
 
 	void GameManager::SpawnPlayer2()
 	{
 		Vector3 playerStartPos = m_blockMap->BlockToWorld(m_startPosition);
-		m_player2 = Instantiate("Player", playerStartPos + Vector3(-1, 0, 0))
-			->GetComponent<Transform>();
-		GameObject* pickUpObj = Instantiate("PickUpObj");
-		pickUpObj->SetParent(m_player2->GetOwner());
+		GameObject* player2 = Instantiate("Player", playerStartPos + Vector3(0, -50, 0));
+		m_player2 = player2->GetComponent<Transform>();
 
 		m_player2->GetOwner()
 			->GetComponent<PlayerController>()
@@ -110,9 +111,15 @@ namespace Bisang
 				  KeyCode::D,
 				  KeyCode::W,
 				  KeyCode::S,
-				  KeyCode::Space}
+				  KeyCode::Space }
 			);
 
+		GameObject* pickUpObj = Instantiate("PickUpObj");
+		pickUpObj->SetParent(player2);
+
+		GameObject* highlighter = Instantiate("Highlighter", { 0,0,0 });
+		PlayerController* pc = player2->GetComponent<PlayerController>();
+		pc->SetHighlight(highlighter->GetComponent<Highlighter>());
 	}
 
 	void GameManager::SpawnPrincess()
@@ -120,14 +127,6 @@ namespace Bisang
 		Vector3 princessStartPos = m_blockMap->BlockToWorld(Int3(m_startPosition.x, 0, 1));
 		m_princess =Instantiate("Princess", princessStartPos)
 			->GetComponent<Transform>();
-	}
-
-	void GameManager::SpawnHighlighter()
-	{
-		m_highlighter = Instantiate("Highlighter", { 0,0,0 });
-		PlayerController* pc =m_playerGO->GetComponent<PlayerController>();
-		pc->SetHighlight(m_highlighter->GetComponent<Highlighter>());
-		
 	}
 
 	void GameManager::SetCameraPrincess()

@@ -76,8 +76,12 @@
     <ClInclude Include="Source\Game\Prefabs\HighlighterPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\PlayerPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\PrincessPrefab.h" />
+    <ClInclude Include="Source\Game\Prefabs\TitlePrefab.h" />
     <ClInclude Include="Source\Game\Registry\GameRegistry.h" />
-    <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
+    <ClInclude Include="Source\Game\Scenes\ClearScene.h" />
+    <ClInclude Include="Source\Game\Scenes\MainScene.h" />
+    <ClInclude Include="Source\Game\Scenes\OverScene.h" />
+    <ClInclude Include="Source\Game\Scenes\PlayScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Game\Scripts\Audio\AudioManager.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockInfoProvider.h" />
@@ -94,6 +98,7 @@
     <ClInclude Include="Source\Game\Scripts\Player\PlayerStatus.h" />
     <ClInclude Include="Source\Game\Scripts\Princess\PrincessAnimationController.h" />
     <ClInclude Include="Source\Game\Scripts\Princess\PrincessController.h" />
+    <ClInclude Include="Source\Game\Scripts\SceneChange\MainSceneChange.h" />
     <ClInclude Include="Source\Game\Scripts\Temp\BlockMapTest.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockId.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockObjectInfo.h" />
@@ -156,8 +161,12 @@
     <ClCompile Include="Source\Game\Prefabs\HighlighterPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\playerPrefab.cpp" />
     <ClCompile Include="Source\Game\Prefabs\PrincessPrefab.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\TitlePrefab.cpp" />
     <ClCompile Include="Source\Game\Registry\GameRegistry.cpp" />
-    <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
+    <ClCompile Include="Source\Game\Scenes\ClearScene.cpp" />
+    <ClCompile Include="Source\Game\Scenes\MainScene.cpp" />
+    <ClCompile Include="Source\Game\Scenes\OverScene.cpp" />
+    <ClCompile Include="Source\Game\Scenes\PlayScene.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
     <ClCompile Include="Source\Engine\Components\Camera\CameraController.cpp" />
     <ClCompile Include="Source\Game\Scripts\Audio\AudioManager.cpp" />
@@ -175,6 +184,7 @@
     <ClCompile Include="Source\Game\Scripts\Player\PlayerStatus.cpp" />
     <ClCompile Include="Source\Game\Scripts\Princess\PrincessAnimationController.cpp" />
     <ClCompile Include="Source\Game\Scripts\Princess\PrincessController.cpp" />
+    <ClCompile Include="Source\Game\Scripts\SceneChange\MainSceneChange.cpp" />
     <ClCompile Include="Source\Game\Scripts\Temp\BlockMapTest.cpp" />
     <ClCompile Include="Source\Game\Scripts\Blocks\BlockObjectInfoTable.cpp" />
     <ClCompile Include="Source\Game\Scripts\Map\BlockMapGenerator.cpp" />
