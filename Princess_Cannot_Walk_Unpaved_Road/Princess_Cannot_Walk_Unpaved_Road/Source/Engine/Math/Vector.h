@@ -111,6 +111,14 @@ namespace Bisang
                 v.x * s + v.y * c
             );
         }
+
+        static Vector2 Lerp(const Vector2& v1, const Vector2& v2,float t)
+        {
+            Vector2 ret;
+            ret.x = v1.x * (1 - t) + v2.x * t;
+            ret.y = v1.y * (1 - t) + v2.y * t;
+            return ret;
+        }
     };
 
     struct Vector3

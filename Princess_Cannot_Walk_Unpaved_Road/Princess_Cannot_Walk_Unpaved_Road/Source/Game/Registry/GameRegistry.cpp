@@ -17,6 +17,7 @@
 #include "Game/Prefabs/AudioManagerPrefab.h"
 #include "Game/Prefabs/HighlighterPrefab.h"
 #include "Game/Prefabs/TitlePrefab.h"
+#include "Game/Prefabs/PortalPrefab.h"
 
 namespace Bisang
 {
@@ -42,5 +43,6 @@ namespace Bisang
         prefabFactory->RegisterPrefab<AudioManagerPrefab>("AudioManager");
         prefabFactory->RegisterPrefab<HighlighterPrefab>("Highlighter");
         prefabFactory->RegisterPrefab<TitlePrefab>("Title");
+        prefabFactory->RegisterPrefab<PortalPrefab>("Portal");
     }
 }
