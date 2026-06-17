@@ -97,7 +97,7 @@ namespace Bisang
 
     void AudioManager::PlayWoodPutSound()
     {
-        Play("WoodPut", 1);
+        Play("WoodPut", 1.8);
     }
 
     void AudioManager::PlayPlayBgm()
