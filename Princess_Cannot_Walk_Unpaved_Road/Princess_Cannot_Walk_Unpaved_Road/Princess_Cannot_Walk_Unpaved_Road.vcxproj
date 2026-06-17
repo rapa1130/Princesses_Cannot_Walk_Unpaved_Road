@@ -103,7 +103,9 @@
     <ClInclude Include="Source\Game\Scripts\Portal\PortalParticle.h" />
     <ClInclude Include="Source\Game\Scripts\Princess\PrincessAnimationController.h" />
     <ClInclude Include="Source\Game\Scripts\Princess\PrincessController.h" />
+    <ClInclude Include="Source\Game\Scripts\SceneChange\ClearSceneChange.h" />
     <ClInclude Include="Source\Game\Scripts\SceneChange\MainSceneChange.h" />
+    <ClInclude Include="Source\Game\Scripts\SceneChange\OverSceneChange.h" />
     <ClInclude Include="Source\Game\Scripts\SceneChange\StorySceneChange.h" />
     <ClInclude Include="Source\Game\Scripts\Temp\BlockMapTest.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockId.h" />
@@ -128,6 +130,8 @@
     <ClCompile Include="Source\Game\Scenes\StoryScene.cpp" />
     <ClCompile Include="Source\Game\Scripts\Blocks\BlockInfoProvider.cpp" />
     <ClCompile Include="Source\Game\Scripts\Map\BlockMapBackGroundGenerator.cpp" />
+    <ClCompile Include="Source\Game\Scripts\SceneChange\ClearSceneChange.cpp" />
+    <ClCompile Include="Source\Game\Scripts\SceneChange\OverSceneChange.cpp" />
     <ClCompile Include="Source\Game\Scripts\SceneChange\StorySceneChange.cpp" />
     <ClCompile Include="Source\Game\Scripts\Text\TextEffect.cpp" />
     <ClInclude Include="Source\Engine\Components\Collider\Collider.h" />
