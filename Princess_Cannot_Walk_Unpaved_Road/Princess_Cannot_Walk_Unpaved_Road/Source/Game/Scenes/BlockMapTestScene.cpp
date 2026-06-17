@@ -23,6 +23,7 @@ namespace Bisang
 		AddGameObject("DebugOverlay");
 
 		AddGameObject("AudioManager");
+		
 	}
 
 }

@@ -9,6 +9,7 @@
 #include "Game/Scripts/Map/BlockMapGenerator.h"
 #include "Game/Scripts/Map/RailManager.h"
 #include "Game/Scripts/Player/PlayerController.h"
+#include "Game/Scripts/Highlighter/Highlighter.h"
 
 #include <random>
 #include <iostream>
@@ -20,31 +21,35 @@ namespace Bisang
 		m_blockMap = FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
 
 		//*************************************************
-		// ºí·° ¸Ê ·»´õ·¯¿¡ blockinfotable ÁÖÀÔ -> ÅØ½ºÃ³ ¸ÅÇÎ°¡´É
-		// * ÇöÀç ¿£ÁøÀÌ °ÔÀÓÄÚµå¿¡ ÀÇÁ¸ ³ªÁß¿¡ ¼öÁ¤ ÇÊ¿ä
+		// ë¸”ëŸ­ ë§µ ë Œë”ëŸ¬ì— blockinfotable ì£¼ìž… -> í…ìŠ¤ì²˜ ë§¤í•‘ê°€ëŠ¥
+		// * í˜„ìž¬ ì—”ì§„ì´ ê²Œìž„ì½”ë“œì— ì˜ì¡´ ë‚˜ì¤‘ì— ìˆ˜ì • í•„ìš”
 		//************************************************* 
 		BlockMapRenderer* blockMapRenderer = FindGameObjectByName("BlockMap")->GetComponent<BlockMapRenderer>();
 		BlockObjectInfoProvider* blockMapInfoProvider = FindGameObjectByName("BlockMap")->GetComponent<BlockObjectInfoProvider>();
 		blockMapRenderer->SetBlockObjectInfoTable(blockMapInfoProvider->GetTable());
 
-		// ½ÃÀÛ, ³¡ ÁöÁ¡ ÃÊ±âÈ­
+		// ì‹œìž‘, ë ì§€ì  ì´ˆê¸°í™”
 		m_startPosition = { MAP_WIDTH / 2, 10 , m_playerZ };
 		m_endPosition = { MAP_WIDTH / 2, 30 , m_playerZ };
 
-		// ·£´ý ¸Ê »ý¼º
+		// ëžœë¤ ë§µ ìƒì„±
 		GenerateMap();
 
 		FindGameObjectByName("BlockMap")->GetComponent<RailManager>()->FindInitialPath();
 
-		// ÇÃ·¹ÀÌ¾î ½ºÆù
+		// í”Œë ˆì´ì–´ ìŠ¤í°
+
 		SpawnPlayer1();
 		SpawnPlayer2();
-		// °øÁÖ ½ºÆù
+
+		SpawnHighlighter();
+
+		// ê³µì£¼ ìŠ¤í°
 		SpawnPrincess();
-		// Åä³¢ ½ºÆù
+		// í† ë¼ ìŠ¤í°
 		SpawnRabbit();
 
-		// Ä«¸Þ¶ó °øÁÖ ¼³Á¤
+		// ì¹´ë©”ë¼ ê³µì£¼ ì„¤ì •
 		SetCameraPrincess();
 	}
 
@@ -62,7 +67,7 @@ namespace Bisang
 
 	void GameManager::GenerateMap()
 	{
-		unsigned int seed = CreateRandomSeed();   // ½Ãµå »ý¼º
+		unsigned int seed = CreateRandomSeed();   // ì‹œë“œ ìƒì„±
 
 		BlockMapGenerator mapGenerator;
 		mapGenerator.GenerateProceduralMap(
@@ -115,6 +120,14 @@ namespace Bisang
 		Vector3 princessStartPos = m_blockMap->BlockToWorld(Int3(m_startPosition.x, 0, 1));
 		m_princess =Instantiate("Princess", princessStartPos)
 			->GetComponent<Transform>();
+	}
+
+	void GameManager::SpawnHighlighter()
+	{
+		m_highlighter = Instantiate("Highlighter", { 0,0,0 });
+		PlayerController* pc =m_playerGO->GetComponent<PlayerController>();
+		pc->SetHighlight(m_highlighter->GetComponent<Highlighter>());
+		
 	}
 
 	void GameManager::SetCameraPrincess()

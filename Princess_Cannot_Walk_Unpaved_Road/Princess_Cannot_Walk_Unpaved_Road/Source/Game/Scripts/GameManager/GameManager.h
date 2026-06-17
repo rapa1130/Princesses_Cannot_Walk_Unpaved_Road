@@ -29,11 +29,12 @@ namespace Bisang
         void SpawnPlayer2();
         void SpawnPrincess();
         void SpawnRabbit();
+        void SpawnHighlighter();
         void SetCameraPrincess();
 
     private:
         BlockMap* m_blockMap = nullptr;
-        int m_playerZ = 1;   // ÇÃ·¹ÀÌ¾î ºí·°¸Ê ³ôÀÌ
+        int m_playerZ = 1;   // Ã‡ÃƒÂ·Â¹Ã€ÃŒÂ¾Ã® ÂºÃ­Â·Â°Â¸ÃŠ Â³Ã´Ã€ÃŒ
         Int3 m_startPosition;
         Int3 m_endPosition;
 
@@ -41,5 +42,8 @@ namespace Bisang
         Transform* m_player2 = nullptr;
         Transform* m_princess = nullptr;
         Transform* m_rabbit = nullptr;
+        GameObject* m_highlighter = nullptr;    
+        GameObject* m_playerGO = nullptr;
+
     };
 }

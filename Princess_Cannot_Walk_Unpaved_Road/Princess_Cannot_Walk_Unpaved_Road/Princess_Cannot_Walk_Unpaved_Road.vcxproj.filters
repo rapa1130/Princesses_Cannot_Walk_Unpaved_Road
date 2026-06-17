@@ -50,12 +50,19 @@
     <ClCompile Include="Source\Game\Scripts\Player\BuildingRoad.cpp" />
     <ClCompile Include="Source\Game\Scripts\Princess\PrincessAnimationController.cpp" />
     <ClCompile Include="Source\Game\Scripts\Princess\PrincessController.cpp" />
-    <ClCompile Include="Source\Engine\Components\Camera\Camera2D.cpp" />
     <ClCompile Include="Source\Engine\Components\Camera\Camara2D.cpp" />
-    <ClCompile Include="Source\Game\Scripts\Camera\CameraController.cpp" />
     <ClCompile Include="Source\Game\Prefabs\CameraPrefab.cpp" />
     <ClCompile Include="Source\Game\Scripts\GameManager\GameManager.cpp" />
     <ClCompile Include="Source\Game\Prefabs\GameManaerPrefab.cpp" />
+    <ClCompile Include="Source\Engine\Components\AudioSource\AudioSource.cpp" />
+    <ClCompile Include="Source\Engine\Resource\AudioClip.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\AudioManagerPrefab.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\BigMonsterPrefab.cpp" />
+    <ClCompile Include="Source\Engine\Components\Camera\CameraController.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Audio\AudioManager.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Monster\MonsterController.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\HighlighterPrefab.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Highlighter\Highlighter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -127,9 +134,17 @@
     <ClInclude Include="Source\Game\Scripts\Princess\PrincessController.h" />
     <ClInclude Include="Source\Game\Utility\EventBus.h" />
     <ClInclude Include="Source\Engine\Components\Camera\Camara2D.h" />
-    <ClInclude Include="Source\Game\Scripts\Camera\CameraController.h" />
     <ClInclude Include="Source\Game\Prefabs\CameraPrefab.h" />
     <ClInclude Include="Source\Game\Scripts\GameManager\GameManager.h" />
     <ClInclude Include="Source\Game\Prefabs\GameManagerPrefab.h" />
+    <ClInclude Include="Source\Engine\Components\AudioSource\AudioSource.h" />
+    <ClInclude Include="Source\Engine\Resource\AudioClip.h" />
+    <ClInclude Include="Source\Game\Prefabs\AudioManagerPrefab.h" />
+    <ClInclude Include="Source\Game\Prefabs\BigMonsterPrefab.h" />
+    <ClInclude Include="Source\Game\Scripts\Audio\AudioManager.h" />
+    <ClInclude Include="Source\Engine\Components\Camera\CameraController.h" />
+    <ClInclude Include="Source\Game\Scripts\Monster\MonsterController.h" />
+    <ClInclude Include="Source\Game\Prefabs\HighlighterPrefab.h" />
+    <ClInclude Include="Source\Game\Scripts\Highlighter\Highlighter.h" />
   </ItemGroup>
 </Project>
