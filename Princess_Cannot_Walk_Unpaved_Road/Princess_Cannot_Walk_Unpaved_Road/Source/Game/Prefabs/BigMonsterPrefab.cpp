@@ -12,6 +12,9 @@ namespace Bisang
 		obj->SetName("BigMonster");
 		obj->AddComponent<MonsterController>();
 
+		Transform* transform = obj->GetComponent<Transform>();
+		transform->SetPosition({ -10000, 0, 0 });
+
 		auto* sr= obj->AddComponent<SpriteRenderer>();
 		sr->SetSprite(m_resourceManager->LoadTexture(L"Assets/Textures/Characters/Monsters/Rabbit Monster.png"));
 

@@ -35,6 +35,8 @@ namespace Bisang
 		void SetMinShakeDistY(int minShakeDistY); //카메라 셰이크 효과 적용하는 최소 y축 거리
 		void SetShakePower(int shakePower); 
 
+		Int3 GetPosition() { return m_position; }
+
 
 	private:
 		BlockMap* m_blockMap = nullptr;
@@ -48,7 +50,7 @@ namespace Bisang
 		float m_moveTerm;
 		int m_leapDistance;
 
-		Int3 m_position;
+		Int3 m_position = { 0, -100, 0 };
 
 		Vector3 m_jumpStartPos;
 		Vector3 m_jumpTargetPos;

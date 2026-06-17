@@ -11,6 +11,7 @@
 #include "Game/Scripts/Player/PlayerController.h"
 #include "Game/Scripts/Highlighter/Highlighter.h"
 #include "Game/Scripts/Portal/PortalParticle.h"
+#include "Game/Scripts/Monster/MonsterController.h"
 
 #include <random>
 #include <iostream>
@@ -23,7 +24,7 @@ namespace Bisang
 
 		// 시작, 끝 지점 초기화
 		m_startPosition = { MAP_WIDTH / 2, 10 , m_playerZ };
-		m_endPosition = { MAP_WIDTH / 2, 30 , m_playerZ };
+		m_endPosition = { MAP_WIDTH / 2, 13 , m_playerZ };
 
 		// 랜덤 맵 생성
 		GenerateMap();
@@ -54,8 +55,15 @@ namespace Bisang
 
 		if (currentPrincessPos == m_endPosition)
 		{
-			ChangeScene("PlayScene");
+			ChangeScene("ClearScene");
 		}
+
+		if (currentPrincessPos.y <= m_rabbit->GetPosition().y)
+		{
+			ChangeScene("OverScene");
+		}
+
+
 	}
 
 	void GameManager::GenerateMap()
@@ -148,7 +156,7 @@ namespace Bisang
 	void GameManager::SpawnRabbit()
 	{
 		m_rabbit = Instantiate("BigMonster")
-			->GetComponent<Transform>();
+			->GetComponent<MonsterController>();
 	}
 
 
