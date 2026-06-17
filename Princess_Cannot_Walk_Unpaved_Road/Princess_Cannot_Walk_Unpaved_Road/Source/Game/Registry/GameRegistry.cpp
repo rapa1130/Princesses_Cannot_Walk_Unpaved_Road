@@ -19,6 +19,7 @@
 #include "Game/Prefabs/HighlighterPrefab.h"
 #include "Game/Prefabs/TitlePrefab.h"
 #include "Game/Prefabs/RailTrackerPrefab.h"
+#include "Game/Prefabs/PortalPrefab.h"
 
 namespace Bisang
 {
@@ -48,6 +49,6 @@ namespace Bisang
         prefabFactory->RegisterPrefab<TitlePrefab>("Title");
         prefabFactory->RegisterPrefab<TitleTextPrefab>("TitleText");
         prefabFactory->RegisterPrefab<CarToonPrefab>("Cartoon");
-
+        prefabFactory->RegisterPrefab<PortalPrefab>("Portal");
     }
 }
