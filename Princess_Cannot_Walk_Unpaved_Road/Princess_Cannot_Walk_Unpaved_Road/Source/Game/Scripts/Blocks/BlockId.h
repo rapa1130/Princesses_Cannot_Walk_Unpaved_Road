@@ -18,6 +18,9 @@ namespace Bisang
         ClayResource,
         TreeResource,
         WoodBridge,
-        PinkBlock
+        PinkBlock,
+        BlueBlock,
+        GreenBlock,
+        YellowBlock
     };
 }

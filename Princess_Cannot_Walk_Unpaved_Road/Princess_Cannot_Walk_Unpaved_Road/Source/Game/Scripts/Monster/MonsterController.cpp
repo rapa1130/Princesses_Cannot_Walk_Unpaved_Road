@@ -28,10 +28,10 @@ namespace Bisang
 
 		m_camCtrl = FindGameObjectByName("Camera")->GetComponent<CameraController>();
 
-		SetWorldPosbyBlockY(-100);
-		SetMoveTerm(1.0f);
-		SetLeapDistance(6);
-		SetJumpHeight(60.0f);
+		SetWorldPosbyBlockY(-10);
+		SetMoveTerm(3.0f);
+		SetLeapDistance(1);
+		SetJumpHeight(120.0f);
 		SetJumpDuration(0.7f);
 		SetDestructRangeY(3);
 

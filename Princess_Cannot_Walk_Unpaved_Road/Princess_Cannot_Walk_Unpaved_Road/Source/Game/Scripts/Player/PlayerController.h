@@ -70,11 +70,11 @@ namespace Bisang
 		Int3 m_currentPos;
 
 		Vector3 m_velocity;
-		float moveSpeed = 300;
-		float m_maxSpeed = 200.f;
+
+		float m_maxSpeed = 300.f;
 		float m_acceleration = 3000.f;
-		float m_friction = 1000.0f;
-		float m_collisionFrictionMultiplier = 0.75f;
+		float m_friction = 5000.0f;
+		float m_collisionFrictionMultiplier = 0.5f;
 
 		std::vector<KeyCode> m_keyMapping =
 		{ KeyCode::Left,
