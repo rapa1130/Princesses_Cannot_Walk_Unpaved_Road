@@ -411,7 +411,7 @@ namespace Bisang
         else if (heldBlock == BlockId::ClayResource)
         {
             blockPos = m_currentPos;
-            outBlockID = BlockId::Empty;
+            outBlockID = BlockId::ClayResource;
             return true;
         }
         else if (heldBlock == BlockId::TreeResource)
@@ -424,7 +424,7 @@ namespace Bisang
                 return true;
             default:
                 blockPos = m_currentPos;
-                outBlockID = BlockId::Empty;
+                outBlockID = BlockId::TreeResource;
                 return true;
             }
         }
