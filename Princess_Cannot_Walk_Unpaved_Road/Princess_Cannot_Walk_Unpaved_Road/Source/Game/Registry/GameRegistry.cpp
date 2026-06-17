@@ -6,6 +6,7 @@
 #include "Game/Scenes/SampleScene.h"
 #include "Game/Scenes/PlayScene.h"
 #include "Game/Scenes/MainScene.h"
+#include "Game/Scenes/StoryScene.h"
 
 #include "Game/Prefabs/PlayerPrefab.h"
 #include "Game/Prefabs/BlockMapPrefab.h"
@@ -26,6 +27,7 @@ namespace Bisang
         sceneManager->AddScene<SampleScene>("SampleScene");
         sceneManager->AddScene<PlayScene>("PlayScene");
         sceneManager->AddScene<MainScene>("MainScene");
+        sceneManager->AddScene<StoryScene>("StoryScene");
 
         sceneManager->SetStartScene("MainScene");
     }
@@ -45,5 +47,7 @@ namespace Bisang
         prefabFactory->RegisterPrefab<HighlighterPrefab>("Highlighter");
         prefabFactory->RegisterPrefab<TitlePrefab>("Title");
         prefabFactory->RegisterPrefab<TitleTextPrefab>("TitleText");
+        prefabFactory->RegisterPrefab<CarToonPrefab>("Cartoon");
+
     }
 }

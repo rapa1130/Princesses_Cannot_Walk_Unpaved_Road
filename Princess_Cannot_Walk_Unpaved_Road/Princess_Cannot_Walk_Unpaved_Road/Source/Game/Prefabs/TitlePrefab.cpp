@@ -9,8 +9,8 @@
 #include "Engine/Components/TextRenderer.h"
 
 #include "Game/Scripts/SceneChange/MainSceneChange.h"
+#include "Game/Scripts/SceneChange/StorySceneChange.h"
 #include "Game/Scripts/Text/TextEffect.h"
-
 
 namespace Bisang
 {
@@ -45,6 +45,22 @@ namespace Bisang
         titleText->AddComponent<TextEffect>();
 
         return titleText;
+    }
+
+    std::unique_ptr<GameObject> CarToonPrefab::Instantiate()
+    {
+        std::unique_ptr<GameObject> cartoon = std::make_unique<GameObject>();
+
+        Transform* transform = cartoon->GetComponent<Transform>();
+        transform->SetPosition({ -400, -485, 0 });
+        transform->SetScale({ 0.73, 0.73 });
+
+        SpriteRenderer* sprite = cartoon->AddComponent<SpriteRenderer>();
+        sprite->SetSprite(m_resourceManager->LoadTexture(L"Assets/Textures/Cartoon/Cartoon.png"));
+
+        cartoon->AddComponent<StorySceneChange>();
+
+        return cartoon;
     }
 
 }

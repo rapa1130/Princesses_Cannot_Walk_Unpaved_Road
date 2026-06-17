@@ -21,7 +21,7 @@ namespace Bisang
 	{
 		if (GetInputManager()->IsKeyPressed(KeyCode::Space))
 		{
-			ChangeScene("PlayScene");
+			ChangeScene("StoryScene");
 		}
 	}
 }
