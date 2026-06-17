@@ -11,6 +11,7 @@ namespace Bisang
 {
     class GameObject;
     class BlockMap;
+    class MonsterController;
 
     class GameManager : public Script
     {
@@ -41,7 +42,7 @@ namespace Bisang
         Transform* m_player1 = nullptr;
         Transform* m_player2 = nullptr;
         Transform* m_princess = nullptr;
-        Transform* m_rabbit = nullptr;
+        MonsterController* m_rabbit = nullptr;
         GameObject* m_highlighter = nullptr;    
         GameObject* m_playerGO = nullptr;
 

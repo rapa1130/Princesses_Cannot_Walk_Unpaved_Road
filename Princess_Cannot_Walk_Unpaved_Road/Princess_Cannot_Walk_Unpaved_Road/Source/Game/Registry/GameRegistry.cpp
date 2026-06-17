@@ -34,7 +34,7 @@ namespace Bisang
         sceneManager->AddScene<OverScene>("OverScene");
         sceneManager->AddScene<ClearScene>("ClearScene");
 
-        sceneManager->SetStartScene("ClearScene");
+        sceneManager->SetStartScene("MainScene");
     }
 
     void GameRegistry::RegisterPrefabs(PrefabFactory* prefabFactory)
