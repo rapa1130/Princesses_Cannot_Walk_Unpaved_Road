@@ -19,11 +19,11 @@ namespace Bisang
     
 		AddGameObject("GameManager");
 		AddGameObject("BlockMap");
+		AddGameObject("RailTracker");
 
 		AddGameObject("DebugOverlay");
 
 		AddGameObject("AudioManager");
-		
 	}
 
 }

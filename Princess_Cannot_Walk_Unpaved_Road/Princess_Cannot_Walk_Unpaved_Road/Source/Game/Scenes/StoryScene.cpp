@@ -1,4 +1,4 @@
-#include "MainScene.h"
+#include "StoryScene.h"
 
 #include "Engine/Core/Debug.h"
 #include "Engine/Object/GameObject.h"
@@ -8,7 +8,7 @@
 
 namespace Bisang
 {
-	void MainScene::Setup()
+	void StoryScene::Setup()
 	{
 		// 씬에 필요한 게임오브젝트와 컴포넌트 생성
 		DEBUG_LOG("SetUp MainScene \n");
@@ -21,11 +21,7 @@ namespace Bisang
 
 		AddGameObject("Title");
 		AddGameObject("TitleText");
-
-		Transform* map = AddGameObject("BlockMap")
-			->GetComponent<Transform>();
-
-		map->SetPosition({ -1400, 50, 0 });
+		
 
 	}
 

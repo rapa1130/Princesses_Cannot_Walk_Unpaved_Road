@@ -76,6 +76,7 @@
     <ClInclude Include="Source\Game\Prefabs\HighlighterPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\PlayerPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\PrincessPrefab.h" />
+    <ClInclude Include="Source\Game\Prefabs\RailTrackerPrefab.h" />
     <ClInclude Include="Source\Game\Prefabs\TitlePrefab.h" />
     <ClInclude Include="Source\Game\Registry\GameRegistry.h" />
     <ClInclude Include="Source\Game\Scenes\ClearScene.h" />
@@ -83,11 +84,13 @@
     <ClInclude Include="Source\Game\Scenes\OverScene.h" />
     <ClInclude Include="Source\Game\Scenes\PlayScene.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
+    <ClInclude Include="Source\Game\Scenes\StoryScene.h" />
     <ClInclude Include="Source\Game\Scripts\Audio\AudioManager.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockInfoProvider.h" />
     <ClInclude Include="Source\Engine\Components\Camera\CameraController.h" />
     <ClInclude Include="Source\Game\Scripts\GameManager\GameManager.h" />
     <ClInclude Include="Source\Game\Scripts\Highlighter\Highlighter.h" />
+    <ClInclude Include="Source\Game\Scripts\Map\BlockMapBackGroundGenerator.h" />
     <ClInclude Include="Source\Game\Scripts\Map\RailManager.h" />
     <ClInclude Include="Source\Game\Scripts\Monitoring\Overlay.h" />
     <ClInclude Include="Source\Game\Scripts\Monster\MonsterController.h" />
@@ -104,6 +107,7 @@
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockObjectInfo.h" />
     <ClInclude Include="Source\Game\Scripts\Blocks\BlockObjectInfoTable.h" />
     <ClInclude Include="Source\Game\Scripts\Map\BlockMapGenerator.h" />
+    <ClInclude Include="Source\Game\Scripts\Text\TextEffect.h" />
     <ClInclude Include="Source\Game\Utility\EventBus.h" />
     <ClInclude Include="Source\Game\Utility\PerlinNoise2D.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PlayerController.h" />
@@ -117,6 +121,11 @@
     <ClCompile Include="Source\Engine\Components\Collider\BoxCollider.cpp" />
     <ClCompile Include="Source\Engine\Components\Collider\CircleCollider.cpp" />
     <ClCompile Include="Source\Engine\Components\Collider\Collider.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\RailTrackerPrefab.cpp" />
+    <ClCompile Include="Source\Game\Scenes\StoryScene.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Blocks\BlockInfoProvider.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Map\BlockMapBackGroundGenerator.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Text\TextEffect.cpp" />
     <ClInclude Include="Source\Engine\Components\Collider\Collider.h" />
     <ClCompile Include="Source\Engine\Components\LineRenderer.cpp" />
     <ClCompile Include="Source\Engine\Components\Script.cpp" />

@@ -11,7 +11,7 @@ namespace Bisang
 {
 	void RailManager::Start()
 	{
-		m_blockMap = m_ownerObj->GetComponent<BlockMap>();
+		m_blockMap = FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
 		m_gM = FindGameObjectByName("GameManager")->GetComponent<GameManager>();
 
 		std::function<void(const int&)> s;
@@ -29,7 +29,7 @@ namespace Bisang
 	{
 		if (m_blockMap == nullptr)
 		{
-			m_blockMap = m_ownerObj->GetComponent<BlockMap>();
+			m_blockMap = FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
 		}
 
 		if (m_gM == nullptr)

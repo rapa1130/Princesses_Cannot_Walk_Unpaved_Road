@@ -20,22 +20,14 @@ namespace Bisang
 	{
 		m_blockMap = FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
 
-		//*************************************************
-		// 블럭 맵 렌더러에 blockinfotable 주입 -> 텍스처 매핑가능
-		// * 현재 엔진이 게임코드에 의존 나중에 수정 필요
-		//************************************************* 
-		BlockMapRenderer* blockMapRenderer = FindGameObjectByName("BlockMap")->GetComponent<BlockMapRenderer>();
-		BlockObjectInfoProvider* blockMapInfoProvider = FindGameObjectByName("BlockMap")->GetComponent<BlockObjectInfoProvider>();
-		blockMapRenderer->SetBlockObjectInfoTable(blockMapInfoProvider->GetTable());
-
 		// 시작, 끝 지점 초기화
 		m_startPosition = { MAP_WIDTH / 2, 10 , m_playerZ };
 		m_endPosition = { MAP_WIDTH / 2, 30 , m_playerZ };
 
 		// 랜덤 맵 생성
 		GenerateMap();
-
-		FindGameObjectByName("BlockMap")->GetComponent<RailManager>()->FindInitialPath();
+		
+		FindGameObjectByName("RailTracker")->GetComponent<RailManager>()->FindInitialPath();
 
 		// 플레이어 스폰
 

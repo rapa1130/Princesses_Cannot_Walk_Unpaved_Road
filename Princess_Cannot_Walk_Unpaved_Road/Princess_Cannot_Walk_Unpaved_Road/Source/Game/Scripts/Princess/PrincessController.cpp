@@ -20,7 +20,8 @@ namespace Bisang
 
         m_transform = m_ownerObj->GetComponent<Transform>();
         m_blockMap = blockMapGO->GetComponent<BlockMap>();
-        m_railManager = blockMapGO->GetComponent<RailManager>();
+        m_railManager = FindGameObjectByName("RailTracker")
+            ->GetComponent<RailManager>();
     }
 
     void PrincessController::Update(float dT)

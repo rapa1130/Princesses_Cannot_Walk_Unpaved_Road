@@ -136,6 +136,14 @@ namespace Bisang
         woodBridge.isSolid = true;
         Register(woodBridge);
 
+        BlockObjectInfo pinkBlock;
+        pinkBlock.id = BlockId::PinkBlock;
+        pinkBlock.kind = BlockObjectKind::Terrain;
+        pinkBlock.toolType = ToolType::None;
+        pinkBlock.texture = resourceManager->LoadTexture(L"Assets/Textures/Maps/Terrian/PinkBlock.png");
+        pinkBlock.isSolid = true;
+        Register(pinkBlock);
+
 
     }
 
