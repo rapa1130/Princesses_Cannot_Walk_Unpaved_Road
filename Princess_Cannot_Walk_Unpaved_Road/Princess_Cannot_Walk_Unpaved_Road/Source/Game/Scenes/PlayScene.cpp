@@ -26,5 +26,4 @@ namespace Bisang
 		AddGameObject("AudioManager");
 		AddGameObject("Portal");
 	}
-
 }
