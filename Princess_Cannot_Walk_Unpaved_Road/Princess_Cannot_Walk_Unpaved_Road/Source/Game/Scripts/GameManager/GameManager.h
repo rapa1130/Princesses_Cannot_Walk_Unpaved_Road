@@ -30,6 +30,7 @@ namespace Bisang
         void SpawnPrincess();
         void SpawnRabbit();
         void SetCameraPrincess();
+        void SpawnPortal();
 
     private:
         BlockMap* m_blockMap = nullptr;

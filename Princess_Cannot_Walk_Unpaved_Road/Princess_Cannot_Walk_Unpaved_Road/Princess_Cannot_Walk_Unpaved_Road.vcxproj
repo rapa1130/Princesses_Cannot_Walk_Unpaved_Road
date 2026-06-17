@@ -100,7 +100,7 @@
     <ClInclude Include="Source\Game\Scripts\Player\PickUpObject.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PlayerAnimationController.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PlayerStatus.h" />
-    <ClInclude Include="Source\Game\Scripts\Portal\Portal.h" />
+    <ClInclude Include="Source\Game\Scripts\Portal\PortalParticle.h" />
     <ClInclude Include="Source\Game\Scripts\Princess\PrincessAnimationController.h" />
     <ClInclude Include="Source\Game\Scripts\Princess\PrincessController.h" />
     <ClInclude Include="Source\Game\Scripts\SceneChange\ClearSceneChange.h" />
@@ -200,7 +200,7 @@
     <ClCompile Include="Source\Game\Scripts\Player\PickUpObject.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\PlayerAnimationController.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\PlayerStatus.cpp" />
-    <ClCompile Include="Source\Game\Scripts\Portal\Portal.cpp" />
+    <ClCompile Include="Source\Game\Scripts\Portal\PortalParticle.cpp" />
     <ClCompile Include="Source\Game\Scripts\Princess\PrincessAnimationController.cpp" />
     <ClCompile Include="Source\Game\Scripts\Princess\PrincessController.cpp" />
     <ClCompile Include="Source\Game\Scripts\SceneChange\MainSceneChange.cpp" />

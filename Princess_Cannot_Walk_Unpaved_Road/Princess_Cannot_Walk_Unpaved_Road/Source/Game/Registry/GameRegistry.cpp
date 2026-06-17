@@ -53,6 +53,6 @@ namespace Bisang
         prefabFactory->RegisterPrefab<TitlePrefab>("Title");
         prefabFactory->RegisterPrefab<TitleTextPrefab>("TitleText");
         prefabFactory->RegisterPrefab<CarToonPrefab>("Cartoon");
-        prefabFactory->RegisterPrefab<PortalPrefab>("Portal");
+        prefabFactory->RegisterPrefab<PortalParticlePrefab>("PortalParticle");
     }
 }

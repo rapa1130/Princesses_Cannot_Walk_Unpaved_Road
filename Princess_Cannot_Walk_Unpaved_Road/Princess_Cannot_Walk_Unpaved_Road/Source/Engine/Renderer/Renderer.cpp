@@ -305,10 +305,11 @@ namespace Bisang
             bottom
         );
 
-        
+
         if (HasFlag(command.sprite.drawFlag, SpriteDrawFlags::Sprite))
         {
-            m_d2dContext->DrawBitmap(bitmap, destRect);
+            float alpha = command.sprite.color.a;
+            m_d2dContext->DrawBitmap(bitmap, destRect, alpha);
         }
         if (HasFlag(command.sprite.drawFlag, SpriteDrawFlags::Overlay))
         {
