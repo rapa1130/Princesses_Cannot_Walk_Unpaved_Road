@@ -25,7 +25,7 @@ namespace Bisang
 		GameObject* text = AddGameObject("TitleText");
 		text->AddComponent<OverSceneChange>();
 		TextRenderer* textRender = text->GetComponent<TextRenderer>();
-		textRender->SetText(L"재시작 [SPACE]\n메인화면 [BACKSPACE]");
+		textRender->SetText(L"    재시작 [SPACE]\n메인화면 [BACKSPACE]");
 		text->GetComponent<Transform>()->SetPosition({ 800, 600, 0 });
 		
 		Transform* map = AddGameObject("BlockMap")

@@ -13,6 +13,7 @@ namespace Bisang
     public:
         AudioManager(GameObject* ownerObj) : Script(ownerObj) {}
 
+        void Awake() override;
         void Start() override;
 
         void Play(const std::string& name, float volume = 1.0f);
@@ -23,12 +24,17 @@ namespace Bisang
         void PlayHammerSound();
         void PlayPickUpSound();
         void PlayPutDownSound();
+        void PlayOverSound();
         void PlayGiantStepSound(float volume);
         void PlayWoodPutSound();
+        void PlayMainBgm();
+        void PlayClearBgm();
+        void PlayPlayBgm();
+        void PlayStoryBgm();
 
     private:
         void Load(const std::string& name, const std::wstring& path);
-        void PlayBgm();
+        
 
 
     private:

@@ -13,6 +13,7 @@
 #include "Game/Scripts/Portal/PortalParticle.h"
 #include "Game/Scripts/Monster/MonsterController.h"
 #include "Game/Scripts/Player/PlayerAnimationController.h"
+#include "Game/Scripts/Audio/AudioManager.h"
 
 #include <random>
 #include <iostream>
@@ -22,6 +23,8 @@ namespace Bisang
 	void GameManager::Start()
 	{
 		m_blockMap = FindGameObjectByName("BlockMap")->GetComponent<BlockMap>();
+		m_audio = FindGameObjectByName("AudioManager")->GetComponent<AudioManager>();
+		m_audio->PlayPlayBgm();
 
 		// 시작, 끝 지점 초기화
 		m_startPosition = { MAP_WIDTH / 2, 10 , m_playerZ };

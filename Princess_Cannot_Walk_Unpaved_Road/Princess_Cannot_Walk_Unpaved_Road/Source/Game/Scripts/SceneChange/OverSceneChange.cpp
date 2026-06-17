@@ -5,6 +5,7 @@
 #include "Engine/Components/BlockMap/BlockMap.h"
 
 #include "Game/Scripts/Map/BlockMapBackGroundGenerator.h"
+#include "Game/Scripts/Audio/AudioManager.h"
 
 namespace Bisang
 {
@@ -15,6 +16,10 @@ namespace Bisang
 
 		BlockMapBackGroundGenerator generator;
 		generator.GenerateGameOverBackGround(map);
+
+		FindGameObjectByName("AudioManager")
+			->GetComponent<AudioManager>()
+			->PlayOverSound();
 	}
 
 	void OverSceneChange::Update(float dT)

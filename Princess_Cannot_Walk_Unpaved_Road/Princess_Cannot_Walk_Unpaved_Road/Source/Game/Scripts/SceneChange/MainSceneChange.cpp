@@ -4,6 +4,7 @@
 #include "Engine/Object/GameObject.h"
 #include "Engine/Components/BlockMap/BlockMap.h"
 
+#include "Game/Scripts/Audio/AudioManager.h"
 #include "Game/Scripts/Map/BlockMapBackGroundGenerator.h"
 
 namespace Bisang
@@ -15,6 +16,10 @@ namespace Bisang
 
 		BlockMapBackGroundGenerator generator;
 		generator.GenerateMainBackGround(map);
+
+		FindGameObjectByName("AudioManager")
+			->GetComponent<AudioManager>()
+			->PlayMainBgm();
 	}
 
 	void MainSceneChange::Update(float dT)
