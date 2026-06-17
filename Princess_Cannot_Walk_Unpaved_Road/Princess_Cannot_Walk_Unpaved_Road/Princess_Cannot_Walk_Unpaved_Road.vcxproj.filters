@@ -27,7 +27,7 @@
     <ClCompile Include="Source\Engine\Renderer\Color.cpp" />
     <ClCompile Include="Source\Engine\Components\BlockMap\BlockMap.cpp" />
     <ClCompile Include="Source\Engine\Components\BlockMap\BlockMapRenderer.cpp" />
-    <ClCompile Include="Source\Game\Scenes\BlockMapTestScene.cpp" />
+    <ClCompile Include="Source\Game\Scenes\PlayScene.cpp" />
     <ClCompile Include="Source\Game\Scripts\Player\PlayerController.cpp" />
     <ClCompile Include="Source\Game\Scripts\Temp\BlockMapTest.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
@@ -63,6 +63,11 @@
     <ClCompile Include="Source\Game\Scripts\Monster\MonsterController.cpp" />
     <ClCompile Include="Source\Game\Prefabs\HighlighterPrefab.cpp" />
     <ClCompile Include="Source\Game\Scripts\Highlighter\Highlighter.cpp" />
+    <ClCompile Include="Source\Game\Scenes\MainScene.cpp" />
+    <ClCompile Include="Source\Game\Scenes\ClearScene.cpp" />
+    <ClCompile Include="Source\Game\Scenes\OverScene.cpp" />
+    <ClCompile Include="Source\Game\Prefabs\TitlePrefab.cpp" />
+    <ClCompile Include="Source\Game\Scripts\SceneChange\MainSceneChange.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Engine\Input\InputCode.h" />
@@ -94,7 +99,7 @@
     <ClInclude Include="Source\Engine\Renderer\RenderCommand.h" />
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockMap.h" />
     <ClInclude Include="Source\Engine\Components\BlockMap\BlockMapRenderer.h" />
-    <ClInclude Include="Source\Game\Scenes\BlockMapTestScene.h" />
+    <ClInclude Include="Source\Game\Scenes\PlayScene.h" />
     <ClInclude Include="Source\Engine\Core\Layer.h" />
     <ClInclude Include="Source\Game\Scripts\Player\PlayerController.h" />
     <ClInclude Include="Source\Game\Scripts\Temp\BlockMapTest.h" />
@@ -146,5 +151,10 @@
     <ClInclude Include="Source\Game\Scripts\Monster\MonsterController.h" />
     <ClInclude Include="Source\Game\Prefabs\HighlighterPrefab.h" />
     <ClInclude Include="Source\Game\Scripts\Highlighter\Highlighter.h" />
+    <ClInclude Include="Source\Game\Scenes\MainScene.h" />
+    <ClInclude Include="Source\Game\Scenes\ClearScene.h" />
+    <ClInclude Include="Source\Game\Scenes\OverScene.h" />
+    <ClInclude Include="Source\Game\Prefabs\TitlePrefab.h" />
+    <ClInclude Include="Source\Game\Scripts\SceneChange\MainSceneChange.h" />
   </ItemGroup>
 </Project>

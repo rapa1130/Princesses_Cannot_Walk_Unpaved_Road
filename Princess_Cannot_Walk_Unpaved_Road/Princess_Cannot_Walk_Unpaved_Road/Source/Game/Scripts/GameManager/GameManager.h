@@ -29,7 +29,6 @@ namespace Bisang
         void SpawnPlayer2();
         void SpawnPrincess();
         void SpawnRabbit();
-        void SpawnHighlighter();
         void SetCameraPrincess();
 
     private:
