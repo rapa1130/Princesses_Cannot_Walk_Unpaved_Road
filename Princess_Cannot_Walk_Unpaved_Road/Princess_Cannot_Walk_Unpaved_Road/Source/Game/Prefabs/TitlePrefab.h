@@ -25,4 +25,15 @@ namespace Bisang
 
         std::unique_ptr<GameObject> Instantiate() override;
     };
+
+    class CarToonPrefab : public IPrefab
+    {
+    public:
+        CarToonPrefab(ResourceManager* rm)
+            : IPrefab(rm)
+        {
+        }
+
+        std::unique_ptr<GameObject> Instantiate() override;
+    };
 }
